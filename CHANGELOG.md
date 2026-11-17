@@ -4,6 +4,9 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v0.7.1 — 17/11/2026
+- Sửa lỗi hiển thị trang chủ: các mục theo chuyên ngành bị xếp thành dải dọc hẹp, chữ chồng lên nhau (do lưới ngoài ôm lưới trong). Trang chủ giờ xếp các mục chồng lên nhau đúng như thiết kế.
+
 ## v0.7.0 — 17/11/2026
 - **Thiết kế lại theo phong cách iOS:** tiêu đề lớn, thanh tìm kiếm dính trên đầu khi cuộn, thẻ công cụ bo góc 16px, bóng mờ nhẹ, font hệ thống.
 - **Chọn chuyên ngành ngay lần mở đầu:** Hồi sức – Cấp cứu, Tim mạch, Thận – Tiết niệu, Nội tiết – Chuyển hoá, Hô hấp, Tiêu hoá – Gan mật, Thần kinh, Nội tổng quát — trang chủ đưa công cụ của chuyên ngành bạn lên đầu, vẫn tìm được toàn bộ 73 công cụ.
