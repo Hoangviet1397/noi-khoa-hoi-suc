@@ -4,6 +4,28 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v2.1.0 — 18/11/2026 — Gọn giao diện
+
+- **Hồ sơ ca thu gọn thành 1 dòng** trên cùng: hiện tóm tắt (vd "65 tuổi • 70 kg • CrCl 25 • phản vệ PNC") và giờ tự xóa; chạm để mở form, nút "✓ Xong — thu gọn". Chỉ hiện ở trang chủ và các công cụ dùng hồ sơ (vận mạch, DKA, kháng sinh, FIB-4, dinh dưỡng, CRRT, dịch). Trước đây form 8 ô chiếm gần nửa màn hình ở **mọi** trang, kể cả Cài đặt.
+- **Bỏ hàng nút Cấp cứu / Hồi sức / Tra cứu / Đêm:** trùng chức năng với hàng lọc nhóm ngay trên (có cả nút "Hồi sức" thứ hai) và nút 🌓 đổi giao diện; "Đêm" chỉ là bật chế độ tối.
+- **Bỏ tiêu đề lớn lặp** "Nội khoa & Hồi sức" (đã có trên thanh trên) — ô tìm kiếm lên ngay đầu trang; dòng chuyên ngành chuyển xuống trên danh sách công cụ.
+- **Nút ❓ hướng dẫn** ở góc trên; **thẻ "Cách dùng nhanh"** 4 bước cho lần đầu mở (bấm "Đã hiểu" để ẩn). Hướng dẫn đầy đủ thêm mục Hồ sơ ca, sửa mục cỡ chữ / báo lỗi theo giao diện hiện tại (trước còn nhắc nút A đã bỏ).
+
+## v2.0.3 — 18/11/2026 — Sửa số liệu lâm sàng
+
+- **SOFA-2 viết lại theo đúng Bảng 2 bài gốc** (Ranzani et al., JAMA 2025; DOI 10.1001/jama.2025.20516). Bản trước dùng ngưỡng SOFA cũ cho cả 6 cơ quan. Nay: hô hấp PaO₂/FiO₂ > 300 / ≤ 300 / ≤ 225 / ≤ 150 + hỗ trợ / ≤ 75 + hỗ trợ hoặc ECMO (kèm ngưỡng SpO₂/FiO₂ 300 / 250 / 200 / 120); tim mạch theo tổng liều noradrenaline + adrenaline 0,2 / 0,4 µg/kg/phút và thuốc phối hợp, hỗ trợ cơ học = 4; gan bilirubin 1,2 / 3,0 / 6,0 / 12 mg/dL; thận creatinin 1,2 / 2,0 / 3,5 mg/dL hoặc nước tiểu, lọc máu = 4; tiểu cầu 150 / 100 / 80 / 50; não GCS 15 / 13–14 / 9–12 / 6–8 / 3–5, thuốc mê sảng = 1. Ghi đúng tác giả (Ranzani, không phải Moreno); bỏ ước tính tử vong mượn từ SOFA cũ.
+- **Osmolal gap:** mặc định đơn vị mmol/L như xét nghiệm Việt Nam (2×Na + glucose + urê + ethanol), vẫn chọn được mg/dL; cảnh báo khi giá trị glucose không hợp đơn vị. Bản trước chỉ nhận mg/dL nên nhập mmol/L ra gap cao giả, báo nhầm ngộ độc methanol.
+- **MELD 3.0:** creatinin chặn tối đa **3,0 mg/dL** và lọc máu tính 3,0 (bản trước 4,0 theo MELD cũ); albumin chặn 1,5–3,5 g/dL; nhập được µmol/L – g/L.
+- **Rumack–Matthew:** nhập được µmol/L (÷ 6,62 ra mg/L).
+- **NFS / Lille:** tự nhận albumin nhập nhầm đơn vị (NFS cần g/dL, Lille cần g/L) và ghi rõ đã quy đổi.
+- **HEART Pathway:** tiêu đề kết quả không còn mâu thuẫn nội dung khi chưa xác nhận ECG; troponin lúc vào và 3 giờ theo bản gốc (Mahler 2015); troponin thay đổi ≥ 3 ng/L không xếp nguy cơ thấp.
+- **ASPECTS:** 6–10 = đủ tiêu chuẩn hình ảnh cho lấy huyết khối chuẩn; 3–5 = lõi lớn, vẫn có lợi ở bệnh nhân chọn lọc (SELECT2, ANGEL-ASPECT, RESCUE-Japan LIMIT); 0–2 = bằng chứng hạn chế. Bản trước gọi ASPECTS ≤ 7 là "lõi lớn" và tô đỏ.
+- **WFNS:** GCS 15 luôn là độ 1 (thiếu sót vận động chỉ tính ở GCS 13–14).
+- **AIMS65:** tỉ lệ tử vong theo nghiên cứu gốc (0,3 / 1,2 / 5,3 / 10,3 / 16,5 / 24,5%).
+- **Dinh dưỡng ICU:** suy thận cấp chưa lọc máu không còn hạn chế protein 0,8–1,0 — nay 1,0–1,3 g/kg/ngày; CRRT tới 1,7 g/kg/ngày; năng lượng 20–25 kcal/kg (ESPEN 2021).
+- **Suy tim HFrEF:** nhắc ngừng ACE-I ít nhất 36 giờ trước liều ARNI đầu.
+- **Bản tin:** bỏ dòng "cập nhật mỗi ngày" vì app không tự tải bài mới — bài được đóng gói theo từng phiên bản.
+
 ## v2.0.2 — 18/11/2026 — 5 khóa an toàn chặn thật
 
 Rà soát mã v2.0.1 cho thấy 3/5 khóa an toàn chỉ là hình thức (chọn gì cũng ra cùng phác đồ, ô xác nhận được tick sẵn). Sửa:
