@@ -4,6 +4,12 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v0.6.0 — 17/11/2026
+- **🥗 Kê đơn dinh dưỡng ICU** (`#/nutri`): năng lượng 20–25 kcal/kg/ngày và protein 1,2–2 g/kg/ngày theo ESPEN 2023 / ASPEN–SCCM, điều chỉnh theo béo phì (dùng IBW), suy thận chưa lọc máu (protein 0,8–1,0), đang lọc máu/CRRT, suy gan (không hạn chế protein khi có bệnh não gan), bỏng, suy dinh dưỡng; tốc độ nuôi ăn qua sonde mL/giờ theo nồng độ sữa 1,0 / 1,2 / 1,5 kcal/mL; cảnh báo hội chứng nuôi ăn lại (bắt đầu 5–10 kcal/kg/ngày khi nguy cơ cao, thiamine, theo dõi phosphat/K⁺/Mg²⁺).
+- **🩸 CRRT — Lọc máu liên tục** (`#/crrt`): liều effluent 20–25 mL/kg/giờ theo KDIGO, ra tổng effluent mL/giờ và tốc độ dịch thay thế / dịch lọc theo phương thức CVVH, CVVHD, CVVHDF; gợi ý chống đông citrate vùng (theo dõi Ca ion hóa, tỉ lệ Ca toàn phần/Ca ion hóa) / heparin / không chống đông; nhắc thời điểm kháng sinh và nút mở module kháng sinh.
+- **❤️ Suy tim HFrEF** (`#/hfref`): bộ bốn thuốc nền ARNI (hoặc ACE-I), beta-blocker, MRA, SGLT2i với liều khởi đầu – liều đích theo ESC 2021/2023, tự đánh dấu HOÃN khi HA < 100, nhịp tim < 55, K⁺ > 5,0–5,5 hoặc eGFR < 30; chỉnh lợi tiểu theo mức ứ dịch và theo dõi K/creatinin.
+- **📰 Bản tin** (`#/feed`): mẹo tại giường 60 giây, cập nhật hướng dẫn, ca lâm sàng ôn tập có đáp án, cảnh báo thuốc — 12 mục đóng gói sẵn trong app, đọc offline; lọc theo chuyên mục, tìm kiếm, đánh dấu đã đọc (lưu trên máy); thêm nút Bản tin ở thanh điều hướng dưới và trang chủ.
+
 ## v0.5.1 — 17/11/2026 (sửa lỗi do Muse rà soát, Refs #1)
 - **Meropenem: khoảng CrCl không còn chồng lấn.** Trước đây CrCl 26–29 xuất hiện ở cả hai nhóm (26–50 và 15–29), CrCl 10–25 lấn sang nhóm <15. Nay: CrCl 30–50 liều đủ (1–2 g) mỗi 12 giờ; CrCl 26–29 liều đủ mỗi 12 giờ; CrCl 15–25 nửa liều (0,5–1 g) mỗi 12 giờ.
 - **Thanh điều hướng dưới không còn che nút cuối trang:** tăng khoảng đệm dưới trang thêm 76 px để thanh điều hướng và thanh kết quả nổi không che nút cuối trang trên điện thoại.

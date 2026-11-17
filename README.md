@@ -3,15 +3,16 @@
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — cài vào màn hình chính để dùng offline.
-**Phiên bản hiện tại:** v0.5.1 (17/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v0.6.0 (17/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
 
 ## Nội dung
-- **48 công cụ**: SOFA, qSOFA, NEWS2, APACHE II, mNUTRIC, dịch hồi sức, quy đổi opioid; GCS, RASS, CAM-ICU, NIHSS, ICH score, ABCD², FOUR; P/F – ARDS, ROX, IBW/Vt, khí máu động mạch, cơ học thở máy, PSI/PORT; eGFR & Cockcroft–Gault, Anion Gap, AKI KDIGO, điều chỉnh natri, FENa/FEUrea, bù K/Mg; MAP/Shock Index/Lactate, CHA₂DS₂-VA & HAS-BLED, HEART, QTc, GRACE, liều DOAC; CURB-65, Child–Pugh & MELD, Wells PE, BMI/BSA, Glasgow–Blatchford, BISAP, Maddrey, Padua, Caprini, DKA, quy đổi corticoid.
+- **52 công cụ**: SOFA, qSOFA, NEWS2, APACHE II, mNUTRIC, kê đơn dinh dưỡng ICU, CRRT, dịch hồi sức, quy đổi opioid; GCS, RASS, CAM-ICU, NIHSS, ICH score, ABCD², FOUR; P/F – ARDS, ROX, IBW/Vt, khí máu động mạch, cơ học thở máy, PSI/PORT; eGFR & Cockcroft–Gault, Anion Gap, AKI KDIGO, điều chỉnh natri, FENa/FEUrea, bù K/Mg; MAP/Shock Index/Lactate, CHA₂DS₂-VA & HAS-BLED, HEART, QTc, GRACE, liều DOAC; CURB-65, Child–Pugh & MELD, Wells PE, BMI/BSA, Glasgow–Blatchford, BISAP, Maddrey, Padua, Caprini, DKA, quy đổi corticoid; suy tim HFrEF, GRACE.
 - **Bộ tính liều truyền thuốc ICU — 17 thuốc**: vận mạch (noradrenaline, adrenaline, dobutamine, dopamine, vasopressin, phenylephrine), an thần – giảm đau (propofol, midazolam, fentanyl, morphine, dexmedetomidine), insulin, heparin, nicardipine, nitroglycerin, amiodarone, furosemide.
 - **3 checklist tại giường**: Sepsis giờ đầu, VAP bundle, SAT/SBT cai máy.
 - **20 phác đồ dạng cây quyết định**: Hồi sức (sốc nhiễm trùng, ngừng tuần hoàn, suy hô hấp cấp, tăng kali), Cấp cứu (phản vệ, toan ceton, hạ đường huyết, đột quỵ cấp, trạng thái động kinh, hội chứng vành cấp, suy tim cấp, xuất huyết tiêu hóa trên, cơn hen cấp, đợt cấp COPD), Chống độc (tiếp cận chung & thuốc giải độc, paracetamol, phospho hữu cơ, opioid, methanol, rắn cắn).
 - **Tra cứu thuốc**: gõ biệt dược hoặc hoạt chất thông dụng tại Việt Nam (82 hoạt chất) để biết hoạt chất và mở công cụ liên quan.
 - **📖 Sổ tay thuốc**: hướng dẫn sử dụng rút gọn 82 thuốc (chỉ định, liều, cách pha – dùng, chống chỉ định, tác dụng phụ, thai kỳ).
+- **📰 Bản tin**: mẹo tại giường 60 giây, cập nhật hướng dẫn, ca lâm sàng ôn tập có đáp án, cảnh báo thuốc — lọc theo chuyên mục, tìm kiếm, đánh dấu đã đọc, đọc offline.
 - **Module kháng sinh**: khuyến cáo kinh nghiệm theo hội chứng + liều theo CrCl, chức năng gan và mức độ bệnh cho 27 kháng sinh / kháng nấm.
 
 ## Nguyên tắc
