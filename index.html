@@ -1,0 +1,748 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="color-scheme" content="light dark"/>
+<!-- PWA: cài vào màn hình chính, mở offline như app -->
+<link rel="manifest" href="data:application/octet-stream;base64,eyJiYWNrZ3JvdW5kX2NvbG9yIjoiI2VlZjJmNCIsImNhdGVnb3JpZXMiOlsibWVkaWNhbCIsInV0aWxpdGllcyJdLCJkZXNjcmlwdGlvbiI6IlRoYW5nIMSRaeG7g20sIG3DoXkgdMOtbmggbMOibSBzw6BuZyB2w6AgbGnhu4F1IGtow6FuZyBzaW5oIHRoZW8gdGjhuq1uIOKAkyBnYW4gY2hvIGLDoWMgc8SpIG7hu5lpIGtob2EgdsOgIGjhu5NpIHPhu6ljLiBDw6BpIG3hu5l0IGzhuqduLCBt4bufIG9mZmxpbmUgbmjGsCBhcHAuIiwiZGlyIjoibHRyIiwiZGlzcGxheSI6InN0YW5kYWxvbmUiLCJpY29ucyI6W3sicHVycG9zZSI6ImFueSIsInNpemVzIjoiMTkyeDE5MiIsInNyYyI6Imljb24tMTkyLnBuZyIsInR5cGUiOiJpbWFnZS9wbmcifSx7InB1cnBvc2UiOiJhbnkiLCJzaXplcyI6IjUxMng1MTIiLCJzcmMiOiJpY29uLTUxMi5wbmciLCJ0eXBlIjoiaW1hZ2UvcG5nIn0seyJwdXJwb3NlIjoibWFza2FibGUiLCJzaXplcyI6IjUxMng1MTIiLCJzcmMiOiJpY29uLW1hc2thYmxlLTUxMi5wbmciLCJ0eXBlIjoiaW1hZ2UvcG5nIn1dLCJpZCI6Ii4uLyIsImxhbmciOiJ2aSIsIm5hbWUiOiJDw7RuZyBj4bulIE7hu5lpIGtob2EgJiBI4buTaSBz4bupYyIsIm9yaWVudGF0aW9uIjoicG9ydHJhaXQiLCJzY29wZSI6Ii4uLyIsInNob3J0X25hbWUiOiJO4buZaSBraG9hIEhTIiwic3RhcnRfdXJsIjoiLi4vIiwidGhlbWVfY29sb3IiOiIjMGI1NTYzIn0="/>
+<meta name="theme-color" media="(prefers-color-scheme: light)" content="#0b5563"/>
+<meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d1518"/>
+<meta name="mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-capable" content="yes"/>
+<meta name="apple-mobile-web-app-status-bar-style" content="default"/>
+<meta name="apple-mobile-web-app-title" content="Nội khoa HS"/>
+<link rel="apple-touch-icon" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAALQAAAC0CAYAAAA9zQYyAAADW0lEQVR4nO3dy3HbVgCGUVKTXdxe3IBTVtSA1V60thcee/ygJIB4XODTOQUQWHz8dUnOQNfLAfz9z6cvo++B5Z6fHq+j72HIDQj4fRgR+G4XFPH7tlfcm15ExNyyZdybvLCQmWKLsB/WfkExM9UWraz2DhEyS6y11qsstJhZaq2GFr0rhMwWlqz13QstZraypK27ghYzW7u3sdlBi5m93NParKDFzN7mNjc5aDEzypz2JgUtZkab2uCbQYuZo5jS4uo/fcNIrwZtnTmat5p8MWgxc1SvtenIQcrNoK0zR/dSo38ELWbO4larjhyk/BK0deZsfm/WQpMiaFJ+BO24wVn93K6FJkXQpDxcLo4bnN/3hi00KYImRdCkXJ2fKbHQpAiaFEGTImhSBE2KoEkRNCmCJkXQpAiaFEGTImhS/hp9A2fx/+f/hl7/w8d/h17/LCw0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCkCJoUQZMiaFIETYqgSRE0KYImRdCknPYfb45+1lzdWZ+lZ6FJETQpgiZF0KQImhRBkyJoUgRNiqBJETQpgiZF0KQImhRBkyJoUgRNiqBJETQpgiZF0KQImhRBkyJoUgRNiqBJETQpgiZF0KQImhRBkyJoUk77fOi9jX4e9Vmf17w3C02KoEkRNCmCJkXQpAiaFEGTImhSBE2KoEkRNCmCJkXQpAiaFEGTImhSBE2KoEkRNCmCJkXQpAiaFEGTImhSBE2KoEkRNCmebUeKhSZF0KQImhRBkyJoUgRNiqBJETQpgiZF0KQImhRBk/Lw/PR4HX0TsIbnp8erhSZF0KQImpSHy+Xb2WP0jcAS3xu20KQImpQfQTt2cFY/t2uhSRE0Kb8E7djB2fzerIUm5Y+grTRncavVmwstao7upUYdOUh5MWgrzVG91uarCy1qjuatJh05SHkzaCvNUUxpcdJCi5rRpjY4+cghakaZ096sM7So2dvc5mZ/KBQ1e7mntbu+5RA1W7u3sbu/thM1W1nS1ipR+k9arGGNkVzlhxVrzVJrNbR6iNaaOdYew9V/+rbWTLVFK5vGZ625ZcvR221Nxf2+7fWXe8jxQNzvw4jj5yHOuwJvOMLnp68POcneXaKS1QAAAABJRU5ErkJggg=="/>
+<link rel="icon" type="image/png" sizes="192x192" href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAAMAAAADACAYAAABS3GwHAAADs0lEQVR4nO3dTXLTaABFUTnVM9gebIBeVmcDne2RMQwoqACJY1n/uucswNHgXX2yk4ovw858+PTl29bXwHKenx4vW1/DS5tejLEzDNtGsfoPNnquWTuG1X6Y4TPGWiEs/kMMnymWDmGxFzd85rRUCLO/qOGzpLlDeJjzxYyfpc29sVlqMny2MMdpMPkEMH62Msf2JgVg/Gxt6gbvDsD42YspW7wrAONnb+7d5OgAjJ+9umebowIwfvZu7EZvDsD4OYoxW70pAOPnaG7d7LsBGD9Hdct2Z/1TCDiaqwG4+3N07234zQCMn7O4tmWPQKS9GoC7P2fz1qadAKT9FYC7P2f12radAKT9FoC7P2f358adAKT9CsDdn4qXW3cCkCYA0h6GweMPPT837wQgTQCkCYA0AZB28QaYMicAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYC0f7a+gCP7+v9/W1/CMAzD8PHzv1tfwmE5AUgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmAtMuHT1++bX0RU+3lvzTXnOG/UjsBSBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASBMAaQIgTQCkCYA0AZAmANIEQJoASDvFN8RsZS/fTHOGb2rZihOANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEjz36FJcwKQJgDSBECaAEgTAGkCIE0ApAmANAGQJgDSBECaAEh7eH56vGx9EbCF56fHixOANAGQJgDSBEDawzD8eDOw9YXAmn5u3glAmgBI+xWAxyAqXm7dCUDabwE4BTi7PzfuBCDtrwCcApzVa9t2ApD2agBOAc7mrU07AUh7MwCnAGdxbctXTwARcHTvbdgjEGnvBuAU4Khu2e5NJ4AIOJpbN3vzI5AIOIoxWx31HkAE7N3YjY5+EywC9uqebd71KZAI2Jt7N3n3x6AiYC+mbHHS7wFEwNambnDyL8JEwFbm2N6s4/Wl26xhzpvurH8K4TRgaXNvbLHBOg2Y01I318Xv2EJgiqWfKlZ7ZBECY6z1OL36M7sQuGbt95GbvmkVA8Ow7Ycnu/vURhTntrdPCr8DiazZ9IS/g5EAAAAASUVORK5CYII="/>
+<link rel="icon" href="data:,"/>
+<title>Công cụ Nội khoa &amp; Hồi sức</title>
+<style>
+:root{
+  --bg:#eef2f4; --surface:#ffffff; --surface2:#f7f9fa; --line:#d9e2e6;
+  --ink:#14232a; --muted:#5a6d76; --primary:#0b5563; --primary-ink:#ffffff;
+  --primary-soft:#e0eff1; --teal:#0e7a6d;
+  --green:#15803d; --green-bg:#e7f6ec; --yellow:#a16207; --yellow-bg:#fef6d8;
+  --orange:#c2410c; --orange-bg:#ffeee3; --red:#b91c1c; --red-bg:#fde8e8;
+  --radius:14px; --header-h:58px;
+}
+@media (prefers-color-scheme: dark){
+  :root{
+    --bg:#0d1518; --surface:#162227; --surface2:#1b2a30; --line:#2b3f47;
+    --ink:#e8f0f2; --muted:#9db2ba; --primary:#2a9db5; --primary-soft:#12333b;
+    --green-bg:#123524; --yellow-bg:#3a3312; --orange-bg:#3d2412; --red-bg:#3d1717;
+  }
+}
+html{scroll-behavior:smooth}
+body{margin:0;font-family:system-ui,-apple-system,"Segoe UI",Roboto,"Noto Sans",Arial,sans-serif;background:var(--bg);color:var(--ink);font-size:16px;line-height:1.5;padding-bottom:76px}
+h1,h2,h3,p,ul,ol,figure{margin:0}
+button,input,select{font:inherit;color:inherit}
+button,[role="button"],select,summary,input:not([type="checkbox"]){min-height:44px}
+a{color:var(--primary)}
+:focus-visible{outline:3px solid var(--primary);outline-offset:2px}
+/* Header */
+.topbar{position:fixed;top:0;left:0;right:0;height:var(--header-h);background:var(--primary);color:#fff;display:flex;align-items:center;gap:12px;padding:0 16px;z-index:50;box-shadow:0 2px 10px rgba(0,0,0,.18)}
+.topbar .mark{width:36px;height:36px;border-radius:9px;background:#fff;color:var(--primary);display:grid;place-items:center;font-weight:800;font-size:19px;flex:none}
+.topbar .t1{font-weight:700;font-size:16.5px;line-height:1.2}
+.topbar .t2{font-size:12px;opacity:.85;line-height:1.2}
+.topbar .sp{flex:1}
+.topbar button{background:rgba(255,255,255,.14);border:1px solid rgba(255,255,255,.35);color:#fff;border-radius:9px;padding:6px 12px;cursor:pointer;font-weight:600}
+/* Layout */
+.layout{max-width:1240px;margin:0 auto;padding:calc(var(--header-h) + 16px) 16px 24px;display:grid;grid-template-columns:1fr;gap:20px}
+@media(min-width:960px){ .layout{grid-template-columns:232px 1fr} body{padding-bottom:0} }
+.sidenav{display:none}
+@media(min-width:960px){
+  .sidenav{display:block;position:sticky;top:calc(var(--header-h) + 16px);align-self:start;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:10px}
+  .sidenav h3{font-size:12px;letter-spacing:.06em;text-transform:uppercase;color:var(--muted);padding:8px 10px 6px}
+  .sidenav button{display:flex;width:100%;text-align:left;background:none;border:0;border-radius:9px;padding:10px;cursor:pointer;font-weight:600;font-size:14.5px;align-items:center;gap:9px}
+  .sidenav button:hover,.sidenav button.on{background:var(--primary-soft)}
+}
+/* Search */
+.searchbox{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:14px;margin-bottom:16px}
+.searchbox label{font-weight:700;font-size:14px;display:block;margin-bottom:8px}
+.searchrow{display:flex;gap:8px}
+.searchrow input{flex:1;border:1.5px solid var(--line);border-radius:10px;padding:10px 14px;background:var(--surface2);font-size:16px;min-width:0}
+.searchrow button{background:var(--primary);color:var(--primary-ink);border:0;border-radius:10px;padding:10px 18px;font-weight:700;cursor:pointer}
+.quickchips{display:flex;flex-wrap:wrap;gap:8px;margin-top:10px}
+.quickchips button{border:1px solid var(--line);background:var(--surface2);border-radius:999px;padding:6px 12px;cursor:pointer;font-size:13.5px;font-weight:600;min-height:36px}
+.catbar{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.catbar button{border:1px solid var(--line);background:var(--surface);border-radius:999px;padding:8px 14px;cursor:pointer;font-weight:600;font-size:14px}
+.catbar button.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+/* Cards */
+.sec-title{font-size:18px;font-weight:800;margin:20px 0 4px}
+.sec-sub{color:var(--muted);font-size:13.5px;margin-bottom:12px}
+.grid{display:grid;grid-template-columns:1fr;gap:12px}
+@media(min-width:620px){.grid{grid-template-columns:1fr 1fr}}
+@media(min-width:1100px){.grid{grid-template-columns:1fr 1fr 1fr}}
+.card{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:16px;display:flex;gap:12px;cursor:pointer;text-align:left;width:100%}
+.card:hover{border-color:var(--primary)}
+.card .ic{width:46px;height:46px;flex:none;border-radius:11px;background:var(--primary-soft);display:grid;place-items:center;font-size:22px}
+.card h3{font-size:16px;line-height:1.3}
+.card p{font-size:13.5px;color:var(--muted);margin-top:3px;line-height:1.45}
+.card .fav{margin-left:auto;flex:none;background:none;border:0;font-size:21px;cursor:pointer;padding:4px;min-height:36px;color:#c9a227}
+.card .tag{font-size:11.5px;font-weight:700;color:var(--primary);text-transform:uppercase;letter-spacing:.04em}
+.empty{background:var(--surface);border:1px dashed var(--line);border-radius:var(--radius);padding:18px;color:var(--muted);font-size:14.5px}
+/* Bottom nav */
+.bottomnav{position:fixed;left:0;right:0;bottom:0;background:var(--surface);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);z-index:50;padding-bottom:env(safe-area-inset-bottom)}
+@media(min-width:960px){.bottomnav{display:none}}
+.bottomnav button{background:none;border:0;padding:8px 2px 10px;font-size:12px;font-weight:600;color:var(--muted);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:2px;min-height:56px}
+.bottomnav button .bi{font-size:20px}
+.bottomnav button.on{color:var(--primary)}
+/* Tool panel */
+.panel{display:none;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:18px}
+.panel.open{display:block}
+.panel .back{background:none;border:0;color:var(--primary);font-weight:700;cursor:pointer;padding:6px 0;font-size:15px}
+.panel h2{font-size:22px;line-height:1.25;margin-top:4px}
+.panel .desc{color:var(--muted);font-size:14.5px;margin:6px 0 14px}
+.result{border-radius:12px;padding:16px;margin-bottom:16px;border:1.5px solid var(--line);background:var(--surface2)}
+.result .big{font-size:32px;font-weight:800;line-height:1.1}
+.result .lbl{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.05em;color:var(--muted)}
+.result .interp{margin-top:6px;font-size:15px;font-weight:600}
+.result.lv0{border-color:var(--green);background:var(--green-bg)}
+.result.lv1{border-color:#d9a406;background:var(--yellow-bg)}
+.result.lv2{border-color:var(--orange);background:var(--orange-bg)}
+.result.lv3{border-color:var(--red);background:var(--red-bg)}
+.fgroup{margin-bottom:14px}
+.fgroup>label,.fgroup .flabel{font-weight:700;font-size:14.5px;display:block;margin-bottom:6px}
+.frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+@media(max-width:560px){.frow{grid-template-columns:1fr}}
+input[type="number"],input[type="text"],select{width:100%;border:1.5px solid var(--line);border-radius:10px;padding:10px 12px;background:var(--surface2);font-size:16px}
+.unit{font-size:12.5px;color:var(--muted);font-weight:600}
+.hint{font-size:13px;color:var(--muted);margin-top:4px}
+.seg{display:flex;flex-wrap:wrap;gap:8px}
+.seg button{border:1.5px solid var(--line);background:var(--surface2);border-radius:10px;padding:9px 13px;cursor:pointer;font-weight:600;font-size:14.5px}
+.seg button.on{background:var(--primary);color:#fff;border-color:var(--primary)}
+.checks{display:grid;gap:8px}
+.checks label{display:flex;gap:10px;align-items:flex-start;background:var(--surface2);border:1px solid var(--line);border-radius:10px;padding:11px 12px;cursor:pointer;font-size:15px}
+.checks input[type="checkbox"]{width:22px;height:22px;margin-top:1px;flex:none;accent-color:var(--primary)}
+.checks .pts{margin-left:auto;font-weight:800;color:var(--primary);flex:none}
+.actions{display:flex;gap:10px;margin:16px 0;flex-wrap:wrap}
+.actions button{border-radius:10px;padding:11px 18px;font-weight:700;cursor:pointer;border:1.5px solid var(--line);background:var(--surface2)}
+.actions .primary{background:var(--primary);color:#fff;border-color:var(--primary)}
+.notebox{border-radius:12px;padding:14px 16px;font-size:14.5px;margin:14px 0}
+.notebox.warn{background:var(--yellow-bg);border:1.5px solid #d9a406}
+.notebox.danger{background:var(--red-bg);border:1.5px solid var(--red)}
+.notebox.info{background:var(--primary-soft);border:1.5px solid var(--primary)}
+.notebox h4{margin:0 0 6px;font-size:15px}
+.notebox ul{padding-left:20px}
+table.mini{width:100%;border-collapse:collapse;font-size:14px;margin:10px 0}
+table.mini th,table.mini td{border:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
+table.mini th{background:var(--surface2)}
+.src{font-size:13px;color:var(--muted);border-top:1px solid var(--line);padding-top:12px;margin-top:16px}
+details{margin-top:10px} summary{cursor:pointer;font-weight:700;padding:8px 0}
+/* Antibiotic */
+.abx-tools{background:var(--surface2);border:1px solid var(--line);border-radius:12px;padding:14px;margin-bottom:14px}
+.abx-list{display:grid;gap:12px}
+.abx{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px}
+.abx h3{font-size:16.5px}
+.abx .grp{font-size:12.5px;color:var(--primary);font-weight:700;text-transform:uppercase;letter-spacing:.04em}
+.abx .syn{font-size:13px;color:var(--muted);margin-top:2px}
+.dose-grid{display:grid;grid-template-columns:repeat(2,1fr);gap:8px;margin-top:10px}
+@media(min-width:760px){.dose-grid{grid-template-columns:repeat(3,1fr)}}
+.dose-cell{border:1px solid var(--line);border-radius:9px;padding:8px 10px;font-size:13.5px;background:var(--surface2)}
+.dose-cell b{display:block;font-size:12px;color:var(--muted);text-transform:uppercase;letter-spacing:.03em}
+.dose-cell.hl{border:2px solid var(--primary);background:var(--primary-soft)}
+.abx .meta{font-size:13.5px;margin-top:10px;display:grid;gap:4px}
+.tdm{display:inline-block;background:var(--orange-bg);color:var(--orange);font-weight:700;font-size:12px;border-radius:999px;padding:2px 9px;margin-left:6px;vertical-align:middle}
+.emp-wrap{margin-bottom:16px}
+.emp-head{display:flex;align-items:flex-start;justify-content:space-between;gap:12px;flex-wrap:wrap;margin-bottom:10px}
+.emp-head h3{font-size:17px;line-height:1.3}
+.emp-head p{font-size:13.5px;color:var(--muted);margin-top:3px;max-width:720px}
+.emp-badge{font-size:12px;font-weight:800;letter-spacing:.04em;text-transform:uppercase;color:var(--primary);background:var(--primary-soft);border:1px solid var(--line);padding:6px 10px;border-radius:999px;white-space:nowrap}
+.emp-grid{display:grid;grid-template-columns:1fr;gap:10px}
+@media(min-width:700px){.emp-grid{grid-template-columns:1fr 1fr}}
+.emp-card{background:var(--surface);border:1px solid var(--line);border-radius:12px;padding:14px;text-align:left;width:100%;cursor:pointer}
+.emp-card:hover{border-color:var(--primary)}
+.emp-card h4{font-size:15.5px;margin-bottom:4px}
+.emp-card p{font-size:13.5px;color:var(--muted);line-height:1.45}
+.emp-card .go{font-size:13px;font-weight:700;color:var(--primary);margin-top:8px;display:inline-block}
+.emp-detail{background:var(--surface);border:1.5px solid var(--primary);border-radius:12px;padding:16px}
+.emp-detail h4{font-size:17px;line-height:1.3}
+.emp-detail .sub{font-size:13.5px;color:var(--muted);margin-top:4px}
+.emp-cols{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
+@media(min-width:760px){.emp-cols{grid-template-columns:1fr 1fr}}
+.emp-box{border:1px solid var(--line);border-radius:10px;padding:12px;background:var(--surface2)}
+.emp-box h5{font-size:13px;letter-spacing:.04em;text-transform:uppercase;color:var(--primary);margin:0 0 7px}
+.emp-box ul{padding-left:18px;font-size:14px;display:grid;gap:5px}
+.emp-box p{font-size:14px}
+.emp-reg{border-color:var(--primary);background:var(--primary-soft)}
+.emp-warn{background:var(--yellow-bg);border-color:#d9a406}
+.emp-foot{font-size:13.5px;margin-top:12px;border-top:1px solid var(--line);padding-top:10px;display:grid;gap:6px}
+@media(max-width:560px){.topbar{gap:8px;padding:0 10px}.topbar .t2{display:none}.topbar .t1{font-size:14.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}.topbar button{padding:6px 9px;font-size:13px;white-space:nowrap}}
+.footer{max-width:1240px;margin:0 auto;padding:0 16px 30px;color:var(--muted);font-size:13px}
+/* Offline bar */
+.offlinebar{display:flex;gap:12px;align-items:center;flex-wrap:wrap;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;margin-bottom:16px}
+.offlinebar .odot{width:11px;height:11px;border-radius:50%;background:var(--green);flex:none}
+.offlinebar.off .odot{background:var(--orange)}
+.offlinebar .otxt{flex:1;min-width:220px}
+.offlinebar .otxt strong{display:block;font-size:14.5px}
+.offlinebar .otxt span{font-size:13px;color:var(--muted)}
+.offlinebar button{background:var(--primary);color:var(--primary-ink);border:0;border-radius:10px;padding:10px 16px;font-weight:700;cursor:pointer;white-space:nowrap}
+/* PWA install card */
+.pwabar{display:block}
+.pwa-main{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.pwa-main .otxt{flex:1;min-width:220px}
+.pwa-actions{display:flex;gap:8px;flex-wrap:wrap}
+.pwabar button.ghost{background:var(--surface2);color:var(--ink);border:1.5px solid var(--line)}
+.pwabar button[disabled]{opacity:.55;cursor:default}
+.pwa-badge{font-size:12px;font-weight:800;letter-spacing:.03em;color:var(--primary);background:var(--primary-soft);border:1px solid var(--line);border-radius:999px;padding:3px 10px;white-space:nowrap}
+.pwa-steps{display:none;margin-top:12px;border-top:1px solid var(--line);padding-top:12px;font-size:14.5px}
+.pwa-steps.open{display:block}
+.pwa-steps h4{margin:0 0 6px;font-size:15px}
+.pwa-steps ol{padding-left:22px;display:grid;gap:5px;margin:0}
+.pwa-steps .alt{margin-top:10px;color:var(--muted);font-size:13.5px}
+</style>
+</head>
+<body>
+<header class="topbar">
+  <div class="mark" aria-hidden="true">✚</div>
+  <div><div class="t1">Công cụ Nội khoa &amp; Hồi sức</div><div class="t2">Thang điểm • Máy tính lâm sàng • Liều kháng sinh</div></div>
+  <div class="sp"></div>
+</header>
+
+<div class="layout">
+  <nav class="sidenav" aria-label="Nhóm chuyên khoa">
+    <h3>Chuyên khoa / Nhóm</h3>
+    <button type="button" data-cat="all" class="on">🏠 Tất cả công cụ</button>
+    <button type="button" data-cat="hoisuc">🫀 Hồi sức &amp; tiên lượng</button>
+    <button type="button" data-cat="thankinh">🧠 Thần kinh – an thần</button>
+    <button type="button" data-cat="hohap">🫁 Hô hấp</button>
+    <button type="button" data-cat="than">🩸 Thận – điện giải</button>
+    <button type="button" data-cat="timmach">❤️ Tim mạch – sốc</button>
+    <button type="button" data-cat="noikhoa">📋 Nội khoa tổng quát</button>
+    <button type="button" data-cat="khangsinh">💊 Kháng sinh theo chức năng thận – gan</button>
+    <button type="button" data-cat="fav">⭐ Yêu thích của tôi</button>
+  </nav>
+
+  <main id="main">
+    <!-- HOME -->
+    <section id="homeView">
+      <div class="searchbox">
+        <label for="searchInput">Tìm công cụ — gõ tiếng Việt không dấu vẫn tìm được</label>
+        <div class="searchrow">
+          <input id="searchInput" type="text" placeholder="Ví dụ: sofa, egfr, glasgow, khang sinh, curb…" autocomplete="off" aria-label="Tìm công cụ"/>
+          <button type="button" id="searchBtn">Tìm</button>
+        </div>
+        <div class="quickchips" id="recentChips" aria-label="Vừa dùng gần đây"></div>
+      </div>
+
+      <div class="offlinebar pwabar" id="offlineBar">
+        <div class="pwa-main">
+          <span class="odot" aria-hidden="true"></span>
+          <div class="otxt"><strong id="offlineTitle">📲 Cài như app — mở offline, khỏi tải file</strong><span id="offlineStatus">Cài một lần vào màn hình chính: sau đó bấm icon là mở thẳng như app và dùng được cả khi mất mạng hoàn toàn — toàn bộ 19 công cụ và bảng liều kháng sinh được lưu sẵn trên máy. Có mạng trở lại, app tự cập nhật bản mới.</span></div>
+          <span class="pwa-badge" id="pwaBadge" style="display:none">ĐÃ CÀI ✓</span>
+          <div class="pwa-actions">
+            <button type="button" id="btnInstall">📲 Cài vào màn hình chính</button>
+            <button type="button" id="btnOfflineDownload" class="ghost">⬇ Tải bản offline (dự phòng)</button>
+          </div>
+        </div>
+        <div class="pwa-steps" id="pwaSteps" aria-live="polite"></div>
+      </div>
+
+      <div class="catbar" id="catBar" role="tablist" aria-label="Lọc theo nhóm">
+        <button type="button" data-cat="all" class="on">Tất cả</button>
+        <button type="button" data-cat="hoisuc">Hồi sức</button>
+        <button type="button" data-cat="thankinh">Thần kinh</button>
+        <button type="button" data-cat="hohap">Hô hấp</button>
+        <button type="button" data-cat="than">Thận – điện giải</button>
+        <button type="button" data-cat="timmach">Tim mạch – sốc</button>
+        <button type="button" data-cat="noikhoa">Nội khoa</button>
+        <button type="button" data-cat="khangsinh">Kháng sinh</button>
+        <button type="button" data-cat="fav">⭐ Yêu thích</button>
+      </div>
+
+      <div id="favSection" style="display:none">
+        <h2 class="sec-title">⭐ Đã ghim — dùng nhiều nhất</h2>
+        <p class="sec-sub">Chạm ☆ trên thẻ để ghim / bỏ ghim. Danh sách giữ trong phiên làm việc này.</p>
+        <div class="grid" id="favGrid"></div>
+      </div>
+
+      <h2 class="sec-title" id="listTitle">Tất cả công cụ</h2>
+      <p class="sec-sub" id="listSub">Tính ngay khi nhập số. Kết quả có màu theo mức độ kèm chữ diễn giải — không chỉ dựa vào màu.</p>
+      <div class="grid" id="toolGrid"></div>
+      <div class="empty" id="noResult" style="display:none">Không tìm thấy công cụ nào khớp. Thử từ khóa ngắn hơn, ví dụ “sofa”, “than”, “khang sinh”.</div>
+
+      <div class="notebox warn" style="margin-top:22px">
+        <h4>⚠️ Lưu ý chung khi dùng tại giường bệnh</h4>
+        <ul>
+          <li>Mọi thang điểm và máy tính ở đây chỉ hỗ trợ quyết định — <strong>không thay thế</strong> đánh giá lâm sàng và phác đồ của bệnh viện.</li>
+          <li>eGFR / CrCl chỉ tin cậy khi creatinin ổn định; không dùng để chỉnh liều trong tổn thương thận cấp đang diễn biến nhanh.</li>
+          <li>Trang hoạt động ngay trên máy của bạn, không gửi dữ liệu bệnh nhân đi đâu. Sau khi cài vào màn hình chính (nút “Cài vào màn hình chính” ở trên), app mở và tính bình thường cả khi không có mạng.</li>
+        </ul>
+      </div>
+    </section>
+
+    <!-- DETAIL -->
+    <section id="detailView" style="display:none"></section>
+  </main>
+</div>
+
+<p class="footer">Nguồn tham khảo chính: Surviving Sepsis Campaign 2021, KDIGO 2024 (thận), Berlin Definition ARDS, Sanford Guide to Antimicrobial Therapy, nhãn thuốc FDA, MSD Manuals. Cập nhật nội dung: 11/2026. Chỉ dùng tham khảo lâm sàng — luôn đối chiếu phác đồ bệnh viện và kháng sinh đồ.</p>
+
+<nav class="bottomnav" aria-label="Điều hướng dưới">
+  <button type="button" data-nav="home" class="on"><span class="bi">🏠</span>Trang chủ</button>
+  <button type="button" data-nav="fav"><span class="bi">⭐</span>Yêu thích</button>
+  <button type="button" data-nav="abx"><span class="bi">💊</span>Kháng sinh</button>
+  <button type="button" data-nav="scores"><span class="bi">📊</span>Bảng điểm</button>
+</nav>
+<script>
+/* ============ Helpers ============ */
+function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d");}
+function $(id){return document.getElementById(id);}
+function num(id){var v=parseFloat($(id).value);return isNaN(v)?null:v;}
+function fmt(x,d){if(x==null||isNaN(x))return "—";return (Math.round(x*Math.pow(10,d||0))/Math.pow(10,d||0)).toLocaleString("vi-VN");}
+function segVal(id){var b=document.querySelector('#'+id+' button.on');return b?b.dataset.v:null;}
+function bindSeg(id,cb){var c=$(id);if(!c)return;c.querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){c.querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');if(cb)cb();});});}
+function checkSum(prefix,n){var s=0;for(var i=0;i<n;i++){var e=$(prefix+i);if(e&&e.checked)s+=parseFloat(e.dataset.v||0);}return s;}
+function checkCount(prefix,n){var s=0;for(var i=0;i<n;i++){var e=$(prefix+i);if(e&&e.checked)s++;}return s;}
+
+/* ============ Tool registry ============ */
+var TOOLS=[
+ {id:"sofa",icon:"🫀",cat:"hoisuc",catName:"Hồi sức",name:"SOFA Score",desc:"Đánh giá suy đa tạng và tiên lượng tử vong trong ICU / nhiễm trùng huyết.",kw:"sofa suy da tang sepsis nhiem trung huyet"},
+ {id:"qsofa",icon:"⚡",cat:"hoisuc",catName:"Hồi sức",name:"qSOFA",desc:"Sàng lọc nhanh nguy cơ xấu ở bệnh nhân nghi nhiễm trùng ngoài ICU.",kw:"qsofa sepsis sang loc"},
+ {id:"news2",icon:"📈",cat:"hoisuc",catName:"Hồi sức",name:"NEWS2",desc:"Điểm cảnh báo sớm theo dấu hiệu sinh tồn — theo dõi diễn biến toàn viện.",kw:"news2 canh bao som sinh ton"},
+ {id:"apache",icon:"🏥",cat:"hoisuc",catName:"Hồi sức",name:"APACHE II",desc:"Tiên lượng tử vong ICU trong 24 giờ đầu nhập hồi sức.",kw:"apache ii tien luong tu vong icu"},
+ {id:"gcs",icon:"🧠",cat:"thankinh",catName:"Thần kinh",name:"Glasgow Coma Scale (GCS)",desc:"Đánh giá tri giác: mắt – lời nói – vận động, tổng 3–15 điểm.",kw:"glasgow gcs tri giac hon me"},
+ {id:"rass",icon:"😴",cat:"thankinh",catName:"Thần kinh",name:"RASS — Mức an thần / kích động",desc:"Thang Richmond từ +4 kích động đến −5 an thần sâu, kèm hướng xử trí.",kw:"rass an than kich dong richmond sedation"},
+ {id:"pf",icon:"🫁",cat:"hohap",catName:"Hô hấp",name:"P/F Ratio & ARDS Berlin",desc:"PaO₂/FiO₂ và phân độ ARDS theo định nghĩa Berlin (cần PEEP ≥ 5).",kw:"pf pao2 fio2 ards berlin suy ho hap"},
+ {id:"rox",icon:"💨",cat:"hohap",catName:"Hô hấp",name:"ROX Index (HFNC)",desc:"Dự đoán thành công / thất bại thở oxy dòng cao qua mũi.",kw:"rox hfnc oxy dong cao dat noi khi quan"},
+ {id:"ibw",icon:"⚖️",cat:"hohap",catName:"Hô hấp",name:"IBW & Vt bảo vệ phổi",desc:"Cân nặng lý tưởng và thể tích khí lưu thông 4–8 mL/kg IBW.",kw:"ibw can nang ly tuong vt the tich khi luu thong tho may"},
+ {id:"egfr",icon:"🩸",cat:"than",catName:"Thận – điện giải",name:"eGFR CKD-EPI 2021 & Cockcroft–Gault",desc:"Mức lọc cầu thận và CrCl — nền tảng để chỉnh liều thuốc qua thận.",kw:"egfr ckd epi cockcroft gault crcl loc cau than creatinin"},
+ {id:"anion",icon:"🧪",cat:"than",catName:"Thận – điện giải",name:"Anion Gap • Ca hiệu chỉnh • Thẩm thấu",desc:"Anion gap, canxi hiệu chỉnh theo albumin, áp lực thẩm thấu và Na hiệu chỉnh.",kw:"anion gap canxi hieu chinh tham thau osmolality dien giai"},
+ {id:"aki",icon:"🚨",cat:"than",catName:"Thận – điện giải",name:"Phân độ AKI — KDIGO",desc:"Phân giai đoạn tổn thương thận cấp theo creatinin và nước tiểu.",kw:"aki kdigo ton thuong than cap giai doan"},
+ {id:"mapshock",icon:"❤️",cat:"timmach",catName:"Tim mạch – sốc",name:"MAP • Shock Index • Lactate Clearance",desc:"Huyết áp trung bình, chỉ số sốc và độ thanh thải lactate theo thời gian.",kw:"map huyet ap trung binh shock index lactate clearance soc"},
+ {id:"curb65",icon:"🏠",cat:"noikhoa",catName:"Nội khoa",name:"CURB-65 — Viêm phổi cộng đồng",desc:"Quyết định nhập viện / ICU trong viêm phổi mắc phải cộng đồng.",kw:"curb 65 viem phoi cong dong cap nhap vien"},
+ {id:"childmeld",icon:"🟡",cat:"noikhoa",catName:"Nội khoa",name:"Child–Pugh & MELD",desc:"Phân độ xơ gan và điểm MELD — đồng thời là đầu vào chỉnh liều kháng sinh.",kw:"child pugh meld xo gan suy gan liver"},
+ {id:"chads",icon:"💓",cat:"timmach",catName:"Tim mạch – sốc",name:"CHA₂DS₂-VASc & HAS-BLED",desc:"Nguy cơ đột quỵ trong rung nhĩ và nguy cơ chảy máu khi kháng đông.",kw:"cha2ds2 vasc has bled rung nhi khang dong dot quy"},
+ {id:"wells",icon:"🦵",cat:"noikhoa",catName:"Nội khoa",name:"Wells — Thuyên tắc phổi (PE)",desc:"Xác suất lâm sàng trước xét nghiệm đối với thuyên tắc phổi.",kw:"wells thuyen tac phoi pe huyet khoi"},
+ {id:"bmi",icon:"📏",cat:"noikhoa",catName:"Nội khoa",name:"BMI & Diện tích bề mặt cơ thể (BSA)",desc:"Chỉ số khối cơ thể và BSA Mosteller — dùng cho liều thuốc và dinh dưỡng.",kw:"bmi bsa can nang chieu cao be mat co the"},
+ {id:"abx",icon:"💊",cat:"khangsinh",catName:"Kháng sinh",name:"Kháng sinh theo thận – gan – mức độ bệnh",desc:"Khuyến cáo kháng sinh theo kinh nghiệm theo hội chứng + liều nạp, liều duy trì theo CrCl, chức năng gan (bình thường hoặc Child–Pugh khi xơ gan) và mức độ nhiễm trùng cho 20 kháng sinh thường dùng.",kw:"khang sinh lieu antibiotic renal hepatic dose adjustment vancomycin meropenem kinh nghiem empiric phac do theo kinh nghiem"}
+];
+var favs=new Set(["sofa","egfr","abx","gcs","pf"]);
+var recent=[];
+var curCat="all", curQuery="";
+
+function toolCard(t){
+  var fav=favs.has(t.id);
+  return '<button type="button" class="card" data-open="'+t.id+'"><span class="ic" aria-hidden="true">'+t.icon+'</span><span style="flex:1;min-width:0"><span class="tag">'+t.catName+'</span><h3>'+t.name+'</h3><p>'+t.desc+'</p></span><span class="fav" data-fav="'+t.id+'" role="button" aria-label="Ghim yêu thích" tabindex="0">'+(fav?'★':'☆')+'</span></button>';
+}
+function renderHome(){
+  var q=norm(curQuery);
+  var list=TOOLS.filter(function(t){
+    if(curCat==="fav"&&!favs.has(t.id))return false;
+    if(curCat!=="all"&&curCat!=="fav"&&t.cat!==curCat)return false;
+    if(q){var hay=norm(t.name+" "+t.desc+" "+t.kw+" "+t.catName);if(!hay.includes(q))return false;}
+    return true;
+  });
+  $("toolGrid").innerHTML=list.map(toolCard).join("");
+  $("noResult").style.display=list.length?"none":"block";
+  var titles={all:"Tất cả công cụ",hoisuc:"Hồi sức & tiên lượng",thankinh:"Thần kinh – an thần",hohap:"Hô hấp",than:"Thận – điện giải",timmach:"Tim mạch – sốc",noikhoa:"Nội khoa tổng quát",khangsinh:"Kháng sinh",fav:"⭐ Yêu thích của tôi"};
+  $("listTitle").textContent=q?('Kết quả cho “'+curQuery+'”'):titles[curCat]||"Tất cả công cụ";
+  var fg=TOOLS.filter(function(t){return favs.has(t.id)});
+  $("favSection").style.display=(fg.length&&curCat==="all"&&!q)?"block":"none";
+  $("favGrid").innerHTML=fg.map(toolCard).join("");
+  $("recentChips").innerHTML=recent.length?('<span style="font-size:13px;color:var(--muted);font-weight:700;align-self:center">Vừa dùng:</span>'+recent.map(function(id){var t=TOOLS.find(function(x){return x.id===id});return t?'<button type="button" data-open="'+id+'">'+t.icon+' '+t.name+'</button>':""}).join("")):"";
+  document.querySelectorAll('[data-open]').forEach(function(el){el.addEventListener('click',function(e){if(e.target.closest('[data-fav]'))return;openTool(el.dataset.open);});});
+  document.querySelectorAll('[data-fav]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();var id=el.dataset.fav;favs.has(id)?favs.delete(id):favs.add(id);renderHome();});});
+}
+function setCat(c){curCat=c;document.querySelectorAll('#catBar button,.sidenav button[data-cat]').forEach(function(b){b.classList.toggle('on',b.dataset.cat===c)});renderHome();}
+document.querySelectorAll('#catBar button,.sidenav button[data-cat]').forEach(function(b){b.addEventListener('click',function(){showHome();setCat(b.dataset.cat);});});
+$("searchInput").addEventListener('input',function(e){curQuery=e.target.value.trim();renderHome();});
+$("searchBtn").addEventListener('click',function(){curQuery=$("searchInput").value.trim();renderHome();});
+/* ============ PWA: cài vào màn hình chính + chạy offline ============
+   Manifest + icon nằm ở assets/, service worker (data:application/javascript;base64,LyogU2VydmljZSB3b3JrZXIg4oCUIEPDtG5nIGPhu6UgTuG7mWkga2hvYSAmIEjhu5NpIHPhu6ljCiAgIENhY2hlLWZpcnN0IGNobyB0b8OgbiBi4buZIGFwcDogY8OgaSAvIG3hu58gbOG6p24gxJHhuqd1IGPDsyBt4bqhbmcgbMOgIGPDoWMgbOG6p24gc2F1CiAgIG3hu58gxJHGsOG7o2MgbmdheSBj4bqjIGtoaSBt4bqldCBt4bqhbmcgaG/DoG4gdG/DoG4uIEtoaSBjw7MgbeG6oW5nIHRy4bufIGzhuqFpLCBi4bqjbiBt4bubaQogICDEkcaw4bujYyB04bqjaSBu4buBbiB2w6AgdGhheSBjYWNoZSDhu58gbOG6p24gbeG7nyBr4bq/IHRp4bq/cC4gKi8KdmFyIENBQ0hFID0gIm5vaS1raG9hLWhvaS1zdWMtdjQiOwp2YXIgQ09SRSA9IFsKICAiLi4vIiwKICAiLi4vaW5kZXguaHRtbCIsCiAgIi4vbWFuaWZlc3Qud2VibWFuaWZlc3QiLAogICIuL2ljb24tMTkyLnBuZyIsCiAgIi4vaWNvbi01MTIucG5nIiwKICAiLi9pY29uLW1hc2thYmxlLTUxMi5wbmciLAogICIuL2FwcGxlLXRvdWNoLWljb24ucG5nIgpdOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJpbnN0YWxsIiwgZnVuY3Rpb24gKGUpIHsKICBlLndhaXRVbnRpbCgKICAgIGNhY2hlcy5vcGVuKENBQ0hFKS50aGVuKGZ1bmN0aW9uIChjKSB7CiAgICAgIHJldHVybiBQcm9taXNlLmFsbChDT1JFLm1hcChmdW5jdGlvbiAodSkgewogICAgICAgIHJldHVybiBjLmFkZCh1KS5jYXRjaChmdW5jdGlvbiAoKSB7IC8qIHRoaeG6v3UgMSBmaWxlIGtow7RuZyBjaOG6t24gY8OgaSDEkeG6t3QgKi8gfSk7CiAgICAgIH0pKTsKICAgIH0pLnRoZW4oZnVuY3Rpb24gKCkgeyByZXR1cm4gc2VsZi5za2lwV2FpdGluZygpOyB9KQogICk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJhY3RpdmF0ZSIsIGZ1bmN0aW9uIChlKSB7CiAgZS53YWl0VW50aWwoCiAgICBjYWNoZXMua2V5cygpLnRoZW4oZnVuY3Rpb24gKGtleXMpIHsKICAgICAgcmV0dXJuIFByb21pc2UuYWxsKGtleXMubWFwKGZ1bmN0aW9uIChrKSB7CiAgICAgICAgaWYgKGsgIT09IENBQ0hFKSByZXR1cm4gY2FjaGVzLmRlbGV0ZShrKTsKICAgICAgfSkpOwogICAgfSkudGhlbihmdW5jdGlvbiAoKSB7IHJldHVybiBzZWxmLmNsaWVudHMuY2xhaW0oKTsgfSkKICApOwp9KTsKCnNlbGYuYWRkRXZlbnRMaXN0ZW5lcigiZmV0Y2giLCBmdW5jdGlvbiAoZSkgewogIHZhciByZXEgPSBlLnJlcXVlc3Q7CiAgaWYgKHJlcS5tZXRob2QgIT09ICJHRVQiKSByZXR1cm47CiAgdmFyIHVybDsKICB0cnkgeyB1cmwgPSBuZXcgVVJMKHJlcS51cmwpOyB9IGNhdGNoIChlcnIpIHsgcmV0dXJuOyB9CiAgaWYgKHVybC5vcmlnaW4gIT09IHNlbGYubG9jYXRpb24ub3JpZ2luKSByZXR1cm47CgogIGlmIChyZXEubW9kZSA9PT0gIm5hdmlnYXRlIikgewogICAgLyogxJBp4buBdSBoxrDhu5tuZzogxrB1IHRpw6puIG3huqFuZyDEkeG7gyBuaOG6rW4gYuG6o24gbeG7m2ksIHLhu5t0IG3huqFuZyB0aMOsIGTDuW5nIGNhY2hlICovCiAgICBlLnJlc3BvbmRXaXRoKAogICAgICBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIHZhciBjb3B5ID0gcmVzLmNsb25lKCk7CiAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGMpIHsgYy5wdXQoIi4uL2luZGV4Lmh0bWwiLCBjb3B5KTsgfSk7CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBjYWNoZXMubWF0Y2goIi4uL2luZGV4Lmh0bWwiLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KQogICAgICAgICAgLnRoZW4oZnVuY3Rpb24gKGhpdCkgeyByZXR1cm4gaGl0IHx8IGNhY2hlcy5tYXRjaCgiLi4vIiwgeyBpZ25vcmVTZWFyY2g6IHRydWUgfSk7IH0pOwogICAgICB9KQogICAgKTsKICAgIHJldHVybjsKICB9CgogIC8qIFTDoGkgbmd1ecOqbiB0xKluaDogY2FjaGUtZmlyc3QsIGPhuq1wIG5o4bqtdCBu4buBbiAqLwogIGUucmVzcG9uZFdpdGgoCiAgICBjYWNoZXMubWF0Y2gocmVxLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgdmFyIG5ldCA9IGZldGNoKHJlcSkudGhlbihmdW5jdGlvbiAocmVzKSB7CiAgICAgICAgaWYgKHJlcyAmJiByZXMuc3RhdHVzID09PSAyMDApIHsKICAgICAgICAgIHZhciBjb3B5ID0gcmVzLmNsb25lKCk7CiAgICAgICAgICBjYWNoZXMub3BlbihDQUNIRSkudGhlbihmdW5jdGlvbiAoYykgeyBjLnB1dChyZXEsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgeyByZXR1cm4gaGl0OyB9KTsKICAgICAgcmV0dXJuIGhpdCB8fCBuZXQ7CiAgICB9KQogICk7Cn0pOwo=) lưu toàn bộ
+   app vào máy ngay lần mở đầu: cài 1 lần, các lần sau mở offline như app. */
+var deferredInstallPrompt=null, swReady=false, swLimited=false;
+function isStandalone(){return (window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches)||window.navigator.standalone===true;}
+function isIOSDevice(){return /iphone|ipad|ipod/i.test(navigator.userAgent||"");}
+function updateOnlineStatus(){
+  var bar=$("offlineBar"),st=$("offlineStatus"),on=navigator.onLine;
+  if(bar)bar.classList.toggle('off',!on);
+  if(!st)return;
+  if(!on)st.textContent="Đang offline — mọi công cụ và bảng liều kháng sinh vẫn hoạt động bình thường trên máy này.";
+  else if(isStandalone()&&swReady)st.textContent="Đang chạy như app đã cài trên màn hình chính. Có mạng, app tự tải bản mới cho lần mở sau — mất mạng vẫn mở và tính bình thường.";
+  else if(isStandalone())st.textContent="Đang chạy như app đã cài trên màn hình chính — mọi công cụ tính ngay trên máy này, không gửi dữ liệu bệnh nhân đi đâu.";
+  else if(swReady)st.textContent="Đã lưu sẵn toàn bộ app trên máy này. Bấm “Cài vào màn hình chính” để có icon như app — từ lần sau mở offline luôn, khỏi tải file.";
+  else if(swLimited)st.textContent="Môi trường đang mở (khung xem trước) chưa cho phép lưu bản offline tự động. Hãy mở liên kết của app trực tiếp bằng Safari/Chrome để cài vào màn hình chính và dùng offline — hoặc dùng nút tải file offline dự phòng bên cạnh.";
+  else st.textContent="Cài một lần vào màn hình chính: sau đó bấm icon là mở thẳng như app — toàn bộ công cụ và bảng liều nằm trọn trong app, không cần tải file thủ công.";
+}
+window.addEventListener('online',updateOnlineStatus);
+window.addEventListener('offline',updateOnlineStatus);
+function refreshInstallUI(){
+  var btn=$("btnInstall"),badge=$("pwaBadge");
+  if(isStandalone()){
+    if(badge)badge.style.display="inline-block";
+    if(btn){btn.textContent="✓ Đã cài — đang mở như app";btn.disabled=true;}
+    var t=$("offlineTitle");if(t)t.textContent="✅ Đã cài vào màn hình chính";
+  }
+  updateOnlineStatus();
+}
+window.addEventListener('beforeinstallprompt',function(e){e.preventDefault();deferredInstallPrompt=e;});
+window.addEventListener('appinstalled',function(){deferredInstallPrompt=null;var s=$("pwaSteps");if(s)s.classList.remove('open');refreshInstallUI();});
+function showInstallSteps(){
+  var box=$("pwaSteps");if(!box)return;
+  var steps;
+  if(isIOSDevice()){
+    steps='<h4>Cài trên iPhone / iPad (Safari)</h4><ol><li>Mở trang này bằng <strong>Safari</strong> (nếu đang mở trong ứng dụng khác, chạm Chia sẻ và chọn mở bằng Safari).</li><li>Chạm nút <strong>Chia sẻ</strong> (hình vuông có mũi tên hướng lên) ở thanh dưới Safari.</li><li>Cuộn xuống và chọn <strong>“Thêm vào Màn hình chính”</strong>.</li><li>Chạm <strong>“Thêm”</strong> — icon ✚ “Nội khoa HS” sẽ hiện ngoài màn hình chính.</li><li>Từ lần sau cứ chạm icon đó: app mở toàn màn hình như app thật và chạy được cả khi mất mạng.</li></ol>';
+  } else if(/android/i.test(navigator.userAgent||"")){
+    steps='<h4>Cài trên Android (Chrome)</h4><ol><li>Chạm menu <strong>⋮</strong> ở góc phải trên của Chrome.</li><li>Chọn <strong>“Cài đặt ứng dụng”</strong> hoặc <strong>“Thêm vào màn hình chính”</strong>.</li><li>Chạm <strong>“Cài đặt” / “Thêm”</strong> để xác nhận.</li><li>Từ lần sau mở bằng icon ngoài màn hình chính — app chạy cả khi mất mạng.</li></ol>';
+  } else {
+    steps='<h4>Cài trên máy tính (Chrome / Edge)</h4><ol><li>Bấm biểu tượng cài đặt ở cuối thanh địa chỉ, hoặc mở menu <strong>⋮</strong> → <strong>“Cài đặt Công cụ Nội khoa &amp; Hồi sức…”</strong>.</li><li>Bấm <strong>“Cài đặt”</strong> — app mở trong cửa sổ riêng như ứng dụng và dùng được khi mất mạng.</li></ol>';
+  }
+  box.innerHTML=steps+'<p class="alt">Không thấy tuỳ chọn cài đặt (đang mở trong trình duyệt của Zalo/Facebook hoặc trong khung xem trước)? Hãy mở liên kết của app trực tiếp bằng Safari/Chrome rồi cài từ đó — hoặc dùng nút “⬇ Tải bản offline (dự phòng)” ở trên để lưu 1 file HTML mở khi mất mạng.</p>';
+  box.classList.add('open');
+  box.scrollIntoView({behavior:"smooth",block:"nearest"});
+}
+$("btnInstall").addEventListener('click',function(){
+  if(isStandalone())return;
+  if(deferredInstallPrompt){
+    deferredInstallPrompt.prompt();
+    deferredInstallPrompt.userChoice.then(function(c){deferredInstallPrompt=null;if(c&&c.outcome==="accepted"){refreshInstallUI();}else{showInstallSteps();}});
+  } else { showInstallSteps(); }
+});
+if('serviceWorker' in navigator&&(location.protocol==='https:'||location.protocol==='http:')){
+  window.addEventListener('load',function(){
+    /* Thử đăng ký ở phạm vi gốc để SW quản toàn bộ app; nếu máy chủ không cho
+       phạm vi rộng hơn thư mục assets/ thì lùi về phạm vi mặc định của file. */
+    navigator.serviceWorker.register('data:application/javascript;base64,LyogU2VydmljZSB3b3JrZXIg4oCUIEPDtG5nIGPhu6UgTuG7mWkga2hvYSAmIEjhu5NpIHPhu6ljCiAgIENhY2hlLWZpcnN0IGNobyB0b8OgbiBi4buZIGFwcDogY8OgaSAvIG3hu58gbOG6p24gxJHhuqd1IGPDsyBt4bqhbmcgbMOgIGPDoWMgbOG6p24gc2F1CiAgIG3hu58gxJHGsOG7o2MgbmdheSBj4bqjIGtoaSBt4bqldCBt4bqhbmcgaG/DoG4gdG/DoG4uIEtoaSBjw7MgbeG6oW5nIHRy4bufIGzhuqFpLCBi4bqjbiBt4bubaQogICDEkcaw4bujYyB04bqjaSBu4buBbiB2w6AgdGhheSBjYWNoZSDhu58gbOG6p24gbeG7nyBr4bq/IHRp4bq/cC4gKi8KdmFyIENBQ0hFID0gIm5vaS1raG9hLWhvaS1zdWMtdjQiOwp2YXIgQ09SRSA9IFsKICAiLi4vIiwKICAiLi4vaW5kZXguaHRtbCIsCiAgIi4vbWFuaWZlc3Qud2VibWFuaWZlc3QiLAogICIuL2ljb24tMTkyLnBuZyIsCiAgIi4vaWNvbi01MTIucG5nIiwKICAiLi9pY29uLW1hc2thYmxlLTUxMi5wbmciLAogICIuL2FwcGxlLXRvdWNoLWljb24ucG5nIgpdOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJpbnN0YWxsIiwgZnVuY3Rpb24gKGUpIHsKICBlLndhaXRVbnRpbCgKICAgIGNhY2hlcy5vcGVuKENBQ0hFKS50aGVuKGZ1bmN0aW9uIChjKSB7CiAgICAgIHJldHVybiBQcm9taXNlLmFsbChDT1JFLm1hcChmdW5jdGlvbiAodSkgewogICAgICAgIHJldHVybiBjLmFkZCh1KS5jYXRjaChmdW5jdGlvbiAoKSB7IC8qIHRoaeG6v3UgMSBmaWxlIGtow7RuZyBjaOG6t24gY8OgaSDEkeG6t3QgKi8gfSk7CiAgICAgIH0pKTsKICAgIH0pLnRoZW4oZnVuY3Rpb24gKCkgeyByZXR1cm4gc2VsZi5za2lwV2FpdGluZygpOyB9KQogICk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJhY3RpdmF0ZSIsIGZ1bmN0aW9uIChlKSB7CiAgZS53YWl0VW50aWwoCiAgICBjYWNoZXMua2V5cygpLnRoZW4oZnVuY3Rpb24gKGtleXMpIHsKICAgICAgcmV0dXJuIFByb21pc2UuYWxsKGtleXMubWFwKGZ1bmN0aW9uIChrKSB7CiAgICAgICAgaWYgKGsgIT09IENBQ0hFKSByZXR1cm4gY2FjaGVzLmRlbGV0ZShrKTsKICAgICAgfSkpOwogICAgfSkudGhlbihmdW5jdGlvbiAoKSB7IHJldHVybiBzZWxmLmNsaWVudHMuY2xhaW0oKTsgfSkKICApOwp9KTsKCnNlbGYuYWRkRXZlbnRMaXN0ZW5lcigiZmV0Y2giLCBmdW5jdGlvbiAoZSkgewogIHZhciByZXEgPSBlLnJlcXVlc3Q7CiAgaWYgKHJlcS5tZXRob2QgIT09ICJHRVQiKSByZXR1cm47CiAgdmFyIHVybDsKICB0cnkgeyB1cmwgPSBuZXcgVVJMKHJlcS51cmwpOyB9IGNhdGNoIChlcnIpIHsgcmV0dXJuOyB9CiAgaWYgKHVybC5vcmlnaW4gIT09IHNlbGYubG9jYXRpb24ub3JpZ2luKSByZXR1cm47CgogIGlmIChyZXEubW9kZSA9PT0gIm5hdmlnYXRlIikgewogICAgLyogxJBp4buBdSBoxrDhu5tuZzogxrB1IHRpw6puIG3huqFuZyDEkeG7gyBuaOG6rW4gYuG6o24gbeG7m2ksIHLhu5t0IG3huqFuZyB0aMOsIGTDuW5nIGNhY2hlICovCiAgICBlLnJlc3BvbmRXaXRoKAogICAgICBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIHZhciBjb3B5ID0gcmVzLmNsb25lKCk7CiAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGMpIHsgYy5wdXQoIi4uL2luZGV4Lmh0bWwiLCBjb3B5KTsgfSk7CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBjYWNoZXMubWF0Y2goIi4uL2luZGV4Lmh0bWwiLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KQogICAgICAgICAgLnRoZW4oZnVuY3Rpb24gKGhpdCkgeyByZXR1cm4gaGl0IHx8IGNhY2hlcy5tYXRjaCgiLi4vIiwgeyBpZ25vcmVTZWFyY2g6IHRydWUgfSk7IH0pOwogICAgICB9KQogICAgKTsKICAgIHJldHVybjsKICB9CgogIC8qIFTDoGkgbmd1ecOqbiB0xKluaDogY2FjaGUtZmlyc3QsIGPhuq1wIG5o4bqtdCBu4buBbiAqLwogIGUucmVzcG9uZFdpdGgoCiAgICBjYWNoZXMubWF0Y2gocmVxLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgdmFyIG5ldCA9IGZldGNoKHJlcSkudGhlbihmdW5jdGlvbiAocmVzKSB7CiAgICAgICAgaWYgKHJlcyAmJiByZXMuc3RhdHVzID09PSAyMDApIHsKICAgICAgICAgIHZhciBjb3B5ID0gcmVzLmNsb25lKCk7CiAgICAgICAgICBjYWNoZXMub3BlbihDQUNIRSkudGhlbihmdW5jdGlvbiAoYykgeyBjLnB1dChyZXEsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgeyByZXR1cm4gaGl0OyB9KTsKICAgICAgcmV0dXJuIGhpdCB8fCBuZXQ7CiAgICB9KQogICk7Cn0pOwo=',{scope:'./'}).catch(function(){
+      return navigator.serviceWorker.register('data:application/javascript;base64,LyogU2VydmljZSB3b3JrZXIg4oCUIEPDtG5nIGPhu6UgTuG7mWkga2hvYSAmIEjhu5NpIHPhu6ljCiAgIENhY2hlLWZpcnN0IGNobyB0b8OgbiBi4buZIGFwcDogY8OgaSAvIG3hu58gbOG6p24gxJHhuqd1IGPDsyBt4bqhbmcgbMOgIGPDoWMgbOG6p24gc2F1CiAgIG3hu58gxJHGsOG7o2MgbmdheSBj4bqjIGtoaSBt4bqldCBt4bqhbmcgaG/DoG4gdG/DoG4uIEtoaSBjw7MgbeG6oW5nIHRy4bufIGzhuqFpLCBi4bqjbiBt4bubaQogICDEkcaw4bujYyB04bqjaSBu4buBbiB2w6AgdGhheSBjYWNoZSDhu58gbOG6p24gbeG7nyBr4bq/IHRp4bq/cC4gKi8KdmFyIENBQ0hFID0gIm5vaS1raG9hLWhvaS1zdWMtdjQiOwp2YXIgQ09SRSA9IFsKICAiLi4vIiwKICAiLi4vaW5kZXguaHRtbCIsCiAgIi4vbWFuaWZlc3Qud2VibWFuaWZlc3QiLAogICIuL2ljb24tMTkyLnBuZyIsCiAgIi4vaWNvbi01MTIucG5nIiwKICAiLi9pY29uLW1hc2thYmxlLTUxMi5wbmciLAogICIuL2FwcGxlLXRvdWNoLWljb24ucG5nIgpdOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJpbnN0YWxsIiwgZnVuY3Rpb24gKGUpIHsKICBlLndhaXRVbnRpbCgKICAgIGNhY2hlcy5vcGVuKENBQ0hFKS50aGVuKGZ1bmN0aW9uIChjKSB7CiAgICAgIHJldHVybiBQcm9taXNlLmFsbChDT1JFLm1hcChmdW5jdGlvbiAodSkgewogICAgICAgIHJldHVybiBjLmFkZCh1KS5jYXRjaChmdW5jdGlvbiAoKSB7IC8qIHRoaeG6v3UgMSBmaWxlIGtow7RuZyBjaOG6t24gY8OgaSDEkeG6t3QgKi8gfSk7CiAgICAgIH0pKTsKICAgIH0pLnRoZW4oZnVuY3Rpb24gKCkgeyByZXR1cm4gc2VsZi5za2lwV2FpdGluZygpOyB9KQogICk7Cn0pOwoKc2VsZi5hZGRFdmVudExpc3RlbmVyKCJhY3RpdmF0ZSIsIGZ1bmN0aW9uIChlKSB7CiAgZS53YWl0VW50aWwoCiAgICBjYWNoZXMua2V5cygpLnRoZW4oZnVuY3Rpb24gKGtleXMpIHsKICAgICAgcmV0dXJuIFByb21pc2UuYWxsKGtleXMubWFwKGZ1bmN0aW9uIChrKSB7CiAgICAgICAgaWYgKGsgIT09IENBQ0hFKSByZXR1cm4gY2FjaGVzLmRlbGV0ZShrKTsKICAgICAgfSkpOwogICAgfSkudGhlbihmdW5jdGlvbiAoKSB7IHJldHVybiBzZWxmLmNsaWVudHMuY2xhaW0oKTsgfSkKICApOwp9KTsKCnNlbGYuYWRkRXZlbnRMaXN0ZW5lcigiZmV0Y2giLCBmdW5jdGlvbiAoZSkgewogIHZhciByZXEgPSBlLnJlcXVlc3Q7CiAgaWYgKHJlcS5tZXRob2QgIT09ICJHRVQiKSByZXR1cm47CiAgdmFyIHVybDsKICB0cnkgeyB1cmwgPSBuZXcgVVJMKHJlcS51cmwpOyB9IGNhdGNoIChlcnIpIHsgcmV0dXJuOyB9CiAgaWYgKHVybC5vcmlnaW4gIT09IHNlbGYubG9jYXRpb24ub3JpZ2luKSByZXR1cm47CgogIGlmIChyZXEubW9kZSA9PT0gIm5hdmlnYXRlIikgewogICAgLyogxJBp4buBdSBoxrDhu5tuZzogxrB1IHRpw6puIG3huqFuZyDEkeG7gyBuaOG6rW4gYuG6o24gbeG7m2ksIHLhu5t0IG3huqFuZyB0aMOsIGTDuW5nIGNhY2hlICovCiAgICBlLnJlc3BvbmRXaXRoKAogICAgICBmZXRjaChyZXEpLnRoZW4oZnVuY3Rpb24gKHJlcykgewogICAgICAgIHZhciBjb3B5ID0gcmVzLmNsb25lKCk7CiAgICAgICAgY2FjaGVzLm9wZW4oQ0FDSEUpLnRoZW4oZnVuY3Rpb24gKGMpIHsgYy5wdXQoIi4uL2luZGV4Lmh0bWwiLCBjb3B5KTsgfSk7CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgewogICAgICAgIHJldHVybiBjYWNoZXMubWF0Y2goIi4uL2luZGV4Lmh0bWwiLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KQogICAgICAgICAgLnRoZW4oZnVuY3Rpb24gKGhpdCkgeyByZXR1cm4gaGl0IHx8IGNhY2hlcy5tYXRjaCgiLi4vIiwgeyBpZ25vcmVTZWFyY2g6IHRydWUgfSk7IH0pOwogICAgICB9KQogICAgKTsKICAgIHJldHVybjsKICB9CgogIC8qIFTDoGkgbmd1ecOqbiB0xKluaDogY2FjaGUtZmlyc3QsIGPhuq1wIG5o4bqtdCBu4buBbiAqLwogIGUucmVzcG9uZFdpdGgoCiAgICBjYWNoZXMubWF0Y2gocmVxLCB7IGlnbm9yZVNlYXJjaDogdHJ1ZSB9KS50aGVuKGZ1bmN0aW9uIChoaXQpIHsKICAgICAgdmFyIG5ldCA9IGZldGNoKHJlcSkudGhlbihmdW5jdGlvbiAocmVzKSB7CiAgICAgICAgaWYgKHJlcyAmJiByZXMuc3RhdHVzID09PSAyMDApIHsKICAgICAgICAgIHZhciBjb3B5ID0gcmVzLmNsb25lKCk7CiAgICAgICAgICBjYWNoZXMub3BlbihDQUNIRSkudGhlbihmdW5jdGlvbiAoYykgeyBjLnB1dChyZXEsIGNvcHkpOyB9KTsKICAgICAgICB9CiAgICAgICAgcmV0dXJuIHJlczsKICAgICAgfSkuY2F0Y2goZnVuY3Rpb24gKCkgeyByZXR1cm4gaGl0OyB9KTsKICAgICAgcmV0dXJuIGhpdCB8fCBuZXQ7CiAgICB9KQogICk7Cn0pOwo=');
+    }).then(function(reg){
+      if(!reg)return;
+      /* Chỉ báo "đã sẵn sàng offline" khi scope của SW thực sự bao phủ trang
+         này — scope hẹp (chỉ trong assets/) không phục vụ được trang chính. */
+      var pageUrl=location.href.split('#')[0];
+      if(pageUrl.indexOf(reg.scope)===0){swReady=true;}
+      else{swLimited=true;}
+      refreshInstallUI();
+    }).catch(function(){swLimited=true;refreshInstallUI();/* Môi trường nhúng / file:// không hỗ trợ SW — app vẫn chạy, bản tải offline là đường dự phòng */});
+  });
+}
+refreshInstallUI();
+$("btnOfflineDownload").addEventListener('click',function(){
+  var html='<!doctype html>\n'+document.documentElement.outerHTML;
+  var blob=new Blob([html],{type:'text/html;charset=utf-8'});
+  var url=URL.createObjectURL(blob);
+  var a=document.createElement('a');a.href=url;a.download='cong-cu-noi-khoa-hoi-suc-offline.html';document.body.appendChild(a);a.click();a.remove();
+  setTimeout(function(){URL.revokeObjectURL(url);},3000);
+});
+document.querySelectorAll('.bottomnav button').forEach(function(b){b.addEventListener('click',function(){
+  document.querySelectorAll('.bottomnav button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');
+  if(b.dataset.nav==='home'){showHome();setCat('all');}
+  if(b.dataset.nav==='fav'){showHome();setCat('fav');}
+  if(b.dataset.nav==='abx'){openTool('abx');}
+  if(b.dataset.nav==='scores'){showHome();setCat('hoisuc');}
+});});
+function showHome(){$("detailView").style.display="none";$("homeView").style.display="block";window.scrollTo({top:0});}
+function openTool(id){
+  recent=[id].concat(recent.filter(function(x){return x!==id})).slice(0,4);
+  $("homeView").style.display="none";var dv=$("detailView");dv.style.display="block";
+  dv.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('open',p.id==='panel-'+id);});
+  window.scrollTo({top:0});renderHome();
+  if(id==='abx')renderAbx();
+}
+function backHome(){showHome();}
+</script>
+<script>
+/* ============ Build detail panels ============ */
+function selHTML(id,label,opts,unit){
+  var o=opts.map(function(x){return '<option value="'+x[0]+'">'+x[1]+'</option>'}).join("");
+  return '<div class="fgroup"><label for="'+id+'">'+label+(unit?' <span class="unit">'+unit+'</span>':"")+'</label><select id="'+id+'">'+o+'</select></div>';
+}
+function numHTML(id,label,ph,unit){
+  return '<div class="fgroup"><label for="'+id+'">'+label+(unit?' <span class="unit">'+unit+'</span>':"")+'</label><input type="number" id="'+id+'" inputmode="decimal" step="any" placeholder="'+(ph||"")+'"/></div>';
+}
+function resHTML(id,note){return '<div class="result" id="'+id+'" role="status" aria-live="polite"><div class="lbl">Kết quả</div><div class="big">—</div><div class="interp">'+(note||"Nhập số liệu để xem kết quả.")+'</div></div>';}
+function head(icon,name,desc){return '<button type="button" class="back" onclick="backHome()">← Tất cả công cụ</button><h2>'+icon+' '+name+'</h2><p class="desc">'+desc+'</p>';}
+function actions(fn){return '<div class="actions"><button type="button" class="primary" onclick="'+fn+'()">↻ Tính lại</button><button type="button" onclick="clearPanel(this)">✕ Xóa nhập liệu</button></div>';}
+function clearPanel(btn){var p=btn.closest('.panel');p.querySelectorAll('input[type=number],input[type=text]').forEach(function(i){i.value=""});p.querySelectorAll('input[type=checkbox]').forEach(function(i){i.checked=false});p.querySelectorAll('select').forEach(function(s){s.selectedIndex=0});p.querySelectorAll('.seg button').forEach(function(b,i){b.classList.toggle('on',i===0)});var r=p.querySelector('.result');if(r){r.className='result';r.innerHTML='<div class="lbl">Kết quả</div><div class="big">—</div><div class="interp">Nhập số liệu để xem kết quả.</div>';}}
+function setRes(id,big,interp,lv){var r=$(id);r.className='result'+(lv!=null?' lv'+lv:'');r.innerHTML='<div class="lbl">Kết quả</div><div class="big">'+big+'</div><div class="interp">'+interp+'</div>';}
+
+var P={};
+P.sofa=head("🫀","SOFA Score","6 hệ cơ quan, mỗi hệ 0–4 điểm. SOFA ≥ 2 ở bệnh nhân nhiễm trùng = tiêu chuẩn Sepsis-3.")+resHTML("res-sofa")+
+ '<div class="frow">'+selHTML("sofa_resp","Hô hấp — PaO₂/FiO₂ (có hỗ trợ hô hấp)",[[0,"≥ 400 — 0đ"],[1,"< 400 — 1đ"],[2,"< 300 — 2đ"],[3,"< 200, có hỗ trợ hô hấp — 3đ"],[4,"< 100, có hỗ trợ hô hấp — 4đ"]])+selHTML("sofa_coag","Đông máu — Tiểu cầu (×10³/µL)",[[0,"≥ 150 — 0đ"],[1,"< 150 — 1đ"],[2,"< 100 — 2đ"],[3,"< 50 — 3đ"],[4,"< 20 — 4đ"]])+'</div>'+
+ '<div class="frow">'+selHTML("sofa_liver","Gan — Bilirubin (mg/dL)",[[0,"< 1,2 — 0đ"],[1,"1,2–1,9 — 1đ"],[2,"2,0–5,9 — 2đ"],[3,"6,0–11,9 — 3đ"],[4,"≥ 12 — 4đ"]])+selHTML("sofa_cardio","Tim mạch — MAP / vận mạch",[[0,"MAP ≥ 70 — 0đ"],[1,"MAP < 70 — 1đ"],[2,"Dopamine ≤5 hoặc dobutamine — 2đ"],[3,"Dopamine >5 hoặc epi/norepi ≤0,1 — 3đ"],[4,"Dopamine >15 hoặc epi/norepi >0,1 — 4đ"]])+'</div>'+
+ '<div class="frow">'+selHTML("sofa_cns","Thần kinh — GCS",[[0,"15 — 0đ"],[1,"13–14 — 1đ"],[2,"10–12 — 2đ"],[3,"6–9 — 3đ"],[4,"< 6 — 4đ"]])+selHTML("sofa_renal","Thận — Creatinin (mg/dL) / nước tiểu",[[0,"< 1,2 — 0đ"],[1,"1,2–1,9 — 1đ"],[2,"2,0–3,4 — 2đ"],[3,"3,5–4,9 hoặc NT <500 mL/ngày — 3đ"],[4,"≥ 5,0 hoặc NT <200 mL/ngày — 4đ"]])+'</div>'+actions("calcSOFA")+
+ '<div class="notebox info"><h4>Diễn giải</h4><ul><li><strong>0–6:</strong> tử vong ICU ước tính &lt;10–15%.</li><li><strong>7–9:</strong> khoảng 15–25%. <strong>10–12:</strong> 40–50%.</li><li><strong>13–14:</strong> 50–60%. <strong>≥15:</strong> &gt;80% (ước tính theo nghiên cứu gốc, thay đổi theo quần thể).</li><li>SOFA tăng ≥2 điểm so với nền = rối loạn chức năng tạng do nhiễm trùng (Sepsis-3).</li></ul></div><p class="src">Nguồn: Vincent et al., Intensive Care Med 1996; Surviving Sepsis Campaign 2021.</p>';
+
+P.qsofa=head("⚡","qSOFA","Mỗi tiêu chí 1 điểm. qSOFA ≥ 2 gợi ý nguy cơ tử vong / nằm ICU kéo dài cao hơn — cần đánh giá SOFA đầy đủ, không dùng qSOFA đơn độc để sàng lọc.")+resHTML("res-qsofa")+
+ '<div class="checks"><label><input type="checkbox" id="qf0" data-v="1"/> Nhịp thở ≥ 22 lần/phút <span class="pts">+1</span></label><label><input type="checkbox" id="qf1" data-v="1"/> Tri giác thay đổi — GCS &lt; 15 <span class="pts">+1</span></label><label><input type="checkbox" id="qf2" data-v="1"/> Huyết áp tâm thu ≤ 100 mmHg <span class="pts">+1</span></label></div>'+actions("calcQSOFA")+
+ '<div class="notebox warn"><h4>Khuyến cáo</h4>qSOFA ≥ 2: lấy lactate, cấy máu, kháng sinh sớm, đánh giá SOFA và theo dõi sát. qSOFA &lt; 2 không loại trừ nhiễm trùng huyết.</div><p class="src">Nguồn: Sepsis-3, JAMA 2016; SSC 2021 khuyến cáo không dùng qSOFA đơn độc.</p>';
+
+P.news2=head("📈","NEWS2","Điểm cảnh báo sớm chuẩn hóa (Royal College of Physicians). Tính theo giá trị xấu nhất hiện tại.")+resHTML("res-news2")+
+ '<div class="frow">'+selHTML("nw_rr","Nhịp thở (lần/phút)",[[3,"≤ 8 — 3đ"],[1,"9–11 — 1đ"],[0,"12–20 — 0đ"],[2,"21–24 — 2đ"],[3,"≥ 25 — 3đ"]])+selHTML("nw_spo2","SpO₂ (%) — thang 1, khí trời/trừ khi COPD tăng CO₂",[[3,"≤ 91 — 3đ"],[2,"92–93 — 2đ"],[1,"94–95 — 1đ"],[0,"≥ 96 — 0đ"]])+'</div>'+
+ '<div class="frow">'+selHTML("nw_o2","Đang thở oxy bổ sung?",[[0,"Không — 0đ"],[2,"Có — 2đ"]])+selHTML("nw_sbp","Huyết áp tâm thu (mmHg)",[[3,"≤ 90 — 3đ"],[2,"91–100 — 2đ"],[1,"101–110 — 1đ"],[0,"111–219 — 0đ"],[3,"≥ 220 — 3đ"]])+'</div>'+
+ '<div class="frow">'+selHTML("nw_hr","Mạch (lần/phút)",[[3,"≤ 40 — 3đ"],[1,"41–50 — 1đ"],[0,"51–90 — 0đ"],[1,"91–110 — 1đ"],[2,"111–130 — 2đ"],[3,"≥ 131 — 3đ"]])+selHTML("nw_temp","Nhiệt độ (°C)",[[3,"≤ 35,0 — 3đ"],[1,"35,1–36,0 — 1đ"],[0,"36,1–38,0 — 0đ"],[1,"38,1–39,0 — 1đ"],[2,"≥ 39,1 — 2đ"]])+'</div>'+
+ selHTML("nw_avpu","Tri giác (CVPU)",[[0,"Tỉnh (A) — 0đ"],[3,"Mới lú lẫn / đáp ứng tiếng gọi / đau / không đáp ứng — 3đ"]])+actions("calcNEWS2")+
+ '<table class="mini"><tr><th>NEWS2</th><th>Mức</th><th>Xử trí gợi ý</th></tr><tr><td>0–4</td><td>Thấp</td><td>Theo dõi thường quy, đánh giá lại mỗi 12 giờ</td></tr><tr><td>5–6 hoặc 1 thông số = 3đ</td><td>Trung bình</td><td>Bác sĩ đánh giá khẩn, theo dõi mỗi 4–6 giờ</td></tr><tr><td>≥ 7</td><td>Cao</td><td>Đánh giá liên tục, xem xét hồi sức / ICU</td></tr></table><p class="src">Nguồn: Royal College of Physicians, NEWS2 (2017).</p>';
+
+P.apache=head("🏥","APACHE II","12 thông số sinh lý trong 24 giờ đầu ICU + điểm tuổi + điểm bệnh mạn tính. Dùng giá trị xấu nhất trong 24 giờ.")+resHTML("res-apache")+
+ '<div class="frow">'+numHTML("ap_temp","Nhiệt độ trực tràng (°C)","vd 38,5")+numHTML("ap_map","MAP (mmHg)","vd 70")+'</div>'+
+ '<div class="frow">'+numHTML("ap_hr","Nhịp tim","vd 110")+numHTML("ap_rr","Nhịp thở (kể cả thở máy)","vd 24")+'</div>'+
+ '<div class="frow">'+numHTML("ap_pao2","PaO₂ nếu FiO₂<0,5 / A–aDO₂ nếu FiO₂≥0,5","vd 80")+numHTML("ap_ph","pH động mạch","vd 7,35")+'</div>'+
+ '<div class="frow">'+numHTML("ap_na","Na⁺ (mmol/L)","vd 140")+numHTML("ap_k","K⁺ (mmol/L)","vd 4,0")+'</div>'+
+ '<div class="frow">'+numHTML("ap_cr","Creatinin (mg/dL) — nhân đôi điểm nếu suy thận cấp","vd 1,2")+numHTML("ap_hct","Hematocrit (%)","vd 40")+'</div>'+
+ '<div class="frow">'+numHTML("ap_wbc","Bạch cầu (×10³/µL)","vd 12")+numHTML("ap_gcs","GCS (điểm thần kinh = 15 − GCS)","vd 13")+'</div>'+
+ '<div class="frow">'+numHTML("ap_age","Tuổi","vd 60")+selHTML("ap_chronic","Điểm sức khỏe mạn tính",[[0,"Không / mổ cấp cứu không suy tạng — 0đ"],[2,"Mổ chương trình + suy tạng mạn — 2đ"],[5,"Không mổ hoặc mổ cấp cứu + suy tạng mạn — 5đ"]])+'</div>'+
+ '<label style="display:flex;gap:10px;align-items:center;padding:8px 0"><input type="checkbox" id="ap_arf" style="width:22px;height:22px;accent-color:var(--primary)"/> Suy thận cấp (nhân đôi điểm creatinin)</label>'+actions("calcAPACHE")+
+ '<div class="notebox info"><h4>Lưu ý</h4>Ước tính tử vong chỉ mang tính tham khảo theo mô hình gốc 1985 — hiệu chuẩn kém ở quần thể hiện nay. Không dùng đơn độc để quyết định giới hạn điều trị.</div><p class="src">Nguồn: Knaus et al., Crit Care Med 1985.</p>';
+
+P.gcs=head("🧠","Glasgow Coma Scale (GCS)","Cộng điểm tốt nhất của 3 thành phần. GCS ≤ 8: thường cân nhắc bảo vệ đường thở.")+resHTML("res-gcs")+
+ selHTML("gcs_e","Mở mắt (E)",[[4,"Tự nhiên — 4"],[3,"Khi gọi — 3"],[2,"Khi kích thích đau — 2"],[1,"Không mở — 1"]])+
+ selHTML("gcs_v","Đáp ứng lời nói (V)",[[5,"Định hướng tốt — 5"],[4,"Lú lẫn — 4"],[3,"Từ không phù hợp — 3"],[2,"Âm thanh khó hiểu — 2"],[1,"Không đáp ứng — 1"]])+
+ selHTML("gcs_m","Đáp ứng vận động (M)",[[6,"Làm theo lệnh — 6"],[5,"Định vị kích thích đau — 5"],[4,"Co rút khi đau — 4"],[3,"Gập bất thường (mất vỏ) — 3"],[2,"Duỗi bất thường (mất não) — 2"],[1,"Không đáp ứng — 1"]])+actions("calcGCS")+
+ '<table class="mini"><tr><th>GCS</th><th>Mức độ</th></tr><tr><td>13–15</td><td>Chấn thương / rối loạn tri giác nhẹ</td></tr><tr><td>9–12</td><td>Trung bình</td></tr><tr><td>3–8</td><td>Nặng — hôn mê, cân nhắc đặt nội khí quản</td></tr></table><p class="src">Nguồn: Teasdale & Jennett, Lancet 1974; cập nhật cấu trúc 2014.</p>';
+
+P.rass=head("😴","RASS — Richmond Agitation–Sedation Scale","Chọn mức quan sát được. Mục tiêu thường gặp trong ICU: RASS −2 đến 0 (an thần nhẹ) trừ khi có chỉ định an thần sâu.")+resHTML("res-rass")+
+ selHTML("rass_v","Mức RASS quan sát",[[4,"+4 Hiếu chiến — nguy hiểm cho nhân viên"],[3,"+3 Rất kích động — kéo ống, hung hăng"],[2,"+2 Kích động — cử động không mục đích, chống máy"],[1,"+1 Bồn chồn — lo lắng nhưng không hung hăng"],[0,"0 Tỉnh và bình tĩnh"],[-1,"−1 Buồn ngủ — tỉnh >10 giây khi gọi"],[-2,"−2 An thần nhẹ — tỉnh <10 giây, có giao tiếp mắt"],[-3,"−3 An thần vừa — cử động/mở mắt khi gọi, không giao tiếp mắt"],[-4,"−4 An thần sâu — chỉ đáp ứng kích thích đau"],[-5,"−5 Không đánh thức được"]])+actions("calcRASS")+
+ '<div class="notebox info"><h4>Hướng xử trí nhanh</h4><ul><li><strong>+2 đến +4:</strong> tìm nguyên nhân (đau, mê sảng, thiếu oxy, cai), đánh giá CAM-ICU, xem xét giảm kích thích / thuốc theo phác đồ.</li><li><strong>−4 đến −5 kéo dài:</strong> xem xét ngắt an thần hằng ngày (SAT) nếu không chống chỉ định, phối hợp thử thở tự nhiên (SBT).</li></ul></div><p class="src">Nguồn: Sessler et al., Am J Respir Crit Care Med 2002; PADIS Guidelines 2018.</p>';
+
+P.pf=head("🫁","P/F Ratio & phân độ ARDS Berlin","Nhập PaO₂ từ khí máu và FiO₂ đang dùng. Phân độ Berlin yêu cầu PEEP/CPAP ≥ 5 cmH₂O và khởi phát ≤ 1 tuần, mờ hai bên không do tim.")+resHTML("res-pf")+
+ '<div class="frow">'+numHTML("pf_pao2","PaO₂","vd 80","mmHg")+numHTML("pf_fio2","FiO₂","vd 0,6 hoặc 60","0,21–1,0 hoặc %")+'</div>'+
+ '<div class="frow">'+numHTML("pf_peep","PEEP / CPAP","vd 5","cmH₂O")+selHTML("pf_bilat","Mờ phế nang hai bên, không giải thích do suy tim?",[[1,"Có"],[0,"Chưa rõ / Không"]])+'</div>'+actions("calcPF")+
+ '<table class="mini"><tr><th>P/F</th><th>Phân độ ARDS Berlin</th><th>Tử vong (nghiên cứu gốc)</th></tr><tr><td>200–300</td><td>Nhẹ</td><td>~27%</td></tr><tr><td>100–200</td><td>Trung bình</td><td>~32%</td></tr><tr><td>≤ 100</td><td>Nặng</td><td>~45%</td></tr></table><p class="src">Nguồn: ARDS Definition Task Force, JAMA 2012 (Berlin Definition).</p>';
+
+P.rox=head("💨","ROX Index — thở oxy dòng cao (HFNC)","ROX = (SpO₂/FiO₂) / nhịp thở. Đo ở 2, 6, 12 giờ sau bắt đầu HFNC để dự đoán thất bại.")+resHTML("res-rox")+
+ '<div class="frow">'+numHTML("rox_spo2","SpO₂","vd 94","%")+numHTML("rox_fio2","FiO₂","vd 0,6 hoặc 60","0,21–1,0 hoặc %")+'</div>'+
+ '<div class="frow">'+numHTML("rox_rr","Nhịp thở","vd 26","lần/phút")+numHTML("rox_hr","Giờ đo sau HFNC (tùy chọn)","vd 6","giờ")+'</div>'+actions("calcROX")+
+ '<div class="notebox warn"><h4>Ngưỡng tham khảo</h4><ul><li>ROX ≥ 4,88: khả năng thành công HFNC cao hơn.</li><li>ROX &lt; 2,85 (2 giờ), &lt; 3,47 (6 giờ), &lt; 3,85 (12 giờ): nguy cơ phải đặt nội khí quản cao — đừng trì hoãn đặt ống khi lâm sàng xấu đi.</li></ul></div><p class="src">Nguồn: Roca et al., Am J Respir Crit Care Med 2019.</p>';
+
+P.ibw=head("⚖️","IBW & thể tích khí lưu thông bảo vệ phổi","IBW theo công thức Devine từ chiều cao. Vt mục tiêu ARDS: bắt đầu 6 mL/kg IBW, giữ áp lực bình nguyên ≤ 30 cmH₂O.")+resHTML("res-ibw")+
+ '<div class="fgroup"><span class="flabel">Giới tính</span><div class="seg" id="ibw_sex"><button type="button" data-v="M" class="on">Nam</button><button type="button" data-v="F">Nữ</button></div></div>'+
+ numHTML("ibw_h","Chiều cao","vd 165","cm")+actions("calcIBW")+
+ '<table class="mini"><tr><th>Vt</th><th>Thể tích</th></tr><tr><td>4 mL/kg</td><td id="vt4">—</td></tr><tr><td>6 mL/kg (mục tiêu)</td><td id="vt6">—</td></tr><tr><td>8 mL/kg</td><td id="vt8">—</td></tr></table><p class="src">Nguồn: ARDSNet, N Engl J Med 2000; công thức Devine 1974.</p>';
+
+P.egfr=head("🩸","eGFR CKD-EPI 2021 & Cockcroft–Gault","CKD-EPI 2021 (không hệ số chủng tộc) là chuẩn KDIGO 2024 hiện nay. Cockcroft–Gault cho CrCl — con số thường dùng để chỉnh liều thuốc.")+resHTML("res-egfr")+
+ '<div class="fgroup"><span class="flabel">Giới tính</span><div class="seg" id="eg_sex"><button type="button" data-v="F" class="on">Nữ</button><button type="button" data-v="M">Nam</button></div></div>'+
+ '<div class="frow">'+numHTML("eg_age","Tuổi","vd 60","tuổi")+numHTML("eg_cr","Creatinin huyết thanh","vd 106","µmol/L hoặc mg/dL")+'</div>'+
+ '<div class="fgroup"><span class="flabel">Đơn vị creatinin</span><div class="seg" id="eg_unit"><button type="button" data-v="umol" class="on">µmol/L (Việt Nam)</button><button type="button" data-v="mg">mg/dL</button></div></div>'+
+ '<div class="frow">'+numHTML("eg_wt","Cân nặng (cho Cockcroft–Gault)","vd 60","kg")+numHTML("eg_ht","Chiều cao (tùy chọn — tính BSA)","vd 165","cm")+'</div>'+actions("calcEGFR")+
+ '<div class="notebox info"><h4>Giá trị CrCl này được dùng tiếp ở module Kháng sinh</h4>Sau khi tính, mở module 💊 Kháng sinh — CrCl sẽ tự điền vào ô chức năng thận.</div>'+
+ '<table class="mini"><tr><th>Giai đoạn KDIGO</th><th>eGFR</th><th>Mô tả</th></tr><tr><td>G1</td><td>≥ 90</td><td>Bình thường / cao</td></tr><tr><td>G2</td><td>60–89</td><td>Giảm nhẹ</td></tr><tr><td>G3a</td><td>45–59</td><td>Giảm nhẹ–trung bình</td></tr><tr><td>G3b</td><td>30–44</td><td>Giảm trung bình–nặng</td></tr><tr><td>G4</td><td>15–29</td><td>Giảm nặng</td></tr><tr><td>G5</td><td>&lt; 15</td><td>Suy thận giai đoạn cuối</td></tr></table>'+
+ '<p class="hint">Chẩn đoán bệnh thận mạn cần eGFR &lt; 60 kéo dài &gt; 3 tháng và/hoặc bằng chứng tổn thương thận (albumin niệu…). Không dùng khi creatinin đang thay đổi nhanh (AKI).</p><p class="src">Nguồn: Inker et al., N Engl J Med 2021 (CKD-EPI 2021); KDIGO 2024; Cockcroft & Gault 1976.</p>';
+
+P.anion=head("🧪","Anion Gap • Ca hiệu chỉnh • Áp lực thẩm thấu","Nhập điện giải đồ và albumin để tính đồng thời 4 chỉ số chuyển hóa thường dùng.")+resHTML("res-anion")+
+ '<div class="frow">'+numHTML("an_na","Na⁺","vd 140","mmol/L")+numHTML("an_cl","Cl⁻","vd 104","mmol/L")+'</div>'+
+ '<div class="frow">'+numHTML("an_hco3","HCO₃⁻","vd 18","mmol/L")+numHTML("an_alb","Albumin","vd 3,2","g/dL")+'</div>'+
+ '<div class="frow">'+numHTML("an_ca","Canxi toàn phần","vd 8,0","mg/dL")+numHTML("an_glu","Glucose","vd 180","mg/dL")+'</div>'+
+ '<div class="frow">'+numHTML("an_urea","Urea (BUN)","vd 28","mg/dL")+numHTML("an_k","K⁺ (tùy chọn — AG có K)","vd 4,2","mmol/L")+'</div>'+actions("calcAnion")+
+ '<div class="notebox info"><h4>Công thức</h4><ul><li>AG = Na − (Cl + HCO₃). Bình thường ~8–16 (không K). AG hiệu chỉnh tăng 2,5 cho mỗi 1 g/dL albumin giảm dưới 4.</li><li>Ca hiệu chỉnh = Ca đo + 0,8 × (4 − albumin g/dL).</li><li>Osm tính = 2Na + glucose/18 + BUN/2,8 (mOsm/kg).</li><li>Na hiệu chỉnh khi tăng glucose: cộng 1,6 mmol/L cho mỗi 100 mg/dL glucose trên 100.</li></ul></div><p class="src">Nguồn: MSD Manuals — Acid-Base & Electrolyte disorders.</p>';
+
+P.aki=head("🚨","Phân độ AKI theo KDIGO","So creatinin hiện tại với creatinin nền (baseline). Chỉ cần nhập các mục có sẵn — công cụ lấy giai đoạn cao nhất.")+resHTML("res-aki")+
+ '<div class="frow">'+numHTML("aki_base","Creatinin nền","vd 0,9","mg/dL")+numHTML("aki_now","Creatinin hiện tại","vd 1,6","mg/dL")+'</div>'+
+ '<div class="frow">'+numHTML("aki_rise","Mức tăng tuyệt đối trong 48 giờ (nếu biết)","vd 0,4","mg/dL")+numHTML("aki_uo","Nước tiểu thấp nhất","vd 0,4","mL/kg/giờ")+'</div>'+
+ selHTML("aki_rrt","Đang lọc máu / thay thế thận?",[[0,"Không"],[1,"Có — mặc định giai đoạn 3"]])+actions("calcAKI")+
+ '<table class="mini"><tr><th>Giai đoạn</th><th>Creatinin</th><th>Nước tiểu</th></tr><tr><td>1</td><td>1,5–1,9× nền hoặc tăng ≥0,3 trong 48h</td><td>&lt;0,5 mL/kg/h trong 6–12h</td></tr><tr><td>2</td><td>2,0–2,9× nền</td><td>&lt;0,5 trong ≥12h</td></tr><tr><td>3</td><td>≥3× nền, hoặc ≥4,0 mg/dL, hoặc lọc máu</td><td>&lt;0,3 trong ≥24h hoặc vô niệu ≥12h</td></tr></table><p class="src">Nguồn: KDIGO AKI Guideline 2012.</p>';
+
+P.mapshock=head("❤️","MAP • Shock Index • Lactate Clearance","Ba chỉ số tưới máu dùng liên tục trong sốc. Lactate clearance tính khi có 2 lần đo.")+resHTML("res-map")+
+ '<div class="frow">'+numHTML("ms_sbp","Huyết áp tâm thu","vd 95","mmHg")+numHTML("ms_dbp","Huyết áp tâm trương","vd 60","mmHg")+'</div>'+
+ '<div class="frow">'+numHTML("ms_hr","Nhịp tim","vd 115","lần/phút")+numHTML("ms_l0","Lactate lần 1","vd 4,0","mmol/L")+'</div>'+
+ '<div class="frow">'+numHTML("ms_l1","Lactate lần 2 (sau hồi sức)","vd 2,8","mmol/L")+numHTML("ms_hrs","Khoảng cách 2 lần đo","vd 2","giờ")+'</div>'+actions("calcMAP")+
+ '<div class="notebox info"><h4>Ngưỡng tham khảo</h4><ul><li>MAP mục tiêu khởi đầu trong sốc nhiễm trùng: <strong>≥ 65 mmHg</strong> (SSC 2021).</li><li>Shock Index = HR/SBP: bình thường 0,5–0,7; <strong>≥ 0,9</strong> bất thường, ≥ 1,3 rất nặng.</li><li>Lactate clearance ≥ 10–20% mỗi 2 giờ đầu gợi ý đáp ứng hồi sức tốt.</li></ul></div><p class="src">Nguồn: Surviving Sepsis Campaign 2021.</p>';
+
+P.curb65=head("🏠","CURB-65 — Viêm phổi cộng đồng","Mỗi tiêu chí 1 điểm, áp dụng cho viêm phổi mắc phải tại cộng đồng ở người lớn.")+resHTML("res-curb")+
+ '<div class="checks"><label><input type="checkbox" id="cb0" data-v="1"/> C — Lú lẫn mới (AMT ≤ 8 hoặc mất định hướng) <span class="pts">+1</span></label><label><input type="checkbox" id="cb1" data-v="1"/> U — Urea &gt; 7 mmol/L (BUN &gt; 19 mg/dL) <span class="pts">+1</span></label><label><input type="checkbox" id="cb2" data-v="1"/> R — Nhịp thở ≥ 30 lần/phút <span class="pts">+1</span></label><label><input type="checkbox" id="cb3" data-v="1"/> B — HA tâm thu &lt; 90 hoặc tâm trương ≤ 60 mmHg <span class="pts">+1</span></label><label><input type="checkbox" id="cb4" data-v="1"/> 65 — Tuổi ≥ 65 <span class="pts">+1</span></label></div>'+actions("calcCURB")+
+ '<table class="mini"><tr><th>Điểm</th><th>Tử vong 30 ngày</th><th>Nơi điều trị gợi ý</th></tr><tr><td>0–1</td><td>~1–3%</td><td>Điều trị tại nhà / ngoại trú</td></tr><tr><td>2</td><td>~7%</td><td>Nhập viện ngắn / theo dõi sát</td></tr><tr><td>3</td><td>~14%</td><td>Nhập viện, đánh giá ICU</td></tr><tr><td>4–5</td><td>~28–40%</td><td>Xem xét ICU</td></tr></table><p class="src">Nguồn: Lim et al., Thorax 2003; BTS CAP Guideline.</p>';
+
+P.childmeld=head("🟡","Child–Pugh & MELD","Child–Pugh phân độ dự trữ gan A/B/C. MELD dùng bilirubin, INR, creatinin — kết quả tự nối sang module kháng sinh.")+resHTML("res-child")+
+ '<div class="frow">'+selHTML("cp_bili","Bilirubin (mg/dL)",[[1,"< 2 — 1đ"],[2,"2–3 — 2đ"],[3,"> 3 — 3đ"]])+selHTML("cp_alb","Albumin (g/dL)",[[1,"> 3,5 — 1đ"],[2,"2,8–3,5 — 2đ"],[3,"< 2,8 — 3đ"]])+'</div>'+
+ '<div class="frow">'+selHTML("cp_inr","INR",[[1,"< 1,7 — 1đ"],[2,"1,7–2,3 — 2đ"],[3,"> 2,3 — 3đ"]])+selHTML("cp_asc","Cổ trướng",[[1,"Không — 1đ"],[2,"Nhẹ, đáp ứng lợi tiểu — 2đ"],[3,"Vừa–nặng / kháng trị — 3đ"]])+'</div>'+
+ selHTML("cp_enc","Bệnh não gan",[[1,"Không — 1đ"],[2,"Độ I–II — 2đ"],[3,"Độ III–IV — 3đ"]])+
+ '<div class="frow">'+numHTML("md_bili","Bilirubin cho MELD","vd 2,5","mg/dL")+numHTML("md_inr","INR cho MELD","vd 1,6")+'</div>'+
+ '<div class="frow">'+numHTML("md_cr","Creatinin cho MELD","vd 1,4","mg/dL")+numHTML("md_na","Na⁺ (cho MELD-Na, tùy chọn)","vd 132","mmol/L")+'</div>'+actions("calcChild")+
+ '<table class="mini"><tr><th>Child–Pugh</th><th>Điểm</th><th>Sống 1 năm (ước tính cổ điển)</th></tr><tr><td>A</td><td>5–6</td><td>~100%</td></tr><tr><td>B</td><td>7–9</td><td>~80%</td></tr><tr><td>C</td><td>10–15</td><td>~45%</td></tr></table><p class="src">Nguồn: Pugh et al., Br J Surg 1973; MELD — Kamath et al., Hepatology 2001; UNOS MELD-Na.</p>';
+
+P.chads=head("💓","CHA₂DS₂-VASc & HAS-BLED","Đánh giá song song nguy cơ đột quỵ và chảy máu ở bệnh nhân rung nhĩ.")+resHTML("res-chads")+
+ '<p style="font-weight:800;margin-bottom:8px">CHA₂DS₂-VASc</p><div class="checks">'+
+ '<label><input type="checkbox" id="cv0" data-v="1"/> Suy tim / rối loạn chức năng thất trái <span class="pts">+1</span></label><label><input type="checkbox" id="cv1" data-v="1"/> Tăng huyết áp <span class="pts">+1</span></label><label><input type="checkbox" id="cv2" data-v="2"/> Tuổi ≥ 75 <span class="pts">+2</span></label><label><input type="checkbox" id="cv3" data-v="1"/> Đái tháo đường <span class="pts">+1</span></label><label><input type="checkbox" id="cv4" data-v="2"/> Tiền sử đột quỵ / TIA / thuyên tắc <span class="pts">+2</span></label><label><input type="checkbox" id="cv5" data-v="1"/> Bệnh mạch máu (NMCT, mạch ngoại biên, mảng ĐMC) <span class="pts">+1</span></label><label><input type="checkbox" id="cv6" data-v="1"/> Tuổi 65–74 <span class="pts">+1</span></label><label><input type="checkbox" id="cv7" data-v="1"/> Nữ giới <span class="pts">+1</span></label></div>'+
+ '<p style="font-weight:800;margin:14px 0 8px">HAS-BLED</p><div class="checks">'+
+ '<label><input type="checkbox" id="hb0" data-v="1"/> THA không kiểm soát (HA tâm thu &gt;160) <span class="pts">+1</span></label><label><input type="checkbox" id="hb1" data-v="1"/> Suy thận (lọc máu / Cr &gt;2,26 mg/dL) <span class="pts">+1</span></label><label><input type="checkbox" id="hb2" data-v="1"/> Suy gan (xơ gan / bili &gt;2×, AST/ALT &gt;3×) <span class="pts">+1</span></label><label><input type="checkbox" id="hb3" data-v="1"/> Tiền sử đột quỵ <span class="pts">+1</span></label><label><input type="checkbox" id="hb4" data-v="1"/> Tiền sử chảy máu lớn / dễ chảy máu <span class="pts">+1</span></label><label><input type="checkbox" id="hb5" data-v="1"/> INR không ổn định (nếu dùng warfarin) <span class="pts">+1</span></label><label><input type="checkbox" id="hb6" data-v="1"/> Tuổi &gt; 65 <span class="pts">+1</span></label><label><input type="checkbox" id="hb7" data-v="1"/> Thuốc tăng chảy máu (NSAID, kháng tiểu cầu) <span class="pts">+1</span></label><label><input type="checkbox" id="hb8" data-v="1"/> Lạm dụng rượu (≥ 8 đơn vị/tuần) <span class="pts">+1</span></label></div>'+actions("calcCHADS")+
+ '<div class="notebox info"><h4>Diễn giải nhanh</h4>CHA₂DS₂-VASc ≥ 2 (nam) / ≥ 3 (nữ): khuyến cáo kháng đông. HAS-BLED ≥ 3: nguy cơ chảy máu cao — cần sửa các yếu tố có thể sửa được và theo dõi sát, <strong>không</strong> phải chống chỉ định kháng đông tuyệt đối.</div><p class="src">Nguồn: ESC AF Guidelines 2020/2024; Lip et al., Chest 2010.</p>';
+
+P.wells=head("🦵","Wells Score — Thuyên tắc phổi","Xác suất lâm sàng PE: mô hình 3 mức (thấp / trung bình / cao) hoặc 2 mức (có thể / ít có thể).")+resHTML("res-wells")+
+ '<div class="checks"><label><input type="checkbox" id="wp0" data-v="3"/> Dấu hiệu lâm sàng của huyết khối tĩnh mạch sâu <span class="pts">+3</span></label><label><input type="checkbox" id="wp1" data-v="3"/> PE là chẩn đoán nghĩ đến nhiều nhất <span class="pts">+3</span></label><label><input type="checkbox" id="wp2" data-v="1.5"/> Nhịp tim &gt; 100 lần/phút <span class="pts">+1,5</span></label><label><input type="checkbox" id="wp3" data-v="1.5"/> Bất động ≥ 3 ngày hoặc phẫu thuật trong 4 tuần <span class="pts">+1,5</span></label><label><input type="checkbox" id="wp4" data-v="1.5"/> Tiền sử DVT / PE <span class="pts">+1,5</span></label><label><input type="checkbox" id="wp5" data-v="1"/> Ho ra máu <span class="pts">+1</span></label><label><input type="checkbox" id="wp6" data-v="1"/> Ung thư đang điều trị / trong 6 tháng <span class="pts">+1</span></label></div>'+actions("calcWells")+
+ '<table class="mini"><tr><th>Điểm</th><th>Phân loại</th><th>Bước tiếp theo gợi ý</th></tr><tr><td>&lt; 2</td><td>Thấp</td><td>D-dimer — âm tính thì loại trừ</td></tr><tr><td>2–6</td><td>Trung bình</td><td>D-dimer hoặc CTPA tùy bối cảnh</td></tr><tr><td>&gt; 6</td><td>Cao</td><td>CTPA, cân nhắc kháng đông trong lúc chờ</td></tr></table><p class="src">Nguồn: Wells et al., Ann Intern Med 2001; ESC PE Guideline 2019.</p>';
+
+P.bmi=head("📏","BMI & BSA (Mosteller)","BMI phân loại theo WHO; với người châu Á, ngưỡng thừa cân / béo phì thấp hơn (23 / 27,5).")+resHTML("res-bmi")+
+ '<div class="frow">'+numHTML("bm_w","Cân nặng","vd 62","kg")+numHTML("bm_h","Chiều cao","vd 165","cm")+'</div>'+actions("calcBMI")+
+ '<table class="mini"><tr><th>BMI</th><th>Phân loại WHO</th></tr><tr><td>&lt; 18,5</td><td>Thiếu cân</td></tr><tr><td>18,5–24,9</td><td>Bình thường</td></tr><tr><td>25–29,9</td><td>Thừa cân</td></tr><tr><td>≥ 30</td><td>Béo phì</td></tr></table><p class="src">Nguồn: WHO; Mosteller RD, N Engl J Med 1987 (BSA).</p>';
+
+/* Inject panels */
+$("detailView").innerHTML=Object.keys(P).map(function(k){return '<article class="panel" id="panel-'+k+'">'+P[k]+'</article>'}).join("")+'<article class="panel" id="panel-abx"></article>';
+["sofa_resp","sofa_coag","sofa_liver","sofa_cardio","sofa_cns","sofa_renal"].forEach(function(id){$(id).addEventListener('change',function(){calcSOFA()})});
+["qf0","qf1","qf2"].forEach(function(id){$(id).addEventListener('change',function(){calcQSOFA()})});
+["nw_rr","nw_spo2","nw_o2","nw_sbp","nw_hr","nw_temp","nw_avpu"].forEach(function(id){$(id).addEventListener('change',function(){calcNEWS2()})});
+["gcs_e","gcs_v","gcs_m"].forEach(function(id){$(id).addEventListener('change',function(){calcGCS()})});
+$("rass_v").addEventListener('change',function(){calcRASS()});
+for(var i=0;i<5;i++)$("cb"+i).addEventListener('change',function(){calcCURB()});
+for(var i=0;i<7;i++)$("wp"+i).addEventListener('change',function(){calcWells()});
+for(var i=0;i<8;i++)$("cv"+i).addEventListener('change',function(){calcCHADS()});
+for(var i=0;i<9;i++)$("hb"+i).addEventListener('change',function(){calcCHADS()});
+bindSeg("ibw_sex",function(){calcIBW()}); bindSeg("eg_sex",function(){calcEGFR()}); bindSeg("eg_unit",function(){calcEGFR()});
+["pf_pao2","pf_fio2","pf_peep","pf_bilat"].forEach(function(id){$(id).addEventListener('input',function(){calcPF()});$(id).addEventListener('change',function(){calcPF()});});
+["rox_spo2","rox_fio2","rox_rr"].forEach(function(id){$(id).addEventListener('input',function(){calcROX()});});
+$("ibw_h").addEventListener('input',function(){calcIBW()});
+["eg_age","eg_cr","eg_wt","eg_ht"].forEach(function(id){$(id).addEventListener('input',function(){calcEGFR()});});
+["an_na","an_cl","an_hco3","an_alb","an_ca","an_glu","an_urea","an_k"].forEach(function(id){$(id).addEventListener('input',function(){calcAnion()});});
+["aki_base","aki_now","aki_rise","aki_uo","aki_rrt"].forEach(function(id){$(id).addEventListener('input',function(){calcAKI()});$(id).addEventListener('change',function(){calcAKI()});});
+["ms_sbp","ms_dbp","ms_hr","ms_l0","ms_l1","ms_hrs"].forEach(function(id){$(id).addEventListener('input',function(){calcMAP()});});
+["cp_bili","cp_alb","cp_inr","cp_asc","cp_enc","md_bili","md_inr","md_cr","md_na"].forEach(function(id){$(id).addEventListener('input',function(){calcChild()});$(id).addEventListener('change',function(){calcChild()});});
+["bm_w","bm_h"].forEach(function(id){$(id).addEventListener('input',function(){calcBMI()});});
+["ap_temp","ap_map","ap_hr","ap_rr","ap_pao2","ap_ph","ap_na","ap_k","ap_cr","ap_hct","ap_wbc","ap_gcs","ap_age","ap_chronic","ap_arf"].forEach(function(id){var e=$(id);if(e){e.addEventListener('input',function(){calcAPACHE()});e.addEventListener('change',function(){calcAPACHE()});}});
+window.addEventListener('load',function(){try{calcGCS();calcRASS();}catch(e){}});
+</script>
+<script>
+/* ============ Calculators ============ */
+var SHARED={crcl:null,egfr:null,child:null,meld:null};
+function fio2Val(v){if(v==null)return null;return v>1.5?v/100:v;}
+function calcSOFA(){var ids=["sofa_resp","sofa_coag","sofa_liver","sofa_cardio","sofa_cns","sofa_renal"];var s=ids.reduce(function(a,id){return a+parseInt($(id).value)},0);var lv=s<6?0:s<10?1:s<13?2:3;var txt=s<6?"Nguy cơ tử vong ICU thấp (ước tính <15%).":s<10?"Nguy cơ tử vong trung bình (~15–25%).":s<13?"Nguy cơ tử vong cao (~40–50%).":"Nguy cơ tử vong rất cao (>60%).";if(s>=2)txt+=" SOFA ≥ 2 — đạt tiêu chuẩn rối loạn chức năng tạng của Sepsis-3 nếu do nhiễm trùng.";setRes("res-sofa","SOFA = "+s+" / 24",txt,lv);}
+function calcQSOFA(){var s=checkCount("qf",3);setRes("res-qsofa","qSOFA = "+s+" / 3",s>=2?"⚠️ qSOFA ≥ 2: nguy cơ kết cục xấu cao — đánh giá SOFA đầy đủ, lactate, cấy máu và kháng sinh sớm.":"qSOFA < 2: nguy cơ thấp hơn, nhưng không loại trừ nhiễm trùng huyết — tiếp tục theo dõi lâm sàng.",s>=2?3:0);}
+function calcNEWS2(){var ids=["nw_rr","nw_spo2","nw_o2","nw_sbp","nw_hr","nw_temp","nw_avpu"];var s=ids.reduce(function(a,id){return a+parseInt($(id).value)},0);var any3=ids.some(function(id){return parseInt($(id).value)===3});var lv=s>=7?3:(s>=5||any3)?2:(s>=3?1:0);var txt=s>=7?"Mức CAO: đánh giá khẩn cấp / liên tục, xem xét đội hồi sức và ICU.":(s>=5||any3)?"Mức TRUNG BÌNH: bác sĩ đánh giá khẩn, tăng tần suất theo dõi.":"Mức THẤP: tiếp tục theo dõi thường quy theo phác đồ NEWS2.";setRes("res-news2","NEWS2 = "+s,txt,lv);}
+function calcGCS(){var e=parseInt($("gcs_e").value),v=parseInt($("gcs_v").value),m=parseInt($("gcs_m").value);var s=e+v+m;var lv=s>=13?0:s>=9?1:3;setRes("res-gcs","GCS = "+s+" (E"+e+" V"+v+" M"+m+")",s>=13?"Mức nhẹ (13–15).":s>=9?"Mức trung bình (9–12) — theo dõi tri giác sát, tìm nguyên nhân.":"Mức nặng (3–8) — hôn mê; bảo vệ đường thở, cân nhắc đặt nội khí quản và hồi sức thần kinh.",lv);}
+function calcRASS(){var v=parseInt($("rass_v").value);var txt=v>0?"Kích động: tìm và xử trí nguyên nhân (đau, mê sảng, thiếu oxy, hội chứng cai), đánh giá CAM-ICU.":v===0?"Tỉnh, bình tĩnh — trạng thái lý tưởng.":v>=-2?"An thần nhẹ — trong vùng mục tiêu thường dùng (−2 đến 0).":v===-3?"An thần vừa — xem xét giảm liều an thần nếu không có chỉ định sâu.":"An thần sâu — xem xét ngắt an thần hằng ngày nếu an toàn.";setRes("res-rass","RASS = "+(v>0?"+"+v:v),txt,v>=2?2:(v<=-4?2:0));}
+function calcPF(){var pa=num("pf_pao2"),fi=fio2Val(num("pf_fio2"));if(pa==null||fi==null||fi<=0){setRes("res-pf","—","Nhập PaO₂ và FiO₂ để tính P/F.",null);return;}var r=pa/fi;var peep=num("pf_peep"),bil=$("pf_bilat").value==="1";var lv=r>300?0:r>200?1:r>100?2:3;var txt="P/F = "+fmt(r,0)+". ";if(r>300)txt+="Trên ngưỡng ARDS (>300).";else if(peep!=null&&peep>=5&&bil)txt+="Đủ điều kiện PEEP và hình ảnh cho phân độ Berlin: ARDS "+(r>200?"NHẸ":r>100?"TRUNG BÌNH":"NẶNG")+". Áp dụng thở máy bảo vệ phổi, PEEP phù hợp; ARDS nặng cân nhắc nằm sấp.";else txt+="Có giảm oxy máu theo khoảng ARDS "+(r>200?"nhẹ":r>100?"trung bình":"nặng")+" — cần PEEP ≥ 5 và mờ hai bên không do tim để chẩn đoán Berlin.";setRes("res-pf","P/F = "+fmt(r,0),txt,lv);}
+function calcROX(){var sp=num("rox_spo2"),fi=fio2Val(num("rox_fio2")),rr=num("rox_rr");if(sp==null||fi==null||rr==null||rr<=0){setRes("res-rox","—","Nhập SpO₂, FiO₂ và nhịp thở.",null);return;}var r=(sp/fi)/rr;var lv=r>=4.88?0:r>=3.85?1:3;setRes("res-rox","ROX = "+fmt(r,2),r>=4.88?"≥ 4,88: tiên lượng thành công HFNC tốt hơn — tiếp tục theo dõi.":r>=3.85?"Vùng xám: theo dõi rất sát, đánh giá lại sau 1–2 giờ, chuẩn bị đặt nội khí quản.":"Thấp: nguy cơ thất bại HFNC cao — cân nhắc đặt nội khí quản sớm, tránh trì hoãn.",lv);}
+function calcIBW(){var h=num("ibw_h");if(h==null||h<100){setRes("res-ibw","—","Nhập chiều cao (cm).",null);$("vt4").textContent=$("vt6").textContent=$("vt8").textContent="—";return;}var sex=segVal("ibw_sex")||"M";var inch=h/2.54;var ibw=(sex==="M"?50:45.5)+2.3*(inch-60);if(ibw<20)ibw=20;setRes("res-ibw","IBW ≈ "+fmt(ibw,1)+" kg","Vt mục tiêu 6 mL/kg IBW = "+fmt(ibw*6,0)+" mL. Giữ áp lực bình nguyên ≤ 30 cmH₂O, driving pressure ≤ 15 nếu đo được.",0);$("vt4").textContent=fmt(ibw*4,0)+" mL";$("vt6").textContent=fmt(ibw*6,0)+" mL";$("vt8").textContent=fmt(ibw*8,0)+" mL";}
+function calcEGFR(){var age=num("eg_age"),cr=num("eg_cr");if(age==null||cr==null){setRes("res-egfr","—","Nhập tuổi và creatinin.",null);return;}var sex=segVal("eg_sex")||"F";var mg=(segVal("eg_unit")==="mg")?cr:cr/88.4;var k=sex==="F"?0.7:0.9,a=sex==="F"?-0.241:-0.302;var eg=142*Math.pow(Math.min(mg/k,1),a)*Math.pow(Math.max(mg/k,1),-1.200)*Math.pow(0.9938,age)*(sex==="F"?1.012:1);var wt=num("eg_wt");var crcl=null;if(wt!=null)crcl=((140-age)*wt)/(72*mg)*(sex==="F"?0.85:1);SHARED.egfr=eg;SHARED.crcl=crcl;var stage=eg>=90?"G1":eg>=60?"G2":eg>=45?"G3a":eg>=30?"G3b":eg>=15?"G4":"G5";var lv=eg>=60?0:eg>=45?1:eg>=30?2:3;var txt="Giai đoạn KDIGO: "+stage+" (theo eGFR). ";if(crcl!=null)txt+="CrCl Cockcroft–Gault = "+fmt(crcl,0)+" mL/phút — dùng con số này để chỉnh liều thuốc (xem module Kháng sinh).";else txt+="Nhập thêm cân nặng để có CrCl Cockcroft–Gault cho chỉnh liều thuốc.";var ht=num("eg_ht");if(ht!=null&&wt!=null){var bsa=Math.sqrt(ht*wt/3600);txt+=" BSA ≈ "+fmt(bsa,2)+" m²; eGFR tuyệt đối ≈ "+fmt(eg*bsa/1.73,0)+" mL/phút.";}setRes("res-egfr","eGFR = "+fmt(eg,0)+" mL/phút/1,73 m²",txt,lv);syncAbxFromShared();}
+function calcAnion(){var na=num("an_na"),cl=num("an_cl"),h=num("an_hco3");if(na==null||cl==null||h==null){setRes("res-anion","—","Cần ít nhất Na⁺, Cl⁻ và HCO₃⁻.",null);return;}var ag=na-(cl+h);var parts=["Anion Gap = "+fmt(ag,1)+" mmol/L ("+(ag>16?"CAO — toan chuyển hóa AG cao: nghĩ lactate, ceton, suy thận, độc chất":ag<8?"thấp":"bình thường")+")."];var alb=num("an_alb");if(alb!=null)parts.push("AG hiệu chỉnh theo albumin = "+fmt(ag+2.5*(4-alb),1)+".");var ca=num("an_ca");if(ca!=null&&alb!=null)parts.push("Ca hiệu chỉnh = "+fmt(ca+0.8*(4-alb),1)+" mg/dL.");var glu=num("an_glu"),bun=num("an_urea");if(glu!=null&&bun!=null){var osm=2*na+glu/18+bun/2.8;parts.push("Áp lực thẩm thấu tính ≈ "+fmt(osm,0)+" mOsm/kg.");parts.push("Na hiệu chỉnh theo glucose = "+fmt(na+1.6*((glu-100)/100),1)+" mmol/L.");}setRes("res-anion","AG = "+fmt(ag,1),parts.join(" "),ag>16?2:0);}
+function calcAKI(){var b=num("aki_base"),n=num("aki_now"),rrt=$("aki_rrt").value==="1";var st=0,why=[];if(b!=null&&n!=null&&b>0){var r=n/b;if(r>=3||n>=4){st=3;why.push("creatinin ≥3× nền hoặc ≥4,0 mg/dL");}else if(r>=2){st=2;why.push("creatinin 2,0–2,9× nền");}else if(r>=1.5){st=1;why.push("creatinin 1,5–1,9× nền");}}var rise=num("aki_rise");if(rise!=null&&rise>=0.3&&st<1){st=1;why.push("tăng ≥0,3 mg/dL trong 48 giờ");}var uo=num("aki_uo");if(uo!=null){if(uo<0.3&&st<3){st=3;why.push("nước tiểu <0,3 (cần kèm thời gian ≥24h)");}else if(uo<0.5&&st<1){st=1;why.push("nước tiểu <0,5 mL/kg/h");}}if(rrt){st=3;why.push("đang điều trị thay thế thận");}if(st===0){setRes("res-aki","Chưa đủ tiêu chuẩn AKI",why.length?why.join("; "):"Chưa có tiêu chí nào đạt — hoặc chưa nhập đủ số liệu.",0);return;}setRes("res-aki","AKI giai đoạn "+st,"Căn cứ: "+why.join("; ")+". Xử trí: rà soát thuốc độc thận, tối ưu tưới máu, theo dõi creatinin và nước tiểu mỗi ngày.",st===1?1:st===2?2:3);}
+function calcMAP(){var s=num("ms_sbp"),d=num("ms_dbp"),hr=num("ms_hr");if(s==null||d==null){setRes("res-map","—","Nhập huyết áp tâm thu và tâm trương.",null);return;}var map=(s+2*d)/3;var parts=["MAP = "+fmt(map,0)+" mmHg ("+(map>=65?"đạt mục tiêu ≥65":"DƯỚI mục tiêu 65 — đánh giá tưới máu và hồi sức")+")."];var lv=map>=65?0:2;if(hr!=null){var si=hr/s;parts.push("Shock Index = "+fmt(si,2)+" ("+(si>=0.9?"bất thường ≥0,9":"bình thường")+").");if(si>=1.3)lv=3;else if(si>=0.9)lv=Math.max(lv,2);}var l0=num("ms_l0"),l1=num("ms_l1");if(l0!=null&&l1!=null&&l0>0){var cl=(l0-l1)/l0*100;parts.push("Lactate clearance = "+fmt(cl,0)+"% ("+(cl>=20?"đáp ứng tốt":cl>=10?"đáp ứng một phần":"thanh thải kém — đánh giá lại nguồn sốc và hồi sức")+").");}setRes("res-map","MAP = "+fmt(map,0)+" mmHg",parts.join(" "),lv);}
+function calcCURB(){var s=checkCount("cb",5);var data=[["0–1","~1–3%","Điều trị ngoại trú / tại nhà nếu điều kiện cho phép."],["0–1","~1–3%","Điều trị ngoại trú / tại nhà nếu điều kiện cho phép."],["2","~7%","Nhập viện ngắn ngày hoặc theo dõi sát."],["3","~14%","Nhập viện — đánh giá nhu cầu ICU."],["4–5","~28–40%","Xem xét ICU / hồi sức tích cực."],["4–5","~28–40%","Xem xét ICU / hồi sức tích cực."]];setRes("res-curb","CURB-65 = "+s+" / 5","Tử vong 30 ngày ước tính "+data[s][1]+". Gợi ý: "+data[s][2],s<=1?0:s===2?1:s===3?2:3);}
+function calcChild(){var cp=["cp_bili","cp_alb","cp_inr","cp_asc","cp_enc"].reduce(function(a,id){return a+parseInt($(id).value)},0);var cls=cp<=6?"A":cp<=9?"B":"C";SHARED.child=cls;var txt="Child–Pugh "+cls+" ("+cp+" điểm). ";var b=num("md_bili"),i=num("md_inr"),c=num("md_cr");var meld=null;if(b!=null&&i!=null&&c!=null){b=Math.max(b,1);i=Math.max(i,1);c=Math.min(Math.max(c,1),4);meld=Math.round(3.78*Math.log(b)+11.2*Math.log(i)+9.57*Math.log(c)+6.43);meld=Math.max(6,Math.min(40,meld));SHARED.meld=meld;txt+="MELD = "+meld+". ";var na=num("md_na");if(na!=null){var mn=meld+(137-na)*0.033*(1-0.033*(137-na))*10;txt+="MELD-Na ≈ "+fmt(Math.max(6,Math.min(40,mn)),0)+". ";}}txt+="Mở module Kháng sinh để xem liều theo Child–Pugh "+cls+".";setRes("res-child","Child–Pugh "+cls+" • "+cp+" điểm",txt,cls==="A"?0:cls==="B"?1:3);syncAbxFromShared();}
+function calcCHADS(){var cv=0;for(var i=0;i<8;i++){var e=$("cv"+i);if(e&&e.checked)cv+=parseFloat(e.dataset.v);}var hb=checkCount("hb",9);setRes("res-chads","CHA₂DS₂-VASc = "+cv+" • HAS-BLED = "+hb,(cv>=2?"Nguy cơ đột quỵ đủ cao để khuyến cáo kháng đông (đối chiếu giới: nam ≥2, nữ ≥3). ":"Nguy cơ đột quỵ thấp–trung bình: cân nhắc kháng đông theo hướng dẫn và nguyện vọng bệnh nhân. ")+(hb>=3?"HAS-BLED ≥ 3: nguy cơ chảy máu cao — sửa yếu tố có thể sửa (HA, rượu, NSAID, INR) và theo dõi sát.":"HAS-BLED < 3: nguy cơ chảy máu thấp–trung bình."),hb>=3?2:0);}
+function calcWells(){var s=0;for(var i=0;i<7;i++){var e=$("wp"+i);if(e&&e.checked)s+=parseFloat(e.dataset.v);}setRes("res-wells","Wells PE = "+fmt(s,1)+" điểm",s<2?"Xác suất THẤP (mô hình 3 mức) / Ít có thể PE (≤4, mô hình 2 mức): D-dimer âm tính giúp loại trừ.":s<=6?"Xác suất TRUNG BÌNH: D-dimer độ nhạy cao hoặc CTPA tùy bối cảnh.":"Xác suất CAO / Có thể PE (>4): CTPA ngay, cân nhắc kháng đông trong lúc chờ nếu không chống chỉ định.",s<2?0:s<=6?1:3);}
+function calcBMI(){var w=num("bm_w"),h=num("bm_h");if(w==null||h==null||h<=0){setRes("res-bmi","—","Nhập cân nặng và chiều cao.",null);return;}var m=h/100,bmi=w/(m*m),bsa=Math.sqrt(h*w/3600);var cls=bmi<18.5?"Thiếu cân":bmi<25?"Bình thường":bmi<30?"Thừa cân":"Béo phì";setRes("res-bmi","BMI = "+fmt(bmi,1)+" kg/m²",cls+" (WHO). BSA Mosteller = "+fmt(bsa,2)+" m². Lưu ý ngưỡng châu Á: thừa cân từ 23, béo phì từ 27,5.",bmi<18.5||bmi>=30?1:0);}
+function apPts(v,ranges){for(var i=0;i<ranges.length;i++){if(v>=ranges[i][0]&&v<=ranges[i][1])return ranges[i][2];}return 0;}
+function calcAPACHE(){
+ var t=num("ap_temp"),map=num("ap_map"),hr=num("ap_hr"),rr=num("ap_rr"),ox=num("ap_pao2"),ph=num("ap_ph"),na=num("ap_na"),k=num("ap_k"),cr=num("ap_cr"),hct=num("ap_hct"),wbc=num("ap_wbc"),gcs=num("ap_gcs"),age=num("ap_age");
+ if([t,map,hr,rr,ox,ph,na,k,cr,hct,wbc,gcs,age].some(function(x){return x==null})){setRes("res-apache","—","Cần nhập đủ 12 thông số sinh lý + tuổi để tính APACHE II.",null);return;}
+ var s=0;
+ s+=apPts(t,[[41,999,4],[39,40.9,3],[38.5,38.9,1],[36,38.4,0],[34,35.9,1],[32,33.9,2],[30,31.9,3],[-999,29.9,4]]);
+ s+=apPts(map,[[160,999,4],[130,159,3],[110,129,2],[70,109,0],[50,69,2],[-999,49,4]]);
+ s+=apPts(hr,[[180,999,4],[140,179,3],[110,139,2],[70,109,0],[55,69,2],[40,54,3],[-999,39,4]]);
+ s+=apPts(rr,[[50,999,4],[35,49,3],[25,34,1],[12,24,0],[10,11,1],[6,9,2],[-999,5,4]]);
+ s+=apPts(ox,[[500,999,4],[350,499,3],[200,349,2],[70,199,0],[61,69,1],[55,60,3],[-999,54,4]]);
+ s+=apPts(ph,[[7.7,999,4],[7.6,7.69,3],[7.5,7.59,1],[7.33,7.49,0],[7.25,7.32,2],[7.15,7.24,3],[-999,7.14,4]]);
+ s+=apPts(na,[[180,999,4],[160,179,3],[155,159,2],[150,154,1],[130,149,0],[120,129,2],[111,119,3],[-999,110,4]]);
+ s+=apPts(k,[[7,999,4],[6,6.9,3],[5.5,5.9,1],[3.5,5.4,0],[3,3.4,1],[2.5,2.9,2],[-999,2.4,4]]);
+ var crp=apPts(cr,[[3.5,999,4],[2,3.4,3],[1.5,1.9,2],[0.6,1.4,0],[-999,0.59,2]]);if($("ap_arf").checked)crp*=2;s+=crp;
+ s+=apPts(hct,[[60,999,4],[50,59.9,2],[46,49.9,1],[30,45.9,0],[20,29.9,2],[-999,19.9,4]]);
+ s+=apPts(wbc,[[40,999,4],[20,39.9,2],[15,19.9,1],[3,14.9,0],[1,2.9,2],[-999,0.9,4]]);
+ s+=(15-gcs);
+ s+=(age<=44?0:age<=54?2:age<=64?3:age<=74?5:6);
+ s+=parseInt($("ap_chronic").value);
+ var mort=1/(1+Math.exp(-(-3.517+0.146*s))); /* xấp xỉ logistic gốc, không gồm hệ số chẩn đoán */
+ setRes("res-apache","APACHE II = "+s+" điểm","Ước tính tử vong bệnh viện theo phương trình gốc (chưa hiệu chỉnh theo nhóm chẩn đoán) ≈ "+fmt(mort*100,0)+"%. Chỉ tham khảo — hiệu chuẩn hạn chế ở quần thể hiện nay.",s<10?0:s<20?1:s<30?2:3);
+}
+</script>
+<script>
+/* ============ Antibiotic module ============ */
+var SYNDROMES=[["all","Tất cả hội chứng"],["cap","Viêm phổi cộng đồng (CAP)"],["hap","Viêm phổi bệnh viện / VAP"],["uti","Nhiễm trùng tiết niệu"],["abd","Nhiễm trùng ổ bụng"],["skin","Da – mô mềm"],["men","Viêm màng não"],["sepsis","Nhiễm trùng huyết không rõ ổ"]];
+/* dose bands: b90 >=90, b60 60-89, b30 30-59, b15 15-29, blt <15, hd loc mau/CRRT */
+var ABX=[
+{n:"Penicillin G (Benzylpenicillin)",g:"Penicillin",syn:["men","sepsis","skin"],load:"Không cần liều nạp riêng; nhiễm trùng nặng dùng liều cao ngay từ đầu",d:{b90:"2–4 triệu đv IV mỗi 4h (12–24 triệu đv/ngày)",b60:"2–3 triệu đv mỗi 4–6h",b30:"2 triệu đv mỗi 6h",b15:"1–2 triệu đv mỗi 6–8h",blt:"1 triệu đv mỗi 8–12h",hd:"1–2 triệu đv mỗi 8h; liều sau lọc máu"},liver:"Không chỉnh theo gan. Child C: không đổi.",tdm:false,note:"Chủ yếu thải qua thận. Liều rất cao + suy thận → nguy cơ co giật, tăng K⁺ (muối kali)."},
+{n:"Amoxicillin–Clavulanate",g:"Penicillin + ức chế beta-lactamase",syn:["cap","abd","skin","uti"],load:"1,2 g IV liều đầu",d:{b90:"1,2 g IV mỗi 8h (nặng: mỗi 6h)",b60:"1,2 g IV mỗi 8h",b30:"1,2 g IV mỗi 12h",b15:"1,2 g, sau đó 600 mg mỗi 12h",blt:"1,2 g, sau đó 600 mg mỗi 24h",hd:"600 mg–1,2 g mỗi 12–24h; bổ sung sau lọc máu"},liver:"Thận trọng Child B/C: nguy cơ viêm gan ứ mật do clavulanate; tránh đợt kéo dài, theo dõi men gan.",tdm:false,note:"Đường uống: 875/125 mg mỗi 12h khi CrCl ≥30; CrCl <30 giảm còn mỗi 12–24h theo hàm lượng amoxicillin."},
+{n:"Ceftriaxone",g:"Cephalosporin thế hệ 3",syn:["cap","men","uti","abd","sepsis"],load:"2 g IV liều đầu trong viêm màng não / nhiễm trùng nặng",d:{b90:"1–2 g IV mỗi 24h (màng não: 2 g mỗi 12h)",b60:"Như CrCl bình thường — không chỉnh theo thận",b30:"Như bình thường",b15:"Như bình thường",blt:"Tối đa 2 g/ngày khi suy thận + suy gan phối hợp",hd:"Không cần bổ sung sau lọc máu"},liver:"Không chỉnh Child A/B. Child C + suy thận: tối đa 2 g/ngày, theo dõi bilirubin.",tdm:false,note:"Thải trừ kép gan–thận nên hiếm khi cần giảm liều thận. Tránh phối hợp truyền cùng dung dịch chứa canxi ở trẻ sơ sinh."},
+{n:"Cefepime",g:"Cephalosporin thế hệ 4",syn:["hap","sepsis","uti"],load:"2 g IV liều đầu",d:{b90:"2 g IV mỗi 8–12h (truyền kéo dài 3h)",b60:"2 g mỗi 12h",b30:"2 g mỗi 24h (hoặc 1 g mỗi 12h)",b15:"1 g mỗi 24h",blt:"0,5–1 g mỗi 24h",hd:"1 g liều đầu, sau đó 0,5–1 g/ngày; liều sau lọc máu. CRRT: 2 g mỗi 12h"},liver:"Không chỉnh theo gan.",tdm:false,note:"⚠️ Độc tính thần kinh (lú lẫn, giật cơ, co giật) khi tích lũy ở suy thận — giảm liều đúng và theo dõi tri giác."},
+{n:"Piperacillin–Tazobactam",g:"Penicillin phổ rộng + ức chế beta-lactamase",syn:["hap","abd","sepsis","skin","uti"],load:"4,5 g IV truyền 30 phút — LUÔN dùng đủ liều nạp kể cả suy thận",d:{b90:"4,5 g mỗi 6h (truyền kéo dài 3–4h)",b60:"4,5 g mỗi 6h",b30:"3,375 g mỗi 6h (CrCl 20–40)",b15:"2,25 g mỗi 6h (CrCl <20)",blt:"2,25 g mỗi 8h",hd:"2,25 g mỗi 12h + 0,75 g sau mỗi lần lọc máu. CRRT: 4,5 g mỗi 6–8h truyền kéo dài"},liver:"Không chỉnh theo gan đơn thuần.",tdm:false,note:"Truyền kéo dài tối ưu %T>MIC. Theo dõi Na⁺, K⁺ và chức năng thận khi phối hợp vancomycin (nguy cơ AKI tăng)."},
+{n:"Meropenem",g:"Carbapenem",syn:["hap","abd","men","sepsis","uti"],load:"1–2 g IV liều đầu (màng não / nặng: 2 g)",d:{b90:"1 g mỗi 8h (nặng/màng não: 2 g mỗi 8h), truyền 3h",b60:"1 g mỗi 8h (nặng: 2 g mỗi 12h)",b30:"1 g mỗi 12h (CrCl 26–50)",b15:"0,5 g mỗi 12h (CrCl 10–25)",blt:"0,5 g mỗi 24h",hd:"0,5 g mỗi 24h, liều sau lọc máu. CRRT: 1 g mỗi 8–12h truyền kéo dài"},liver:"Không chỉnh theo gan.",tdm:false,note:"Truyền kéo dài 3 giờ để tối ưu diệt khuẩn. Nguy cơ co giật thấp hơn imipenem nhưng vẫn thận trọng khi suy thận."},
+{n:"Imipenem–Cilastatin",g:"Carbapenem",syn:["hap","abd","sepsis"],load:"1 g IV liều đầu",d:{b90:"500 mg mỗi 6h (nặng: 1 g mỗi 6–8h)",b60:"500 mg mỗi 6–8h",b30:"500 mg mỗi 12h (CrCl 31–70)",b15:"250–500 mg mỗi 12h (CrCl 21–30)",blt:"250 mg mỗi 12h (CrCl ≤20)",hd:"250–500 mg mỗi 12h; liều sau lọc máu"},liver:"Không chỉnh theo gan.",tdm:false,note:"⚠️ Nguy cơ co giật cao nhất trong nhóm carbapenem, đặc biệt suy thận / tổn thương thần kinh trung ương — cân nhắc meropenem thay thế."},
+{n:"Vancomycin",g:"Glycopeptide",syn:["hap","men","skin","sepsis"],load:"25–35 mg/kg IV (tối đa ~3 g) trong nhiễm trùng nặng — KHÔNG giảm liều nạp theo thận",d:{b90:"15–20 mg/kg mỗi 8–12h",b60:"15–20 mg/kg mỗi 12h",b30:"15 mg/kg mỗi 24h, chỉnh theo AUC",b15:"15 mg/kg, lặp lại theo nồng độ/AUC",blt:"15 mg/kg liều đầu, lặp lại theo nồng độ (thường mỗi 48–72h)",hd:"15–25 mg/kg sau lọc máu, chỉnh theo nồng độ. CRRT: 15–20 mg/kg mỗi 24h + AUC"},liver:"Không chỉnh theo gan.",tdm:true,note:"BẮT BUỘC TDM: đích AUC₂₄/MIC 400–600 (ưu tiên hơn trough). Theo dõi creatinin mỗi 24–48h; nguy cơ độc thận tăng khi phối hợp pip–tazo, aminoglycoside, thuốc cản quang."},
+{n:"Linezolid",g:"Oxazolidinone",syn:["hap","skin","sepsis"],load:"Không cần liều nạp",d:{b90:"600 mg IV/PO mỗi 12h",b60:"600 mg mỗi 12h — không chỉnh theo thận",b30:"600 mg mỗi 12h",b15:"600 mg mỗi 12h",blt:"600 mg mỗi 12h; chất chuyển hóa tích lũy — theo dõi",hd:"600 mg mỗi 12h; 1 liều sau lọc máu nếu trùng lịch"},liver:"Child A/B: không đổi. Child C: không có dữ liệu chắc chắn — thận trọng, theo dõi sát.",tdm:false,note:"⚠️ Giảm tiểu cầu (đặc biệt >14 ngày / suy thận), hội chứng serotonin khi phối hợp SSRI, toan lactic. Sinh khả dụng uống ~100%."},
+{n:"Colistin (CMS)",g:"Polymyxin",syn:["hap","sepsis","uti"],load:"9 triệu đv (≈300 mg CBA) IV liều nạp — bắt buộc trong nhiễm trùng nặng",d:{b90:"4,5 triệu đv mỗi 12h (≈300 mg CBA/ngày)",b60:"~3,5–4,5 triệu đv mỗi 12h theo CrCl",b30:"~2,5–3 triệu đv/ngày chia 1–2 lần",b15:"~1,5–2 triệu đv/ngày",blt:"~1,5 triệu đv/ngày",hd:"Liều thấp nền + bổ sung sau lọc máu. CRRT: liều như CrCl cao (thải trừ qua lọc tốt) — cần TDM nếu có"},liver:"Không chỉnh theo gan.",tdm:true,note:"⚠️ Độc thận và độc thần kinh cao. Đích nồng độ đáy Css ~2 mg/L (colistin base). Chỉ dùng khi không còn lựa chọn — luôn hội chẩn vi sinh / dược lâm sàng."},
+{n:"Amikacin",g:"Aminoglycoside",syn:["sepsis","uti","hap"],load:"25–30 mg/kg IV liều duy nhất (nhiễm trùng nặng, theo cân nặng hiệu chỉnh)",d:{b90:"15–20 mg/kg mỗi 24h",b60:"15 mg/kg mỗi 24–36h theo nồng độ",b30:"Liều theo mg/kg, kéo dài khoảng cách 48h — theo nồng độ",b15:"Tránh nếu được; nếu bắt buộc: liều duy nhất + TDM",blt:"Tránh; hội chẩn dược lâm sàng",hd:"5–7,5 mg/kg sau mỗi lần lọc máu, theo nồng độ"},liver:"Không chỉnh theo gan.",tdm:true,note:"BẮT BUỘC TDM: đỉnh và đáy (hoặc AUC). Độc thận + độc tai; tránh phối hợp vancomycin / thuốc lợi tiểu quai kéo dài."},
+{n:"Gentamicin",g:"Aminoglycoside",syn:["sepsis","uti"],load:"5–7 mg/kg IV liều duy nhất",d:{b90:"5–7 mg/kg mỗi 24h",b60:"5 mg/kg mỗi 24–36h theo nồng độ",b30:"Liều duy nhất, khoảng cách ≥48h — theo nồng độ",b15:"Tránh nếu được; TDM bắt buộc",blt:"Tránh; hội chẩn dược lâm sàng",hd:"1–1,5 mg/kg sau lọc máu, theo nồng độ"},liver:"Không chỉnh theo gan.",tdm:true,note:"BẮT BUỘC TDM. Đích khi dùng liều ngày 1 lần: đáy <1 mg/L. Thận trọng ở người cao tuổi, suy thận nền."},
+{n:"Ciprofloxacin",g:"Fluoroquinolone",syn:["uti","abd","hap"],load:"400 mg IV liều đầu",d:{b90:"400 mg IV mỗi 8–12h (PO 500–750 mg mỗi 12h)",b60:"400 mg mỗi 12h",b30:"400 mg mỗi 18–24h (CrCl <30)",b15:"400 mg mỗi 24h",blt:"400 mg mỗi 24h",hd:"400 mg mỗi 24h; liều sau lọc máu"},liver:"Child C: thận trọng — giảm liều, theo dõi QT và thần kinh.",tdm:false,note:"⚠️ Cảnh báo FDA: viêm/gân đứt, bệnh thần kinh ngoại biên, kéo dài QT, rối loạn đường huyết. Hấp thu uống giảm bởi cation (sắt, canxi, antacid)."},
+{n:"Levofloxacin",g:"Fluoroquinolone",syn:["cap","uti","hap"],load:"750 mg IV/PO liều đầu",d:{b90:"750 mg mỗi 24h",b60:"750 mg mỗi 24h (CrCl 50–89)",b30:"750 mg liều đầu, sau đó 500 mg mỗi 48h (CrCl 20–49)",b15:"750 mg liều đầu, sau đó 500 mg mỗi 48h",blt:"500 mg liều đầu, sau đó 250 mg mỗi 48h (CrCl <20)",hd:"500 mg liều đầu, sau đó 250 mg mỗi 48h; sau lọc máu"},liver:"Không chỉnh theo gan đơn thuần; thận trọng Child C.",tdm:false,note:"Thải qua thận là chính nên chỉnh liều thận rất quan trọng. Theo dõi QT, đường huyết, gân."},
+{n:"Metronidazole",g:"Nitroimidazole (kỵ khí)",syn:["abd","men"],load:"15 mg/kg IV liều đầu trong nhiễm trùng nặng",d:{b90:"500 mg IV/PO mỗi 8h",b60:"500 mg mỗi 8h — không chỉnh theo thận",b30:"500 mg mỗi 8h",b15:"500 mg mỗi 8h; chất chuyển hóa tích lũy khi dùng kéo dài",blt:"500 mg mỗi 8–12h",hd:"500 mg mỗi 8h; bổ sung liều sau lọc máu"},liver:"⚠️ Child C / suy gan nặng: GIẢM 50% liều (500 mg mỗi 12h). Child B: thận trọng.",tdm:false,note:"Chuyển hóa qua gan là chính. Tránh rượu (phản ứng giống disulfiram), theo dõi bệnh thần kinh ngoại biên khi dùng >4 tuần."},
+{n:"Clarithromycin",g:"Macrolide",syn:["cap"],load:"Không cần liều nạp",d:{b90:"500 mg PO mỗi 12h",b60:"500 mg mỗi 12h",b30:"500 mg mỗi 12h (CrCl ≥30)",b15:"Giảm 50–75%: 250 mg mỗi 12h hoặc 500 mg mỗi 24h (CrCl <30)",blt:"250 mg mỗi 24h",hd:"250 mg mỗi 12–24h; sau lọc máu"},liver:"Child C + suy thận phối hợp: tránh hoặc giảm liều mạnh. Ức chế CYP3A4 mạnh.",tdm:false,note:"⚠️ Tương tác thuốc rất nhiều qua CYP3A4 (statin, chống đông, ức chế miễn dịch). Kéo dài QT."},
+{n:"Azithromycin",g:"Macrolide",syn:["cap","sepsis"],load:"500 mg IV/PO ngày đầu",d:{b90:"500 mg mỗi 24h — không chỉnh theo thận",b60:"500 mg mỗi 24h",b30:"500 mg mỗi 24h",b15:"500 mg mỗi 24h",blt:"500 mg mỗi 24h (thận trọng)",hd:"500 mg mỗi 24h"},liver:"Child C: thận trọng, theo dõi men gan — ít dữ liệu. Ít tương tác CYP hơn clarithromycin.",tdm:false,note:"Thuốc phối hợp trong CAP nặng (vi khuẩn không điển hình). Theo dõi QT, đặc biệt phối hợp thuốc kéo dài QT khác."},
+{n:"Trimethoprim–Sulfamethoxazole",g:"Sulfonamide",syn:["uti","hap","men"],load:"Theo cân nặng: PCP nặng 15–20 mg/kg/ngày (theo TMP) chia mỗi 6–8h",d:{b90:"UTI: 160/800 mg PO mỗi 12h; PCP: 15–20 mg/kg/ngày IV chia 3–4 lần",b60:"Như bình thường, theo dõi K⁺/creatinin",b30:"Giảm 50% liều khi CrCl 15–30",b15:"Giảm 50% liều",blt:"Tránh nếu CrCl <15 trừ khi lọc máu và có chỉ định mạnh",hd:"Liều giảm 50%, bổ sung sau lọc máu"},liver:"Child B/C: thận trọng — nguy cơ độc gan, ức chế tủy.",tdm:false,note:"⚠️ Tăng K⁺, tăng creatinin giả (ức chế bài tiết ống thận), hạ đường huyết, ức chế tủy. Thận trọng khi phối hợp ACEi/ARB, spironolactone."},
+{n:"Fluconazole",g:"Kháng nấm Azole",syn:["sepsis","uti","men"],load:"12 mg/kg (thường 800 mg) IV/PO liều nạp ngày 1 — không giảm theo thận",d:{b90:"6 mg/kg (400 mg) mỗi 24h",b60:"400 mg mỗi 24h (CrCl >50)",b30:"200 mg mỗi 24h (giảm 50% khi CrCl ≤50)",b15:"200 mg mỗi 24h",blt:"200 mg mỗi 24h",hd:"400 mg sau mỗi lần lọc máu. CRRT: 400–800 mg/ngày"},liver:"Child B/C: thận trọng, theo dõi men gan; ức chế CYP2C9/3A4 — tương tác warfarin, phenytoin.",tdm:false,note:"Thải qua thận chủ yếu ở dạng nguyên vẹn. Kiểm tra tương tác thuốc trước khi dùng."}
+];
+var abxState={band:"b90",child:"N",sev:"severe",syn:"all",q:""};
+function liverLabel(v){return v==="N"?"Gan bình thường":("Child–Pugh "+v);}
+function bandFromCrcl(v){if(v==null||isNaN(v))return null;if(v>=90)return "b90";if(v>=60)return "b60";if(v>=30)return "b30";if(v>=15)return "b15";return "blt";}
+function bandLabel(b){return {b90:"CrCl ≥ 90",b60:"CrCl 60–89",b30:"CrCl 30–59",b15:"CrCl 15–29",blt:"CrCl < 15",hd:"Lọc máu / CRRT"}[b];}
+function buildAbxPanel(){
+ var synOpts=SYNDROMES.map(function(s){return '<button type="button" data-syn="'+s[0]+'"'+(s[0]==='all'?' class="on"':'')+'>'+s[1]+'</button>'}).join("");
+ $("panel-abx").innerHTML=head("💊","Kháng sinh theo chức năng thận – gan – mức độ bệnh","Gồm 2 phần: (1) khuyến cáo kháng sinh theo kinh nghiệm theo hội chứng khi chưa có kháng sinh đồ, và (2) bảng liều từng thuốc. Nhập CrCl/eGFR, chức năng gan (mặc định là gan bình thường — chỉ chọn Child–Pugh khi bệnh nhân có xơ gan) và mức độ nhiễm trùng — cột liều tương ứng sẽ được đánh dấu. Cho người lớn, nhiễm trùng nặng tại ICU/nội khoa trừ khi ghi khác.")+
+ '<div class="notebox danger"><h4>⛔ 5 nguyên tắc an toàn — đọc trước khi tra liều</h4><ul>'+
+ '<li><strong>Không bao giờ giảm liều nạp</strong> theo chức năng thận trong nhiễm trùng nặng / sốc nhiễm trùng: liều nạp phụ thuộc thể tích phân bố, không phụ thuộc độ thanh thải. Giảm liều chỉ bắt đầu từ liều duy trì.</li>'+
+ '<li>CrCl/eGFR <strong>không đáng tin khi creatinin đang thay đổi nhanh</strong> (AKI tiến triển hoặc đang hồi phục) — đánh giá lại liều mỗi 24 giờ.</li>'+
+ '<li><strong>Suy gan + suy thận phối hợp</strong>: nguy cơ tích lũy cao hơn từng cơ quan riêng lẻ — giảm thêm một bậc và theo dõi sát.</li>'+
+ '<li><strong>Lọc máu / CRRT</strong>: liều thay đổi theo phương thức (IHD, SLED, CVVH/CVVHDF) và tốc độ lọc — cột HD/CRRT chỉ là điểm khởi đầu, cần dược lâm sàng hiệu chỉnh.</li>'+
+ '<li><strong>Phụ nữ có thai</strong>: tránh fluoroquinolone, aminoglycoside, TMP-SMX (tam cá nguyệt 1 & cuối thai kỳ) trừ khi lợi ích vượt trội — hội chẩn sản khoa.</li>'+
+ '<li>Luôn đối chiếu <strong>kháng sinh đồ, MIC và phác đồ kháng sinh của bệnh viện</strong>; xuống thang khi có kết quả vi sinh.</li></ul></div>'+
+ '<div class="abx-tools"><div class="frow">'+
+ '<div class="fgroup"><label for="abx_crcl">CrCl / eGFR của bệnh nhân <span class="unit">mL/phút</span></label><input type="number" id="abx_crcl" inputmode="decimal" placeholder="vd 45"/><p class="hint" id="abx_crcl_hint">Tự điền nếu đã tính ở công cụ eGFR / Cockcroft–Gault.</p></div>'+
+ '<div class="fgroup"><label for="abx_band_sel">Hoặc chọn khoảng CrCl / phương thức lọc</label><select id="abx_band_sel"><option value="b90">CrCl ≥ 90</option><option value="b60">CrCl 60–89</option><option value="b30">CrCl 30–59</option><option value="b15">CrCl 15–29</option><option value="blt">CrCl &lt; 15 (chưa lọc máu)</option><option value="hd">Lọc máu / CRRT</option></select></div></div>'+
+ '<div class="frow"><div class="fgroup"><label for="abx_child">Chức năng gan</label><select id="abx_child"><option value="N" selected>Gan bình thường — không chỉnh liều theo gan</option><option value="A">Child–Pugh A (xơ gan, còn bù)</option><option value="B">Child–Pugh B (xơ gan)</option><option value="C">Child–Pugh C / suy gan nặng</option></select><p class="hint" id="abx_child_hint">Mặc định là gan bình thường: liều chỉ chỉnh theo thận và mức độ bệnh. Chỉ chọn Child–Pugh khi bệnh nhân có xơ gan.</p></div>'+
+ '<div class="fgroup"><label for="abx_sev">Mức độ bệnh</label><select id="abx_sev"><option value="mild">Nhiễm trùng nhẹ – trung bình</option><option value="severe" selected>Nhiễm trùng nặng</option><option value="shock">Sốc nhiễm trùng / ICU</option></select></div></div>'+
+ '<div class="fgroup"><label for="abx_search">Tìm theo tên kháng sinh</label><input type="text" id="abx_search" placeholder="vd vanco, mero, pip… (không dấu cũng được)"/></div>'+
+ '<div class="fgroup"><span class="flabel">Lọc theo hội chứng</span><div class="seg" id="abx_syn">'+synOpts+'</div></div>'+
+ '<div class="notebox info" id="abx_ctx" style="margin:0"></div></div>'+
+ '<div class="emp-wrap" id="abx_emp_wrap"><div class="emp-head"><div><h3>🧭 Khuyến cáo kháng sinh theo kinh nghiệm — theo hội chứng</h3><p>Dùng khi chưa có kết quả vi sinh: chọn hội chứng ở bộ lọc phía trên để xem phác đồ ưu tiên, khi nào phải cộng thêm bao phủ MRSA / Pseudomonas / ESBL, thời gian điều trị và điểm xuống thang. Liều cụ thể của từng thuốc tra ở bảng liều bên dưới theo CrCl / chức năng gan đang chọn.</p></div><span class="emp-badge">Empiric — trước kháng sinh đồ</span></div><div id="abx_emp"></div></div>'+
+ '<h3 style="font-size:16px;margin:4px 0 10px">Bảng liều từng thuốc theo chức năng thận – gan</h3>'+
+ '<div class="abx-list" id="abx_list"></div>'+
+ '<p class="src">Nguồn tham khảo: khuyến cáo theo kinh nghiệm theo IDSA/ATS (CAP 2019, HAP/VAP 2016, ổ bụng, da–mô mềm, viêm màng não), EAU (tiết niệu), Tokyo Guidelines (đường mật) và Surviving Sepsis Campaign 2021; liều theo Sanford Guide to Antimicrobial Therapy, nhãn thuốc FDA và hướng dẫn chỉnh liều thận KDIGO / nhà sản xuất. <strong>Disclaimer:</strong> Phần kinh nghiệm chỉ là điểm khởi đầu trước kháng sinh đồ — luôn điều chỉnh theo kháng thuốc tại bệnh viện, tiền sử vi sinh và phác đồ bệnh viện. Bảng liều chỉ để tham khảo nhanh tại giường bệnh, không thay thế quyết định lâm sàng và dược lâm sàng. Liều thực tế còn phụ thuộc MIC, vị trí nhiễm trùng, cân nặng và diễn biến từng bệnh nhân.</p>';
+ $("abx_crcl").addEventListener('input',function(){var v=parseFloat(this.value);var b=bandFromCrcl(v);if(b){abxState.band=b;$("abx_band_sel").value=b;}renderAbx();});
+ $("abx_band_sel").addEventListener('change',function(){abxState.band=this.value;renderAbx();});
+ $("abx_child").addEventListener('change',function(){abxState.child=this.value;var h=$("abx_child_hint");if(h)h.textContent=this.value==="N"?"Gan bình thường: không áp dụng chỉnh liều theo gan — liều chỉ chỉnh theo thận (CrCl) và mức độ bệnh.":("Đang áp dụng chỉnh liều theo gan cho Child–Pugh "+this.value+". Nếu bệnh nhân không xơ gan, chọn lại “Gan bình thường” ở đầu danh sách.");renderAbx();});
+ $("abx_sev").addEventListener('change',function(){abxState.sev=this.value;renderAbx();});
+ $("abx_search").addEventListener('input',function(){abxState.q=this.value.trim();renderAbx();});
+ $("abx_syn").querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){$("abx_syn").querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');abxState.syn=b.dataset.syn;renderAbx();});});
+}
+function syncAbxFromShared(){
+ var inp=$("abx_crcl");if(!inp)return;
+ if(SHARED.crcl!=null){inp.value=Math.round(SHARED.crcl);var b=bandFromCrcl(SHARED.crcl);if(b){abxState.band=b;$("abx_band_sel").value=b;}$("abx_crcl_hint").textContent="Đã tự điền CrCl = "+Math.round(SHARED.crcl)+" mL/phút từ công cụ eGFR & Cockcroft–Gault.";}
+ if(SHARED.child){$("abx_child").value=SHARED.child;abxState.child=SHARED.child;var ch=$("abx_child_hint");if(ch)ch.textContent="Đã tự điền Child–Pugh "+SHARED.child+" từ công cụ Child–Pugh & MELD. Nếu bệnh nhân này không xơ gan, chọn lại “Gan bình thường” ở đầu danh sách — lựa chọn đó luôn có sẵn.";}
+ renderAbx();
+}
+/* ============ Empiric recommendations by syndrome ============ */
+var EMP={
+cap:{title:"Viêm phổi cộng đồng (CAP)",short:"Beta-lactam + macrolide là lõi. Chỉ cộng MRSA / Pseudomonas khi có yếu tố nguy cơ rõ — không cộng mặc định cho mọi ca.",when:"Người lớn nhập viện vì CAP, chưa có kết quả cấy / PCR. Phân tầng theo nơi điều trị và yếu tố nguy cơ MRSA / Pseudomonas, không chỉ theo CURB-65.",regimen:["<strong>Không ICU, không nguy cơ MRSA/Pseudomonas:</strong> Ceftriaxone 1–2 g IV mỗi 24h <em>hoặc</em> Ampicillin–sulbactam / Amoxicillin–clavulanate + Azithromycin 500 mg mỗi 24h. Đơn trị Levofloxacin 750 mg khi dị ứng beta-lactam nặng hoặc không dùng được macrolide.","<strong>CAP nặng (ICU, thở máy, vận mạch, CURB-65 3–5):</strong> Beta-lactam (Ceftriaxone 2 g) + Azithromycin — ưu tiên macrolide hơn quinolone khi phối hợp — <em>hoặc</em> beta-lactam + Levofloxacin 750 mg.","<strong>Liều nạp:</strong> dùng đủ liều đầu ngay trong những giờ đầu, không chờ CrCl hoàn hảo; chỉnh từ liều duy trì."],add:["<strong>Thêm MRSA</strong> (Vancomycin hoặc Linezolid) khi: tiền sử nhiễm / cư trú MRSA, cấy trước đó dương tính, viêm phổi hoại tử / tạo hang, sau cúm nặng, lọc máu, tiêm chích. Lấy PCR MRSA mũi — âm tính thì ngừng thuốc MRSA sớm.","<strong>Mở rộng Pseudomonas</strong> (thay Ceftriaxone bằng Piperacillin–tazobactam / Cefepime / Meropenem) khi: giãn phế quản, COPD nặng dùng kháng sinh thường xuyên, cấy trước đó có Pseudomonas, nhập viện + kháng sinh IV trong 90 ngày.","<strong>Nghi Legionella / không điển hình nặng:</strong> đảm bảo đã có Azithromycin hoặc Levofloxacin trong phác đồ."],duration:"Tối thiểu <strong>5 ngày</strong> và hết sốt 48 giờ, lâm sàng ổn định. CAP nặng / MRSA / Pseudomonas: thường <strong>7 ngày</strong>. Xuống thang / chuyển uống khi huyết động ổn, nuốt được và tác nhân đã rõ.",source:"Trước kháng sinh: cấy máu, cấy đàm, test cúm / RSV / SARS-CoV-2 theo mùa; CAP nặng thêm kháng nguyên Legionella & phế cầu niệu. Đánh giá lại sau 48–72h — không kéo dài phổ rộng nếu cấy âm tính và lâm sàng cải thiện.",src:"IDSA/ATS CAP Guideline 2019; Surviving Sepsis Campaign 2021."},
+hap:{title:"Viêm phổi bệnh viện / VAP (HAP/VAP)",short:"Mặc định phải bao phủ MRSA + Pseudomonas. Cần 2 thuốc chống Pseudomonas khác nhóm khi nguy cơ kháng thuốc cao hoặc sốc.",when:"Khởi phát ≥48 giờ sau nhập viện (HAP) hoặc ≥48 giờ sau đặt nội khí quản (VAP). Đây là nhóm nguy cơ kháng thuốc cao nhất — luôn lấy mẫu hô hấp trước kháng sinh nhưng không trì hoãn kháng sinh khi sốc.",regimen:["<strong>Phác đồ lõi:</strong> 1 thuốc chống Pseudomonas nhóm beta-lactam — Cefepime <em>hoặc</em> Piperacillin–tazobactam truyền kéo dài <em>hoặc</em> Meropenem (chọn thuốc khác nhóm đã dùng gần đây nhất) <strong>+</strong> 1 thuốc MRSA — Vancomycin (theo AUC) <em>hoặc</em> Linezolid 600 mg mỗi 12h.","<strong>Thuốc chống Pseudomonas thứ hai</strong> (Amikacin liều duy nhất / theo TDM <em>hoặc</em> Ciprofloxacin / Levofloxacin) khi: sốc nhiễm trùng, ARDS, lọc máu cấp, dùng kháng sinh IV trong 90 ngày, tỉ lệ kháng thuốc tại khoa cao / chưa biết.","<strong>Nguy cơ ESBL cao:</strong> ưu tiên Meropenem làm beta-lactam lõi. Nghi Acinetobacter kháng carbapenem: hội chẩn vi sinh / nhiễm khuẩn ngay — không tự ý thêm Colistin nếu chưa có dữ kiện địa phương."],add:["Không cộng Metronidazole thường quy cho VAP trừ khi nghi áp xe phổi / viêm phổi hoại tử kỵ khí rõ.","Tránh phối hợp 2 beta-lactam. Tránh dùng lại đúng kháng sinh bệnh nhân vừa thất bại trong 14 ngày trước nếu có lựa chọn khác.","Linezolid ưu tiên khi suy thận / đang dùng nhiều thuốc độc thận hoặc MRSA có MIC vancomycin cao; Vancomycin ưu tiên khi có nhiễm khuẩn huyết kèm theo."],duration:"Thường <strong>7 ngày</strong> nếu đáp ứng lâm sàng. Đánh giá xuống thang ở ngày 2–3 theo cấy dịch hút khí quản / BAL và PCR MRSA mũi. Kéo dài chỉ khi áp xe, tràn mủ màng phổi, suy giảm miễn dịch hoặc đáp ứng chậm.",source:"Lấy cấy máu + mẫu đường hô hấp dưới trước liều đầu. Xem xét procalcitonin chỉ như yếu tố hỗ trợ ngừng thuốc, không dùng đơn độc để quyết định không cho kháng sinh khi nghi VAP cao.",src:"IDSA/ATS HAP/VAP Guideline 2016; SSC 2021."},
+uti:{title:"Nhiễm trùng tiết niệu (UTI)",short:"Viêm bàng quang đơn thuần khác hẳn viêm thận–bể thận / UTI biến chứng. Sốc từ tiết niệu: bao phủ ESBL cho tới khi có cấy.",when:"Phân biệt: (1) viêm bàng quang không biến chứng, (2) viêm thận–bể thận / UTI biến chứng (nam giới, có thai, sonde tiểu, tắc nghẽn, sỏi, suy thận, ghép thận), (3) nhiễm trùng huyết từ tiết niệu.",regimen:["<strong>Viêm bàng quang không biến chứng (nữ, không sốt, không đau hông lưng):</strong> ưu tiên Nitrofurantoin, Fosfomycin hoặc TMP–SMX theo nhạy cảm địa phương (đường uống). <em>Không</em> dùng fluoroquinolone làm lựa chọn đầu tay cho thể này.","<strong>Viêm thận–bể thận / UTI biến chứng, nguy cơ ESBL thấp:</strong> Ceftriaxone 1–2 g IV mỗi 24h. Chuyển uống (TMP–SMX / quinolone) chỉ khi đã có kháng sinh đồ và lâm sàng ổn.","<strong>Nguy cơ ESBL cao hoặc sốc:</strong> Meropenem <em>hoặc</em> Piperacillin–tazobactam / Cefepime tùy tiền sử cấy và kháng sinh đồ cũ + cân nhắc Amikacin liều duy nhất trong sốc. ESBL đã biết trước đó: ưu tiên carbapenem."],add:["<strong>Yếu tố nguy cơ ESBL:</strong> tiền sử ESBL, dùng cephalosporin / quinolone trong 90 ngày, sonde tiểu lâu ngày, chăm sóc y tế thường xuyên, du lịch / nằm viện kéo dài.","MRSA rất hiếm là tác nhân tiết niệu — không cộng Vancomycin thường quy trừ khi cấy trước đó có MRSA và không giải thích được bằng tác nhân khác.","Ức chế beta-lactamase đường uống không thay thế được phác đồ IV trong sốc / tắc nghẽn chưa giải quyết."],duration:"<strong>7 ngày</strong> nếu đáp ứng nhanh (kể cả viêm thận–bể thận ở nữ khi hết sốt sớm). <strong>10–14 ngày</strong> nếu đáp ứng chậm, nam giới có liên quan tiền liệt tuyến, áp xe hoặc tắc nghẽn chưa xử trí triệt để.",source:"<strong>Kiểm soát nguồn quyết định:</strong> rút hoặc thay sonde tiểu, giải quyết tắc nghẽn (sonde JJ / dẫn lưu thận), dẫn lưu áp xe. Cấy nước tiểu <em>trước</em> kháng sinh là bắt buộc; cấy máu khi sốt cao / sốc.",src:"IDSA Uncomplicated UTI Guideline; EAU Urological Infections Guideline; SSC 2021."},
+abd:{title:"Nhiễm trùng ổ bụng",short:"Bao phủ Gram âm + kỵ khí là lõi. Kiểm soát nguồn (mổ / dẫn lưu) quan trọng không kém kháng sinh.",when:"Viêm phúc mạc, áp xe ổ bụng, viêm túi mật / đường mật nặng, thủng tạng rỗng, nhiễm trùng sau phẫu thuật bụng. Phân tầng cộng đồng vs bệnh viện / sau mổ.",regimen:["<strong>Cộng đồng, nhẹ–trung bình, không sốc:</strong> Ceftriaxone + Metronidazole <em>hoặc</em> Amoxicillin–clavulanate. Dị ứng beta-lactam nặng: Levofloxacin / Ciprofloxacin + Metronidazole.","<strong>Nặng / bệnh viện / sau phẫu thuật / sốc:</strong> Piperacillin–tazobactam truyền kéo dài <em>hoặc</em> Meropenem nếu nguy cơ ESBL cao / vừa dùng pip–tazo thất bại. Đã dùng carbapenem hoặc pip–tazo thì <em>không</em> thêm Metronidazole (đã bao phủ kỵ khí).","<strong>Viêm đường mật nặng:</strong> cùng phổ như trên + đảm bảo dẫn lưu đường mật (ERCP / PTBD) khẩn — kháng sinh không thay thế dẫn lưu."],add:["<strong>Cộng Vancomycin</strong> khi nguy cơ Enterococcus faecalis / MRSA sau mổ, nhiễm trùng liên quan catheter hoặc cấy trước đó có các tác nhân này.","<strong>Cân nhắc kháng nấm</strong> (Fluconazole nếu nhạy, Echinocandin nếu nặng / vừa dùng azole) khi: thủng đường tiêu hóa trên, rò miệng nối, Candida trong dịch ổ bụng, dinh dưỡng tĩnh mạch, ức chế miễn dịch.","Tránh Aminoglycoside đơn độc kéo dài cho ổ bụng — chỉ dùng ngắn hạn phối hợp trong sốc Gram âm khi cần thêm một thuốc nhạy."],duration:"<strong>4 ngày sau khi kiểm soát nguồn tốt</strong> là đủ cho đa số trường hợp (thử nghiệm STOP-IT). Kéo dài khi nguồn chưa kiểm soát, còn ổ áp xe chưa dẫn lưu hoặc đáp ứng chậm — lúc đó cần tìm lại nguồn, không chỉ đổi kháng sinh.",source:"Ưu tiên kiểm soát nguồn trong 6–12 giờ khi có sốc / viêm phúc mạc toàn thể. Lấy cấy máu và cấy dịch ổ bụng trong mổ / khi dẫn lưu.",src:"IDSA Complicated Intra-abdominal Infection Guideline; STOP-IT, NEJM 2015; Tokyo Guidelines 2018 (đường mật)."},
+skin:{title:"Nhiễm trùng da – mô mềm",short:"Có mủ thì dẫn lưu là chính. Viêm cân mạc hoại tử là cấp cứu ngoại khoa — kháng sinh phổ rộng + mổ ngay.",when:"Viêm mô tế bào, áp xe da, nhiễm trùng bàn chân đái tháo đường, nghi viêm cân mạc hoại tử. Luôn đánh dấu ranh giới, chụp ảnh theo dõi tiến triển và tìm ổ mủ.",regimen:["<strong>Viêm mô tế bào không mủ, nhẹ:</strong> Cephalexin / Amoxicillin–clavulanate uống (bao phủ liên cầu + MSSA). <strong>Nặng phải IV:</strong> Cefazolin / Ceftriaxone; cộng thuốc MRSA nếu không đáp ứng sau 48h.","<strong>Có mủ / áp xe:</strong> rạch dẫn lưu là điều trị chính + TMP–SMX hoặc Doxycycline (uống) khi cần kháng sinh; nặng / lan nhanh: Vancomycin <em>hoặc</em> Linezolid IV.","<strong>Bàn chân đái tháo đường trung bình–nặng:</strong> Piperacillin–tazobactam <em>hoặc</em> Cefepime + Metronidazole, cộng Vancomycin khi nguy cơ MRSA cao; đánh giá tưới máu và cắt lọc sớm."],add:["<strong>⚠️ Nghi viêm cân mạc hoại tử</strong> (đau vượt quá khám thực thể, bóng nước, hoại tử, khí dưới da, sốc): Piperacillin–tazobactam <em>hoặc</em> Meropenem + Vancomycin + <strong>Clindamycin</strong> (ức chế độc tố) và <strong>phẫu thuật cắt lọc khẩn cấp</strong> — không chờ hình ảnh nếu nghi ngờ cao.","Không cộng kháng sinh Gram âm phổ rộng cho viêm mô tế bào đơn thuần ở người không suy giảm miễn dịch.","Cân nhắc uốn ván, dại và nhiễm trùng do vết cắn (người / động vật) — cần bao phủ Pasteurella / kỵ khí miệng với Amoxicillin–clavulanate."],duration:"Viêm mô tế bào đáp ứng tốt: <strong>5 ngày</strong>. Áp xe đã dẫn lưu tốt có thể ngắn hơn. Nhiễm trùng hoại tử / bàn chân đái tháo đường: 7–14 ngày tùy cắt lọc và tưới máu, hội chẩn ngoại khoa + nội tiết.",source:"Dẫn lưu / cắt lọc là kiểm soát nguồn. Cấy mủ khi có mủ, cấy máu khi sốt cao / suy giảm miễn dịch / hoại tử. Siêu âm tìm ổ áp xe ẩn khi không đáp ứng.",src:"IDSA Skin and Soft Tissue Infections Guideline 2014."},
+men:{title:"Viêm màng não vi khuẩn",short:"Ceftriaxone liều màng não + Vancomycin. Trên 50 tuổi / suy giảm miễn dịch phải thêm Ampicillin cho Listeria. Không trì hoãn kháng sinh vì chờ CT / chọc dò.",when:"Sốt + cổ cứng / rối loạn tri giác / dấu màng não, nghi viêm màng não vi khuẩn cộng đồng hoặc sau phẫu thuật thần kinh. Cho kháng sinh ngay sau cấy máu nếu không chọc dò được ngay.",regimen:["<strong>Người lớn &lt;50 tuổi, miễn dịch bình thường:</strong> Ceftriaxone 2 g IV mỗi 12h (liều màng não) + Vancomycin theo AUC. Cộng <strong>Dexamethasone</strong> 0,15 mg/kg mỗi 6h — liều đầu cùng hoặc ngay trước liều kháng sinh đầu — khi nghi phế cầu, theo phác đồ bệnh viện.","<strong>≥50 tuổi, có thai, suy giảm miễn dịch, nghiện rượu:</strong> phác đồ trên <strong>+ Ampicillin 2 g IV mỗi 4h</strong> (hoặc Penicillin G liều cao) để bao phủ <em>Listeria monocytogenes</em>.","<strong>Sau mổ thần kinh / có shunt / chấn thương sọ hở:</strong> Vancomycin + Cefepime <em>hoặc</em> Meropenem (bao phủ Pseudomonas và Gram âm bệnh viện) — hội chẩn ngoại thần kinh + nhiễm khuẩn."],add:["<strong>Dị ứng penicillin / cephalosporin nặng:</strong> hội chẩn nhiễm khuẩn ngay — lựa chọn thay thế (Meropenem, TMP–SMX cho Listeria, Vancomycin) phụ thuộc tiền sử dị ứng chéo, không tự ý dùng liều thấp cephalosporin.","Không dùng Ceftriaxone liều thường (1 g/ngày) cho màng não — phải dùng liều màng não và khoảng cách 12 giờ.","Acyclovir kinh nghiệm chỉ cộng khi nghi viêm não Herpes kèm theo (rối loạn hành vi, co giật thùy thái dương, dịch não tủy lympho ưu thế)."],duration:"Thường <strong>7 ngày</strong> với màng não cầu, <strong>10–14 ngày</strong> với phế cầu, <strong>21 ngày</strong> với Listeria / Gram âm — chốt theo tác nhân và đáp ứng. Dexamethasone thường 4 ngày nếu phế cầu được xác nhận.",source:"Cấy máu trước kháng sinh; chọc dò thắt lưng khi an toàn (không trì hoãn kháng sinh >1 giờ vì chờ hình ảnh). Dịch não tủy: tế bào, protein, glucose, Gram, cấy, PCR đa tác nhân nếu có.",src:"IDSA Bacterial Meningitis Guideline; ESCMID Meningitis Guideline."},
+sepsis:{title:"Nhiễm trùng huyết chưa rõ ổ",short:"Trong sốc: Pip–tazo + Vancomycin là khởi đầu thường dùng khi chưa rõ ổ; nâng lên Meropenem khi nguy cơ ESBL cao. Tìm ổ song song, không chờ tìm xong mới cho kháng sinh.",when:"Sepsis / sốc nhiễm trùng chưa xác định được ổ sau khám và hình ảnh ban đầu. Mục tiêu: kháng sinh phổ rộng trong <strong>1 giờ</strong> kể từ nhận diện sốc, sau khi lấy cấy máu.",regimen:["<strong>Khởi đầu thường dùng (chưa rõ ổ, có sốc):</strong> Piperacillin–tazobactam truyền kéo dài + Vancomycin (liều nạp đầy đủ). Phác đồ này bao phủ Pseudomonas, đa số Gram âm, kỵ khí và MRSA trong lúc chờ định hướng ổ.","<strong>Nâng lên Meropenem thay Pip–tazo</strong> khi: tiền sử ESBL, vừa dùng pip–tazo / cephalosporin phổ rộng gần đây, sốc rất nặng, nằm ICU kéo dài hoặc tỉ lệ ESBL tại khoa cao.","<strong>Cộng Amikacin liều duy nhất</strong> khi sốc nặng và nguy cơ Gram âm kháng thuốc cao — sau đó dừng / xuống thang theo cấy, không kéo dài aminoglycoside thường quy."],add:["Định hướng lại ngay khi có gợi ý ổ: phổi → theo HAP/CAP; bụng → đảm bảo kỵ khí + kiểm soát nguồn; tiết niệu → xem ESBL; da / catheter → ưu tiên MRSA; màng não → chuyển phác đồ liều màng não.","<strong>Cân nhắc kháng nấm kinh nghiệm</strong> chỉ khi nguy cơ Candida xâm lấn cao (CVC lâu ngày, TPN, phẫu thuật bụng gần đây, Candida cư trú nhiều vị trí + sốc không giải thích).","Ngừng Vancomycin sau 48h nếu không có bằng chứng MRSA và PCR mũi âm tính (khi ổ là phổi) — tránh kéo dài thuốc MRSA không cần thiết gây độc thận."],duration:"Đánh giá lại bắt buộc ở <strong>48–72 giờ</strong>: xuống thang theo vi sinh, ngừng thuốc trùng phổ, chuyển uống khi ổn. Tổng thời gian thường <strong>7 ngày</strong> cho nhiễm trùng huyết đáp ứng tốt sau kiểm soát nguồn, trừ các ổ cần dài hơn (màng não, nội tâm mạc, xương khớp, áp xe chưa dẫn lưu).",source:"Bundle giờ đầu: lactate, cấy máu 2 bộ, kháng sinh phổ rộng, dịch tinh thể khi hạ huyết áp / lactate ≥4, vận mạch khi MAP &lt;65 sau dịch. Tìm ổ bằng khám, hình ảnh, rà soát catheter và hội chẩn ngoại khi nghi ổ bụng / mô mềm hoại tử.",src:"Surviving Sepsis Campaign 2021 — Hour-1 bundle."}
+};
+function renderEmpiric(){
+ var box=$("abx_emp");if(!box)return;
+ var syn=abxState.syn;
+ if(syn==="all"){
+   box.innerHTML='<div class="emp-grid">'+SYNDROMES.filter(function(s){return s[0]!=="all"}).map(function(s){var e=EMP[s[0]];return '<button type="button" class="emp-card" data-emp="'+s[0]+'"><h4>'+e.title+'</h4><p>'+e.short+'</p><span class="go">Xem phác đồ kinh nghiệm →</span></button>'}).join("")+'</div><p class="hint" style="margin-top:10px">Khuyến cáo này là điểm khởi đầu khi chưa có vi sinh — luôn điều chỉnh theo kháng thuốc tại bệnh viện, tiền sử cấy / kháng sinh 90 ngày trước, dị ứng và ổ nhiễm thực tế. Không dùng thay phác đồ kháng sinh của bệnh viện.</p>';
+   box.querySelectorAll('[data-emp]').forEach(function(b){b.addEventListener('click',function(){abxState.syn=b.dataset.emp;var seg=$("abx_syn");if(seg){seg.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x.dataset.syn===abxState.syn)});}renderAbx();var w=$("abx_emp_wrap");if(w)w.scrollIntoView({behavior:"smooth",block:"start"});});});
+   return;
+ }
+ var e=EMP[syn];if(!e){box.innerHTML="";return;}
+ box.innerHTML='<div class="emp-detail"><h4>'+e.title+' — phác đồ theo kinh nghiệm</h4><p class="sub">'+e.when+'</p>'+
+ '<div class="emp-cols"><div class="emp-box emp-reg"><h5>Phác đồ ưu tiên</h5><ul>'+e.regimen.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul></div>'+
+ '<div class="emp-box emp-warn"><h5>Khi nào cộng thêm / đổi thuốc</h5><ul>'+e.add.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul></div></div>'+
+ '<div class="emp-foot"><span><strong>⏱ Thời gian & xuống thang:</strong> '+e.duration+'</span><span><strong>🔎 Xét nghiệm & kiểm soát nguồn:</strong> '+e.source+'</span><span style="color:var(--muted)">Nguồn: '+e.src+' Liều từng thuốc: tra bảng bên dưới theo CrCl <strong>'+bandLabel(abxState.band)+'</strong> • Gan: <strong>'+(abxState.child==="N"?"bình thường — không chỉnh liều theo gan":("Child–Pugh "+abxState.child))+'</strong> đang chọn ở trên.</span></div></div>';
+}
+function renderAbx(){
+ if(!$("abx_list"))return;
+ var sevTxt={mild:"Nhiễm trùng nhẹ–trung bình: dùng khoảng dưới của liều duy trì, ưu tiên đường uống khi hấp thu tốt và lâm sàng ổn.",severe:"Nhiễm trùng nặng: dùng đủ liều nạp + khoảng trên của liều duy trì, truyền kéo dài với beta-lactam khi có thể.",shock:"Sốc nhiễm trùng / ICU: liều nạp đầy đủ NGAY (không giảm theo thận), kháng sinh trong 1 giờ đầu, truyền kéo dài beta-lactam, TDM sớm với vancomycin / aminoglycoside."}[abxState.sev];
+ $("abx_ctx").innerHTML="<h4>Bối cảnh hiện tại</h4>Khoảng liều đang đánh dấu: <strong>"+bandLabel(abxState.band)+"</strong> • Gan: <strong>"+(abxState.child==="N"?"Gan bình thường — không cần chỉnh liều theo gan, chỉ chỉnh theo thận và mức độ bệnh":("Child–Pugh "+abxState.child))+"</strong> • "+sevTxt;
+ renderEmpiric();
+ var q=norm(abxState.q);
+ var list=ABX.filter(function(a){
+   if(abxState.syn!=="all"&&a.syn.indexOf(abxState.syn)<0)return false;
+   if(q&&norm(a.n+" "+a.g).indexOf(q)<0)return false;
+   return true;
+ });
+ if(!list.length){$("abx_list").innerHTML='<div class="empty">Không có kháng sinh nào khớp bộ lọc. Thử bỏ lọc hội chứng hoặc gõ tên ngắn hơn.</div>';return;}
+ var bands=["b90","b60","b30","b15","blt","hd"];
+ $("abx_list").innerHTML=list.map(function(a){
+   var cells=bands.map(function(b){return '<div class="dose-cell'+(b===abxState.band?' hl':'')+'"><b>'+bandLabel(b)+(b===abxState.band?' • đang chọn':'')+'</b>'+a.d[b]+'</div>'}).join("");
+   var synNames=a.syn.map(function(s){var f=SYNDROMES.find(function(x){return x[0]===s});return f?f[1]:""}).join(" • ");
+   return '<div class="abx"><span class="grp">'+a.g+'</span><h3>'+a.n+(a.tdm?'<span class="tdm">Cần TDM</span>':"")+'</h3><p class="syn">Hội chứng: '+synNames+'</p><div class="dose-grid">'+cells+'</div><div class="meta"><span><strong>Liều nạp:</strong> '+a.load+'</span><span><strong>Theo gan:</strong> '+(abxState.child==="N"?"Gan bình thường — <strong>không cần chỉnh liều theo gan</strong>; liều phía trên chỉ chỉnh theo thận (CrCl) và mức độ bệnh.":("Đang chọn Child–Pugh "+abxState.child+" — "+a.liver))+'</span><span><strong>Lưu ý:</strong> '+a.note+'</span></div></div>';
+ }).join("");
+}
+buildAbxPanel();
+renderAbx();
+renderHome();
+</script>
+</body>
+</html>
