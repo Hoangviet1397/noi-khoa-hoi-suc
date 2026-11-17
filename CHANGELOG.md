@@ -4,6 +4,11 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v0.5.1 — 17/11/2026 (sửa lỗi do Muse rà soát, Refs #1)
+- **Meropenem: khoảng CrCl không còn chồng lấn.** Trước đây CrCl 26–29 xuất hiện ở cả hai nhóm (26–50 và 15–29), CrCl 10–25 lấn sang nhóm <15. Nay: CrCl 30–50 liều đủ (1–2 g) mỗi 12 giờ; CrCl 26–29 liều đủ mỗi 12 giờ; CrCl 15–25 nửa liều (0,5–1 g) mỗi 12 giờ.
+- **Thanh điều hướng dưới không còn che nút cuối trang:** tăng khoảng đệm dưới trang thêm 76 px để thanh điều hướng và thanh kết quả nổi không che nút cuối trang trên điện thoại.
+- **Cây Hội chứng vành cấp thêm nút Tính GRACE:** ở cả hai bước phân tầng NSTE-ACS, bấm nút là mở thẳng máy tính GRACE thay vì chỉ là chữ thường.
+
 ## v0.5.0 — 17/11/2026
 - **📖 Sổ tay thuốc** (`#/drugbook`): hướng dẫn sử dụng rút gọn cho 82 thuốc — chỉ định, liều người lớn, cách pha – cách dùng, chống chỉ định – thận trọng, tác dụng phụ – theo dõi – thuốc giải, thai kỳ. Kháng sinh tự lấy liều theo CrCl / lọc máu và lưu ý gan từ module kháng sinh; thuốc truyền tự lấy khoảng liều, cách pha, đường truyền từ bộ tính liều — số liệu thống nhất trong toàn app. Nút "📖 Cách dùng" trong kết quả tìm thuốc; nhóm "Kháng sinh" đổi tên thành "Thuốc – kháng sinh".
 
