@@ -1,0 +1,38 @@
+{
+  "background_color": "#eef2f4",
+  "categories": [
+    "medical",
+    "utilities"
+  ],
+  "description": "Thang điểm, máy tính lâm sàng và liều kháng sinh theo thận – gan cho bác sĩ nội khoa và hồi sức. Cài một lần, mở offline như app.",
+  "dir": "ltr",
+  "display": "standalone",
+  "icons": [
+    {
+      "purpose": "any",
+      "sizes": "192x192",
+      "src": "icon-192.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "any",
+      "sizes": "512x512",
+      "src": "icon-512.png",
+      "type": "image/png"
+    },
+    {
+      "purpose": "maskable",
+      "sizes": "512x512",
+      "src": "icon-maskable-512.png",
+      "type": "image/png"
+    }
+  ],
+  "id": "./",
+  "lang": "vi",
+  "name": "Công cụ Nội khoa & Hồi sức",
+  "orientation": "portrait",
+  "scope": "./",
+  "short_name": "Nội khoa HS",
+  "start_url": "./",
+  "theme_color": "#0b5563"
+}
