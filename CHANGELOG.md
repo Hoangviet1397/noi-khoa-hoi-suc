@@ -4,6 +4,9 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v0.7.3 — 17/11/2026
+- Đổi vị trí 2 tab dưới: Bản tin lên trước Cài đặt (Trang chủ, Phác đồ, Kháng sinh, Bản tin, Cài đặt) cho dễ thấy, đúng thứ tự đã mô tả.
+
 ## v0.7.2 — 17/11/2026
 - Sửa lỗi nút Cài đặt ở thanh dưới điện thoại: bấm vào chỉ sáng nút mà không mở trang Cài đặt (thiếu nhánh xử lý trong bộ điều hướng). Giờ bấm Cài đặt mở đúng trang Cài đặt.
 
