@@ -1,9 +1,12 @@
-# Công cụ Nội khoa & Hồi sức — v2.0.0 "Trợ lý trực"
+# Công cụ Nội khoa & Hồi sức — v2.0.1 "Trợ lý trực"
 
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức — nay có hồ sơ ca zero-data, 5 khóa an toàn chặn thật, tìm theo hội chứng, cây kiến thức toàn bộ và module chống độc Việt Nam.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — cài vào màn hình chính để dùng offline.
-**Phiên bản hiện tại:** v2.0.0 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v2.0.1 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+
+## Sửa ở v2.0.1
+- **SOFA-2 không tính điểm trên trình duyệt thật — đã sửa:** kiểm chứng live 18/11/2026 thấy chọn đủ 6 hệ (kỳ vọng 11/24) mà kết quả vẫn “—”. Nguyên nhân: panel dùng ô kết quả id `sofa2` nhưng hàm tính ghi vào id `res-sofa2` (không tồn tại) nên kết quả bị bỏ lặng. Sửa cho cả 8 công cụ mới v2.0.0 (SOFA-2, MEWS, Rumack–Matthew, MELD 3.0, HEART Pathway, Osmolal gap, CIWA-Ar, ASPECTS): ô kết quả đổi sang id `res-…` đúng quy ước cũ, thêm nút “Tính …” thật và tự tính ngay khi mở app.
 
 ## Nội dung mới ở v2.0.0
 - **Hồ sơ ca zero-data:** thanh Hồ sơ ca trên trang chủ — chỉ sống trong RAM, tự xóa sau 15 phút không chạm/khi khóa màn hình, nút Xóa ca 1 chạm. Chỉ nhập tuổi, cân nặng, eGFR/CrCl, gan, dị ứng penicillin, nguy cơ MRSA/ESBL, thai. KHÔNG nhập tên, ngày sinh đầy đủ, CCCD, mã bệnh án. Tự điền vào mọi bảng điểm và tự chỉnh liều theo thận/gan/cân nặng.
@@ -36,11 +39,11 @@ Dùng nút **⚑** trong từng công cụ hoặc **💬 Báo lỗi / Góp ý** 
 ## Phát triển
 - Một file `index.html` (HTML + CSS + JS), `sw.js` (offline), `manifest.webmanifest` và icon.
 - Phát hành bản mới: sửa `APP_VERSION`, `APP_DATE`, `CHANGELOG` ở đầu script trong `index.html` (service worker tự lấy phiên bản), cập nhật `CHANGELOG.md` và README.
-- Kiểm thử v2.0.0: `node test_v200.js` (harness Node + DOM giả lập, 43 ca — đều đạt) và `node --check` cho từng block `<script>`. Kiểm thử v1.0.0: `node tests/run-tests.js`.
+- Kiểm thử v2.0.1: `node test_v200.js` (harness Node + DOM giả lập, 64 ca — đều đạt, gồm 21 ca hồi quy v2.0.1) và `node --check` cho từng block `<script>`. Kiểm thử v1.0.0: `node tests/run-tests.js`.
 - Kế hoạch: [docs/ROADMAP-GIAI-DOAN-2-3.md](docs/ROADMAP-GIAI-DOAN-2-3.md). GitHub là bản chính.
 
-## Hạn chế đã biết (v2.0.0)
+## Hạn chế đã biết (v2.0.1)
 - Các mục P1/P2 trong cây kiến thức chỉ ở dạng tra cứu có cấu trúc, chưa phải máy tính tương tác.
 - KDIGO AKI/AKD 2026 bản cuối, ESC PE cập nhật, hướng dẫn BYT Việt Nam toàn văn và ERC 2025 chưa kiểm chứng bản chính.
 - Link hscc.vn trả 200 nhưng trang có Cloudflare Turnstile nên máy tự động chỉ thấy trang xác minh — link vẫn là URL bài viết chính thức.
-- Chưa kiểm chứng trên trình duyệt thật trong môi trường build (không có Chromium) — cần kiểm chứng live trên điện thoại sau khi đẩy GitHub Pages.
+- Chưa kiểm chứng trên trình duyệt thật trong môi trường build (không có Chromium) — cần kiểm chứng live trên điện thoại sau khi đẩy GitHub Pages, đặc biệt SOFA-2 (ca 11/24) và 7 công cụ mới còn lại.

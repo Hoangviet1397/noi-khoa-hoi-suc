@@ -4,6 +4,12 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v2.0.1 — 18/11/2026 — Sửa SOFA-2 không tính điểm
+
+- **Sửa lỗi SOFA-2 không tính điểm trên trình duyệt thật (kiểm chứng live 18/11/2026, 4/5 mục PASS, riêng SOFA-2 FAIL):** chọn đủ 6 hệ cơ quan (kỳ vọng 11/24) mà khung kết quả vẫn hiện “— / Nhập số liệu để xem kết quả”. Nguyên nhân: panel dùng `resHTML("sofa2")` (ô kết quả có id `sofa2`) trong khi hàm tính gọi `setRes("res-sofa2")` — ô kết quả không tồn tại nên kết quả bị bỏ lặng, không báo lỗi. Harness kiểm thử cũ không bắt được vì DOM giả lập tự tạo element cho mọi id.
+- **Cùng lỗi ở cả 8 công cụ mới v2.0.0 — sửa hết:** SOFA-2, MEWS, Rumack–Matthew, MELD 3.0, HEART Pathway, Osmolal gap, CIWA-Ar, ASPECTS — ô kết quả đổi sang id `res-…` đúng quy ước của mọi công cụ cũ. Thêm nút “Tính …” thật cho 8 công cụ mới và tự tính ngay khi mở app (như các công cụ cũ: SOFA-2 mở ra hiện 0/24).
+- **Kiểm thử:** 64 ca đều đạt (43 ca cũ + 21 ca hồi quy mới), gồm kiểm tra chuỗi panel thực render ra có `id="res-…"`, ca live SOFA-2 11/24, và mô phỏng đổi select kích hoạt listener `change` mà không gọi hàm tính trực tiếp. Chạy cùng 21 ca mới lên bản v2.0.0 cũ thì 18 ca FAIL đúng như kỳ vọng — chứng tỏ test mới bắt được lỗi. 4 block `<script>` đều qua `node --check`. Refs #1.
+
 ## v2.0.0 — 18/11/2026 — "Trợ lý trực"
 - **16 mục mới (10 công cụ + 6 phác đồ cây):** SOFA-2, MEWS, Rumack–Matthew + NAC, MELD 3.0, HEART Pathway, Osmolal gap, CIWA-Ar, ASPECTS, Tìm theo hội chứng, Cây kiến thức toàn bộ (34 nhánh + 4 nhánh Nền tảng & Kinh điển, tra cứu có cấu trúc); phác đồ cây mới: ngộ độc paraquat, ngộ độc phosphua nhôm, sốt xuất huyết nặng, ngộ độc nấm/cá nóc/mật cá trắm, bundle ABCDEF (PADIS 2025), HAP/VAP — khóa ESBL. Tổng: **91 công cụ • 41 phác đồ (132 mục)**.
 - **Hồ sơ ca zero-data:** chỉ sống trong RAM, KHÔNG ghi localStorage cho dữ liệu bệnh nhân, tự xóa sau 15 phút không chạm/khi khóa màn hình, nút Xóa ca 1 chạm. Chỉ nhập tuổi, cân nặng, eGFR/CrCl, gan, dị ứng penicillin, nguy cơ MRSA/ESBL, thai — KHÔNG nhập tên, ngày sinh đầy đủ, CCCD, mã bệnh án. Tự điền cân nặng/CrCl/gan vào mọi bảng điểm và tự chỉnh liều theo thận/gan/cân nặng.
