@@ -65,6 +65,17 @@ vm.runInContext(grab("var ABX=[", "var abxState="), ctx3);
 const DRUGDB = vm.runInContext("DRUGDB", ctx3), ABX = vm.runInContext("ABX", ctx3);
 const ivKeys = new Set(drugs.map(d => d.k));
 console.log("Tra cứu thuốc: " + DRUGDB.length + " hoạt chất");
+// 5) Sổ tay thuốc: mỗi hoạt chất có hướng dẫn sử dụng đủ mục chính, không có mục thừa
+vm.runInContext(grab("var MONO={", "/* ---------- Sổ tay thuốc (giao diện) ---------- */"), ctx3);
+const MONO = vm.runInContext("MONO", ctx3);
+DRUGDB.forEach(d => {
+  const m = MONO[d.g]; ok(!!m, "Sổ tay: thiếu hướng dẫn cho " + d.g); if (!m) return;
+  ["ind", "use", "ci", "ae"].forEach(k => ok(m[k] && m[k].length > 10, "Sổ tay: " + d.g + " thiếu mục " + k));
+  const hasDose = !!m.dose || d.t.some(x => x[0] === "abx") || d.t.some(x => x[0] === "vaso" && x[1]);
+  ok(hasDose, "Sổ tay: " + d.g + " không có thông tin liều");
+});
+Object.keys(MONO).forEach(k => ok(DRUGDB.some(d => d.g === k), "Sổ tay: mục thừa không khớp hoạt chất nào: " + k));
+console.log("Sổ tay thuốc: " + Object.keys(MONO).length + " hướng dẫn");
 DRUGDB.forEach(d => {
   ok(d.t.length > 0, d.g + ": chưa liên kết công cụ nào");
   d.t.forEach(x => {
