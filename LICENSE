@@ -1,0 +1,65 @@
+MIT License
+
+Copyright (c) 2026 Dự án Công cụ Nội khoa & Hồi sức
+Chủ repo: Vũ Hoàng Việt — https://github.com/Hoangviet1397/noi-khoa-hoi-suc
+Phiên bản áp dụng: v2.0 (bản nháp, ngày 18/11/2026)
+
+Permission is hereby granted, free of charge, to any person obtaining a copy
+of this software and associated documentation files (the "Software"), to deal
+in the Software without restriction, including without limitation the rights
+to use, copy, modify, merge, publish, distribute, sublicense, and/or sell
+copies of the Software, and to permit persons to whom the Software is
+furnished to do so, subject to the following conditions:
+
+The above copyright notice and this permission notice shall be included in all
+copies or substantial portions of the Software.
+
+THE SOFTWARE IS PROVIDED "AS IS", WITHOUT WARRANTY OF ANY KIND, EXPRESS OR
+IMPLIED, INCLUDING BUT NOT LIMITED TO THE WARRANTIES OF MERCHANTABILITY,
+FITNESS FOR A PARTICULAR PURPOSE AND NONINFRINGEMENT. IN NO EVENT SHALL THE
+AUTHORS OR COPYRIGHT HOLDERS BE LIABLE FOR ANY CLAIM, DAMAGES OR OTHER
+LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
+OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
+SOFTWARE.
+
+---
+
+PHỤ LỤC A — MIỄN TRỪ Y KHOA (ÁP DỤNG BẮT BUỘC CÙNG GIẤY PHÉP MIT Ở TRÊN)
+
+Phụ lục này là một phần không tách rời của giấy phép áp dụng cho dự án
+“Công cụ Nội khoa & Hồi sức” (noi-khoa-hoi-suc). Nếu có xung đột giữa
+Phụ lục này và phần MIT ở trên về nội dung y khoa, Phụ lục này được ưu tiên
+áp dụng cho nội dung y khoa.
+
+1. Mục đích giới hạn. Phần mềm này là tài liệu tham khảo giáo dục dành cho
+   nhân viên y tế. Phần mềm không phải là thiết bị y tế, không chẩn đoán,
+   không kê đơn, không điều trị và không thay thế phán đoán lâm sàng,
+   phác đồ của bệnh viện nơi người dùng làm việc, hay hướng dẫn sử dụng
+   thuốc của nhà sản xuất.
+
+2. Không bảo hành về nội dung y khoa. Các bảng điểm, phác đồ, liều thuốc
+   và gợi ý trong phần mềm được cung cấp “nguyên trạng” (AS IS), kèm nguồn
+   và ngày rà soát. Tác giả không bảo đảm tính chính xác, đầy đủ, cập nhật
+   hay phù hợp với một bệnh nhân cụ thể. Y khoa thay đổi liên tục; người
+   dùng phải kiểm chứng lại liều, chống chỉ định, tương tác và nguồn
+   guideline trước khi áp dụng tại giường bệnh.
+
+3. Giới hạn trách nhiệm. Trong phạm vi tối đa mà pháp luật Việt Nam cho
+   phép (bao gồm Bộ luật Dân sự 2015), tác giả và những người đóng góp
+   không chịu trách nhiệm đối với bất kỳ thiệt hại trực tiếp, gián tiếp,
+   ngẫu nhiên hay hệ quả nào phát sinh từ việc sử dụng hoặc không sử dụng
+   được phần mềm, kể cả khi đã được cảnh báo về khả năng xảy ra thiệt hại
+   đó. Quyết định điều trị cuối cùng thuộc về bác sĩ điều trị.
+
+4. Trách nhiệm của người dùng. Người dùng phải là nhân viên y tế, phải
+   đọc và chấp nhận Điều khoản sử dụng (TERMS.md) và Tuyên bố miễn trừ
+   y khoa (DISCLAIMER.md) của đúng phiên bản đang dùng, và phải tuân thủ
+   pháp luật hiện hành nơi mình hành nghề.
+
+5. Không liên quan tới bệnh viện. Dự án này là dự án cá nhân, phi thương
+   mại, không phải phát ngôn hay sản phẩm chính thức của Bệnh viện Kiến An
+   hay bất kỳ cơ sở y tế nào. Không được dùng tên, logo hay danh nghĩa
+   của bệnh viện để quảng bá cho phần mềm.
+
+6. Bản nháp cần rà soát. Văn bản này là bản nháp ngày 18/11/2026 cho
+   v2.0. Trước khi phát hành rộng, cần luật sư y tế rà lại.
