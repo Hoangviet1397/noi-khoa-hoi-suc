@@ -136,7 +136,7 @@ main{min-width:0}
 .pinrow .card h3{font-size:14px;line-height:1.3;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden}
 .empty{background:var(--surface);border:1px dashed var(--line2);border-radius:var(--radius);padding:22px;color:var(--muted);font-size:14.5px;text-align:center}
 /* ---------- Bottom nav ---------- */
-.bottomnav{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(4,1fr);z-index:60;padding-bottom:env(safe-area-inset-bottom)}
+.bottomnav{position:fixed;left:0;right:0;bottom:0;background:color-mix(in srgb,var(--surface) 92%,transparent);backdrop-filter:saturate(1.6) blur(14px);-webkit-backdrop-filter:saturate(1.6) blur(14px);border-top:1px solid var(--line);display:grid;grid-template-columns:repeat(5,1fr);z-index:60;padding-bottom:env(safe-area-inset-bottom)}
 @media(min-width:960px){.bottomnav{display:none}}
 .bottomnav button{background:none;border:0;padding:7px 2px 8px;font-size:11.5px;font-weight:700;color:var(--muted);cursor:pointer;display:flex;flex-direction:column;align-items:center;gap:1px;min-height:var(--nav-h)}
 .bottomnav button .bi{font-size:21px;line-height:1.2;filter:grayscale(1);opacity:.75}
@@ -450,6 +450,7 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
         <button type="button" class="chip ghost" id="btnShare">📤 Chia sẻ app</button>
         <button type="button" class="chip ghost" id="btnFeedback">💬 Báo lỗi / Góp ý</button>
         <button type="button" class="chip ghost" id="btnNews">🆕 Có gì mới</button>
+        <button type="button" class="chip ghost" id="btnFeed">📰 Bản tin</button>
       </div>
 
       <div id="recentWrap" style="display:none">
@@ -498,7 +499,7 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
   </main>
 </div>
 
-<p class="footer"><span id="verLine"></span><br/>Nguồn tham khảo chính: Surviving Sepsis Campaign 2021, KDIGO, định nghĩa ARDS toàn cầu 2023, ESC 2024, Sanford Guide, nhãn thuốc FDA/EMA. Cập nhật nội dung: 11/2026. Chỉ dùng tham khảo lâm sàng — luôn đối chiếu phác đồ bệnh viện và kháng sinh đồ.</p>
+<p class="footer"><span id="verLine"></span><br/>Nguồn tham khảo chính: Surviving Sepsis Campaign 2021, KDIGO, định nghĩa ARDS toàn cầu 2023, ESC 2021/2023/2024, ESPEN 2023, Sanford Guide, nhãn thuốc FDA/EMA. Cập nhật nội dung: 11/2026. Chỉ dùng tham khảo lâm sàng — luôn đối chiếu phác đồ bệnh viện và kháng sinh đồ.</p>
 
 <div class="stickyres" id="stickyRes" role="button" tabindex="0" aria-label="Xem kết quả"><span class="sl">Kết quả</span><span class="sv" id="stickyVal">—</span><span class="sa">▲</span></div>
 <dialog class="dlg" id="dlg" aria-label="Hộp thoại"><div class="dlg-in"><button type="button" class="dlg-x" id="dlgX" aria-label="Đóng">✕</button><div id="dlgBody"></div></div></dialog>
@@ -509,6 +510,7 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
   <button type="button" data-nav="phacdo"><span class="bi">🧭</span>Phác đồ</button>
   <button type="button" data-nav="abx"><span class="bi">💊</span>Kháng sinh</button>
   <button type="button" data-nav="fav"><span class="bi">⭐</span>Đã ghim</button>
+  <button type="button" data-nav="feed"><span class="bi">📰</span>Bản tin</button>
 </nav>
 
 <script>
@@ -516,8 +518,9 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
 function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d");}
 function $(id){return document.getElementById(id);}
 /* ===== PHIÊN BẢN: chỉ sửa ở đây khi phát hành (service worker tự lấy số này đặt tên bộ nhớ đệm) ===== */
-var APP_VERSION="0.5.1",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
+var APP_VERSION="0.6.0",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
 var CHANGELOG=[
+ ["0.6.0","17/11/2026",["3 công cụ mới: 🥗 Kê đơn dinh dưỡng ICU (năng lượng kcal/kg, protein g/kg, tốc độ nuôi ăn qua sonde mL/giờ, cảnh báo nuôi ăn lại); 🩸 CRRT — lọc máu liên tục (liều effluent mL/kg/giờ, dịch thay thế/lọc, chống đông citrate–heparin, nhắc kháng sinh); ❤️ Suy tim HFrEF (bộ bốn thuốc nền ARNI/beta-blocker/MRA/SGLT2i với liều khởi đầu–đích, chỉnh lợi tiểu, theo dõi K/creatinin).","📰 Bản tin: mẹo tại giường 60 giây, cập nhật hướng dẫn, ca lâm sàng ôn tập, cảnh báo thuốc — lọc theo chuyên mục, tìm kiếm, đánh dấu đã đọc, đọc offline; thêm nút Bản tin ở thanh điều hướng dưới và trang chủ."]],
  ["0.5.1","17/11/2026",["Sửa lỗi do Muse rà soát: khoảng CrCl meropenem không còn chồng lấn (30–50 và 15–25); tăng khoảng đệm dưới trang để thanh điều hướng và thanh kết quả nổi không che nút cuối trang; cây Hội chứng vành cấp thêm nút Tính GRACE mở thẳng máy tính GRACE."]],
  ["0.5.0","17/11/2026",["📖 Sổ tay thuốc: hướng dẫn sử dụng rút gọn cho 82 thuốc thông dụng tại hồi sức – cấp cứu — chỉ định, liều người lớn (kháng sinh kèm liều theo CrCl và lọc máu, thuốc truyền kèm khoảng liều và cách pha), cách pha – cách dùng, chống chỉ định, tác dụng phụ – theo dõi – thuốc giải, thai kỳ. Mở bằng nút “📖 Cách dùng” khi tìm tên thuốc hoặc nhóm Thuốc – kháng sinh; có nút sao chép."]],
  ["0.4.0","17/11/2026",["Tra cứu theo tên thuốc: gõ biệt dược hoặc hoạt chất thông dụng tại Việt Nam (Augmentin, Tazocin, Meronem, Levophed, Seduxen, Lovenox, Xarelto, Solu-Medrol…) — app cho biết hoạt chất và mở thẳng công cụ liên quan (module kháng sinh lọc sẵn thuốc, bộ tính liều truyền chọn sẵn thuốc, phác đồ tương ứng). 82 hoạt chất.","Hướng dẫn sử dụng trong app (nút ❓ ở trang chủ và chân trang)."]],
@@ -603,7 +606,11 @@ var TOOLS=[
  {id:"px_ugib",icon:"🩸",cat:"phacdo",catName:"Phác đồ • Cấp cứu",name:"Xuất huyết tiêu hóa trên",desc:"Hồi sức, truyền máu hạn chế, giãn tĩnh mạch vs loét, nội soi, TIPS.",kw:"phac do cay xuat huyet tieu hoa tren gian tinh mach thuc quan loet"},
  {id:"px_asthma",icon:"🌫️",cat:"phacdo",catName:"Phác đồ • Cấp cứu",name:"Cơn hen phế quản cấp",desc:"Phân độ → SABA, ipratropium, corticoid, MgSO₄ → ICU.",kw:"phac do cay hen phe quan cap"},
  {id:"px_copd",icon:"🚬",cat:"phacdo",catName:"Phác đồ • Cấp cứu",name:"Đợt cấp COPD",desc:"Oxy 88–92%, giãn phế quản, corticoid, kháng sinh, NIV khi toan hô hấp.",kw:"phac do cay dot cap copd phoi tac nghen niv"},
- {id:"drugbook",icon:"📖",cat:"khangsinh",catName:"Thuốc",name:"Sổ tay thuốc — hướng dẫn sử dụng",desc:"Chỉ định, liều, cách pha – cách dùng, chống chỉ định, tác dụng phụ, thai kỳ cho 82 thuốc thông dụng tại ICU – cấp cứu.",kw:"so tay thuoc huong dan su dung thuoc cach dung cach pha lieu dung chi dinh chong chi dinh tac dung phu biet duoc hoat chat duoc thu"}
+ {id:"drugbook",icon:"📖",cat:"khangsinh",catName:"Thuốc",name:"Sổ tay thuốc — hướng dẫn sử dụng",desc:"Chỉ định, liều, cách pha – cách dùng, chống chỉ định, tác dụng phụ, thai kỳ cho 82 thuốc thông dụng tại ICU – cấp cứu.",kw:"so tay thuoc huong dan su dung thuoc cach dung cach pha lieu dung chi dinh chong chi dinh tac dung phu biet duoc hoat chat duoc thu"},
+  {id:"nutri",icon:"🥗",cat:"hoisuc",catName:"Hồi sức",name:"Kê đơn dinh dưỡng ICU — năng lượng & protein",desc:"Năng lượng kcal/kg, protein g/kg, tốc độ nuôi ăn qua sonde mL/giờ, cảnh báo nuôi ăn lại.",kw:"dinh duong icu nang luong protein kcal sonde an refeeding esp en aspen"},
+  {id:"crrt",icon:"🩸",cat:"hoisuc",catName:"Hồi sức",name:"CRRT — Lọc máu liên tục",desc:"Liều effluent mL/kg/giờ, dịch thay thế / dịch lọc, chống đông citrate – heparin, nhắc kháng sinh.",kw:"crrt loc mau lien tuc effluent thay the citrate heparin than nhan tao"},
+  {id:"hfref",icon:"❤️",cat:"timmach",catName:"Tim mạch – sốc",name:"Suy tim HFrEF — Bộ bốn thuốc nền & lợi tiểu",desc:"ARNI/ACE-I, beta-blocker, MRA, SGLT2i: liều khởi đầu – liều đích, chỉnh lợi tiểu, theo dõi K/creatinin.",kw:"suy tim hfref arni ace beta blocker mra sglt2 dapagliflozin sacubitril loi tieu"},
+  {id:"feed",icon:"📰",cat:"noikhoa",catName:"Nội khoa",name:"Bản tin — Mẹo tại giường & cập nhật",desc:"Mẹo 60 giây, cập nhật hướng dẫn, ca lâm sàng ôn tập, cảnh báo thuốc — lọc, tìm kiếm, đánh dấu đã đọc.",kw:"ban tin feed meo tai giuong cap nhat huong dan ca lam sang on tap canh bao thuoc"}
 ];
 (function(){var order=["phacdo","hoisuc","thankinh","hohap","than","timmach","noikhoa","khangsinh"];TOOLS=TOOLS.map(function(t,i){return [t,i]}).sort(function(a,b){return (order.indexOf(a[0].cat)-order.indexOf(b[0].cat))||(a[1]-b[1])}).map(function(x){return x[0]});})();
 var favs=new Set(["sofa","egfr","abx","gcs","pf"]);
@@ -873,8 +880,9 @@ function showTool(id){
   if(id==='abx')renderAbx();
   if(id.indexOf('px_')===0)renderTree(id);
   if(id==='drugbook')renderDrugBook();
+  if(id==='feed')renderFeed();
   enhancePanel(id);window.scrollTo({top:0,behavior:"instant"});
-  setNav(id==="abx"?"abx":id.indexOf("px_")===0?"phacdo":"");var t=toolById(id);if(t)document.title=t.name+" — Nội khoa & Hồi sức";
+  setNav(id==="abx"?"abx":id==="feed"?"feed":id.indexOf("px_")===0?"phacdo":"");var t=toolById(id);if(t)document.title=t.name+" — Nội khoa & Hồi sức";
   curRes=$("panel-"+id).querySelector('.result');updateSticky();renderHome();
 }
 function enhancePanel(id){
@@ -908,7 +916,7 @@ function copyText(txt,msg){function fb(){var ta=document.createElement('textarea
 function copyRes(btn){var r=btn.closest('.result'),p=btn.closest('.panel');var h=p&&p.querySelector('h2');var name=h?h.textContent.replace(/^\S+\s/,''):'';var big=r.querySelector('.big').textContent.trim(),it=r.querySelector('.interp').textContent.trim();copyText(name+": "+big+"\n"+it,"Đã sao chép kết quả — dán vào bệnh án");btn.classList.add('ok');btn.textContent='✓';setTimeout(function(){btn.classList.remove('ok');btn.textContent='⧉';},1400);}
 /* Thanh điều hướng dưới */
 document.querySelectorAll('.bottomnav button').forEach(function(b){b.addEventListener('click',function(){
-  var n=b.dataset.nav;if(n==='abx'){openTool('abx');return;}
+  var n=b.dataset.nav;if(n==='abx'){openTool('abx');return;}   if(n==='feed'){openTool('feed');return;}
   homeScroll=0;navFromHome=false;
   if(n==='home'){curQuery="";$("searchInput").value="";setCat('all');}
   if(n==='fav'){setCat('fav');}
@@ -987,6 +995,7 @@ $("btnGuide").addEventListener('click',openGuide);
 if(!store("nkhs_guide_seen")){var bg=$("btnGuide");if(bg)bg.classList.add('new');}
 
 $("btnShare").addEventListener('click',openShare);$("btnFeedback").addEventListener('click',function(){openFeedback(null);});$("btnNews").addEventListener('click',openNews);
+$("btnFeed").addEventListener('click',function(){openTool('feed');});
 (function(){var nT=TOOLS.filter(function(t){return t.cat!=="phacdo"}).length,nP=TOOLS.length-nT;
  $("topSub").textContent=nT+" công cụ • "+nP+" phác đồ • v"+APP_VERSION;
  $("verLine").innerHTML='<b>Phiên bản v'+APP_VERSION+'</b> — cập nhật '+APP_DATE+' · <a href="#" id="flGuide">Hướng dẫn</a> · <a href="#" id="flNews">Có gì mới</a> · <a href="#" id="flFb">Báo lỗi / Góp ý</a> · <a href="#" id="flShare">Chia sẻ app</a>';
@@ -1590,6 +1599,129 @@ function calcDKA(){var w=num("dk_wt"),g=num("dk_glu"),k=num("dk_k"),ph=num("dk_p
  p.push("Chuyển insulin dưới da: tiêm basal 1–2 giờ TRƯỚC khi ngừng truyền.");
  setRes("res-dka",k<3.5?"Bù K⁺ trước — chưa insulin":fmt(rate/c,1)+" mL/giờ insulin",p.join("<br/>"),k<3.5?3:2);}
 
+
+/* ---------- Kê đơn dinh dưỡng ICU (v0.6.0) ---------- */
+P.nutri=head("🥗","Kê đơn dinh dưỡng ICU — Năng lượng & protein","Năng lượng và protein theo ESPEN 2023 / ASPEN–SCCM. Dùng cân nặng hiệu chỉnh khi béo phì; tuần đầu tránh cho quá nhiều năng lượng.")+resHTML("res-nutri")+
+ '<div class="frow">'+numHTML("nt_wt","Cân nặng","vd 70","kg")+numHTML("nt_ht","Chiều cao (để tính BMI & cân nặng hiệu chỉnh)","vd 170","cm")+'</div>'+
+ segHTML("nt_sex","Giới tính",[["M","Nam"],["F","Nữ"]])+
+ selHTML("nt_cond","Tình trạng",[[0,"Ổn định / bệnh nặng thường",true],[1,"Béo phì (BMI ≥ 30)"],[2,"Suy thận chưa lọc máu"],[3,"Đang lọc máu / CRRT"],[4,"Suy gan / bệnh gan mạn"],[5,"Bỏng nặng"],[6,"Suy dinh dưỡng nặng / nhịn ăn kéo dài"]])+
+ selHTML("nt_conc","Nồng độ sữa nuôi ăn",[[1,"1,0 kcal/mL (sữa chuẩn)",true],[1.2,"1,2 kcal/mL"],[1.5,"1,5 kcal/mL (đậm đặc)"]])+
+ selHTML("nt_refeed","Nguy cơ hội chứng nuôi ăn lại",[[0,"Không có yếu tố nguy cơ",true],[1,"Có nguy cơ (nhịn ăn 3–5 ngày, sụt cân)"],[2,"Nguy cơ cao (nhịn ăn > 5 ngày, BMI thấp, điện giải thấp)"]])+actions("calcNutri")+
+ '<div class="notebox info"><h4>Áp dụng</h4><ul><li>Ưu tiên nuôi ăn đường tiêu hóa sớm trong 24–48 giờ khi huyết động ổn định; nếu chưa đủ, cân nhắc dinh dưỡng tĩnh mạch bổ sung sau ngày thứ 3–7.</li><li>Tuần đầu: tránh vượt 70% nhu cầu năng lượng ước tính; đạt đích protein sớm hơn năng lượng.</li><li>Nguy cơ nuôi ăn lại: bổ sung thiamine trước khi bắt đầu, theo dõi phosphat, K⁺, Mg²⁺ trong 3 ngày đầu.</li></ul></div><p class="src">Nguồn: ESPEN Guideline on Clinical Nutrition in the ICU 2023; ASPEN–SCCM 2022.</p>';
+function calcNutri(){var w=num("nt_wt"),h=num("nt_ht"),sex=segVal("nt_sex")||"M",cond=parseInt($("nt_cond").value),conc=parseFloat($("nt_conc").value)||1,rf=parseInt($("nt_refeed").value);
+ if(w==null){setRes("res-nutri","—","Nhập cân nặng để tính đơn dinh dưỡng.",null);return;}
+ var bmi=h?w/((h/100)*(h/100)):null,ibw=null;
+ if(h){var inch=h/2.54,over=inch-60;ibw=(sex==="M"?50:45.5)+2.3*over;if(ibw<0)ibw=null;}
+ var dw=w,dwNote="cân nặng thực";
+ if(cond===1){if(ibw){dw=ibw;dwNote="cân nặng lý tưởng (IBW) — béo phì";}else{dwNote="cân nặng thực — nhập chiều cao để tính IBW";}}
+ var eLo=20,eHi=25,pLo=1.2,pHi=2,protT=1.3;
+ if(cond===1){eLo=22;eHi=25;pLo=2;pHi=2.5;protT=2;}
+ if(cond===2){eLo=25;eHi=30;pLo=0.8;pHi=1;protT=1;}
+ if(cond===3){eLo=25;eHi=30;pLo=1.5;pHi=2;protT=1.5;}
+ if(cond===4){eLo=25;eHi=30;pLo=1.2;pHi=1.5;protT=1.2;}
+ if(cond===5){eLo=25;eHi=30;pLo=1.5;pHi=2;protT=1.5;}
+ if(cond===6){eLo=25;eHi=30;pLo=1.2;pHi=1.5;protT=1.2;}
+ var kcalLo=eLo*dw,kcalHi=eHi*dw,proLo=pLo*dw,proHi=pHi*dw,kcalT=25*dw;
+ var rateLo=kcalLo/conc/24,rateHi=kcalHi/conc/24,p=[];
+ p.push("<b>Năng lượng:</b> "+eLo+"–"+eHi+" kcal/kg/ngày ("+dwNote+" "+fmt(dw,1)+" kg) = <b>"+fmt(kcalLo,0)+"–"+fmt(kcalHi,0)+" kcal/ngày</b>. Tuần đầu chỉ nên đạt dưới 70% nhu cầu (khoảng "+fmt(kcalHi*0.7,0)+" kcal/ngày).");
+ p.push("<b>Protein:</b> "+fmt(pLo,1)+"–"+fmt(pHi,1)+" g/kg/ngày = <b>"+fmt(proLo,0)+"–"+fmt(proHi,0)+" g/ngày</b> (mục tiêu khoảng "+fmt(protT*dw,0)+" g/ngày).");
+ p.push("<b>Nuôi ăn qua sonde ("+fmt(conc,1)+" kcal/mL):</b> tổng "+fmt(kcalT/conc,0)+" mL/ngày ≈ <b>"+fmt(rateLo,0)+"–"+fmt(rateHi,0)+" mL/giờ</b> khi đạt đích; tăng dần 10–20 mL/giờ mỗi 4–8 giờ theo dung nạp.");
+ if(cond===1)p.push("Béo phì: dùng IBW để tính năng lượng và protein; theo dõi đường huyết, tránh cho quá nhiều năng lượng.");
+ if(cond===2)p.push("Suy thận chưa lọc máu: protein 0,8–1,0 g/kg/ngày; theo dõi ure, K⁺, phosphat, toan chuyển hóa.");
+ if(cond===3)p.push("Đang lọc máu/CRRT: mất acid amin qua màng lọc nên ưu tiên đầu trên của khoảng protein; theo dõi phosphat (CRRT làm hạ phosphat).");
+ if(cond===4)p.push("Suy gan: KHÔNG hạn chế protein khi có bệnh não gan; protein 1,2–1,5 g/kg/ngày, ưu tiên đạm thực vật / acid amin chuỗi nhánh nếu không dung nạp đạm thường.");
+ if(cond===5)p.push("Bỏng nặng: nhu cầu có thể cao hơn khoảng trên — đánh giá lại hằng ngày theo cân nặng, diện tích bỏng và tình trạng tăng chuyển hóa; kiểm tra phác đồ bệnh viện.");
+ if(rf===1)p.push("<b>⚠️ Nguy cơ nuôi ăn lại:</b> bắt đầu chậm 10–15 kcal/kg/ngày, tăng dần trong 4–7 ngày; thiamine 200–300 mg/ngày trước khi bắt đầu; theo dõi phosphat, K⁺, Mg²⁺ ngày 1–3.");
+ if(rf===2)p.push("<b>⚠️ NGUY CƠ CAO nuôi ăn lại:</b> bắt đầu 5–10 kcal/kg/ngày, tăng rất chậm trong 4–7 ngày; thiamine 200–300 mg/ngày; theo dõi phosphat, K⁺, Mg²⁺ sát trong 72 giờ đầu, bù phosphat nếu &lt; 0,65 mmol/L.");
+ if(bmi)p.push("BMI hiện tại: "+fmt(bmi,1)+" kg/m².");
+ setRes("res-nutri",fmt(kcalLo,0)+"–"+fmt(kcalHi,0)+" kcal/ngày • "+fmt(proLo,0)+"–"+fmt(proHi,0)+" g protein/ngày",p.join("<br/>"),rf===2?3:(rf===1?2:1));}
+
+/* ---------- CRRT — Lọc máu liên tục (v0.6.0) ---------- */
+P.crrt=head("🩸","CRRT — Lọc máu liên tục","Liều effluent theo KDIGO (20–25 mL/kg/giờ, tính theo cân nặng thực). Liều cao hơn không cải thiện sống còn.")+resHTML("res-crrt")+
+ '<div class="frow">'+numHTML("cr_wt","Cân nặng","vd 70","kg")+numHTML("cr_dose","Liều effluent mục tiêu","vd 25 (20–25)","mL/kg/giờ")+'</div>'+
+ numHTML("cr_net","Rút dịch ròng (UF net)","vd 100","mL/giờ")+
+ selHTML("cr_mode","Phương thức",[[0,"CVVH — lọc máu (đối lưu)",true],[1,"CVVHD — thẩm tách (khuếch tán)"],[2,"CVVHDF — kết hợp"]])+
+ selHTML("cr_ac","Chống đông",[[0,"Citrate vùng",true],[1,"Heparin toàn thân"],[2,"Không chống đông"]])+actions("calcCRRT")+
+ '<div class="notebox info"><h4>Nhắc kháng sinh khi CRRT</h4><ul><li>Không giảm liều nạp theo thận; nhiều kháng sinh cần tăng tần suất hoặc liều vì bị lọc qua màng (xem module kháng sinh).</li><li>Meropenem khi CRRT: 1 g mỗi 8 giờ, truyền kéo dài 3 giờ. Vancomycin: liều theo nồng độ.</li></ul></div><button type="button" class="tgo" onclick="openTool(\'abx\')">→ Mở: Kháng sinh theo thận – gan</button><p class="src">Nguồn: KDIGO AKI Guideline 2012 (liều effluent 20–25 mL/kg/giờ); KDIGO AKI 2024 (cập nhật).</p>';
+function calcCRRT(){var w=num("cr_wt"),dose=num("cr_dose"),net=num("cr_net"),mode=parseInt($("cr_mode").value),ac=parseInt($("cr_ac").value);
+ if(w==null||dose==null){setRes("res-crrt","—","Nhập cân nặng và liều effluent mục tiêu.",null);return;}
+ if(net==null)net=0;
+ var eff=dose*w,rem=eff-net,dia=0;
+ if(mode===1){dia=rem;rem=0;}
+ if(mode===2){dia=rem/2;rem=rem/2;}
+ var p=[];
+ p.push("<b>Tổng effluent:</b> "+fmt(dose,0)+" mL/kg/giờ × "+fmt(w,0)+" kg = <b>"+fmt(eff,0)+" mL/giờ</b> ("+fmt(eff*24/1000,1)+" L/ngày).");
+ if(mode===0)p.push("<b>CVVH:</b> dịch thay thế "+fmt(rem,0)+" mL/giờ (effluent trừ UF ròng "+fmt(net,0)+" mL/giờ); không dùng dịch lọc. Chia trước/sau màng lọc theo phác đồ bệnh viện.");
+ if(mode===1)p.push("<b>CVVHD:</b> dịch lọc "+fmt(dia,0)+" mL/giờ (effluent trừ UF ròng "+fmt(net,0)+" mL/giờ); không dùng dịch thay thế.");
+ if(mode===2)p.push("<b>CVVHDF:</b> dịch lọc "+fmt(dia,0)+" mL/giờ + dịch thay thế "+fmt(rem,0)+" mL/giờ (chia đôi effluent sau khi trừ UF ròng "+fmt(net,0)+" mL/giờ).");
+ if(eff-net<0)p.push("<b>⚠️ UF ròng lớn hơn tổng effluent</b> — kiểm tra lại liều effluent và tốc độ rút dịch.");
+ if(dose>25)p.push("<b>Lưu ý:</b> liều effluent &gt; 25 mL/kg/giờ không cải thiện sống còn so với 20–25 (KDIGO) — không tăng liều thường quy.");
+ if(ac===0)p.push("<b>Chống đông citrate vùng:</b> theo dõi Ca²⁺ ion hóa trong mạch (mục tiêu 0,25–0,35 mmol/L) và Ca²⁺ toàn thân (1,1–1,3 mmol/L); tỉ lệ Ca toàn phần / Ca ion hóa &gt; 2,5 gợi ý tích lũy citrate — giảm citrate, tăng Ca bù; theo dõi toan kiềm và natri.");
+ if(ac===1)p.push("<b>Chống đông heparin:</b> theo dõi aPTT và tiểu cầu; chống chỉ định khi đang chảy máu, nguy cơ chảy máu cao hoặc tiền sử HIT.");
+ if(ac===2)p.push("<b>Không chống đông:</b> khi nguy cơ chảy máu cao — theo dõi áp lực xuyên màng, thay màng lọc khi tắc sớm; cân nhắc citrate vùng nếu màng lọc tắc lặp lại.");
+ p.push("<b>Thời điểm kháng sinh:</b> cho liều nạp đủ ngay khi bắt đầu CRRT, không chờ màng lọc ổn định; theo dõi nồng độ khi có thể (vancomycin, aminoglycoside).");
+ setRes("res-crrt",fmt(eff,0)+" mL/giờ effluent",p.join("<br/>"),dose>25||eff-net<0?2:1);}
+
+/* ---------- Suy tim HFrEF (v0.6.0) ---------- */
+P.hfref=head("❤️","Suy tim HFrEF — Bộ bốn thuốc nền & lợi tiểu","Bốn trụ điều trị theo ESC 2021 / cập nhật 2023: ARNI (hoặc ACE-I/ARB), beta-blocker, MRA, SGLT2i — cộng chỉnh lợi tiểu theo ứ dịch. Kiểm tra HA, nhịp tim, K⁺, eGFR trước mỗi lần tăng liều.")+resHTML("res-hfref")+
+ '<div class="frow">'+numHTML("hf_sbp","Huyết áp tâm thu","vd 110","mmHg")+numHTML("hf_hr","Nhịp tim","vd 78","lần/phút")+'</div>'+
+ '<div class="frow">'+numHTML("hf_k","Kali máu (K⁺)","vd 4,2","mmol/L")+numHTML("hf_egfr","eGFR","vd 55","mL/phút/1,73 m²")+'</div>'+
+ numHTML("hf_wtch","Tăng cân trong 3 ngày qua (tùy chọn)","vd 2","kg")+
+ selHTML("hf_cong","Dấu hiệu ứ dịch",[[0,"Không ứ dịch",true],[1,"Ứ dịch nhẹ (phù chân, tăng cân < 2 kg)"],[2,"Ứ dịch nặng (khó thở khi nằm, phù phổi, tăng cân ≥ 2 kg)"]])+actions("calcHFRef")+
+ '<div class="notebox info"><h4>Theo dõi khi tăng liều</h4><ul><li>K⁺ và creatinin/eGFR sau 1–2 tuần mỗi lần tăng liều ARNI/ACE-I hoặc MRA; HA và nhịp tim mỗi lần tăng beta-blocker.</li><li>Cân nặng hằng ngày; mục tiêu giảm 0,5–1 kg/ngày khi đang lợi tiểu.</li><li>Ngừng / giảm liều khi: HA tâm thu &lt; 90 mmHg có triệu chứng, K⁺ &gt; 5,5 mmol/L, creatinin tăng &gt; 30% so với nền, nhịp tim &lt; 50 lần/phút.</li></ul></div><p class="src">Nguồn: ESC Guidelines for Heart Failure 2021; ESC 2023 Focused Update.</p>';
+function calcHFRef(){var sbp=num("hf_sbp"),hr=num("hf_hr"),k=num("hf_k"),eg=num("hf_egfr"),wt=num("hf_wtch"),cg=parseInt($("hf_cong").value);
+ if(sbp==null||hr==null||k==null||eg==null){setRes("res-hfref","—","Nhập HA tâm thu, nhịp tim, K⁺ và eGFR.",null);return;}
+ var lowBP=sbp<100,brady=hr<55,highK=k>5,veryK=k>5.5,lowE=eg<30,veryLowE=eg<20,go=0,p=[];
+ if(lowBP||veryK||lowE)p.push("<b>1. ARNI — HOÃN:</b> "+(lowBP?"HA tâm thu &lt; 100 mmHg. ":"")+(veryK?"K⁺ &gt; 5,5 mmol/L. ":"")+(lowE?"eGFR &lt; 30 mL/phút. ":"")+"Ổn định huyết động và điện giải rồi bắt đầu lại.");
+ else{p.push("<b>1. ARNI:</b> sacubitril/valsartan 24/26 mg × 2 lần/ngày → đích 97/103 mg × 2 lần/ngày (tăng gấp đôi mỗi 2–4 tuần nếu dung nạp). Nếu chưa dùng ARNI: enalapril 2,5 mg × 2 → đích 10–20 mg × 2 lần/ngày. Chống chỉ định: tiền sử phù mạch, thai kỳ.");go++;}
+ if(brady||lowBP||cg===2)p.push("<b>2. Beta-blocker — HOÃN:</b> "+(brady?"nhịp tim &lt; 55 lần/phút. ":"")+(lowBP?"HA tâm thu &lt; 100 mmHg. ":"")+(cg===2?"đang ứ dịch nặng / mất bù cấp — ưu tiên lợi tiểu, bắt đầu beta-blocker khi đã ổn định, hết ứ dịch cấp.":""));
+ else{p.push("<b>2. Beta-blocker:</b> bisoprolol 1,25 mg/ngày → đích 10 mg/ngày (hoặc carvedilol 3,125 mg × 2 → 25 mg × 2; metoprolol succinate 12,5–25 mg/ngày → 200 mg/ngày). Tăng liều mỗi 2 tuần nếu HA và nhịp tim cho phép.");go++;}
+ if(highK||lowE)p.push("<b>3. MRA — HOÃN:</b> "+(highK?"K⁺ &gt; 5,0 mmol/L. ":"")+(lowE?"eGFR &lt; 30 mL/phút. ":"")+"Hiệu chỉnh K⁺ và chức năng thận rồi bắt đầu lại.");
+ else{p.push("<b>3. MRA:</b> spironolactone 25 mg/ngày → 50 mg/ngày (hoặc eplerenone 25 mg → 50 mg/ngày). Theo dõi K⁺ và creatinin sau 1 tuần.");go++;}
+ if(veryLowE)p.push("<b>4. SGLT2i:</b> dapagliflozin 10 mg/ngày hoặc empagliflozin 10 mg/ngày — dùng được cả khi không có đái tháo đường. eGFR &lt; 20 mL/phút: bằng chứng còn hạn chế — hỏi ý kiến chuyên khoa / kiểm tra phác đồ bệnh viện.");
+ else{p.push("<b>4. SGLT2i:</b> dapagliflozin 10 mg/ngày hoặc empagliflozin 10 mg/ngày — dùng được cả khi không có đái tháo đường. Theo dõi thể tích, nhiễm trùng sinh dục, nguy cơ DKA (hiếm).");go++;}
+ if(cg===0)p.push("<b>Lợi tiểu:</b> không ứ dịch — duy trì liều lợi tiểu hiện tại, không tăng thêm.");
+ if(cg===1)p.push("<b>Lợi tiểu:</b> furosemide 20–40 mg tiêm TM, hoặc gấp đôi liều uống đang dùng; đánh giá lại sau 2 giờ; mục tiêu giảm 0,5–1 kg/ngày.");
+ if(cg===2)p.push("<b>Lợi tiểu:</b> furosemide TM liều gấp 1–2 lần liều uống hằng ngày (vd đang uống 40 mg/ngày → 40–80 mg TM); đánh giá lại sau 2 giờ. Kháng lợi tiểu: thêm thiazide (metolazone) hoặc tăng liều / truyền liên tục — kiểm tra phác đồ bệnh viện.");
+ if(wt!=null&&wt>=2)p.push("Tăng cân "+fmt(wt,1)+" kg trong 3 ngày: phù hợp ứ dịch — ưu tiên lợi tiểu trước khi tăng liều thuốc nền.");
+ setRes("res-hfref",go+"/4 trụ có thể bắt đầu ngay",p.join("<br/>"),(lowBP||veryK||cg===2)?2:1);}
+
+/* ---------- Bản tin (v0.6.0) ---------- */
+var FEED=[
+ {id:"f1",d:"17/11/2026",c:"Mẹo tại giường",t:"Noradrenaline: vận mạch đầu tay trong sốc nhiễm trùng",s:"Mục tiêu MAP ≥ 65 mmHg. Pha thường dùng 4 mg/50 mL (80 mcg/mL); kiểm tra vị trí truyền mỗi giờ, ưu tiên đường truyền trung tâm. Liều > 0,25 mcg/kg/phút mà MAP chưa đạt: cân nhắc thêm vasopressin.",tool:"vaso"},
+ {id:"f2",d:"17/11/2026",c:"Mẹo tại giường",t:"Sốc nhiễm trùng: nhận biết sớm bằng SOFA",s:"Nhiễm trùng + SOFA ≥ 2 = sepsis (Sepsis-3). Sốc nhiễm trùng: cần vận mạch để giữ MAP ≥ 65 mmHg và lactate > 2 mmol/L dù đã bù dịch đủ. Đừng chờ đủ tiêu chuẩn mới xử trí — lấy máu cấy, kháng sinh và dịch trong giờ đầu.",tool:"sofa"},
+ {id:"f3",d:"17/11/2026",c:"Cập nhật hướng dẫn",t:"KDIGO 2024: eGFR dùng CKD-EPI 2021, không hệ số chủng tộc",s:"Ước lượng GFR bằng CKD-EPI 2021 (không dùng hệ số chủng tộc), kết hợp albumin niệu (A1 < 30, A2 30–300, A3 > 300 mg/g) để phân độ CKD G1–G5. eGFR chỉ tin cậy khi creatinin ổn định.",tool:"egfr"},
+ {id:"f4",d:"17/11/2026",c:"Cập nhật hướng dẫn",t:"ESC 2023: NSTE-ACS — GRACE quyết định thời điểm chụp mạch",s:"GRACE > 140: nguy cơ cao, chụp và can thiệp sớm trong 24 giờ. Nguy cơ rất cao (sốc tim, đau ngực kháng trị, loạn nhịp đe dọa tính mạng): chụp ngay trong 2 giờ. Tính GRACE trong app trước khi phân tầng.",tool:"grace"},
+ {id:"f5",d:"17/11/2026",c:"Cập nhật hướng dẫn",t:"Định nghĩa ARDS toàn cầu 2023: mở rộng cho bệnh nhân thở HFNC",s:"ARDS được chẩn đoán cả ở bệnh nhân thở HFNC (lưu lượng ≥ 30 L/phút) và có thể dùng SpO2/FiO2 khi không có khí máu động mạch. Phân độ nặng vẫn dựa trên P/F: nhẹ 200–300, vừa 100–200, nặng ≤ 100 mmHg.",tool:"pf"},
+ {id:"f6",d:"17/11/2026",c:"Cảnh báo thuốc",t:"Meropenem + valproate: coi chừng co giật tái phát",s:"Meropenem làm giảm mạnh nồng độ valproate trong máu, nguy cơ co giật tái phát ở bệnh nhân động kinh — tránh phối hợp, chọn kháng sinh khác khi có thể.",tool:"drugbook"},
+ {id:"f7",d:"17/11/2026",c:"Cảnh báo thuốc",t:"Vancomycin: liều nạp KHÔNG giảm theo thận",s:"Liều nạp 20–35 mg/kg (tối đa 3 g) cho đủ ngay từ đầu, kể cả khi suy thận. Chỉ chỉnh liều duy trì theo AUC / nồng độ. Truyền mỗi 1 g trong ít nhất 1 giờ.",tool:"abx"},
+ {id:"f8",d:"17/11/2026",c:"Ca lâm sàng & ôn tập",t:"Ôn tập: tốc độ truyền noradrenaline",s:"Bệnh nhân 70 kg, sốc nhiễm trùng, noradrenaline 0,1 mcg/kg/phút, pha 4 mg/50 mL. Tốc độ truyền là bao nhiêu? Đáp án: 5,25 mL/giờ (0,1 × 70 × 60 ÷ 80). Kiểm tra lại bằng bộ tính liều truyền.",tool:"vaso"},
+ {id:"f9",d:"17/11/2026",c:"Ca lâm sàng & ôn tập",t:"Ôn tập: GRACE 194 nghĩa là gì?",s:"Nam 72 tuổi, NSTE-ACS, GRACE 194 điểm: nguy cơ CAO, chụp và can thiệp mạch vành sớm trong 24 giờ. Nếu có dấu hiệu nguy cơ rất cao: chụp ngay trong 2 giờ.",tool:"grace"},
+ {id:"f10",d:"17/11/2026",c:"Ca lâm sàng & ôn tập",t:"Ôn tập: meropenem khi CrCl 20 mL/phút",s:"Liều duy trì: nửa liều (0,5–1 g) mỗi 12 giờ; liều nạp vẫn cho đủ 1–2 g. Khi lọc máu: 0,5–1 g mỗi 24 giờ, cho liều sau lọc máu. Tra lại trong module kháng sinh.",tool:"abx"},
+ {id:"f11",d:"17/11/2026",c:"Mẹo tại giường",t:"DKA: K⁺ < 3,5 thì hoãn insulin",s:"Kiểm tra K⁺ trước khi truyền insulin. K⁺ < 3,5 mmol/L: chưa truyền insulin, bù KCl 10–20 mmol/giờ đến khi K⁺ ≥ 3,5. K⁺ 3,5–5,3: thêm 10–20 mmol KCl mỗi lít dịch.",tool:"dka"},
+ {id:"f12",d:"17/11/2026",c:"Mẹo tại giường",t:"Dinh dưỡng ICU: đừng cho quá nhiều quá sớm",s:"Tuần đầu tránh vượt 70% nhu cầu năng lượng ước tính; đạt đích protein 1,2–2 g/kg/ngày. mNUTRIC ≥ 5: nguy cơ cao, cần đạt đích sớm hơn và theo dõi dung nạp. Nguy cơ nuôi ăn lại: theo dõi phosphat, K⁺, Mg²⁺ và bổ sung thiamine.",tool:"nutri"}
+];
+var feedState={c:"Tất cả",q:"",unread:false};
+function feedRead(){try{return JSON.parse(localStorage.getItem("nkhs_feed_read")||"[]")}catch(e){return[]}}
+function feedMark(id){var r=feedRead();if(r.indexOf(id)<0){r.push(id);try{localStorage.setItem("nkhs_feed_read",JSON.stringify(r))}catch(e){}}renderFeed();}
+function renderFeed(){var box=$("feedList");if(!box)return;var r=feedRead();
+ var cats=["Tất cả","Mẹo tại giường","Cập nhật hướng dẫn","Ca lâm sàng & ôn tập","Cảnh báo thuốc"];
+ var h='<div class="frow"><input type="text" id="feedQ" placeholder="Tìm trong bản tin…" value="'+feedState.q.replace(/"/g,"")+'"/></div>';
+ h+='<div class="chiprow">'+cats.map(function(c){return '<button type="button" class="chip'+(feedState.c===c?"":" ghost")+'" data-fc="'+c+'">'+c+'</button>'}).join("")+'<button type="button" class="chip'+(feedState.unread?"":" ghost")+'" data-fu="1">'+(feedState.unread?"✓ ":"")+'Chỉ chưa đọc</button></div>';
+ var unreadN=FEED.filter(function(f){return r.indexOf(f.id)<0}).length;
+ h+='<p class="src">Còn '+unreadN+' mục chưa đọc trên tổng '+FEED.length+' mục • Chạm một mục để đánh dấu đã đọc.</p>';
+ var list=FEED.filter(function(f){return (feedState.c==="Tất cả"||f.c===feedState.c)&&(!feedState.unread||r.indexOf(f.id)<0)&&(feedState.q===""||norm(f.t+" "+f.s).indexOf(norm(feedState.q))>=0);});
+ if(!list.length)h+='<div class="empty">Không có mục nào khớp bộ lọc.</div>';
+ h+=list.map(function(f){var read=r.indexOf(f.id)>=0;
+  return '<article class="appcard" style="'+(read?"opacity:.75":"")+'"><div class="rowlabel">'+f.d+' • '+f.c+(read?" • ✓ Đã đọc":" • Mới")+'</div><h3 style="font-size:16px;margin:4px 0 6px">'+f.t+'</h3><p style="font-size:14.5px;color:var(--muted)">'+f.s+'</p><div class="chiprow" style="margin-top:8px">'+(f.tool?'<button type="button" class="chip" onclick="openTool(\''+f.tool+'\')">→ Mở công cụ liên quan</button>':'')+(read?'':'<button type="button" class="chip ghost" data-fr="'+f.id+'">✓ Đánh dấu đã đọc</button>')+'</div></article>';}).join("");
+ box.innerHTML=h;
+ var q=$("feedQ");if(q)q.addEventListener("input",function(){feedState.q=q.value;var pos=q.selectionStart;renderFeed();var q2=$("feedQ");if(q2){q2.focus();q2.setSelectionRange(pos,pos);}});
+ box.querySelectorAll("[data-fc]").forEach(function(b){b.addEventListener("click",function(){feedState.c=b.dataset.fc;renderFeed();});});
+ box.querySelectorAll("[data-fu]").forEach(function(b){b.addEventListener("click",function(){feedState.unread=!feedState.unread;renderFeed();});});
+ box.querySelectorAll("[data-fr]").forEach(function(b){b.addEventListener("click",function(){feedMark(b.dataset.fr);});});
+}
+P.feed=head("📰","Bản tin — Mẹo tại giường & cập nhật","Mẹo 60 giây tại giường, cập nhật hướng dẫn, ca lâm sàng ôn tập và cảnh báo thuốc. Nội dung đóng gói sẵn trong app, đọc được offline; chỉ ghi những điểm đã xác minh, có nguồn.")+'<div id="feedList"></div><p class="src">Nguồn: Surviving Sepsis Campaign 2021; KDIGO 2024; ESC 2021/2023; ESPEN 2023; định nghĩa ARDS toàn cầu 2023; Sanford Guide.</p>';
+
 /* ---------- Quy đổi opioid ---------- */
 var OPI=[["mo_po","Morphine uống",1,"mg"],["mo_iv","Morphine tiêm TM / TDD",3,"mg"],["oxy_po","Oxycodone uống",1.5,"mg"],["hm_po","Hydromorphone uống",4,"mg"],["hm_iv","Hydromorphone tiêm TM",20,"mg"],["fen_iv","Fentanyl truyền / tiêm TM",0.3,"µg"],["fen_td","Fentanyl dán (µg/giờ)",2.4,"µg/giờ"],["pet_iv","Pethidine tiêm TM / TB",0.4,"mg"],["tra_po","Tramadol uống",0.2,"mg"],["cod_po","Codeine uống",0.15,"mg"]];
 P.opioid=head("💊","Quy đổi opioid","Quy đổi qua liều morphine uống tương đương (MME). Áp dụng cho bệnh nhân đã dung nạp opioid; KHÔNG dùng cho methadone (quy đổi không tuyến tính).")+resHTML("res-opioid")+
@@ -2023,7 +2155,7 @@ bindSeg("md_unit",function(){calcChild()});bindSeg("md_sex",function(){calcChild
 ["bm_w","bm_h"].forEach(function(id){$(id).addEventListener('input',function(){calcBMI()});});
 bindSeg("ap_crunit",function(){calcAPACHE()});
 ["ap_temp","ap_map","ap_hr","ap_rr","ap_fio2","ap_pao2","ap_paco2","ap_ph","ap_na","ap_k","ap_cr","ap_hct","ap_wbc","ap_gcs","ap_age","ap_chronic","ap_arf"].forEach(function(id){var e=$(id);if(e){e.addEventListener('input',function(){calcAPACHE()});e.addEventListener('change',function(){calcAPACHE()});}});
-(function(){var M={vaso:calcVaso,fluids:calcFluids,cam:calcCAM,nihss:calcNIHSS,ich:calcICH,abcd2:calcABCD2,abg:calcABG,vent:calcVent,natri:calcNatri,fena:calcFENa,heart:calcHEART,qtc:calcQTc,gbs:calcGBS,bisap:calcBISAP,maddrey:calcMaddrey,padua:calcPadua,steroid:calcSteroid,nutric:calcNUTRIC,caprini:calcCaprini,psi:calcPSI,grace:calcGRACE,doac:calcDOAC,four:calcFOUR,kmg:calcKMg,dka:calcDKA,opioid:calcOpioid};Object.keys(M).forEach(function(k){var p=$("panel-"+k),f=M[k];if(!p)return;p.querySelectorAll("input,select").forEach(function(e){e.addEventListener("input",function(){f()});e.addEventListener("change",function(){f()});});p.querySelectorAll(".seg").forEach(function(sg){bindSeg(sg.id,function(){f()});});});window.addEventListener("load",function(){try{calcNIHSS();calcABCD2();calcNUTRIC();calcFOUR();calcCaprini();calcHEART();calcICH();calcBISAP();calcPadua();calcCAM();}catch(e){}});})();
+(function(){var M={vaso:calcVaso,fluids:calcFluids,cam:calcCAM,nihss:calcNIHSS,ich:calcICH,abcd2:calcABCD2,abg:calcABG,vent:calcVent,natri:calcNatri,fena:calcFENa,heart:calcHEART,qtc:calcQTc,gbs:calcGBS,bisap:calcBISAP,maddrey:calcMaddrey,padua:calcPadua,steroid:calcSteroid,nutric:calcNUTRIC,caprini:calcCaprini,psi:calcPSI,grace:calcGRACE,doac:calcDOAC,four:calcFOUR,kmg:calcKMg,dka:calcDKA,opioid:calcOpioid,nutri:calcNutri,crrt:calcCRRT,hfref:calcHFRef};Object.keys(M).forEach(function(k){var p=$("panel-"+k),f=M[k];if(!p)return;p.querySelectorAll("input,select").forEach(function(e){e.addEventListener("input",function(){f()});e.addEventListener("change",function(){f()});});p.querySelectorAll(".seg").forEach(function(sg){bindSeg(sg.id,function(){f()});});});window.addEventListener("load",function(){try{calcNIHSS();calcABCD2();calcNUTRIC();calcFOUR();calcCaprini();calcHEART();calcICH();calcBISAP();calcPadua();calcCAM();}catch(e){}});})();
 /* Bảng rộng chỉ cuộn ngang bên trong khung của nó — không kéo cả trang */
 function wrapTables(root){(root||document).querySelectorAll('table.mini').forEach(function(t){if(t.parentElement&&t.parentElement.classList.contains('tblwrap'))return;var w=document.createElement('div');w.className='tblwrap';t.parentNode.insertBefore(w,t);w.appendChild(t);});}
 wrapTables($("detailView"));
