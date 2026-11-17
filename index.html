@@ -457,7 +457,7 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
 <body>
 <header class="topbar">
   <button type="button" class="mark" id="brandBtn" aria-label="Về trang chủ">✚</button>
-  <div class="titles" id="brandTitle"><div class="t1">Nội khoa &amp; Hồi sức</div><div class="t2" id="topSub">45 công cụ + 15 phác đồ • Thang điểm • Liều kháng sinh</div></div>
+  <div class="titles" id="brandTitle"><div class="t1">Nội khoa &amp; Hồi sức</div><div class="t2" id="topSub">61 công cụ • 25 phác đồ • Thang điểm • Liều kháng sinh</div></div>
   <button type="button" class="iconbtn" id="themeBtn" aria-label="Đổi giao diện sáng / tối" title="Giao diện: tự động">🌓</button>
 </header>
 
@@ -594,7 +594,7 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
   <div class="onb-in">
     <div style="font-size:34px">✚</div>
     <h1>Bạn là bác sĩ<br/>chuyên ngành nào?</h1>
-    <p class="sub">App sẽ đưa công cụ của chuyên ngành bạn lên đầu trang chủ. Bạn vẫn tìm được toàn bộ 73 công cụ, và đổi lại bất cứ lúc nào trong Cài đặt.</p>
+    <p class="sub">App sẽ đưa công cụ của chuyên ngành bạn lên đầu trang chủ. Bạn vẫn tìm được toàn bộ 86 công cụ, và đổi lại bất cứ lúc nào trong Cài đặt.</p>
     <div class="specgrid" id="onbGrid"></div>
     <button type="button" class="later" id="onbLater">Để sau — dùng Nội tổng quát</button>
   </div>
@@ -605,8 +605,9 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
 function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d");}
 function $(id){return document.getElementById(id);}
 /* ===== PHIÊN BẢN: chỉ sửa ở đây khi phát hành (service worker tự lấy số này đặt tên bộ nhớ đệm) ===== */
-var APP_VERSION="0.7.3",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
+var APP_VERSION="0.8.0",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
 var CHANGELOG=[
+ ["0.8.0","17/11/2026",["8 công cụ mới: PERC, sPESI, FIB-4 & APRI, Ranson, tiêu chuẩn Light, Centor/McIsaac, Charlson, thang suy yếu CFS.","5 phác đồ cây mới: thuyên tắc phổi, rung nhĩ, tăng huyết áp cấp cứu, ARDS, viêm phổi.","Tổng 61 công cụ • 25 phác đồ (86 công cụ đăng ký). Mọi mục mới đều có nguồn kèm link kiểm chứng."]],
  ["0.7.3","17/11/2026",["Đổi vị trí 2 tab dưới: Bản tin lên trước Cài đặt (Trang chủ, Phác đồ, Kháng sinh, Bản tin, Cài đặt) cho dễ thấy, đúng thứ tự đã mô tả."]],
  ["0.7.2","17/11/2026",["Sửa lỗi nút Cài đặt ở thanh dưới điện thoại: bấm vào chỉ sáng nút mà không mở trang Cài đặt (thiếu nhánh xử lý trong bộ điều hướng). Giờ bấm Cài đặt mở đúng trang Cài đặt."]],
  ["0.7.1","17/11/2026",["Sửa lỗi hiển thị trang chủ: các mục theo chuyên ngành bị xếp thành dải dọc hẹp, chữ chồng lên nhau (do lưới ngoài ôm lưới trong). Trang chủ giờ xếp các mục chồng lên nhau đúng như thiết kế."]],
@@ -705,7 +706,20 @@ var TOOLS=[
   {id:"nutri",icon:"🥗",cat:"hoisuc",catName:"Hồi sức",name:"Kê đơn dinh dưỡng ICU — năng lượng & protein",desc:"Năng lượng kcal/kg, protein g/kg, tốc độ nuôi ăn qua sonde mL/giờ, cảnh báo nuôi ăn lại.",kw:"dinh duong icu nang luong protein kcal sonde an refeeding esp en aspen"},
   {id:"crrt",icon:"🩸",cat:"hoisuc",catName:"Hồi sức",name:"CRRT — Lọc máu liên tục",desc:"Liều effluent mL/kg/giờ, dịch thay thế / dịch lọc, chống đông citrate – heparin, nhắc kháng sinh.",kw:"crrt loc mau lien tuc effluent thay the citrate heparin than nhan tao"},
   {id:"hfref",icon:"❤️",cat:"timmach",catName:"Tim mạch – sốc",name:"Suy tim HFrEF — Bộ bốn thuốc nền & lợi tiểu",desc:"ARNI/ACE-I, beta-blocker, MRA, SGLT2i: liều khởi đầu – liều đích, chỉnh lợi tiểu, theo dõi K/creatinin.",kw:"suy tim hfref arni ace beta blocker mra sglt2 dapagliflozin sacubitril loi tieu"},
-  {id:"feed",icon:"📰",cat:"noikhoa",catName:"Nội khoa",name:"Bản tin — Nghiên cứu mới",desc:"Nghiên cứu mới từ RSS của NEJM, JAMA, The Lancet và European Heart Journal — cập nhật mỗi ngày. Chạm một mục để đọc toàn văn và đánh dấu đã đọc; mỗi mục đều dẫn link tới bản gốc để kiểm chứng.",kw:"ban tin feed meo tai giuong cap nhat huong dan ca lam sang on tap canh bao thuoc"}
+  {id:"feed",icon:"📰",cat:"noikhoa",catName:"Nội khoa",name:"Bản tin — Nghiên cứu mới",desc:"Nghiên cứu mới từ RSS của NEJM, JAMA, The Lancet và European Heart Journal — cập nhật mỗi ngày. Chạm một mục để đọc toàn văn và đánh dấu đã đọc; mỗi mục đều dẫn link tới bản gốc để kiểm chứng.",kw:"ban tin feed meo tai giuong cap nhat huong dan ca lam sang on tap canh bao thuoc"},
+ {id:"perc",icon:"🚫",cat:"timmach",catName:"Tim mạch – sốc",name:"PERC — Loại trừ thuyên tắc phổi",desc:"8 tiêu chí: 0 tiêu chí + xác suất lâm sàng thấp → loại trừ PE không cần D-dimer.",kw:"perc loai tru thuyen tac phoi pe rule out"},
+ {id:"spesi",icon:"🫁",cat:"timmach",catName:"Tim mạch – sốc",name:"sPESI — Tiên lượng thuyên tắc phổi",desc:"6 biến, 0 điểm = nguy cơ thấp (tử vong 30 ngày ~1%), ≥ 1 điểm = nguy cơ cao.",kw:"spesi tien luong thuyen tac phoi pe tu vong 30 ngay"},
+ {id:"fib4",icon:"🟤",cat:"noikhoa",catName:"Nội khoa",name:"FIB-4 & APRI — Xơ hóa gan",desc:"FIB-4 từ tuổi, AST, ALT, tiểu cầu; kèm APRI — phân tầng xơ hóa gan không xâm lấn.",kw:"fib4 apri xo hoa gan ast alt tieu cau gan"},
+ {id:"ranson",icon:"🥀",cat:"noikhoa",catName:"Nội khoa",name:"Ranson — Viêm tụy cấp",desc:"11 tiêu chí lúc nhập viện và sau 48 giờ — tiên lượng tử vong viêm tụy cấp.",kw:"ranson viem tuy cap tien luong tu vong tuy"},
+ {id:"light",icon:"💧",cat:"hohap",catName:"Hô hấp",name:"Tiêu chuẩn Light — Tràn dịch màng phổi",desc:"Phân biệt dịch tiết và dịch thấm qua protein và LDH dịch / huyết thanh.",kw:"light tran dich mang phoi dich tiet dich tham protein ldh"},
+ {id:"centor",icon:"🤒",cat:"noikhoa",catName:"Nội khoa",name:"Centor / McIsaac — Viêm họng liên cầu",desc:"Nguy cơ viêm họng do liên cầu nhóm A theo điểm Centor có hiệu chỉnh tuổi.",kw:"centor mcisaac viem hong lien cau strep throat sot hong"},
+ {id:"charlson",icon:"📋",cat:"noikhoa",catName:"Nội khoa",name:"Charlson — Bệnh đồng mắc",desc:"19 bệnh đồng mắc + tuổi — điểm Charlson và ước tính sống còn 10 năm.",kw:"charlson benh dong mac song con 10 nam comorbidity"},
+ {id:"cfs",icon:"👴",cat:"noikhoa",catName:"Nội khoa",name:"Thang suy yếu lâm sàng CFS",desc:"Đánh giá lão suy 1–9 (Rockwood): khỏe → suy yếu nặng, hỗ trợ tiên lượng và quyết định hồi sức.",kw:"cfs suy yeu lam sang frailty rockwood lao suy"},
+ {id:"px_pe",icon:"🫁",cat:"phacdo",catName:"Phác đồ • Cấp cứu",name:"Thuyên tắc phổi",desc:"Xác suất lâm sàng → D-dimer / CTPA → kháng đông → tiêu huyết khối khi sốc.",kw:"phac do cay thuyen tac phoi pe d-dimer ctpa tieu huyet khoi"},
+ {id:"px_af",icon:"💓",cat:"phacdo",catName:"Phác đồ • Cấp cứu",name:"Rung nhĩ",desc:"Ổn định huyết động? → kiểm soát tần số vs chuyển nhịp → kháng đông theo CHA₂DS₂-VASc.",kw:"phac do cay rung nhi chuyen nhip kiem soat tan so soc dien khang dong"},
+ {id:"px_htn",icon:"📈",cat:"phacdo",catName:"Phác đồ • Cấp cứu",name:"Tăng huyết áp cấp cứu",desc:"Cấp cứu (tổn thương cơ quan đích) vs khẩn cấp → đích hạ HA theo cơ quan → thuốc truyền.",kw:"phac do cay tang huyet ap cap cuu khan cap ton thuong co quan dich ha ha"},
+ {id:"px_ards",icon:"🌬️",cat:"phacdo",catName:"Phác đồ • Hồi sức",name:"ARDS",desc:"Thở máy bảo vệ phổi → PEEP → nằm sấp khi P/F < 150 → giãn cơ, ECMO khi thất bại.",kw:"phac do cay ards suy ho hap giam oxy bao ve phoi nam sap peep ecmo"},
+ {id:"px_pna",icon:"🤧",cat:"phacdo",catName:"Phác đồ • Hồi sức",name:"Viêm phổi",desc:"Phân tầng nặng CURB-65/PSI → CAP vs HAP/VAP → kháng sinh kinh nghiệm → đánh giá lại 48–72 giờ.",kw:"phac do cay viem phoi cap hap vap curb psi khang sinh xuong thang"}
 ];
 (function(){var order=["phacdo","hoisuc","thankinh","hohap","than","timmach","noikhoa","khangsinh"];TOOLS=TOOLS.map(function(t,i){return [t,i]}).sort(function(a,b){return (order.indexOf(a[0].cat)-order.indexOf(b[0].cat))||(a[1]-b[1])}).map(function(x){return x[0]});})();
 var favs=new Set(["sofa","egfr","abx","gcs","pf"]);
@@ -719,14 +733,14 @@ var CATS=[["all","Tất cả","🏠"],["phacdo","Phác đồ","🧭"],["hoisuc",
 
 /* ============ v0.7.0: Chuyên ngành & Nguồn tham khảo ============ */
 var SPECS=[
- {sid:"icu",ic:"🫀",name:"Hồi sức – Cấp cứu",sub:"ICU • Cấp cứu",tools:["sofa","qsofa","news2","apache","vaso","fluids","px_sepsis","ck_sepsis","ck_vap","ck_sbt","mapshock","pf","rox","nutri","crrt"]},
- {sid:"cardio",ic:"❤️",name:"Tim mạch",sub:"Tim mạch • Sốc",tools:["grace","px_acs","chads","heart","hfref","px_ahf","wells","doac","qtc","vaso"]},
+ {sid:"icu",ic:"🫀",name:"Hồi sức – Cấp cứu",sub:"ICU • Cấp cứu",tools:["sofa","qsofa","news2","apache","vaso","fluids","px_sepsis","ck_sepsis","ck_vap","ck_sbt","mapshock","pf","rox","nutri","crrt","perc","spesi","px_pe","px_ards","px_pna","charlson","cfs"]},
+ {sid:"cardio",ic:"❤️",name:"Tim mạch",sub:"Tim mạch • Sốc",tools:["grace","px_acs","chads","heart","hfref","px_ahf","wells","doac","qtc","vaso","perc","spesi","px_pe","px_af","px_htn"]},
  {sid:"renal",ic:"🩸",name:"Thận – Tiết niệu",sub:"Thận • Điện giải",tools:["egfr","aki","crrt","natri","fena","kmg","anion","doac","fluids"]},
  {sid:"endo",ic:"🧪",name:"Nội tiết – Chuyển hoá",sub:"Đái tháo đường • Chuyển hoá",tools:["dka","px_dka","px_hypo","anion","natri","kmg","bmi","nutri"]},
- {sid:"resp",ic:"🫁",name:"Hô hấp",sub:"Hô hấp • Thở máy",tools:["pf","rox","ibw","vent","abg","px_resp","px_asthma","px_copd","psi","curb65","ck_vap","ck_sbt"]},
- {sid:"gi",ic:"🟤",name:"Tiêu hoá – Gan mật",sub:"Gan mật • Tiêu hoá",tools:["childmeld","maddrey","gbs","px_ugib","bisap","anion","nutri"]},
+ {sid:"resp",ic:"🫁",name:"Hô hấp",sub:"Hô hấp • Thở máy",tools:["pf","rox","ibw","vent","abg","px_resp","px_asthma","px_copd","psi","curb65","ck_vap","ck_sbt","perc","light","px_ards","px_pna","centor"]},
+ {sid:"gi",ic:"🟤",name:"Tiêu hoá – Gan mật",sub:"Gan mật • Tiêu hoá",tools:["childmeld","maddrey","gbs","px_ugib","bisap","anion","nutri","fib4","ranson"]},
  {sid:"neuro",ic:"🧠",name:"Thần kinh",sub:"Thần kinh • Đột quỵ",tools:["gcs","rass","nihss","ich","abcd2","four","cam","px_stroke","px_se"]},
- {sid:"general",ic:"📋",name:"Nội tổng quát",sub:"Mọi chuyên ngành",tools:["sofa","news2","egfr","grace","curb65","psi","wells","chads","abx","vaso","dka","px_sepsis"]}
+ {sid:"general",ic:"📋",name:"Nội tổng quát",sub:"Mọi chuyên ngành",tools:["sofa","news2","egfr","grace","curb65","psi","wells","chads","abx","vaso","dka","px_sepsis","centor","charlson","cfs"]}
 ];
 function getSpec(){var id=store("nkhs_spec");if(!id)return null;for(var i=0;i<SPECS.length;i++)if(SPECS[i].sid===id)return SPECS[i];return null;}
 function specName(){var sp=getSpec();return sp?sp.name:"Nội tổng quát";}
@@ -807,7 +821,21 @@ var SOURCES={
  drugbook:[["Nhãn FDA từng thuốc — DailyMed","https://dailymed.nlm.nih.gov/dailymed/"]],
  nutri:[["ESPEN 2023 — Dinh dưỡng ICU (Clin Nutr)",DOI+"10.1016/j.clnu.2023.07.011"]],
  crrt:[["KDIGO 2012 — Hướng dẫn AKI",DOI+"10.1038/kisup.2012.1"]],
- hfref:[["ESC 2021 — Suy tim (Eur Heart J)",DOI+"10.1093/eurheartj/ehab368"]]
+ hfref:[["ESC 2021 — Suy tim (Eur Heart J)",DOI+"10.1093/eurheartj/ehab368"]],
+
+ perc:[["Kline 2008 — Tiêu chuẩn PERC (J Thromb Haemost)",DOI+"10.1111/j.1538-7836.2008.02944.x"]],
+ spesi:[["Jiménez 2010 — sPESI (Arch Intern Med)",DOI+"10.1001/archinternmed.2010.199"]],
+ fib4:[["Sterling 2006 — FIB-4 (Hepatology)",DOI+"10.1002/hep.21178"]],
+ ranson:[["Ranson 1974 — Dấu hiệu tiên lượng viêm tụy (Surg Gynecol Obstet)","https://pubmed.ncbi.nlm.nih.gov/4834279/"]],
+ light:[["Light 1972 — Tiêu chuẩn Light (Ann Intern Med)",DOI+"10.7326/0003-4819-77-4-507"]],
+ centor:[["Centor 1981 — Viêm họng liên cầu (Med Decis Making)",DOI+"10.1177/0272989X8100100304"]],
+ charlson:[["Charlson 1987 — Chỉ số bệnh đồng mắc (J Chronic Dis)",DOI+"10.1016/0021-9681(87)90171-8"]],
+ cfs:[["Rockwood 2005 — Thang suy yếu lâm sàng (CMAJ)",DOI+"10.1503/cmaj.050051"]],
+ px_pe:[["ESC 2019 — Thuyên tắc phổi (Eur Heart J)",DOI+"10.1093/eurheartj/ehz405"]],
+ px_af:[["ESC 2020 — Rung nhĩ (Eur Heart J)",DOI+"10.1093/eurheartj/ehaa612"]],
+ px_htn:[["ESC 2024 — Tăng huyết áp (Eur Heart J)",DOI+"10.1093/eurheartj/ehae178"]],
+ px_ards:[["ESICM 2023 — ARDS (Intensive Care Med)",DOI+"10.1007/s00134-023-07050-7"],["Định nghĩa ARDS toàn cầu 2023 (ATS/ESICM/SCCM)",DOI+"10.1164/rccm.202303-0558WS"]],
+ px_pna:[["ATS/IDSA 2019 — Viêm phổi cộng đồng (AJRCCM)",DOI+"10.1164/rccm.201908-1581ST"]]
 };
 function srcHTML(id){var sp=SOURCES[id];if(!sp)return "";return '<div class="srcpanel">🔗 Nguồn: '+sp.map(function(x){return '<a href="'+x[1]+'" target="_blank" rel="noopener">'+x[0]+'</a>'}).join(" • ")+'</div>';}
 function addSrcLine(id){var p=$("panel-"+id);if(!p)return;for(var i=p.children.length-1;i>=0;i--){if(p.children[i].classList&&p.children[i].classList.contains("srcpanel"))p.removeChild(p.children[i]);}var h=srcHTML(id);if(h)p.insertAdjacentHTML("beforeend",h);}
@@ -2146,7 +2174,69 @@ var PROTO=[
  e1:{end:1,lv:1,t:"Điều trị tại khoa",info:["Tiếp tục giãn phế quản, corticoid, kháng sinh nếu có chỉ định; dự phòng huyết khối.","Trước ra viện: tối ưu thuốc duy trì (LAMA/LABA ± ICS), phục hồi chức năng hô hấp, cai thuốc lá."]},
  c1:{t:"Thông khí không xâm nhập (NIV)",info:["BiPAP: IPAP 10–12 tăng dần đến 20 cmH₂O, EPAP 4–5; khí máu lại sau 1–2 giờ.","pH < 7,25: vẫn thử NIV nhưng tại ICU, sẵn sàng đặt NKQ."],q:"Chống chỉ định NIV, ngừng thở, rối loạn ý thức nặng, không dung nạp, hoặc pH / PaCO₂ xấu đi sau 1–2 giờ?",o:[["Có","e2"],["Không — cải thiện","e3"]]},
  e2:{end:1,lv:3,t:"Đặt nội khí quản",info:["Thở máy: Vt thấp, tần số thấp, thời gian thở ra dài, theo dõi auto-PEEP; tránh hạ CO₂ quá nhanh (về mức nền của bệnh nhân).","Cai máy sớm, có thể rút ống sang NIV."]},
- e3:{end:1,lv:2,t:"Tiếp tục NIV",info:["Giảm dần thời gian NIV khi pH bình thường; đánh giá NIV tại nhà nếu tăng CO₂ dai dẳng sau đợt cấp."]}}}
+ e3:{end:1,lv:2,t:"Tiếp tục NIV",info:["Giảm dần thời gian NIV khi pH bình thường; đánh giá NIV tại nhà nếu tăng CO₂ dai dẳng sau đợt cấp."]}}},
+
+{id:"px_pe",grp:"Cấp cứu",icon:"🫁",name:"Thuyên tắc phổi",desc:"Xác suất lâm sàng → D-dimer / CTPA → kháng đông → tiêu huyết khối khi sốc.",kw:"thuyen tac phoi pe d-dimer ctpa tieu huyet khoi wells perc spesi",src:"ESC 2019 — Thuyên tắc phổi (Eur Heart J).",start:"n1",nodes:{
+ n1:{t:"Nghi thuyên tắc phổi cấp",info:["Đánh giá huyết động ngay: sốc / tụt HA kéo dài = PE nguy cơ cao.","ECG, khí máu, troponin, BNP/NT-proBNP, siêu âm tim tại giường khi không ổn định."],q:"Huyết động không ổn định? (sốc, HATT < 90 kéo dài > 15 phút, cần vận mạch)",o:[["Có — PE nguy cơ cao","h1"],["Không — ổn định","s1"]]},
+ h1:{q:"CTPA làm được ngay?",o:[["Có — CTPA khẩn","e1"],["Không — siêu âm tim tại giường","h2"]]},
+ h2:{q:"Siêu âm tim: suy thất phải (giãn thất phải, dấu McConnell, D-sign)?",o:[["Có","e2"],["Không","e3"]]},
+ e1:{end:1,lv:3,t:"PE nguy cơ cao — tiêu huyết khối",info:["Tiêu sợi huyết toàn thân ngay (alteplase 100 mg/2 giờ hoặc tenecteplase theo cân nặng) khi không có chống chỉ định chảy máu.","Không tiêu được → lấy huyết khối bằng catheter / mổ lấy huyết khối, hội chẩn khẩn.","Sau đó kháng đông: heparin không phân đoạn / LMWH, chuyển DOAC khi ổn định."]},
+ e2:{end:1,lv:3,t:"Suy thất phải — xử trí như PE nguy cơ cao",info:["Cho kháng đông ngay (heparin) trong lúc chờ CTPA; chuẩn bị tiêu huyết khối nếu xấu đi.","Tránh quá tải dịch; noradrenaline nếu tụt HA; tránh thở máy áp lực cao nếu có thể."]},
+ e3:{end:1,lv:2,t:"Chưa rõ — CTPA ngay khi có thể",info:["Kháng đông trong lúc chờ nếu xác suất lâm sàng cao và không có chống chỉ định.","Tìm nguyên nhân khác (ACS, viêm phổi, tràn khí màng phổi)."]},
+ s1:{t:"Xác suất lâm sàng",info:["Tính Wells và PERC (bấm nút bên dưới)."],q:"Wells ≤ 4 (ít có khả năng) và PERC = 0?",o:[["Có — xác suất thấp","s2"],["Không — xác suất cao/trung bình","s3"],["Tính Wells","@wells"],["Tính PERC","@perc"]]},
+ s2:{end:1,lv:0,t:"Loại trừ PE — không cần D-dimer",info:["PERC âm tính + xác suất thấp: có thể loại trừ PE mà không làm thêm xét nghiệm.","Tìm chẩn đoán khác và hẹn tái khám khi triệu chứng kéo dài."]},
+ s3:{q:"D-dimer?",o:[["Âm tính (ngưỡng theo tuổi: tuổi × 10 µg/L FEU khi > 50 tuổi)","e4"],["Dương tính","s4"]]},
+ s4:{q:"CTPA?",o:[["Dương tính — chẩn đoán PE","e5"],["Âm tính — loại trừ (xác suất cao: cân nhắc CTPA lại / xạ hình V/Q)","e6"]]},
+ e4:{end:1,lv:0,t:"D-dimer âm tính — loại trừ PE",info:["Không cần CTPA. Tìm nguyên nhân khác của triệu chứng."]},
+ e5:{t:"PE đã chẩn đoán — phân tầng nguy cơ",info:["Tính sPESI; troponin + siêu âm tim để phát hiện suy thất phải."],q:"sPESI = 0 và không có suy thất phải?",o:[["Có — nguy cơ thấp","e7"],["Không — nguy cơ trung bình/cao","e8"],["Tính sPESI","@spesi"]]},
+ e6:{end:1,lv:1,t:"CTPA âm tính — theo dõi",info:["Xác suất cao + CTPA âm tính: cân nhắc siêu âm tĩnh mạch chi dưới, xạ hình V/Q hoặc chụp lại; đừng bỏ qua PE đoạn xa khi lâm sàng vẫn nghi ngờ cao."]},
+ e7:{end:1,lv:1,t:"PE nguy cơ thấp — kháng đông ngoại trú",info:["DOAC ngay (apixaban/rivaroxaban) hoặc LMWH rồi chuyển DOAC; đánh giá chảy máu, chức năng thận.","Điều trị ít nhất 3 tháng; tìm nguyên nhân (ung thư ẩn, thrombophilia khi có chỉ định)."]},
+ e8:{end:1,lv:2,t:"PE nguy cơ trung bình — nhập viện theo dõi",info:["Kháng đông LMWH/heparin; theo dõi sát tại khoa có monitor (trung bình-cao: cân nhắc ICU).","Suy thất phải + troponin tăng: chuẩn bị tiêu huyết khối cứu vãn nếu huyết động xấu đi.","Lọc tĩnh mạch chủ dưới chỉ khi chống chỉ định kháng đông tuyệt đối hoặc tái phát dù đã kháng đông."]}}},
+
+{id:"px_af",grp:"Cấp cứu",icon:"💓",name:"Rung nhĩ",desc:"Ổn định huyết động? → kiểm soát tần số vs chuyển nhịp → kháng đông theo CHA₂DS₂-VASc.",kw:"rung nhi chuyen nhip kiem soat tan so soc dien khang dong chads doac",src:"ESC 2020 — Rung nhĩ (Eur Heart J).",start:"n1",nodes:{
+ n1:{t:"Rung nhĩ / cuồng nhĩ mới",info:["ECG 12 chuyển đạo; đánh giá huyết động, tìm nguyên nhân (nhiễm trùng, cường giáp, thiếu máu, sau mổ).","Xét nghiệm: điện giải, TSH, troponin, siêu âm tim."],q:"Huyết động không ổn định? (sốc, phù phổi cấp, thiếu máu cơ tim đang diễn ra, HATT < 90)",o:[["Có","u1"],["Không — ổn định","s1"]]},
+ u1:{end:1,lv:3,t:"Sốc điện đồng bộ ngay",info:["An thần, sốc điện đồng bộ 120–200 J (hai pha).","Kháng đông ngay (heparin) — không trì hoãn vì chuyển nhịp.","Sau chuyển nhịp: kháng đông theo CHA₂DS₂-VASc; tìm nguyên nhân."]},
+ s1:{q:"Khởi phát < 48 giờ (hoặc < 7 ngày) và siêu âm tim không có huyết khối nhĩ?",o:[["Có — mới khởi phát","s2"],["Không / không rõ — kéo dài","s3"]]},
+ s2:{q:"Muốn chuyển nhịp hay kiểm soát tần số?",o:[["Chuyển nhịp (thuốc hoặc sốc điện)","e1"],["Kiểm soát tần số","e2"]]},
+ e1:{end:1,lv:2,t:"Chuyển nhịp sớm",info:["Thuốc: flecainide / propafenone (không bệnh tim cấu trúc), amiodarone (có bệnh tim cấu trúc), hoặc sốc điện.","Kháng đông trước/sau chuyển nhịp theo CHA₂DS₂-VASc; nếu < 48 giờ và nguy cơ thấp có thể chuyển nhịp rồi kháng đông 4 tuần."]},
+ e2:{end:1,lv:1,t:"Kiểm soát tần số",info:["Chẹn beta (metoprolol/esmolol) hoặc chẹn kênh calci (diltiazem/verapamil) — đích nhịp tim < 110 lần/phút lúc nghỉ (thậm chí < 80 nếu còn triệu chứng).","Digoxin khi suy tim / huyết động kém; tránh chẹn beta + diltiazem cùng lúc.","Kháng đông theo CHA₂DS₂-VASc."]},
+ s3:{t:"Rung nhĩ kéo dài — kháng đông trước",info:["Tính CHA₂DS₂-VASc (bấm nút bên dưới)."],q:"CHA₂DS₂-VASc ≥ 2 (nam) / ≥ 3 (nữ)?",o:[["Có — chỉ định kháng đông","s4"],["Không (0–1) — không kháng đông thường quy","e3"],["Tính CHA₂DS₂-VASc","@chads"]]},
+ s4:{q:"Kháng đông ≥ 3 tuần hoặc siêu âm tim qua thực quản loại trừ huyết khối, rồi chuyển nhịp?",o:[["Chuyển nhịp sau kháng đông đủ","e4"],["Kiểm soát tần số dài hạn","e5"],["Liều DOAC","@doac"]]},
+ e3:{end:1,lv:0,t:"Không kháng đông — kiểm soát tần số / nhịp",info:["CHA₂DS₂-VASc 0: không kháng đông, không aspirin.","CHA₂DS₂-VASc 1: cân nhắc kháng đông (ưu tiên khi có yếu tố nguy cơ cao như tuổi 65–74, ĐTĐ, suy tim).","Đánh giá lại định kỳ khi có thêm yếu tố nguy cơ."]},
+ e4:{end:1,lv:2,t:"Chuyển nhịp sau kháng đông đủ",info:["Sốc điện đồng bộ sau ≥ 3 tuần kháng đông điều trị hoặc TEE không huyết khối.","Tiếp tục kháng đông ≥ 4 tuần sau chuyển nhịp, rồi duy trì theo CHA₂DS₂-VASc."]},
+ e5:{end:1,lv:1,t:"Kiểm soát tần số dài hạn",info:["DOAC (ưu tiên hơn warfarin khi không có van cơ học / hẹp van hai lá vừa–nặng).","Đánh giá lại nhịp, triệu chứng, và khả năng cắt đốt (ablation) khi rung nhĩ dai dẳng có triệu chứng."]}}},
+
+{id:"px_htn",grp:"Cấp cứu",icon:"📈",name:"Tăng huyết áp cấp cứu",desc:"Cấp cứu (tổn thương cơ quan đích) vs khẩn cấp → đích hạ HA theo cơ quan → thuốc truyền.",kw:"tang huyet ap cap cuu khan cap ton thuong co quan dich ha ha nicardipine",src:"ESC 2024 — Tăng huyết áp (Eur Heart J).",start:"n1",nodes:{
+ n1:{t:"HA tăng cao",info:["Đo lại HA đúng kỹ thuật (cả 2 tay lần đầu), đánh giá tổn thương cơ quan đích: thần kinh, tim, thận, mắt, mạch máu."],q:"Có tổn thương cơ quan đích cấp? (bệnh não do THA, xuất huyết/nhồi máu não, phù phổi cấp, ACS, bóc tách ĐMC, suy thận cấp, tan máu vi mạch)",o:[["Có — CẤP CỨU tăng HA","e1"],["Không — KHẨN CẤP tăng HA","k1"]]},
+ e1:{t:"Cấp cứu tăng HA — hạ HA ngay bằng thuốc truyền",info:["ICU, monitor liên tục, đường truyền TM; mục tiêu chung: giảm HATT ~25% trong giờ đầu, rồi về ~160/100–110 trong 2–6 giờ (trừ trường hợp đặc biệt).","Tránh hạ HA quá nhanh — nguy cơ thiếu máu não/thận."],q:"Cơ quan đích nào?",o:[["Bệnh não / xuất huyết não","e2"],["Nhồi máu não cấp","e3"],["Phù phổi cấp / ACS","e4"],["Bóc tách ĐMC","e5"],["Suy thận cấp / tan máu vi mạch","e6"]]},
+ e2:{end:1,lv:3,t:"Bệnh não do THA / xuất huyết não",info:["Nicardipine hoặc clevidipine truyền; đích HATT 140–160 mmHg trong giờ đầu (xuất huyết não: 130–150 nếu HATT ban đầu 150–220).","Theo dõi thần kinh sát; CT sọ não, kiểm soát áp lực nội sọ nếu cần."]},
+ e3:{end:1,lv:3,t:"Nhồi máu não cấp",info:["Chỉ hạ HA khi > 220/120, hoặc > 185/110 nếu sẽ tiêu sợi huyết / lấy huyết khối.","Labetalol hoặc nicardipine; tránh hạ > 15% trong 24 giờ đầu."]},
+ e4:{end:1,lv:3,t:"Phù phổi cấp / ACS do THA",info:["Nitroglycerin truyền + lợi tiểu quai (furosemide); đích giảm HATT ~25% trong giờ đầu.","ACS: chẹn beta sau khi hết phù phổi; đánh giá mạch vành."]},
+ e5:{end:1,lv:3,t:"Bóc tách động mạch chủ",info:["Giảm nhịp tim trước (< 60 lần/phút, esmolol) rồi hạ HA tâm thu về 100–120 mmHg (nicardipine/clevidipine).","Phẫu thuật / can thiệp mạch máu khẩn — hội chẩn ngoại lồng ngực ngay."]},
+ e6:{end:1,lv:2,t:"Suy thận cấp / tan máu vi mạch do THA",info:["Nicardipine/clevidipine; đích giảm HATT ~25% trong 24 giờ đầu.","Đánh giá tan máu (LDH, haptoglobin, phết máu), hội chẩn thận; lọc máu khi có chỉ định."]},
+ k1:{end:1,lv:1,t:"Khẩn cấp tăng HA — hạ HA bằng thuốc uống",info:["Không có tổn thương cơ quan đích cấp: không cần thuốc truyền hay nhập ICU.","Thuốc uống (amlodipine, chẹn beta, ƯCMC…), giảm HA dần trong 24–48 giờ; tái khám 1–3 ngày.","Tìm nguyên nhân (không tuân thủ thuốc, NSAID, corticoid, ngưng thuốc đột ngột), tư vấn bỏ thuốc lá, giảm muối."]}}},
+
+{id:"px_ards",grp:"Hồi sức",icon:"🌬️",name:"ARDS",desc:"Thở máy bảo vệ phổi → PEEP → nằm sấp khi P/F < 150 → giãn cơ, ECMO khi thất bại.",kw:"ards suy ho hap giam oxy bao ve phoi nam sap peep ecmo pf ibw",src:"ESICM 2023 — ARDS (Intensive Care Med); Định nghĩa ARDS toàn cầu 2023.",start:"n1",nodes:{
+ n1:{t:"Suy hô hấp giảm oxy máu cấp",info:["Tiêu chuẩn: khởi phát ≤ 7 ngày, thâm nhiễm hai bên không do suy tim/ứ dịch, P/F ≤ 300 (PEEP ≥ 5) hoặc SpO₂/FiO₂ ≤ 315 khi không có khí máu.","Tính P/F (bấm nút bên dưới)."],q:"P/F ≤ 300 (hoặc SpO₂/FiO₂ ≤ 315) kèm thâm nhiễm 2 bên?",o:[["Có — ARDS","a1"],["Không — chưa đủ tiêu chuẩn","e1"],["Tính P/F","@pf"]]},
+ e1:{end:1,lv:0,t:"Chưa phải ARDS — tìm nguyên nhân khác",info:["Phù phổi do tim, viêm phổi khu trú, tràn dịch màng phổi, thuyên tắc phổi.","Oxy liệu pháp theo đích SpO₂ 92–96%; đánh giá lại nếu xấu đi."]},
+ a1:{t:"Thông khí bảo vệ phổi",info:["Vt 6 mL/kg cân nặng lý tưởng (IBW) — bấm nút Tính IBW; Pplat ≤ 30 cmH₂O; driving pressure < 15 cmH₂O.","PEEP theo bảng PEEP–FiO₂ (thấp hoặc cao); đích SpO₂ 88–95%."],q:"P/F < 150 (ARDS trung bình–nặng)?",o:[["Có","a2"],["Không — ARDS nhẹ","e2"],["Tính IBW","@ibw"]]},
+ e2:{end:1,lv:1,t:"ARDS nhẹ — thở máy bảo vệ phổi",info:["Vt 6 mL/kg IBW, PEEP ≥ 5, đích SpO₂ 88–95%.","Điều trị nguyên nhân (kháng sinh, kiểm soát nguồn); tránh quá tải dịch; đánh giá lại P/F hằng ngày."]},
+ a2:{q:"Đã nằm sấp ≥ 12–16 giờ/ngày + PEEP tối ưu?",o:[["Chưa","e3"],["Đã làm, vẫn P/F < 150","a3"]]},
+ e3:{end:1,lv:2,t:"Nằm sấp + giãn cơ",info:["Nằm sấp sớm (trong 36 giờ đầu) ≥ 16 giờ/ngày khi P/F < 150.","Giãn cơ truyền (cisatracurium) 48 giờ khi P/F < 150 dù đã tối ưu.","Đánh giá lại sau 12–16 giờ nằm sấp."]},
+ a3:{q:"P/F < 80 hoặc toan hô hấp nặng (pH < 7,25) dù đã tối ưu?",o:[["Có","e4"],["Không","e5"]]},
+ e4:{end:1,lv:3,t:"ARDS nặng kháng trị — cân nhắc ECMO",info:["Hội chẩn trung tâm ECMO sớm (VV-ECMO) khi P/F < 80 > 6 giờ hoặc pH < 7,25 với PaCO₂ ≥ 60 > 6 giờ.","Tiếp tục nằm sấp, giãn cơ, thở máy bảo vệ phổi trong lúc chờ."]},
+ e5:{end:1,lv:2,t:"Tiếp tục tối ưu + theo dõi",info:["Giữ Vt thấp, PEEP tối ưu, nằm sấp; cân nhắc corticoid khi ARDS do viêm phổi / COVID-19 theo phác đồ.","Tránh quá tải dịch (chiến lược hạn chế dịch sau hồi sức ban đầu); cai máy khi cải thiện."]}}},
+
+{id:"px_pna",grp:"Hồi sức",icon:"🤧",name:"Viêm phổi",desc:"Phân tầng nặng CURB-65/PSI → CAP vs HAP/VAP → kháng sinh kinh nghiệm → đánh giá lại 48–72 giờ.",kw:"viem phoi cap hap vap curb psi khang sinh xuong thang",src:"ATS/IDSA 2019 — Viêm phổi cộng đồng (AJRCCM).",start:"n1",nodes:{
+ n1:{t:"Nghi viêm phổi",info:["Triệu chứng: sốt, ho, đờm, khó thở, đau ngực; khám: ran nổ; X-quang/CT ngực: thâm nhiễm mới.","Xét nghiệm: công thức máu, CRP/procalcitonin, khí máu, cấy máu + cấy đờm trước kháng sinh."],q:"Viêm phổi mắc tại cộng đồng (CAP) hay bệnh viện / thở máy (HAP/VAP)?",o:[["CAP","c1"],["HAP / VAP (≥ 48 giờ sau nhập viện / thở máy)","h1"]]},
+ c1:{t:"Phân tầng nặng CAP",info:["Tính CURB-65 và PSI (bấm nút bên dưới)."],q:"CURB-65 ≥ 2 hoặc PSI nhóm IV–V?",o:[["Có — nặng","c2"],["Không — nhẹ","e1"],["Tính CURB-65","@curb65"],["Tính PSI","@psi"]]},
+ e1:{end:1,lv:1,t:"CAP nhẹ — điều trị ngoại trú",info:["Kháng sinh uống 5 ngày (amoxicillin, doxycycline, hoặc macrolide theo kháng thuốc địa phương).","Dặn tái khám khi khó thở tăng, sốt > 3 ngày; chụp X-quang kiểm tra sau 6 tuần nếu nguy cơ ung thư."]},
+ c2:{q:"Cần ICU? (1 tiêu chí chính: cần vận mạch / thở máy; hoặc ≥ 3 tiêu chí phụ ATS/IDSA)",o:[["Có — CAP nặng, ICU","c3"],["Không — nhập khoa thường","e2"]]},
+ e2:{end:1,lv:1,t:"CAP nhập viện — kháng sinh phổ hẹp",info:["Beta-lactam + macrolide, hoặc fluoroquinolon hô hấp đơn trị; làm kháng nguyên Legionella / phế cầu khi nghi ngờ.","Đánh giá lại 48–72 giờ: đáp ứng → xuống thang theo vi sinh, tổng 5–7 ngày."]},
+ c3:{end:1,lv:2,t:"CAP nặng — ICU, kháng sinh phổ rộng",info:["Beta-lactam chống Pseudomonas + macrolide hoặc fluoroquinolon; cộng vancomycin/linezolid khi nguy cơ MRSA (xem module kháng sinh theo kinh nghiệm).","Hydrocortisone 200 mg/ngày khi sốc nhiễm trùng / CAP nặng; hỗ trợ hô hấp, kiểm soát dịch."]},
+ h1:{t:"HAP / VAP",info:["Nguy cơ đa kháng: thở máy ≥ 5 ngày, kháng sinh 90 ngày trước, sốc nhiễm trùng, ARDS, lọc máu."],q:"Nguy cơ vi khuẩn đa kháng hoặc MRSA cao?",o:[["Có","e3"],["Không — nguy cơ thấp","e4"]]},
+ e3:{end:1,lv:2,t:"HAP/VAP nguy cơ cao — kháng sinh phổ rộng",info:["Kháng Pseudomonas (piperacillin–tazobactam / cefepime / meropenem) + kháng MRSA (vancomycin/linezolid) — xem module kháng sinh theo kinh nghiệm.","Lấy bệnh phẩm đường hô hấp dưới (BAL / ETA) trước kháng sinh; đánh giá lại 48–72 giờ, xuống thang theo vi sinh."]},
+ e4:{end:1,lv:1,t:"HAP/VAP nguy cơ thấp — phổ hẹp",info:["Một kháng sinh phổ hẹp theo kháng thuốc địa phương (vd ceftriaxone / levofloxacin).","Điều trị 7 ngày nếu đáp ứng; đánh giá lại 48–72 giờ."]}}}
 ];
 var PROTO_BY={};PROTO.forEach(function(p){PROTO_BY[p.id]=p;});
 PROTO.forEach(function(p){P[p.id]=head(p.icon,p.name,p.desc)+'<div class="tree-wrap" id="tree-'+p.id+'"></div><p class="src">Nguồn: '+p.src+' Phác đồ rút gọn để tra cứu nhanh — luôn đối chiếu phác đồ bệnh viện.</p>';});
@@ -2322,6 +2412,43 @@ var MONO={
 P.drugbook=head("📖","Sổ tay thuốc — hướng dẫn sử dụng","Chỉ định, liều người lớn, cách pha – cách dùng, chống chỉ định, tác dụng phụ – theo dõi, thai kỳ cho các thuốc thông dụng tại hồi sức – cấp cứu. Gõ tên biệt dược hoặc hoạt chất.")+
  '<div class="db-tools"><div class="search" id="dbSearch"><span class="si" aria-hidden="true">🔍</span><input id="dbq" type="search" enterkeyhint="search" autocomplete="off" placeholder="Tên thuốc / biệt dược: tazocin, seduxen…" aria-label="Tìm thuốc trong sổ tay"/><button type="button" class="clr" id="dbqClr" aria-label="Xóa">✕</button></div><div class="chiprow" id="dbCat" style="margin-top:8px"></div></div><div id="dbView"></div>'+
  '<p class="src">Nguồn: nhãn thuốc (Dược thư Quốc gia Việt Nam, EMA / FDA), Sanford Guide, hướng dẫn chuyên ngành đã ghi trong từng công cụ liên quan. Liều cho người lớn, chức năng gan – thận bình thường trừ khi ghi khác. Luôn đối chiếu tờ hướng dẫn sử dụng của chế phẩm đang dùng và phác đồ bệnh viện.</p>';
+
+P.perc=head("🚫","PERC — Loại trừ thuyên tắc phổi","8 tiêu chí loại trừ PE (Kline 2008). Chỉ áp dụng khi xác suất lâm sàng THẤP — nếu xác suất trung bình / cao thì không dùng PERC.")+resHTML("res-perc")+
+ '<div class="checks">'+chk("pc0","Tuổi ≥ 50",1)+chk("pc1","Mạch ≥ 100 lần/phút",1)+chk("pc2","SpO₂ < 95% khí phòng",1)+chk("pc3","Ho ra máu",1)+chk("pc4","Đang dùng estrogen",1)+chk("pc5","Tiền sử DVT / PE",1)+chk("pc6","Sưng 1 chân (đau / sưng / chênh lệch chu vi)",1)+chk("pc7","Phẫu thuật hoặc chấn thương trong 4 tuần qua, phải nằm viện",1)+'</div>'+actions("calcPERC")+
+ '<table class="mini"><tr><th>PERC</th><th>Kết luận</th><th>Bước tiếp theo</th></tr><tr><td>0 tiêu chí</td><td>PERC âm tính</td><td>Xác suất thấp → loại trừ PE, không cần D-dimer hay CTPA</td></tr><tr><td>≥ 1 tiêu chí</td><td>Không loại trừ được</td><td>D-dimer (ngưỡng theo tuổi khi &gt; 50 tuổi); dương tính → CTPA</td></tr></table><p class="hint">PERC chỉ dùng cho bệnh nhân nghi PE ở cấp cứu với xác suất lâm sàng thấp (Wells ≤ 4). Không dùng khi xác suất trung bình / cao, khi đã chẩn đoán DVT, hoặc bệnh nhân có thai (thận trọng). Xem thêm công cụ Wells và phác đồ Thuyên tắc phổi.</p><p class="src">Nguồn: Kline et al., J Thromb Haemost 2008.</p>';
+
+P.spesi=head("🫁","sPESI — Tiên lượng thuyên tắc phổi","Phiên bản đơn giản của PESI (Jiménez 2010): 6 biến, mỗi biến 1 điểm.")+resHTML("res-spesi")+
+ '<div class="checks">'+chk("sp0","Tuổi > 80",1)+chk("sp1","Ung thư",1)+chk("sp2","Bệnh tim mạn hoặc bệnh phổi mạn",1)+chk("sp3","Mạch ≥ 110 lần/phút",1)+chk("sp4","Huyết áp tâm thu < 100 mmHg",1)+chk("sp5","SpO₂ < 90%",1)+'</div>'+actions("calcSPESI")+
+ '<table class="mini"><tr><th>sPESI</th><th>Nguy cơ</th><th>Tử vong 30 ngày</th></tr><tr><td>0</td><td>Thấp</td><td>~1%</td></tr><tr><td>≥ 1</td><td>Cao</td><td>~9–11%</td></tr></table><p class="hint">sPESI = 0: có thể cân nhắc điều trị ngoại trú bằng kháng đông uống nếu bệnh nhân ổn định, không có suy thất phải và hoàn cảnh xã hội cho phép. sPESI ≥ 1: nhập viện; kết hợp troponin + siêu âm tim để phân tầng trung bình-thấp / trung bình-cao. Xem thêm phác đồ Thuyên tắc phổi.</p><p class="src">Nguồn: Jiménez et al., Arch Intern Med 2010.</p>';
+
+P.fib4=head("🟤","FIB-4 & APRI — Xơ hóa gan","Đánh giá xơ hóa gan không xâm lấn từ tuổi, AST, ALT và tiểu cầu (Sterling 2006). Không thay thế sinh thiết / đo độ cứng gan (FibroScan).")+resHTML("res-fib4")+
+ '<div class="frow">'+numHTML("fb_age","Tuổi","vd 55","tuổi")+numHTML("fb_ast","AST (SGOT)","vd 48","U/L")+'</div>'+
+ '<div class="frow">'+numHTML("fb_alt","ALT (SGPT)","vd 52","U/L")+numHTML("fb_plt","Tiểu cầu","vd 180","G/L")+'</div>'+actions("calcFIB4")+
+ '<table class="mini"><tr><th>FIB-4</th><th>Xơ hóa</th></tr><tr><td>&lt; 1,3 (người &gt; 65 tuổi: &lt; 2,0)</td><td>Thấp — ít khả năng xơ hóa tiến triển</td></tr><tr><td>1,3–2,67</td><td>Trung gian — cần thêm xét nghiệm (FibroScan / ELF)</td></tr><tr><td>&gt; 2,67</td><td>Cao — nhiều khả năng xơ hóa tiến triển / xơ gan</td></tr></table><p class="hint">APRI = (AST / giới hạn trên × 100) / tiểu cầu (lấy giới hạn trên AST = 40 U/L): &lt; 0,5 ít khả năng xơ hóa đáng kể; &gt; 1,5 nhiều khả năng xơ hóa đáng kể. FIB-4 kém chính xác khi tuổi &lt; 35 hoặc &gt; 65, viêm gan cấp (AST/ALT tăng vọt), hoặc tiểu cầu giảm do nguyên nhân khác.</p><p class="src">Nguồn: Sterling et al., Hepatology 2006.</p>';
+
+P.ranson=head("🥀","Ranson — Viêm tụy cấp","11 tiêu chí tiên lượng viêm tụy cấp (Ranson 1974): 5 lúc nhập viện + 6 sau 48 giờ. Ngưỡng dưới đây cho viêm tụy KHÔNG do sỏi mật.")+resHTML("res-ranson")+
+ '<div class="checks">'+chk("rn0","Lúc nhập viện — Tuổi > 55",1)+chk("rn1","Lúc nhập viện — Bạch cầu > 16.000/mm³",1)+chk("rn2","Lúc nhập viện — Glucose > 200 mg/dL (11,1 mmol/L)",1)+chk("rn3","Lúc nhập viện — LDH > 350 IU/L",1)+chk("rn4","Lúc nhập viện — AST > 250 U/L",1)+chk("rn5","Sau 48 giờ — Hematocrit giảm > 10%",1)+chk("rn6","Sau 48 giờ — BUN tăng > 5 mg/dL",1)+chk("rn7","Sau 48 giờ — Calci máu < 8 mg/dL",1)+chk("rn8","Sau 48 giờ — PaO₂ < 60 mmHg",1)+chk("rn9","Sau 48 giờ — Thâm hụt base > 4 mEq/L",1)+chk("rn10","Sau 48 giờ — Ứ dịch > 6 L",1)+'</div>'+actions("calcRanson")+
+ '<table class="mini"><tr><th>Điểm</th><th>Tử vong ước tính</th></tr><tr><td>0–2</td><td>~1%</td></tr><tr><td>3–4</td><td>~15%</td></tr><tr><td>5–6</td><td>~40%</td></tr><tr><td>7–11</td><td>~100%</td></tr></table><p class="hint">Viêm tụy do sỏi mật dùng ngưỡng khác: lúc nhập viện tuổi &gt; 70, bạch cầu &gt; 18.000/mm³, glucose &gt; 220 mg/dL, LDH &gt; 400 IU/L, AST &gt; 250 U/L; sau 48 giờ BUN tăng &gt; 2 mg/dL, thâm hụt base &gt; 5 mEq/L, ứ dịch &gt; 4 L (hematocrit, calci, PaO₂ như trên). Ranson cần đủ 48 giờ mới đầy đủ — trong 24 giờ đầu có thể dùng BISAP (xem công cụ BISAP).</p><p class="src">Nguồn: Ranson et al., Surg Gynecol Obstet 1974.</p>';
+
+P.light=head("💧","Tiêu chuẩn Light — Tràn dịch màng phổi","Phân biệt dịch tiết và dịch thấm (Light 1972). Chỉ cần 1 trong 3 tiêu chí là dịch tiết.")+resHTML("res-light")+
+ '<div class="frow">'+numHTML("li_pp","Protein dịch màng phổi","vd 35","g/L")+numHTML("li_sp","Protein huyết thanh","vd 68","g/L")+'</div>'+
+ '<div class="frow">'+numHTML("li_lp","LDH dịch màng phổi","vd 320","IU/L")+numHTML("li_ls","LDH huyết thanh","vd 210","IU/L")+'</div>'+actions("calcLight")+
+ '<table class="mini"><tr><th>Tiêu chí</th><th>Ngưỡng (dịch tiết)</th></tr><tr><td>Protein dịch / huyết thanh</td><td>&gt; 0,5</td></tr><tr><td>LDH dịch / huyết thanh</td><td>&gt; 0,6</td></tr><tr><td>LDH dịch</td><td>&gt; 2/3 giới hạn trên LDH huyết thanh (lấy 200 IU/L → &gt; 133 IU/L)</td></tr></table><p class="hint">≥ 1 tiêu chí = dịch tiết (viêm phổi cạnh phổi, lao, ác tính, thuyên tắc phổi…); 0 tiêu chí = dịch thấm (suy tim, xơ gan, hội chứng thận hư…). Chú ý: lợi tiểu có thể biến dịch thấm thành “giả tiết” — khi nghi ngờ, dùng thêm gradient albumin huyết thanh − dịch (&gt; 1,2 g/dL gợi ý dịch thấm) hoặc NT-proBNP dịch màng phổi. Nhập protein theo g/L; nếu kết quả theo g/dL thì nhân 10.</p><p class="src">Nguồn: Light et al., Ann Intern Med 1972.</p>';
+
+P.centor=head("🤒","Centor / McIsaac — Viêm họng liên cầu","Ước tính nguy cơ viêm họng do liên cầu nhóm A (Centor 1981) — McIsaac hiệu chỉnh theo tuổi.")+resHTML("res-centor")+
+ '<div class="checks">'+chk("ct0","Sốt > 38°C",1)+chk("ct1","Mủ trên amidan",1)+chk("ct2","Hạch cổ trước đau",1)+chk("ct3","Không ho",1)+'</div>'+
+ segHTML("ct_age","Tuổi (McIsaac)",[["0","15–44 tuổi — 0"],["1","3–14 tuổi — +1"],["-1","≥ 45 tuổi — −1"]])+actions("calcCentor")+
+ '<table class="mini"><tr><th>Điểm</th><th>Nguy cơ liên cầu</th><th>Gợi ý</th></tr><tr><td>−1–1</td><td>~1–10%</td><td>Không xét nghiệm, không kháng sinh — điều trị triệu chứng</td></tr><tr><td>2</td><td>~11–17%</td><td>Test nhanh kháng nguyên (RADT) / cấy họng; kháng sinh nếu dương tính</td></tr><tr><td>3</td><td>~28–35%</td><td>Test nhanh / cấy; cân nhắc kháng sinh kinh nghiệm khi lâm sàng điển hình</td></tr><tr><td>4–5</td><td>~51–53%</td><td>Kháng sinh kinh nghiệm (penicillin V / amoxicillin 10 ngày) ± test xác nhận</td></tr></table><p class="hint">Chỉ dùng cho viêm họng cấp ở người lớn và trẻ ≥ 3 tuổi. Không dùng khi có loét miệng, viêm thanh quản, hạch toàn thân, hoặc đã dùng kháng sinh trước đó. Viêm họng do virus chiếm đa số — đừng kháng sinh chỉ vì sốt cao.</p><p class="src">Nguồn: Centor et al., Med Decis Making 1981.</p>';
+
+P.charlson=head("📋","Charlson — Bệnh đồng mắc","Chỉ số bệnh đồng mắc Charlson (1987): 19 bệnh nền + điểm tuổi — dự đoán tử vong 10 năm.")+resHTML("res-charlson")+
+ '<div class="checks">'+chk("cc0","Nhồi máu cơ tim",1)+chk("cc1","Suy tim",1)+chk("cc2","Bệnh mạch máu ngoại vi",1)+chk("cc3","Đột quỵ / cơn thiếu máu não thoáng qua (TIA)",1)+chk("cc4","Sa sút trí tuệ",1)+chk("cc5","COPD",1)+chk("cc6","Bệnh mô liên kết",1)+chk("cc7","Loét dạ dày – tá tràng",1)+chk("cc8","Bệnh gan nhẹ",1)+chk("cc9","Đái tháo đường không biến chứng",1)+chk("cc10","Liệt nửa người",2)+chk("cc11","Bệnh thận mạn trung bình / nặng",2)+chk("cc12","Đái tháo đường có biến chứng (tổn thương cơ quan đích)",2)+chk("cc13","U đặc (không di căn)",2)+chk("cc14","Bệnh bạch cầu cấp",2)+chk("cc15","Lymphoma",2)+chk("cc16","Bệnh gan trung bình / nặng",3)+chk("cc17","U di căn",6)+chk("cc18","AIDS",6)+'</div>'+
+ segHTML("cc_age","Tuổi (cộng 1 điểm mỗi thập kỷ trên 40 tuổi)",[["0","≤ 40 tuổi — 0"],["1","41–50 — +1"],["2","51–60 — +2"],["3","61–70 — +3"],["4","> 70 — +4"]])+actions("calcCharlson")+
+ '<table class="mini"><tr><th>Điểm Charlson</th><th>Sống còn 10 năm ước tính</th></tr><tr><td>0</td><td>~98%</td></tr><tr><td>1</td><td>~96%</td></tr><tr><td>2</td><td>~90%</td></tr><tr><td>3</td><td>~77%</td></tr><tr><td>4</td><td>~53%</td></tr><tr><td>5</td><td>~21%</td></tr><tr><td>≥ 6</td><td>&lt; 10%</td></tr></table><p class="hint">Công thức: sống còn 10 năm = 0,983^(e^(0,9 × điểm)). Điểm càng cao, gánh nặng bệnh đồng mắc càng lớn — hữu ích khi cân nhắc mức độ can thiệp (hồi sức tích cực, phẫu thuật lớn, hóa trị). Chỉ số gốc không tính tuổi; cộng điểm tuổi là bản Charlson có hiệu chỉnh tuổi.</p><p class="src">Nguồn: Charlson et al., J Chronic Dis 1987.</p>';
+
+P.cfs=head("👴","Thang suy yếu lâm sàng CFS","Clinical Frailty Scale (Rockwood 2005): đánh giá mức lão suy 1–9 dựa trên chức năng và khả năng tự chăm sóc trước khi ốm.")+resHTML("res-cfs")+
+ selHTML("cfs_v","Mức suy yếu lâm sàng (chọn mức phù hợp nhất)",[[1,"1 — Rất khỏe",true],[2,"2 — Khỏe"],[3,"3 — Khá (đang kiểm soát tốt bệnh mạn)"],[4,"4 — Dễ tổn thương"],[5,"5 — Suy yếu nhẹ"],[6,"6 — Suy yếu trung bình"],[7,"7 — Suy yếu nặng"],[8,"8 — Suy yếu rất nặng"],[9,"9 — Bệnh giai đoạn cuối"]])+actions("calcCFS")+
+ '<table class="mini"><tr><th>CFS</th><th>Mức</th><th>Ý nghĩa lâm sàng</th></tr><tr><td>1–3</td><td>Khỏe</td><td>Dự trữ tốt, hồi phục nhanh</td></tr><tr><td>4–5</td><td>Dễ tổn thương / suy yếu nhẹ</td><td>Cần hỗ trợ nhẹ, nguy cơ xấu tăng</td></tr><tr><td>6–7</td><td>Suy yếu trung bình–nặng</td><td>Cần hỗ trợ nhiều, tiên lượng dè dặt</td></tr><tr><td>8–9</td><td>Rất nặng / giai đoạn cuối</td><td>Ưu tiên chăm sóc giảm nhẹ, cân nhắc giới hạn hồi sức</td></tr></table><p class="hint">Đánh giá theo tình trạng 2 tuần trước khi ốm cấp (không đánh giá lúc đang ốm nặng). CFS ≥ 5 dự báo tử vong và thời gian nằm viện tăng rõ ở người cao tuổi nhập viện / ICU. Dùng cùng với mong muốn của bệnh nhân và gia đình khi quyết định mức độ hồi sức tích cực.</p><p class="src">Nguồn: Rockwood et al., CMAJ 2005.</p>';
+
 var dbState={q:"",c:"all",sel:null,bound:false};
 function dbAbx(d){var x=d.t.find(function(y){return y[0]==="abx"});if(!x||typeof ABX==="undefined")return null;var k=norm(x[1]);return ABX.find(function(a){return norm(a.n+" "+a.g).indexOf(k)>=0})||null;}
 function dbIv(d){var x=d.t.find(function(y){return y[0]==="vaso"&&y[1]});return x?IV_DRUGS.find(function(v){return v.k===x[1]})||null:null;}
@@ -2367,6 +2494,14 @@ $("detailView").innerHTML=Object.keys(P).map(function(k){return '<article class=
 $("rass_v").addEventListener('change',function(){calcRASS()});
 for(var i=0;i<5;i++)$("cb"+i).addEventListener('change',function(){calcCURB()});
 for(var i=0;i<7;i++)$("wp"+i).addEventListener('change',function(){calcWells()});
+for(var i=0;i<8;i++)$("pc"+i).addEventListener('change',function(){calcPERC()});
+for(var i=0;i<6;i++)$("sp"+i).addEventListener('change',function(){calcSPESI()});
+["fb_age","fb_ast","fb_alt","fb_plt"].forEach(function(id){$(id).addEventListener('input',function(){calcFIB4()});});
+for(var i=0;i<11;i++)$("rn"+i).addEventListener('change',function(){calcRanson()});
+["li_pp","li_sp","li_lp","li_ls"].forEach(function(id){$(id).addEventListener('input',function(){calcLight()});});
+for(var i=0;i<4;i++)$("ct"+i).addEventListener('change',function(){calcCentor()});bindSeg("ct_age",function(){calcCentor()});
+for(var i=0;i<19;i++)$("cc"+i).addEventListener('change',function(){calcCharlson()});bindSeg("cc_age",function(){calcCharlson()});
+$("cfs_v").addEventListener('change',function(){calcCFS()});
 for(var i=0;i<8;i++)$("cv"+i).addEventListener('change',function(e){if(e.target.checked&&(e.target.id==="cv2"||e.target.id==="cv6")){$(e.target.id==="cv2"?"cv6":"cv2").checked=false;}calcCHADS()});
 for(var i=0;i<9;i++)$("hb"+i).addEventListener('change',function(){calcCHADS()});
 bindSeg("ibw_sex",function(){calcIBW()}); bindSeg("eg_sex",function(){calcEGFR()}); bindSeg("eg_unit",function(){calcEGFR()});
@@ -2528,6 +2663,15 @@ function calcAPACHE(){
  var mort="";for(var i=0;i<bands.length;i++){if(s>=bands[i][0]){mort=bands[i][1];break;}}
  setRes("res-apache","APACHE II = "+s+" điểm","Oxy hóa chấm theo "+oxTxt+"; creatinin "+fmt(crmg,2)+" mg/dL. Tử vong bệnh viện tham khảo theo bảng gốc ≈ "+mort+" (chưa hiệu chỉnh theo nhóm chẩn đoán — chỉ tham khảo).",s<10?0:s<20?1:s<30?2:3);
 }
+
+function calcPERC(){var s=checkCount("pc",8);setRes("res-perc","PERC = "+s+" / 8 tiêu chí",s===0?"PERC ÂM TÍNH (0/8). Nếu xác suất lâm sàng thấp (Wells ≤ 4): có thể loại trừ PE mà không cần D-dimer hay CTPA — tìm nguyên nhân khác và hẹn tái khám.":"PERC DƯƠNG TÍNH ("+s+"/8). Không loại trừ được PE: làm D-dimer (ngưỡng theo tuổi khi > 50 tuổi); dương tính → CTPA.",s===0?0:1);}
+function calcSPESI(){var s=checkCount("sp",6);setRes("res-spesi","sPESI = "+s+" / 6",s===0?"NGUY CƠ THẤP — tử vong 30 ngày ~1%. Có thể cân nhắc điều trị ngoại trú bằng kháng đông uống nếu ổn định, không suy thất phải và hoàn cảnh cho phép.":"NGUY CƠ CAO — tử vong 30 ngày ~9–11%. Nhập viện, theo dõi sát; kết hợp troponin + siêu âm tim để phân tầng trung bình-thấp / trung bình-cao và quyết định ICU.",s===0?0:2);}
+function calcFIB4(){var age=num("fb_age"),ast=num("fb_ast"),alt=num("fb_alt"),plt=num("fb_plt");if(age==null||ast==null||alt==null||plt==null||alt<=0||plt<=0){setRes("res-fib4","—","Nhập đủ tuổi, AST, ALT và tiểu cầu (tiểu cầu và ALT phải > 0).",null);return;}var f=age*ast/(plt*Math.sqrt(alt));var apri=(ast/40/plt)*100;var lo=age>65?2.0:1.3;var cls=f<lo?"THẤP":f<=2.67?"TRUNG GIAN":"CAO";var aTxt=apri<0.5?"thấp (< 0,5)":apri<=1.5?"trung gian (0,5–1,5)":"cao (> 1,5)";setRes("res-fib4","FIB-4 = "+fmt(f,2)+" • APRI = "+fmt(apri,2),"Xơ hóa theo FIB-4: "+cls+" (ngưỡng thấp ở tuổi > 65 là < 2,0). "+(f<lo?"Ít khả năng xơ hóa tiến triển — theo dõi định kỳ.":f<=2.67?"Trung gian — cần thêm xét nghiệm (FibroScan / ELF) để quyết định.":"Cao — nhiều khả năng xơ hóa tiến triển / xơ gan — hội chẩn gan mật, tầm soát biến chứng. ")+"APRI: "+aTxt+".",f<lo?0:f<=2.67?1:2);}
+function calcRanson(){var s=checkCount("rn",11);var m=s<=2?"~1%":s<=4?"~15%":s<=6?"~40%":"~100%";setRes("res-ranson","Ranson = "+s+" / 11","Tử vong ước tính "+m+". "+(s<=2?"Nguy cơ thấp — theo dõi thường quy, bù dịch, nhịn ăn.":s<=4?"Nguy cơ trung bình — theo dõi sát suy tạng, cân nhắc ICU.":s<=6?"Nguy cơ cao — hồi sức tích cực, theo dõi sát suy đa tạng.":"Nguy cơ rất cao — hồi sức tích cực, tiên lượng dè dặt."),s<=2?0:s<=4?1:s<=6?2:3);}
+function calcLight(){var pp=num("li_pp"),sp=num("li_sp"),lp=num("li_lp"),ls=num("li_ls");if(pp==null||sp==null||lp==null||ls==null||sp<=0||ls<=0){setRes("res-light","—","Nhập đủ protein và LDH của dịch màng phổi và huyết thanh.",null);return;}var c1=pp/sp>0.5,c2=lp/ls>0.6,c3=lp>133;var n=(c1?1:0)+(c2?1:0)+(c3?1:0);var det="Protein dịch/huyết thanh = "+fmt(pp/sp,2)+(c1?" > 0,5 ✓":" ≤ 0,5")+"; LDH dịch/huyết thanh = "+fmt(lp/ls,2)+(c2?" > 0,6 ✓":" ≤ 0,6")+"; LDH dịch = "+fmt(lp,0)+" IU/L"+(c3?" > 133 ✓":" ≤ 133")+";";setRes("res-light",n>=1?"DỊCH TIẾT ("+n+"/3 tiêu chí)":"DỊCH THẤM (0/3 tiêu chí)",det+" "+(n>=1?"Dịch tiết — nghĩ tới viêm phổi cạnh phổi, lao, ác tính, thuyên tắc phổi; làm thêm tế bào học, cấy, ADA theo lâm sàng.":"Dịch thấm — nghĩ tới suy tim, xơ gan, hội chứng thận hư; điều trị bệnh nền, hạn chế chọc hút lặp lại."),n>=1?1:0);}
+function calcCentor(){var s=sumChecks(["ct0","ct1","ct2","ct3"])+parseInt(segVal("ct_age")||"0");var r=s<=-1?["~1–2%","Nguy cơ rất thấp — không xét nghiệm, không kháng sinh."]:s<=1?["~1–10%","Nguy cơ thấp — không xét nghiệm, không kháng sinh; điều trị triệu chứng."]:s===2?["~11–17%","Nguy cơ trung bình — test nhanh kháng nguyên (RADT) / cấy họng; kháng sinh nếu dương tính."]:s===3?["~28–35%","Nguy cơ cao — test nhanh / cấy; cân nhắc kháng sinh kinh nghiệm khi lâm sàng điển hình."]:["~51–53%","Nguy cơ rất cao — kháng sinh kinh nghiệm (penicillin V / amoxicillin 10 ngày) ± test xác nhận."];setRes("res-centor","Centor / McIsaac = "+s+" điểm","Nguy cơ viêm họng do liên cầu nhóm A "+r[0]+". "+r[1],s<=1?0:s===2?1:s===3?2:3);}
+function calcCharlson(){var s=sumChecks(["cc0","cc1","cc2","cc3","cc4","cc5","cc6","cc7","cc8","cc9","cc10","cc11","cc12","cc13","cc14","cc15","cc16","cc17","cc18"])+parseInt(segVal("cc_age")||"0");var surv=100*Math.pow(0.983,Math.exp(0.9*s));setRes("res-charlson","Charlson = "+s+" điểm","Sống còn 10 năm ước tính ~"+fmt(surv,1)+"% (công thức 0,983^(e^(0,9 × điểm))). "+(s===0?"Không có bệnh đồng mắc đáng kể.":s<=2?"Gánh nặng bệnh đồng mắc thấp.":s<=4?"Gánh nặng bệnh đồng mắc trung bình — cân nhắc khi quyết định can thiệp lớn.":"Gánh nặng bệnh đồng mắc cao — tiên lượng dè dặt, cân nhắc mục tiêu điều trị và chăm sóc giảm nhẹ."),s<=2?0:s<=4?1:3);}
+function calcCFS(){var v=parseInt($("cfs_v").value);var d=["","1 — Rất khỏe: tập thể dục đều đặn, năng động, không bệnh mạn ảnh hưởng sinh hoạt.","2 — Khỏe: không triệu chứng bệnh mạn, thỉnh thoảng mệt khi gắng sức nặng.","3 — Khá: bệnh mạn được kiểm soát tốt, vẫn tự lập hoàn toàn.","4 — Dễ tổn thương: mệt mỏi, chậm chạp, cần giúp việc nặng (đi chợ, dọn nhà).","5 — Suy yếu nhẹ: cần giúp việc sinh hoạt hằng ngày (tắm, ăn mặc) nhưng vẫn đi lại được.","6 — Suy yếu trung bình: cần giúp mọi sinh hoạt ngoài nhà và trong nhà, đi lại cần hỗ trợ.","7 — Suy yếu nặng: phụ thuộc hoàn toàn trong sinh hoạt, vẫn đi lại được ít trong nhà.","8 — Suy yếu rất nặng: nằm giường phần lớn thời gian, phụ thuộc hoàn toàn.","9 — Bệnh giai đoạn cuối: tiên lượng sống < 6 tháng, không còn khả năng vận động."][v];var lv=v<=3?0:v<=5?1:v<=7?2:3;setRes("res-cfs","CFS = "+v+" / 9",d+" "+(v<=3?"Dự trữ tốt — hồi phục nhanh sau bệnh cấp.":v<=5?"Nguy cơ kết cục xấu tăng — theo dõi sát, phục hồi chức năng sớm.":v<=7?"Tiên lượng dè dặt — cân nhắc mức độ hồi sức tích cực cùng bệnh nhân / gia đình.":"Ưu tiên chăm sóc giảm nhẹ; cân nhắc giới hạn các can thiệp hồi sức tích cực."),lv);}
 </script>
 <script>
 /* ============ Antibiotic module ============ */
