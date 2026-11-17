@@ -375,6 +375,22 @@ table.mini th,table.mini td{overflow-wrap:break-word}
   .tn,.tleaf,.tlab,.tref{overflow-wrap:anywhere}
   .tlab{white-space:normal}
 }
+/* ---------- Tra cứu thuốc & hướng dẫn ---------- */
+body.searching .installbar,body.searching .quickrow{display:none!important}
+.drug-list{display:grid;gap:10px;grid-template-columns:minmax(0,1fr)}
+@media(min-width:760px){.drug-list{grid-template-columns:repeat(2,minmax(0,1fr))}}
+.drug{background:var(--surface);border:1px solid var(--line);border-left:4px solid var(--c-khangsinh);border-radius:14px;padding:11px 12px;box-shadow:var(--shadow);min-width:0}
+.drug .dn{display:flex;flex-wrap:wrap;gap:4px 8px;align-items:baseline}
+.drug .dn b{font-size:15.5px}
+.drug .db{font-size:13.5px;color:var(--primary);font-weight:700}
+.drug .dc{font-size:11.5px;font-weight:800;text-transform:uppercase;letter-spacing:.05em;color:var(--muted);width:100%}
+.drug .dl{display:flex;flex-wrap:wrap;gap:6px;margin-top:8px}
+.drug .dl .chip{height:36px;min-height:36px;font-size:13px;padding:0 11px;white-space:normal;text-align:left}
+.guide{display:grid;gap:10px}
+.gi{display:flex;gap:10px;align-items:flex-start}
+.gic{flex:none;width:34px;height:34px;border-radius:10px;background:var(--primary-soft);display:grid;place-items:center;font-size:17px}
+.gi b{font-size:15px}.gi p{font-size:13.5px;color:var(--ink);margin-top:2px;line-height:1.5}
+.gl{font-weight:800;padding:0 6px;border-radius:6px}.gl.g0{background:var(--green-bg);color:var(--green)}.gl.g1{background:var(--yellow-bg);color:var(--yellow)}.gl.g2{background:var(--orange-bg);color:var(--orange)}.gl.g3{background:var(--red-bg);color:var(--red)}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 </style>
@@ -396,7 +412,7 @@ table.mini th,table.mini td{overflow-wrap:break-word}
       <div class="searchwrap">
         <div class="search" id="searchBox">
           <span class="si" aria-hidden="true">🔍</span>
-          <input id="searchInput" type="search" enterkeyhint="search" placeholder="Tìm: sofa, khí máu, natri, vanco…" autocomplete="off" aria-label="Tìm công cụ (gõ không dấu cũng được)"/>
+          <input id="searchInput" type="search" enterkeyhint="search" placeholder="Tìm công cụ, bệnh, tên thuốc: sofa, tazocin…" autocomplete="off" aria-label="Tìm công cụ (gõ không dấu cũng được)"/>
           <button type="button" class="clr" id="searchClear" aria-label="Xóa tìm kiếm">✕</button>
           <span class="kbd" aria-hidden="true">/</span>
           <button type="button" id="searchBtn" class="sr-only" tabindex="-1">Tìm</button>
@@ -411,6 +427,7 @@ table.mini th,table.mini td{overflow-wrap:break-word}
       </div>
 
       <div class="chiprow quickrow">
+        <button type="button" class="chip ghost" id="btnGuide">❓ Hướng dẫn</button>
         <button type="button" class="chip ghost" id="btnShare">📤 Chia sẻ app</button>
         <button type="button" class="chip ghost" id="btnFeedback">💬 Báo lỗi / Góp ý</button>
         <button type="button" class="chip ghost" id="btnNews">🆕 Có gì mới</button>
@@ -426,6 +443,7 @@ table.mini th,table.mini td{overflow-wrap:break-word}
         <div class="grid pinrow" id="favGrid"></div>
       </div>
 
+      <div id="drugHits" style="display:none"></div>
       <div class="sec-head"><h2 class="sec-title" id="listTitle">Tất cả công cụ</h2><span class="sec-sub" id="listSub"></span></div>
       <div class="grid" id="toolGrid"></div>
       <div class="empty" id="noResult" style="display:none">Không tìm thấy công cụ nào khớp.<br/>Thử từ khóa ngắn hơn, ví dụ “sofa”, “natri”, “khang sinh”.</div>
@@ -479,8 +497,9 @@ table.mini th,table.mini td{overflow-wrap:break-word}
 function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d");}
 function $(id){return document.getElementById(id);}
 /* ===== PHIÊN BẢN: chỉ sửa ở đây khi phát hành (service worker tự lấy số này đặt tên bộ nhớ đệm) ===== */
-var APP_VERSION="0.3.1",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
+var APP_VERSION="0.4.0",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
 var CHANGELOG=[
+ ["0.4.0","17/11/2026",["Tra cứu theo tên thuốc: gõ biệt dược hoặc hoạt chất thông dụng tại Việt Nam (Augmentin, Tazocin, Meronem, Levophed, Seduxen, Lovenox, Xarelto, Solu-Medrol…) — app cho biết hoạt chất và mở thẳng công cụ liên quan (module kháng sinh lọc sẵn thuốc, bộ tính liều truyền chọn sẵn thuốc, phác đồ tương ứng). 82 hoạt chất.","Hướng dẫn sử dụng trong app (nút ❓ ở trang chủ và chân trang)."]],
  ["0.3.1","17/11/2026",["Dùng như app thật: không phóng to bằng hai ngón / chạm đúp, không cuộn ngang, không nảy khi kéo quá mép; thêm nút Cỡ chữ (A / A+ / A++) để chữ to hơn khi cần.","Sửa lỗi trang bị cuộn ngang trên điện thoại: bảng rộng (quy đổi corticoid…) chỉ cuộn trong khung riêng, chế độ “Toàn bộ cây” của phác đồ thu gọn thụt lề, chặn tràn ngang cho toàn trang. Đã kiểm tra mọi công cụ ở bề rộng 320 px."]],
  ["0.3.0","17/11/2026",["Bộ tính liều truyền thuốc ICU 17 thuốc: vận mạch (noradrenaline, adrenaline, dobutamine, dopamine, vasopressin, phenylephrine), an thần – giảm đau (propofol, midazolam, fentanyl, morphine, dexmedetomidine), insulin, heparin, nicardipine, nitroglycerin, amiodarone, furosemide — mL/giờ ↔ liều, tổng liều/ngày, cảnh báo liều tối đa, công thức + 2 ca kiểm tra mỗi thuốc.","3 checklist tại giường: Sepsis giờ đầu (có đồng hồ giờ 0), VAP bundle, SAT/SBT cai máy — sao chép tóm tắt vào bệnh án.","5 phác đồ cây mới: hội chứng vành cấp (STEMI/NSTEMI), suy tim cấp, xuất huyết tiêu hóa trên, cơn hen cấp, đợt cấp COPD (tổng 20 phác đồ). Rà soát tăng kali máu.","Nút Báo lỗi / Góp ý mở GitHub Issue có mẫu sẵn; hiển thị phiên bản và “Có gì mới”; nút Chia sẻ app kèm mã QR dùng được offline."]],
  ["0.2.0","17/11/2026",["Sửa chế độ offline / cài vào màn hình chính (PWA).","Rà soát lâm sàng toàn bộ: bảng liều kháng sinh, APACHE II, MELD-Na, AKI, NEWS2, ARDS 2023, CHA₂DS₂-VA…","45 công cụ, 27 kháng sinh / kháng nấm, 15 phác đồ dạng cây Hồi sức – Cấp cứu – Chống độc.","Giao diện mới: nút Back hoạt động, tìm kiếm thông minh, nhập dấu phẩy, thanh kết quả nổi, sao chép kết quả, chế độ tối."]],
@@ -594,6 +613,109 @@ function bindCards(root){
   });
   root.querySelectorAll('[data-fav]').forEach(function(el){el.addEventListener('click',function(e){e.stopPropagation();var id=el.dataset.fav;var on=!favs.has(id);on?favs.add(id):favs.delete(id);saveFavs();renderHome();toast(on?"Đã ghim ⭐":"Đã bỏ ghim");});});
 }
+/* ============ Tra cứu thuốc: biệt dược / hoạt chất thông dụng tại Việt Nam → công cụ liên quan ============ */
+/* g: hoạt chất; b: biệt dược / tên thường gọi; c: nhóm; t: [công cụ, tham số] — abx: từ khóa lọc, vaso: mã thuốc truyền */
+var DRUGDB=[
+ {g:"Amoxicillin + acid clavulanic",b:["Augmentin","Klamentin","Curam"],c:"Kháng sinh",t:[["abx","Amoxicillin"]]},
+ {g:"Ampicillin + sulbactam",b:["Unasyn"],c:"Kháng sinh",t:[["abx","Ampicillin–Sulbactam"]]},
+ {g:"Ampicillin",b:[],c:"Kháng sinh",t:[["abx","Ampicillin"]]},
+ {g:"Benzylpenicillin (Penicillin G)",b:["Penicillin G"],c:"Kháng sinh",t:[["abx","Benzylpenicillin"]]},
+ {g:"Cefazolin",b:[],c:"Kháng sinh",t:[["abx","Cefazolin"]]},
+ {g:"Ceftriaxone",b:["Rocephin"],c:"Kháng sinh",t:[["abx","Ceftriaxone"]]},
+ {g:"Cefepime",b:["Maxipime"],c:"Kháng sinh",t:[["abx","Cefepime"]]},
+ {g:"Ceftazidime + avibactam",b:["Zavicefta"],c:"Kháng sinh",t:[["abx","Ceftazidime"]]},
+ {g:"Piperacillin + tazobactam",b:["Tazocin"],c:"Kháng sinh",t:[["abx","Piperacillin"]]},
+ {g:"Meropenem",b:["Meronem"],c:"Kháng sinh",t:[["abx","Meropenem"]]},
+ {g:"Imipenem + cilastatin",b:["Tienam"],c:"Kháng sinh",t:[["abx","Imipenem"]]},
+ {g:"Vancomycin",b:[],c:"Kháng sinh",t:[["abx","Vancomycin"]]},
+ {g:"Linezolid",b:["Zyvox"],c:"Kháng sinh",t:[["abx","Linezolid"]]},
+ {g:"Clindamycin",b:["Dalacin C"],c:"Kháng sinh",t:[["abx","Clindamycin"]]},
+ {g:"Doxycycline",b:[],c:"Kháng sinh",t:[["abx","Doxycycline"]]},
+ {g:"Colistin (colistimethate)",b:["Colomycin"],c:"Kháng sinh",t:[["abx","Colistin"]]},
+ {g:"Polymyxin B",b:[],c:"Kháng sinh",t:[["abx","Polymyxin B"]]},
+ {g:"Amikacin",b:[],c:"Kháng sinh",t:[["abx","Amikacin"]]},
+ {g:"Gentamicin",b:[],c:"Kháng sinh",t:[["abx","Gentamicin"]]},
+ {g:"Ciprofloxacin",b:["Ciprobay"],c:"Kháng sinh",t:[["abx","Ciprofloxacin"]]},
+ {g:"Levofloxacin",b:["Tavanic"],c:"Kháng sinh",t:[["abx","Levofloxacin"]]},
+ {g:"Metronidazole",b:["Flagyl"],c:"Kháng sinh",t:[["abx","Metronidazole"]]},
+ {g:"Clarithromycin",b:["Klacid"],c:"Kháng sinh",t:[["abx","Clarithromycin"]]},
+ {g:"Azithromycin",b:["Zithromax"],c:"Kháng sinh",t:[["abx","Azithromycin"]]},
+ {g:"Sulfamethoxazole + trimethoprim (cotrimoxazole)",b:["Bactrim","Biseptol"],c:"Kháng sinh",t:[["abx","Trimethoprim"]]},
+ {g:"Fluconazole",b:["Diflucan"],c:"Kháng nấm",t:[["abx","Fluconazole"]]},
+ {g:"Caspofungin",b:["Cancidas"],c:"Kháng nấm",t:[["abx","Caspofungin"]]},
+ {g:"Noradrenaline (norepinephrine)",b:["Levophed","Noradrenalin"],c:"Vận mạch",t:[["vaso","ne"],["px_sepsis"]]},
+ {g:"Adrenaline (epinephrine)",b:["Adrenalin"],c:"Vận mạch",t:[["vaso","epi"],["px_anaph"],["px_arrest"]]},
+ {g:"Dobutamine",b:["Dobutrex"],c:"Vận mạch",t:[["vaso","dobu"]]},
+ {g:"Dopamine",b:[],c:"Vận mạch",t:[["vaso","dopa"]]},
+ {g:"Vasopressin",b:["Pitressin"],c:"Vận mạch",t:[["vaso","vaso"],["px_sepsis"]]},
+ {g:"Phenylephrine",b:[],c:"Vận mạch",t:[["vaso","phenyl"]]},
+ {g:"Propofol",b:["Diprivan","Fresofol"],c:"An thần",t:[["vaso","propofol"]]},
+ {g:"Midazolam",b:["Hypnovel","Dormicum"],c:"An thần",t:[["vaso","midazolam"],["px_se"]]},
+ {g:"Diazepam",b:["Seduxen","Valium"],c:"An thần / chống co giật",t:[["px_se"]]},
+ {g:"Dexmedetomidine",b:["Precedex"],c:"An thần",t:[["vaso","dexmed"]]},
+ {g:"Fentanyl",b:[],c:"Opioid",t:[["vaso","fentanyl"],["opioid"],["px_opioid"]]},
+ {g:"Morphine",b:["Morphin"],c:"Opioid",t:[["vaso","morphine"],["opioid"],["px_opioid"]]},
+ {g:"Oxycodone",b:["OxyContin","OxyNorm"],c:"Opioid",t:[["opioid"]]},
+ {g:"Pethidine (meperidine)",b:["Pethidin"],c:"Opioid",t:[["opioid"]]},
+ {g:"Tramadol",b:[],c:"Opioid",t:[["opioid"]]},
+ {g:"Naloxone",b:[],c:"Giải độc opioid",t:[["px_opioid"]]},
+ {g:"Insulin người tác dụng nhanh (regular)",b:["Actrapid","Humulin R"],c:"Insulin",t:[["vaso","insulin"],["dka"],["px_dka"]]},
+ {g:"Heparin không phân đoạn",b:["Heparin sodium"],c:"Chống đông",t:[["vaso","heparin"]]},
+ {g:"Enoxaparin",b:["Lovenox"],c:"Chống đông",t:[["padua"],["caprini"],["px_acs"]]},
+ {g:"Rivaroxaban",b:["Xarelto"],c:"Chống đông (DOAC)",t:[["doac"]]},
+ {g:"Apixaban",b:["Eliquis"],c:"Chống đông (DOAC)",t:[["doac"]]},
+ {g:"Dabigatran",b:["Pradaxa"],c:"Chống đông (DOAC)",t:[["doac"]]},
+ {g:"Edoxaban",b:["Lixiana"],c:"Chống đông (DOAC)",t:[["doac"]]},
+ {g:"Clopidogrel",b:["Plavix"],c:"Kháng tiểu cầu",t:[["px_acs"],["abcd2"]]},
+ {g:"Ticagrelor",b:["Brilinta"],c:"Kháng tiểu cầu",t:[["px_acs"]]},
+ {g:"Aspirin (acid acetylsalicylic)",b:["Aspirin"],c:"Kháng tiểu cầu",t:[["px_acs"],["px_stroke"]]},
+ {g:"Alteplase",b:["Actilyse"],c:"Tiêu sợi huyết",t:[["px_stroke"]]},
+ {g:"Tenecteplase",b:["Metalyse"],c:"Tiêu sợi huyết",t:[["px_stroke"],["px_acs"]]},
+ {g:"Furosemide",b:["Lasix","Vinzix"],c:"Lợi tiểu",t:[["vaso","furo"],["px_ahf"]]},
+ {g:"Amiodarone",b:["Cordarone"],c:"Chống loạn nhịp",t:[["vaso","amio"],["px_arrest"]]},
+ {g:"Nicardipine",b:["Loxen"],c:"Hạ huyết áp",t:[["vaso","nicardipine"]]},
+ {g:"Nitroglycerin (glyceryl trinitrate)",b:["Nitroglycerin"],c:"Giãn mạch",t:[["vaso","ntg"],["px_ahf"]]},
+ {g:"Methylprednisolone",b:["Solu-Medrol","Medrol"],c:"Corticoid",t:[["steroid"]]},
+ {g:"Hydrocortisone",b:["Solu-Cortef"],c:"Corticoid",t:[["steroid"],["px_sepsis"]]},
+ {g:"Dexamethasone",b:[],c:"Corticoid",t:[["steroid"]]},
+ {g:"Prednisolone",b:[],c:"Corticoid",t:[["steroid"]]},
+ {g:"Esomeprazole",b:["Nexium"],c:"Ức chế bơm proton",t:[["px_ugib"]]},
+ {g:"Pantoprazole",b:["Pantoloc"],c:"Ức chế bơm proton",t:[["px_ugib"]]},
+ {g:"Terlipressin",b:["Glypressin"],c:"Co mạch tạng",t:[["px_ugib"]]},
+ {g:"Octreotide",b:["Sandostatin"],c:"Co mạch tạng",t:[["px_ugib"],["px_hypo"]]},
+ {g:"Somatostatin",b:["Stilamin"],c:"Co mạch tạng",t:[["px_ugib"]]},
+ {g:"Salbutamol",b:["Ventolin"],c:"Giãn phế quản",t:[["px_asthma"],["px_copd"],["px_hyperk"]]},
+ {g:"Ipratropium + salbutamol / fenoterol",b:["Combivent","Berodual"],c:"Giãn phế quản",t:[["px_asthma"],["px_copd"]]},
+ {g:"Magnesi sulfat",b:["Magnesium sulfate"],c:"Điện giải",t:[["kmg"],["px_asthma"]]},
+ {g:"Kali clorid",b:["Potassium chloride"],c:"Điện giải",t:[["kmg"]]},
+ {g:"Calci gluconat / calci clorid",b:["Calcium gluconate"],c:"Điện giải",t:[["px_hyperk"]]},
+ {g:"Natri clorid ưu trương 3%",b:["NaCl 3%"],c:"Điện giải",t:[["natri"]]},
+ {g:"Paracetamol (acetaminophen)",b:["Efferalgan","Panadol","Perfalgan"],c:"Giảm đau – hạ sốt",t:[["px_para"]]},
+ {g:"N-acetylcysteine",b:["Fluimucil"],c:"Giải độc paracetamol",t:[["px_para"]]},
+ {g:"Atropine",b:["Atropin"],c:"Kháng cholinergic",t:[["px_op"]]},
+ {g:"Pralidoxime",b:["PAM"],c:"Giải độc phospho hữu cơ",t:[["px_op"]]},
+ {g:"Glucagon",b:["GlucaGen"],c:"Hormon",t:[["px_hypo"],["px_anaph"]]},
+ {g:"Levetiracetam",b:["Keppra"],c:"Chống động kinh",t:[["px_se"]]},
+ {g:"Natri valproat",b:["Depakine"],c:"Chống động kinh",t:[["px_se"]]},
+ {g:"Phenytoin",b:["Dilantin"],c:"Chống động kinh",t:[["px_se"]]}
+];
+DRUGDB.forEach(function(d){d.h=norm(d.g+" "+d.b.join(" ")+" "+d.c);});
+/* cho tên thuốc vào từ khóa tìm kiếm của công cụ liên quan */
+DRUGDB.forEach(function(d){d.t.forEach(function(x){var t=TOOLS.find(function(y){return y.id===x[0]});if(t)t.kw+=" "+norm(d.g+" "+d.b.join(" "));});});
+function drugMatches(toks){if(!toks.length)return [];return DRUGDB.map(function(d){if(!toks.every(function(k){return d.h.indexOf(k)>=0}))return null;var bn=d.b.map(norm),sc=bn.some(function(x){return x.indexOf(toks[0])===0})?3:norm(d.g).indexOf(toks[0])===0?2:1;return [d,sc];}).filter(Boolean).sort(function(a,b){return b[1]-a[1]}).slice(0,8).map(function(x){return x[0]});}
+function drugLinkLabel(x){var t=TOOLS.find(function(y){return y.id===x[0]});if(!t)return null;if(x[0]==="abx")return "💊 Liều theo thận – gan";if(x[0]==="vaso")return "💉 Tính liều truyền";return t.icon+" "+t.name.split(" — ")[0];}
+function openDrug(i,j){var d=DRUGDB[i],x=d.t[j];
+ if(x[0]==="abx"){abxState.q=x[1];abxState.syn="all";var si=$("abx_search");if(si)si.value=x[1];var sg=$("abx_syn");if(sg)sg.querySelectorAll('button').forEach(function(b){b.classList.toggle('on',b.dataset.syn==="all")});}
+ if(x[0]==="vaso"&&x[1]){var sel=$("iv_drug");if(sel){sel.value=x[1];calcVaso();}}
+ openTool(x[0]);}
+function renderDrugHits(toks){var box=$("drugHits");if(!box)return 0;var hits=drugMatches(toks);
+ if(!hits.length){box.style.display="none";box.innerHTML="";return 0;}
+ box.style.display="block";
+ box.innerHTML='<div class="sec-head"><h2 class="sec-title">💊 Thuốc</h2><span class="sec-sub">'+hits.length+' thuốc khớp — biệt dược → hoạt chất</span></div><div class="drug-list">'+hits.map(function(d){var i=DRUGDB.indexOf(d);
+  return '<div class="drug"><div class="dn"><b>'+d.g+'</b>'+(d.b.length?'<span class="db">'+d.b.join(" · ")+'</span>':'')+'<span class="dc">'+d.c+'</span></div><div class="dl">'+d.t.map(function(x,j){var l=drugLinkLabel(x);return l?'<button type="button" class="chip ghost" data-dr="'+i+'" data-dj="'+j+'">'+l+'</button>':''}).join("")+'</div></div>'}).join("")+'</div>';
+ box.querySelectorAll('[data-dr]').forEach(function(b){b.addEventListener('click',function(){openDrug(+b.dataset.dr,+b.dataset.dj);});});
+ return hits.length;}
+
 function renderHome(){
   var q=norm(curQuery).trim(),toks=q.split(/\s+/).filter(Boolean);
   var rows=TOOLS.map(function(t){
@@ -609,10 +731,10 @@ function renderHome(){
   }).filter(Boolean);
   if(toks.length)rows.sort(function(a,b){return b[1]-a[1]});
   var g=$("toolGrid");g.innerHTML=rows.map(function(r){return toolCard(r[0])}).join("");bindCards(g);
-  $("noResult").style.display=rows.length?"none":"block";
+  var nDrug=renderDrugHits(toks);$("noResult").style.display=(rows.length||nDrug)?"none":"block";
   var titles={all:"Tất cả công cụ",hoisuc:"Hồi sức & tiên lượng",thankinh:"Thần kinh – an thần",hohap:"Hô hấp",than:"Thận – điện giải",timmach:"Tim mạch – sốc",noikhoa:"Nội khoa tổng quát",khangsinh:"Kháng sinh",phacdo:"🧭 Phác đồ Hồi sức – Cấp cứu – Chống độc",fav:"⭐ Đã ghim"};
   $("listTitle").textContent=toks.length?('Kết quả cho “'+curQuery+'”'):(titles[curCat]||"Tất cả công cụ");
-  $("listSub").textContent=rows.length+" công cụ"+(toks.length?" — tìm trong mọi nhóm":"");
+  $("listSub").textContent=rows.length+" công cụ"+(toks.length?" — tìm trong mọi nhóm":"");$("listTitle").parentElement.style.display=(toks.length&&!rows.length&&nDrug)?"none":"";
   var fg=TOOLS.filter(function(t){return favs.has(t.id)});
   var showFav=fg.length&&curCat==="all"&&!toks.length;
   $("favSection").style.display=showFav?"block":"none";
@@ -621,7 +743,7 @@ function renderHome(){
   $("recentWrap").style.display=(rc.length&&!toks.length&&curCat==="all")?"block":"none";
   $("recentChips").innerHTML=rc.map(function(t){return '<button type="button" class="chip" data-open="'+t.id+'" style="--c:'+catColor(t.cat)+'"><span aria-hidden="true">'+t.icon+'</span>'+t.name.split(" — ")[0]+'</button>'}).join("");
   $("recentChips").querySelectorAll('[data-open]').forEach(function(b){b.addEventListener('click',function(){openTool(b.dataset.open);});});
-  $("searchBox").classList.toggle('has',!!curQuery);
+  $("searchBox").classList.toggle('has',!!curQuery);document.body.classList.toggle('searching',!!toks.length);
   renderCats();
 }
 function setCat(c){curCat=c;renderHome();setNav(c==="fav"?"fav":c==="phacdo"?"phacdo":"home");}
@@ -819,11 +941,31 @@ function openShare(){var canShare=!!navigator.share;
  $("shCopy").addEventListener('click',function(){copyText(APP_URL,"Đã sao chép link app");});
  if(canShare)$("shNative").addEventListener('click',function(){navigator.share({title:"Công cụ Nội khoa & Hồi sức",text:"Thang điểm, máy tính lâm sàng, liều thuốc ICU và phác đồ cấp cứu — dùng được offline",url:APP_URL}).catch(function(){});});}
 function openNews(){openDlg('<h3>🆕 Có gì mới</h3>'+CHANGELOG.map(function(v,i){return '<div class="cl'+(i===0?' cur':'')+'"><div class="clh"><b>v'+v[0]+'</b><span>'+v[1]+'</span>'+(i===0?'<em>bản hiện tại</em>':'')+'</div><ul>'+v[2].map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul></div>'}).join("")+'<p class="dlg-note">Mã nguồn & lịch sử thay đổi: <a href="https://github.com/'+APP_REPO+'" target="_blank" rel="noopener">github.com/'+APP_REPO+'</a></p>');}
+
+/* ============ Hướng dẫn sử dụng ============ */
+var GUIDE=[
+ ["🔍","Tìm nhanh","Gõ vào ô tìm kiếm — không dấu cũng được: tên thang điểm (<i>sofa, glasgow, curb</i>), bệnh cảnh (<i>soc nhiem trung, ngo doc</i>) hoặc <b>tên thuốc / biệt dược</b> (<i>augmentin, tazocin, levophed, seduxen, xarelto</i>). Mục <b>💊 Thuốc</b> cho biết biệt dược đó là hoạt chất gì và mở thẳng công cụ liên quan. Nhấn Enter để mở kết quả đầu tiên."],
+ ["🧭","Nhóm & phác đồ","Hàng nút dưới ô tìm kiếm lọc theo nhóm. Nhóm <b>Phác đồ</b> (nút 🧭 ở thanh dưới) gồm các cây quyết định Hồi sức – Cấp cứu – Chống độc."],
+ ["⭐","Ghim công cụ hay dùng","Chạm ☆ trên thẻ hoặc trong công cụ để ghim — công cụ đã ghim hiện ở đầu trang chủ và ở nút ⭐ Đã ghim. Mục <b>Dùng gần đây</b> nhớ 6 công cụ mở gần nhất."],
+ ["🎨","Đọc kết quả","Kết quả tính ngay khi nhập, có màu và chữ diễn giải: <span class='gl g0'>xanh</span> bình thường / nguy cơ thấp, <span class='gl g1'>vàng</span> cần theo dõi, <span class='gl g2'>cam</span> bất thường, <span class='gl g3'>đỏ</span> nguy hiểm. Số thập phân nhập bằng dấu phẩy hoặc chấm đều được; ô nhập sai sẽ viền đỏ."],
+ ["⧉","Sao chép vào bệnh án","Nút ⧉ trên ô kết quả sao chép tên công cụ, kết quả và diễn giải để dán vào bệnh án / tin nhắn. Khi cuộn xuống nhập liệu, <b>thanh kết quả nổi</b> phía dưới luôn hiện số đang tính — chạm vào để quay lại."],
+ ["🌳","Phác đồ dạng cây","<b>Từng bước</b>: trả lời câu hỏi để đi tới khuyến cáo; chạm vào bước đã chọn để quay lại sửa. <b>Toàn bộ cây</b>: xem tất cả nhánh một lúc. Một số nút mở thẳng phác đồ hoặc công cụ khác."],
+ ["💉","Tính liều truyền thuốc","Chọn thuốc → cách pha của khoa → nhập cân nặng và liều (hoặc tốc độ mL/giờ để tính ngược). Bấm “📐 Công thức, ca kiểm tra & nguồn” để xem cách tính. Luôn kiểm tra chéo trước khi chỉnh bơm."],
+ ["☑️","Checklist","Sepsis giờ đầu, VAP bundle, SAT/SBT: tick từng mục, app tự kết luận và nhắc mốc thời gian. Chỉ lưu trong phiên (đóng tab là xóa), không lưu thông tin bệnh nhân."],
+ ["📲","Cài như app, dùng offline","Android (Chrome): menu ⋮ → <b>Cài đặt ứng dụng</b>. iPhone (Safari): nút Chia sẻ → <b>Thêm vào Màn hình chính</b>. Sau đó mở bằng icon, dùng được khi mất mạng; có mạng app tự cập nhật."],
+ ["🔠","Cỡ chữ & giao diện","Nút <b>A</b> trên thanh tiêu đề đổi cỡ chữ (A / A+ / A++) — app không cho phóng to bằng tay như app thật. Nút 🌓 đổi giao diện sáng / tối / tự động."],
+ ["🔗","Chia sẻ & liên kết","Nút 🔗 trong công cụ sao chép liên kết mở thẳng công cụ đó. Nút 📤 Chia sẻ app có mã QR để đồng nghiệp quét."],
+ ["💬","Báo lỗi / góp ý","Nút ⚑ trong công cụ hoặc 💬 ở trang chủ mở GitHub Issue có mẫu sẵn. Không ghi tên, mã hồ sơ hay thông tin định danh bệnh nhân."]];
+function openGuide(){store("nkhs_guide_seen",1);var b=$("btnGuide");if(b)b.classList.remove('new');
+ openDlg('<h3>❓ Hướng dẫn sử dụng</h3><div class="guide">'+GUIDE.map(function(g){return '<div class="gi"><span class="gic" aria-hidden="true">'+g[0]+'</span><div><b>'+g[1]+'</b><p>'+g[2]+'</p></div></div>'}).join("")+'</div><p class="dlg-note">⚠️ Công cụ chỉ hỗ trợ quyết định — không thay thế đánh giá lâm sàng và phác đồ của bệnh viện. Mọi phép tính chạy trên máy, không gửi dữ liệu đi đâu.</p>');}
+$("btnGuide").addEventListener('click',openGuide);
+if(!store("nkhs_guide_seen")){var bg=$("btnGuide");if(bg)bg.classList.add('new');}
+
 $("btnShare").addEventListener('click',openShare);$("btnFeedback").addEventListener('click',function(){openFeedback(null);});$("btnNews").addEventListener('click',openNews);
 (function(){var nT=TOOLS.filter(function(t){return t.cat!=="phacdo"}).length,nP=TOOLS.length-nT;
  $("topSub").textContent=nT+" công cụ • "+nP+" phác đồ • v"+APP_VERSION;
- $("verLine").innerHTML='<b>Phiên bản v'+APP_VERSION+'</b> — cập nhật '+APP_DATE+' · <a href="#" id="flNews">Có gì mới</a> · <a href="#" id="flFb">Báo lỗi / Góp ý</a> · <a href="#" id="flShare">Chia sẻ app</a>';
- $("flNews").addEventListener('click',function(e){e.preventDefault();openNews();});$("flFb").addEventListener('click',function(e){e.preventDefault();openFeedback(null);});$("flShare").addEventListener('click',function(e){e.preventDefault();openShare();});
+ $("verLine").innerHTML='<b>Phiên bản v'+APP_VERSION+'</b> — cập nhật '+APP_DATE+' · <a href="#" id="flGuide">Hướng dẫn</a> · <a href="#" id="flNews">Có gì mới</a> · <a href="#" id="flFb">Báo lỗi / Góp ý</a> · <a href="#" id="flShare">Chia sẻ app</a>';
+ $("flNews").addEventListener('click',function(e){e.preventDefault();openNews();});$("flGuide").addEventListener('click',function(e){e.preventDefault();openGuide();});$("flFb").addEventListener('click',function(e){e.preventDefault();openFeedback(null);});$("flShare").addEventListener('click',function(e){e.preventDefault();openShare();});
  var seen=store("nkhs_seen_ver");if(seen&&seen!==APP_VERSION){var b=$("btnNews");if(b){b.classList.add('new');b.innerHTML='🆕 Có gì mới — v'+APP_VERSION;}}store("nkhs_seen_ver",APP_VERSION);
 })();
 

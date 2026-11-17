@@ -57,5 +57,22 @@ PROTO.forEach(p => panels.add(p.id));
 toolIds.forEach(id => ok(panels.has(id), "Công cụ " + id + " chưa có bảng điều khiển"));
 console.log("Công cụ đăng ký: " + toolIds.size);
 
+// 4) Tra cứu thuốc: mọi liên kết trỏ tới công cụ có thật; từ khóa kháng sinh lọc ra thuốc; mã thuốc truyền tồn tại
+const ctx3 = { norm: s => (s || "").toLowerCase().normalize("NFD").replace(/[̀-ͯ]/g, "").replace(/đ/g, "d"), TOOLS: [...toolIds].map(id => ({ id, kw: "" })) };
+vm.createContext(ctx3);
+vm.runInContext(grab("var DRUGDB=[", "DRUGDB.forEach(function(d){d.h="), ctx3);
+vm.runInContext(grab("var ABX=[", "var abxState="), ctx3);
+const DRUGDB = vm.runInContext("DRUGDB", ctx3), ABX = vm.runInContext("ABX", ctx3);
+const ivKeys = new Set(drugs.map(d => d.k));
+console.log("Tra cứu thuốc: " + DRUGDB.length + " hoạt chất");
+DRUGDB.forEach(d => {
+  ok(d.t.length > 0, d.g + ": chưa liên kết công cụ nào");
+  d.t.forEach(x => {
+    ok(toolIds.has(x[0]), d.g + ": công cụ không tồn tại " + x[0]);
+    if (x[0] === "abx") ok(ABX.some(a => ctx3.norm(a.n + " " + a.g).includes(ctx3.norm(x[1]))), d.g + ": từ khóa kháng sinh không khớp thuốc nào: " + x[1]);
+    if (x[0] === "vaso" && x[1]) ok(ivKeys.has(x[1]), d.g + ": mã thuốc truyền không tồn tại " + x[1]);
+  });
+});
+
 console.log(fail ? `\n❌ ${fail} lỗi, ${pass} đạt` : `\n✅ Tất cả ${pass} kiểm tra đều đạt`);
 process.exit(fail ? 1 : 0);
