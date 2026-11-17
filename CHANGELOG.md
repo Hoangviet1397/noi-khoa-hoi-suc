@@ -4,6 +4,11 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v0.9.0 — 18/11/2026
+- Thêm 10 bảng điểm chuyên sâu: TIMI (hội chứng vành cấp không ST chênh), 4Ts (giảm tiểu cầu do heparin), ISTH DIC (đông máu rải rác), PLASMIC (TTP), Burch-Wartofsky (cơn bão giáp), CPIS (viêm phổi thở máy), Hunt-Hess & WFNS (xuất huyết dưới nhện), BODE (tiên lượng COPD), ECOG (tình trạng toàn thân), Rockall (xuất huyết tiêu hoá trên). Tổng 71 công cụ • 30 phác đồ (101 mục).
+- Thêm 5 phác đồ cây: tăng áp lực thẩm thấu (HHS), viêm màng não, huyết khối tĩnh mạch sâu (DVT), tổn thương thận cấp (gói KDIGO), nhịp nhanh theo ACLS.
+- Mọi mục mới đều có nguồn kèm link kiểm chứng (4 DOI gốc được thay bằng tài liệu tương đương đã kiểm chứng qua Crossref: 4Ts, BODE, nhịp nhanh ACLS, DIC).
+
 ## v0.8.0 — 18/11/2026
 - Thêm 8 công cụ: PERC (loại trừ thuyên tắc phổi), sPESI (tiên lượng thuyên tắc phổi), FIB-4 & APRI (xơ hóa gan), Ranson (viêm tụy cấp), tiêu chuẩn Light (tràn dịch màng phổi), Centor/McIsaac (viêm họng liên cầu), Charlson (bệnh đồng mắc), CFS (thang suy yếu lâm sàng). Tổng 61 công cụ • 25 phác đồ (86 mục).
 - Thêm 5 phác đồ cây: thuyên tắc phổi, rung nhĩ, tăng huyết áp cấp cứu, ARDS, viêm phổi (CAP/HAP/VAP, đánh giá lại 48–72h).
