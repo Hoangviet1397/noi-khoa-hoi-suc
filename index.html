@@ -157,7 +157,7 @@ main{min-width:0}
 .panel .desc{color:var(--muted);font-size:14.5px;margin:6px 0 14px}
 .result{position:relative;border-radius:14px;padding:14px 16px;margin-bottom:16px;border:1.5px solid var(--line);background:var(--surface2);transition:background .2s,border-color .2s}
 .result .big{font-size:30px;font-weight:850;line-height:1.12;letter-spacing:-.01em;padding-right:44px;word-break:break-word}
-.result .lbl{font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
+.result .lbl{padding-right:46px;font-size:12px;font-weight:800;text-transform:uppercase;letter-spacing:.07em;color:var(--muted)}
 .result .interp{margin-top:6px;font-size:15px;font-weight:550;line-height:1.5}
 .result.lv0{border-color:var(--green);background:var(--green-bg)}
 .result.lv1{border-color:var(--yellow-line);background:var(--yellow-bg)}
@@ -179,7 +179,7 @@ main{min-width:0}
 .fgroup>label,.fgroup .flabel{font-weight:700;font-size:14.5px;display:block;margin-bottom:6px;line-height:1.35}
 .frow{display:grid;grid-template-columns:1fr 1fr;gap:10px}
 @media(max-width:560px){.frow{grid-template-columns:1fr}}
-input[type="number"],input[type="text"],input[inputmode="decimal"],select{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface2);font-size:16.5px;outline:none;transition:border-color .12s,box-shadow .12s}
+input[type="number"],input[type="text"],input[type="time"],input[inputmode="decimal"],select{width:100%;border:1.5px solid var(--line);border-radius:12px;padding:10px 12px;background:var(--surface2);font-size:16.5px;outline:none;transition:border-color .12s,box-shadow .12s}
 input[inputmode="decimal"]{font-variant-numeric:tabular-nums;font-weight:650}
 input:focus,select:focus{border-color:var(--primary);box-shadow:0 0 0 4px var(--primary-soft);background:var(--surface)}
 input.filled,select.changed{border-color:var(--line2);background:var(--surface)}
@@ -316,6 +316,29 @@ ul.tree ul>li::before{content:"";position:absolute;left:-16px;top:16px;width:12p
 .tleaf.lv0{background:var(--green-bg);border-color:var(--green)} .tleaf.lv1{background:var(--yellow-bg);border-color:var(--yellow-line)} .tleaf.lv2{background:var(--orange-bg);border-color:var(--orange)} .tleaf.lv3{background:var(--red-bg);border-color:var(--red)}
 .tref{font-size:13px;color:var(--muted);font-style:italic}
 .tgo{border:0;background:none;color:var(--c,var(--primary));font-weight:800;cursor:pointer;font-style:normal;padding:4px 0;min-height:0}
+/* ---------- Hộp thoại, chia sẻ, phiên bản ---------- */
+.quickrow{margin-top:10px}
+.chip.new{background:var(--primary);color:var(--primary-ink);border-color:var(--primary)}
+.dlg{border:0;padding:0;border-radius:20px;max-width:min(460px,calc(100vw - 24px));width:100%;background:var(--surface);color:var(--ink);box-shadow:var(--shadow-lg)}
+.dlg::backdrop{background:rgba(8,20,24,.55);backdrop-filter:blur(2px)}
+.dlg-in{position:relative;padding:20px 18px 18px;max-height:min(80vh,720px);overflow:auto}
+.dlg h3{font-size:19px;margin:0 36px 10px 0}
+.dlg-x{position:absolute;top:10px;right:10px;width:40px;height:40px;min-height:40px;border-radius:12px;border:1px solid var(--line);background:var(--surface2);cursor:pointer;font-size:16px}
+.dlg-p{font-size:14.5px;margin:6px 0 12px}
+.dlg-note{font-size:12.5px;color:var(--muted);margin-top:12px}
+.dlg-acts{display:grid;gap:8px}
+.dlg-btn{display:flex;align-items:center;justify-content:center;gap:6px;text-align:center;text-decoration:none;border:1.5px solid var(--line);background:var(--surface2);color:var(--ink);border-radius:12px;padding:10px 14px;font-weight:750;cursor:pointer;min-height:46px}
+.dlg-btn.pri{background:var(--primary);color:var(--primary-ink);border-color:var(--primary)}
+.qrbox{width:min(240px,70vw);margin:4px auto 6px;background:#fff;border-radius:14px;padding:8px;border:1px solid var(--line)}
+.qrbox svg{display:block;width:100%;height:auto}
+.linkbox{font-family:ui-monospace,Menlo,Consolas,monospace;font-size:13px;background:var(--surface2);border:1px dashed var(--line2);border-radius:10px;padding:8px 10px;margin:0 0 12px;word-break:break-all;text-align:center}
+.cl{border:1px solid var(--line);border-radius:12px;padding:10px 12px;margin:8px 0}
+.cl.cur{border-color:var(--primary);background:var(--primary-soft)}
+.clh{display:flex;gap:8px;align-items:baseline;flex-wrap:wrap}.clh span{color:var(--muted);font-size:13px}.clh em{font-style:normal;font-size:11.5px;font-weight:800;color:var(--primary);text-transform:uppercase;letter-spacing:.05em}
+.cl ul{padding-left:18px;margin:6px 0 0;font-size:13.5px;display:grid;gap:4px}
+.footer a{color:var(--primary)}
+.src .rev{white-space:nowrap}
+.ivmeta summary{min-height:0;padding:2px 0;font-size:14.5px}.ivmeta[open] summary{margin-bottom:6px}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 </style>
@@ -348,6 +371,12 @@ ul.tree ul>li::before{content:"";position:absolute;left:-16px;top:16px;width:12p
         <div class="tx"><b>📲 Cài vào màn hình chính</b>Mở 1 chạm như app, dùng được khi mất mạng.</div>
         <button type="button" class="go" id="installGo">Cài</button>
         <button type="button" class="x" id="installX" aria-label="Ẩn gợi ý cài đặt">✕</button>
+      </div>
+
+      <div class="chiprow quickrow">
+        <button type="button" class="chip ghost" id="btnShare">📤 Chia sẻ app</button>
+        <button type="button" class="chip ghost" id="btnFeedback">💬 Báo lỗi / Góp ý</button>
+        <button type="button" class="chip ghost" id="btnNews">🆕 Có gì mới</button>
       </div>
 
       <div id="recentWrap" style="display:none">
@@ -394,9 +423,10 @@ ul.tree ul>li::before{content:"";position:absolute;left:-16px;top:16px;width:12p
   </main>
 </div>
 
-<p class="footer">Nguồn tham khảo chính: Surviving Sepsis Campaign 2021, KDIGO, định nghĩa ARDS toàn cầu 2023, ESC 2024, Sanford Guide, nhãn thuốc FDA/EMA. Cập nhật nội dung: 11/2026. Chỉ dùng tham khảo lâm sàng — luôn đối chiếu phác đồ bệnh viện và kháng sinh đồ.</p>
+<p class="footer"><span id="verLine"></span><br/>Nguồn tham khảo chính: Surviving Sepsis Campaign 2021, KDIGO, định nghĩa ARDS toàn cầu 2023, ESC 2024, Sanford Guide, nhãn thuốc FDA/EMA. Cập nhật nội dung: 11/2026. Chỉ dùng tham khảo lâm sàng — luôn đối chiếu phác đồ bệnh viện và kháng sinh đồ.</p>
 
 <div class="stickyres" id="stickyRes" role="button" tabindex="0" aria-label="Xem kết quả"><span class="sl">Kết quả</span><span class="sv" id="stickyVal">—</span><span class="sa">▲</span></div>
+<dialog class="dlg" id="dlg" aria-label="Hộp thoại"><div class="dlg-in"><button type="button" class="dlg-x" id="dlgX" aria-label="Đóng">✕</button><div id="dlgBody"></div></div></dialog>
 <div class="toast" id="toast" role="status" aria-live="polite"></div>
 
 <nav class="bottomnav" aria-label="Điều hướng dưới">
@@ -410,6 +440,13 @@ ul.tree ul>li::before{content:"";position:absolute;left:-16px;top:16px;width:12p
 /* ============ Helpers ============ */
 function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d");}
 function $(id){return document.getElementById(id);}
+/* ===== PHIÊN BẢN: chỉ sửa ở đây khi phát hành (service worker tự lấy số này đặt tên bộ nhớ đệm) ===== */
+var APP_VERSION="0.3.0",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
+var CHANGELOG=[
+ ["0.3.0","17/11/2026",["Bộ tính liều truyền thuốc ICU 17 thuốc: vận mạch (noradrenaline, adrenaline, dobutamine, dopamine, vasopressin, phenylephrine), an thần – giảm đau (propofol, midazolam, fentanyl, morphine, dexmedetomidine), insulin, heparin, nicardipine, nitroglycerin, amiodarone, furosemide — mL/giờ ↔ liều, tổng liều/ngày, cảnh báo liều tối đa, công thức + 2 ca kiểm tra mỗi thuốc.","3 checklist tại giường: Sepsis giờ đầu (có đồng hồ giờ 0), VAP bundle, SAT/SBT cai máy — sao chép tóm tắt vào bệnh án.","5 phác đồ cây mới: hội chứng vành cấp (STEMI/NSTEMI), suy tim cấp, xuất huyết tiêu hóa trên, cơn hen cấp, đợt cấp COPD (tổng 20 phác đồ). Rà soát tăng kali máu.","Nút Báo lỗi / Góp ý mở GitHub Issue có mẫu sẵn; hiển thị phiên bản và “Có gì mới”; nút Chia sẻ app kèm mã QR dùng được offline."]],
+ ["0.2.0","17/11/2026",["Sửa chế độ offline / cài vào màn hình chính (PWA).","Rà soát lâm sàng toàn bộ: bảng liều kháng sinh, APACHE II, MELD-Na, AKI, NEWS2, ARDS 2023, CHA₂DS₂-VA…","45 công cụ, 27 kháng sinh / kháng nấm, 15 phác đồ dạng cây Hồi sức – Cấp cứu – Chống độc.","Giao diện mới: nút Back hoạt động, tìm kiếm thông minh, nhập dấu phẩy, thanh kết quả nổi, sao chép kết quả, chế độ tối."]],
+ ["0.1.0","11/2026",["Bản đầu tiên: 19 công cụ và module kháng sinh theo chức năng thận – gan."]]];
+var APP_QR_SVG="<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 37 37' shape-rendering='crispEdges'><path fill='#ffffff' d='M0 0h37v37H0z'/><path stroke='#000000' d='M2 2.5h7m1 0h1m4 0h4m1 0h1m1 0h4m2 0h7M2 3.5h1m5 0h1m3 0h1m2 0h2m3 0h2m2 0h1m3 0h1m5 0h1M2 4.5h1m1 0h3m1 0h1m2 0h1m4 0h1m2 0h5m2 0h1m1 0h1m1 0h3m1 0h1M2 5.5h1m1 0h3m1 0h1m1 0h2m1 0h1m4 0h2m5 0h1m2 0h1m1 0h3m1 0h1M2 6.5h1m1 0h3m1 0h1m1 0h1m1 0h3m3 0h2m1 0h1m2 0h3m1 0h1m1 0h3m1 0h1M2 7.5h1m5 0h1m1 0h1m1 0h1m2 0h3m1 0h1m2 0h3m3 0h1m5 0h1M2 8.5h7m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h7M10 9.5h2m1 0h2m1 0h1m2 0h1m1 0h5M2 10.5h1m3 0h1m1 0h4m5 0h1m1 0h1m3 0h9m2 0h1M3 11.5h4m3 0h2m1 0h2m1 0h2m1 0h2m1 0h1m2 0h1m1 0h1m3 0h3M3 12.5h1m1 0h1m2 0h1m3 0h1m1 0h5m1 0h1m1 0h1m1 0h2m1 0h2m2 0h1m1 0h1M4 13.5h4m1 0h2m4 0h1m2 0h1m4 0h1m2 0h3m5 0h1M2 14.5h4m2 0h1m2 0h2m2 0h1m2 0h1m4 0h4m1 0h1m1 0h2M2 15.5h1m1 0h4m1 0h1m1 0h1m1 0h2m1 0h1m3 0h6m1 0h1m1 0h1m1 0h1M2 16.5h1m1 0h2m2 0h1m4 0h1m1 0h3m2 0h1m1 0h9m1 0h2M2 17.5h1m1 0h1m1 0h1m8 0h1m1 0h4m2 0h1m2 0h4M4 18.5h2m1 0h5m3 0h1m3 0h1m1 0h1m1 0h4m1 0h1m1 0h1m2 0h1M2 19.5h2m1 0h1m3 0h1m1 0h2m1 0h1m1 0h3m1 0h1m1 0h1m2 0h1m1 0h1m3 0h3M2 20.5h1m1 0h2m1 0h6m1 0h1m1 0h2m1 0h1m2 0h2m1 0h2m2 0h1m1 0h1m1 0h1M3 21.5h1m1 0h3m1 0h2m3 0h2m1 0h1m1 0h3m1 0h1m1 0h1m1 0h1m1 0h1m3 0h2M3 22.5h1m1 0h2m1 0h1m2 0h5m4 0h5m1 0h3m1 0h2M2 23.5h1m1 0h2m7 0h3m2 0h2m1 0h1m3 0h1m1 0h1m1 0h1m3 0h1M4 24.5h1m2 0h5m1 0h2m1 0h1m1 0h2m1 0h1m1 0h1m1 0h1m2 0h1m4 0h1M4 25.5h1m1 0h2m1 0h2m3 0h2m3 0h5m1 0h1m3 0h1m1 0h1m1 0h1M2 26.5h2m1 0h2m1 0h2m1 0h2m1 0h2m1 0h3m3 0h8m2 0h2M10 27.5h1m2 0h1m3 0h3m2 0h1m1 0h1m1 0h1m3 0h1m1 0h2M2 28.5h7m1 0h1m6 0h2m1 0h1m1 0h1m1 0h1m1 0h1m1 0h1m1 0h2M2 29.5h1m5 0h1m4 0h1m3 0h2m4 0h1m2 0h1m3 0h1m2 0h2M2 30.5h1m1 0h3m1 0h1m1 0h2m1 0h1m2 0h3m2 0h3m2 0h6M2 31.5h1m1 0h3m1 0h1m3 0h1m1 0h3m3 0h3m2 0h1m2 0h4M2 32.5h1m1 0h3m1 0h1m3 0h3m2 0h1m1 0h2m1 0h2m2 0h1m1 0h3M2 33.5h1m5 0h1m2 0h2m3 0h4m1 0h8M2 34.5h7m1 0h1m2 0h1m2 0h1m2 0h1m3 0h1m1 0h2m1 0h1m5 0h1'/></svg>";
 function num(id){var e=$(id);if(!e)return null;var t=String(e.value).trim().replace(/\s/g,"").replace(",",".");if(t==="")return null;var v=parseFloat(t);return isNaN(v)?null:v;}
 function fmt(x,d){if(x==null||isNaN(x))return "—";return (Math.round(x*Math.pow(10,d||0))/Math.pow(10,d||0)).toLocaleString("vi-VN");}
 function segVal(id){var b=document.querySelector('#'+id+' button.on');return b?b.dataset.v:null;}
@@ -438,7 +475,7 @@ var TOOLS=[
  {id:"wells",icon:"🦵",cat:"noikhoa",catName:"Nội khoa",name:"Wells — Thuyên tắc phổi (PE)",desc:"Xác suất lâm sàng trước xét nghiệm đối với thuyên tắc phổi.",kw:"wells thuyen tac phoi pe huyet khoi"},
  {id:"bmi",icon:"📏",cat:"noikhoa",catName:"Nội khoa",name:"BMI & Diện tích bề mặt cơ thể (BSA)",desc:"Chỉ số khối cơ thể và BSA Mosteller — dùng cho liều thuốc và dinh dưỡng.",kw:"bmi bsa can nang chieu cao be mat co the"},
  {id:"abx",icon:"💊",cat:"khangsinh",catName:"Kháng sinh",name:"Kháng sinh theo thận – gan – mức độ bệnh",desc:"Khuyến cáo kháng sinh theo kinh nghiệm theo hội chứng + liều nạp, liều duy trì theo CrCl, chức năng gan (bình thường hoặc Child–Pugh khi xơ gan) và mức độ nhiễm trùng cho 27 kháng sinh / kháng nấm thường dùng tại ICU – nội khoa.",kw:"khang sinh lieu antibiotic renal hepatic dose adjustment vancomycin meropenem kinh nghiem empiric phac do theo kinh nghiem"},
- {id:"vaso",icon:"💉",cat:"hoisuc",catName:"Hồi sức",name:"Tốc độ bơm thuốc vận mạch",desc:"Đổi liều noradrenaline, adrenaline, dopamine, dobutamine, vasopressin ↔ mL/giờ theo cách pha.",kw:"van mach noradrenaline norepinephrine adrenaline dopamine dobutamine vasopressin bom tiem toc do"},
+ {id:"vaso",icon:"💉",cat:"hoisuc",catName:"Hồi sức",name:"Tính liều truyền thuốc ICU",desc:"17 thuốc: vận mạch, an thần – giảm đau, insulin, heparin, nicardipine, nitroglycerin, amiodarone, furosemide — liều ↔ mL/giờ.",kw:"truyen thuoc bom tiem dien van mach noradrenaline norepinephrine adrenaline dobutamine dopamine vasopressin phenylephrine propofol midazolam fentanyl morphine dexmedetomidine insulin heparin nicardipine nitroglycerin amiodarone furosemide an than giam dau ml/gio toc do"},
  {id:"fluids",icon:"💧",cat:"hoisuc",catName:"Hồi sức",name:"Dịch hồi sức & dịch duy trì",desc:"30 mL/kg trong sốc nhiễm trùng, nhu cầu nước – điện giải duy trì.",kw:"dich truyen bu dich hoi suc duy tri 30 ml/kg ringer"},
  {id:"cam",icon:"🌀",cat:"thankinh",catName:"Thần kinh",name:"CAM-ICU — Mê sảng",desc:"Phát hiện mê sảng ở bệnh nhân ICU theo 4 đặc điểm.",kw:"cam icu me sang delirium lu lan"},
  {id:"nihss",icon:"🧠",cat:"thankinh",catName:"Thần kinh",name:"NIHSS — Thang điểm đột quỵ",desc:"15 mục, 0–42 điểm — mức độ đột quỵ, gợi ý tắc mạch lớn.",kw:"nihss dot quy stroke nhoi mau nao tieu soi huyet"},
@@ -478,7 +515,15 @@ var TOOLS=[
  {id:"px_op",icon:"🧴",cat:"phacdo",catName:"Phác đồ • Chống độc",name:"Ngộ độc phospho hữu cơ",desc:"Atropine gấp đôi liều, duy trì, pralidoxime.",kw:"phac do cay ngo doc phospho huu co thuoc tru sau atropine"},
  {id:"px_opioid",icon:"💤",cat:"phacdo",catName:"Phác đồ • Chống độc",name:"Ngộ độc opioid",desc:"Thông khí, naloxone chuẩn độ, truyền duy trì.",kw:"phac do cay ngo doc opioid naloxone"},
  {id:"px_methanol",icon:"🍶",cat:"phacdo",catName:"Phác đồ • Chống độc",name:"Ngộ độc methanol",desc:"Fomepizole / ethanol, chỉ định lọc máu.",kw:"phac do cay ngo doc methanol ruou gia"},
- {id:"px_snake",icon:"🐍",cat:"phacdo",catName:"Phác đồ • Chống độc",name:"Rắn độc cắn",desc:"Rắn hổ (liệt) vs rắn lục (đông máu), huyết thanh kháng nọc.",kw:"phac do cay ran can ran doc huyet thanh"}
+ {id:"px_snake",icon:"🐍",cat:"phacdo",catName:"Phác đồ • Chống độc",name:"Rắn độc cắn",desc:"Rắn hổ (liệt) vs rắn lục (đông máu), huyết thanh kháng nọc.",kw:"phac do cay ran can ran doc huyet thanh"},
+ {id:"ck_sepsis",icon:"⏱️",cat:"hoisuc",catName:"Hồi sức • Checklist",name:"Checklist Sepsis giờ đầu",desc:"Bó 1 giờ: lactate, cấy máu, kháng sinh, dịch 30 mL/kg, vận mạch — có đồng hồ giờ 0.",kw:"checklist sepsis bundle gio dau hour 1 nhiem trung huyet"},
+ {id:"ck_vap",icon:"🫧",cat:"hoisuc",catName:"Hồi sức • Checklist",name:"Checklist VAP bundle",desc:"Gói dự phòng viêm phổi liên quan thở máy, kiểm tra hằng ngày.",kw:"checklist vap bundle viem phoi tho may du phong"},
+ {id:"ck_sbt",icon:"🌬️",cat:"hohap",catName:"Hô hấp • Checklist",name:"Checklist SAT / SBT — cai máy thở",desc:"Ngắt an thần, thử thở tự nhiên, tiêu chuẩn thất bại, chuẩn bị rút ống.",kw:"checklist sat sbt cai may tho rut ong ngat an than thu tho tu nhien"},
+ {id:"px_acs",icon:"🫀",cat:"phacdo",catName:"Phác đồ • Cấp cứu",name:"Hội chứng vành cấp (STEMI / NSTEMI)",desc:"ECG 10 phút → can thiệp / tiêu sợi huyết; NSTE-ACS: thời điểm chụp mạch vành.",kw:"phac do cay hoi chung vanh cap stemi nstemi nhoi mau co tim"},
+ {id:"px_ahf",icon:"💧",cat:"phacdo",catName:"Phác đồ • Cấp cứu",name:"Suy tim cấp",desc:"Sốc tim? → NIV → giãn mạch hoặc lợi tiểu theo HA, natri niệu.",kw:"phac do cay suy tim cap phu phoi cap soc tim"},
+ {id:"px_ugib",icon:"🩸",cat:"phacdo",catName:"Phác đồ • Cấp cứu",name:"Xuất huyết tiêu hóa trên",desc:"Hồi sức, truyền máu hạn chế, giãn tĩnh mạch vs loét, nội soi, TIPS.",kw:"phac do cay xuat huyet tieu hoa tren gian tinh mach thuc quan loet"},
+ {id:"px_asthma",icon:"🌫️",cat:"phacdo",catName:"Phác đồ • Cấp cứu",name:"Cơn hen phế quản cấp",desc:"Phân độ → SABA, ipratropium, corticoid, MgSO₄ → ICU.",kw:"phac do cay hen phe quan cap"},
+ {id:"px_copd",icon:"🚬",cat:"phacdo",catName:"Phác đồ • Cấp cứu",name:"Đợt cấp COPD",desc:"Oxy 88–92%, giãn phế quản, corticoid, kháng sinh, NIV khi toan hô hấp.",kw:"phac do cay dot cap copd phoi tac nghen niv"}
 ];
 (function(){var order=["phacdo","hoisuc","thankinh","hohap","than","timmach","noikhoa","khangsinh"];TOOLS=TOOLS.map(function(t,i){return [t,i]}).sort(function(a,b){return (order.indexOf(a[0].cat)-order.indexOf(b[0].cat))||(a[1]-b[1])}).map(function(x){return x[0]});})();
 var favs=new Set(["sofa","egfr","abx","gcs","pf"]);
@@ -603,8 +648,8 @@ if('serviceWorker' in navigator&&(location.protocol==='https:'||location.protoco
   window.addEventListener('load',function(){
     /* Thử đăng ký ở phạm vi gốc để SW quản toàn bộ app; nếu máy chủ không cho
        phạm vi rộng hơn thư mục assets/ thì lùi về phạm vi mặc định của file. */
-    navigator.serviceWorker.register('sw.js',{scope:'./'}).catch(function(){
-      return navigator.serviceWorker.register('sw.js');
+    navigator.serviceWorker.register('sw.js?v='+APP_VERSION,{scope:'./'}).catch(function(){
+      return navigator.serviceWorker.register('sw.js?v='+APP_VERSION);
     }).then(function(reg){
       if(!reg)return;
       /* Chỉ báo "đã sẵn sàng offline" khi scope của SW thực sự bao phủ trang
@@ -655,6 +700,8 @@ function enhancePanel(id){
   fv.addEventListener('click',function(){var on=!favs.has(id);on?favs.add(id):favs.delete(id);saveFavs();syncPanelFav(id);renderHome();toast(on?"Đã ghim ⭐":"Đã bỏ ghim");});
   var sh=document.createElement('button');sh.type='button';sh.className='pact';sh.textContent='🔗';sh.title='Sao chép liên kết mở thẳng công cụ này';sh.setAttribute('aria-label',sh.title);top.appendChild(sh);
   sh.addEventListener('click',function(){copyText(location.href.split('#')[0]+'#/'+id,"Đã sao chép liên kết");});
+  var fb=document.createElement('button');fb.type='button';fb.className='pact';fb.textContent='⚑';fb.title='Báo lỗi / góp ý cho công cụ này';fb.setAttribute('aria-label',fb.title);top.appendChild(fb);fb.addEventListener('click',function(){openFeedback(id);});
+  p.querySelectorAll('.src').forEach(function(sr){if(sr.textContent.indexOf('Rà soát nội dung')<0)sr.insertAdjacentHTML('beforeend',' <span class="rev">· Rà soát nội dung: 11/2026 (v'+APP_VERSION+')</span>');});
   var h2=p.querySelector('h2');if(h2){var tag=document.createElement('span');tag.className='ptag';tag.textContent=t.catName;h2.parentNode.insertBefore(tag,h2);}
   syncPanelFav(id);
 }
@@ -701,6 +748,35 @@ document.addEventListener('keydown',function(e){
   $("installGo").addEventListener('click',function(){var c=$("appCard");if(c)c.open=true;$("btnInstall").click();});
   $("installX").addEventListener('click',function(){store("nkhs_install_x",1);upd();toast("Vẫn cài được trong mục ⚙️ Cài đặt app ở cuối trang");});
   window.addEventListener('appinstalled',upd);})();
+
+/* ============ Giai đoạn 3: phiên bản, có gì mới, góp ý, chia sẻ ============ */
+function openDlg(html){var d=$("dlg");$("dlgBody").innerHTML=html;if(d.showModal){if(!d.open)d.showModal();}else d.setAttribute('open','');var x=$("dlgBody").querySelector('button,a');if(x&&x.focus)x.focus();}
+function closeDlg(){var d=$("dlg");if(d.close)d.close();else d.removeAttribute('open');}
+$("dlgX").addEventListener('click',closeDlg);
+$("dlg").addEventListener('click',function(e){if(e.target===$("dlg"))closeDlg();});
+function issueBody(kind,t){var ua=navigator.userAgent.replace(/\s*\(KHTML.*$/,"").slice(0,120);
+ if(kind==="bug")return "**Công cụ:** "+(t?t.name+" (`#/"+t.id+"`)":"")+"\n**Phiên bản app:** v"+APP_VERSION+" ("+APP_DATE+")\n**Thiết bị / trình duyệt:** "+ua+"\n\n> ⚠️ KHÔNG ghi tên, mã hồ sơ, ngày sinh hay bất kỳ thông tin định danh bệnh nhân nào.\n\n**Số liệu đã nhập:**\n- \n\n**Kết quả app hiển thị:**\n\n**Kết quả đúng theo bạn + nguồn tham khảo (hướng dẫn, nhãn thuốc, trang…):**\n\n**Ảnh chụp màn hình** (kéo thả vào đây — che thông tin bệnh nhân):\n";
+ return "**Góp ý cho:** "+(t?t.name+" (`#/"+t.id+"`)":"toàn app")+"\n**Phiên bản app:** v"+APP_VERSION+"\n\n**Đề xuất:**\n\n**Lý do / tình huống lâm sàng sử dụng:**\n\n**Nguồn tham khảo (nếu có):**\n";}
+function issueUrl(kind,t){var title=(kind==="bug"?"[Báo lỗi] ":"[Góp ý] ")+(t?t.name:"");return "https://github.com/"+APP_REPO+"/issues/new?labels="+(kind==="bug"?"bug":"enhancement")+"&title="+encodeURIComponent(title)+"&body="+encodeURIComponent(issueBody(kind,t));}
+function openFeedback(toolId){var t=toolId?toolById(toolId):null;
+ openDlg('<h3>💬 Báo lỗi / Góp ý'+(t?' — '+t.name:'')+'</h3><p class="dlg-p">Mở một GitHub Issue có mẫu điền sẵn (cần tài khoản GitHub). App <b>không</b> tự gửi dữ liệu nào — bạn tự điền và bấm gửi trên GitHub.</p>'+
+ '<div class="dlg-acts"><a class="dlg-btn pri" target="_blank" rel="noopener" href="'+issueUrl("bug",t)+'">🐞 Báo lỗi công thức / kết quả</a><a class="dlg-btn" target="_blank" rel="noopener" href="'+issueUrl("idea",t)+'">💡 Góp ý / đề xuất tính năng</a><button type="button" class="dlg-btn" id="fbCopy">📋 Không có GitHub? Sao chép mẫu để gửi qua Zalo / email</button></div>'+
+ '<p class="dlg-note">⚠️ Không ghi tên, mã hồ sơ hay thông tin định danh bệnh nhân. Che thông tin bệnh nhân trên ảnh chụp màn hình.</p>');
+ $("fbCopy").addEventListener('click',function(){copyText(issueBody("bug",t),"Đã sao chép mẫu báo lỗi");});}
+function openShare(){var canShare=!!navigator.share;
+ openDlg('<h3>📤 Chia sẻ app</h3><div class="qrbox" aria-label="Mã QR mở app">'+APP_QR_SVG+'</div><p class="dlg-p" style="text-align:center"><b>Quét để mở app</b> — sau đó “Thêm vào màn hình chính” để dùng offline.</p><div class="linkbox">'+APP_URL+'</div>'+
+ '<div class="dlg-acts"><button type="button" class="dlg-btn pri" id="shCopy">📋 Sao chép link</button>'+(canShare?'<button type="button" class="dlg-btn" id="shNative">📤 Gửi qua Zalo / Messenger…</button>':'')+'</div><p class="dlg-note">Mã QR được tạo sẵn trong app (không gọi dịch vụ ngoài) nên hiển thị được cả khi offline.</p>');
+ $("shCopy").addEventListener('click',function(){copyText(APP_URL,"Đã sao chép link app");});
+ if(canShare)$("shNative").addEventListener('click',function(){navigator.share({title:"Công cụ Nội khoa & Hồi sức",text:"Thang điểm, máy tính lâm sàng, liều thuốc ICU và phác đồ cấp cứu — dùng được offline",url:APP_URL}).catch(function(){});});}
+function openNews(){openDlg('<h3>🆕 Có gì mới</h3>'+CHANGELOG.map(function(v,i){return '<div class="cl'+(i===0?' cur':'')+'"><div class="clh"><b>v'+v[0]+'</b><span>'+v[1]+'</span>'+(i===0?'<em>bản hiện tại</em>':'')+'</div><ul>'+v[2].map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul></div>'}).join("")+'<p class="dlg-note">Mã nguồn & lịch sử thay đổi: <a href="https://github.com/'+APP_REPO+'" target="_blank" rel="noopener">github.com/'+APP_REPO+'</a></p>');}
+$("btnShare").addEventListener('click',openShare);$("btnFeedback").addEventListener('click',function(){openFeedback(null);});$("btnNews").addEventListener('click',openNews);
+(function(){var nT=TOOLS.filter(function(t){return t.cat!=="phacdo"}).length,nP=TOOLS.length-nT;
+ $("topSub").textContent=nT+" công cụ • "+nP+" phác đồ • v"+APP_VERSION;
+ $("verLine").innerHTML='<b>Phiên bản v'+APP_VERSION+'</b> — cập nhật '+APP_DATE+' · <a href="#" id="flNews">Có gì mới</a> · <a href="#" id="flFb">Báo lỗi / Góp ý</a> · <a href="#" id="flShare">Chia sẻ app</a>';
+ $("flNews").addEventListener('click',function(e){e.preventDefault();openNews();});$("flFb").addEventListener('click',function(e){e.preventDefault();openFeedback(null);});$("flShare").addEventListener('click',function(e){e.preventDefault();openShare();});
+ var seen=store("nkhs_seen_ver");if(seen&&seen!==APP_VERSION){var b=$("btnNews");if(b){b.classList.add('new');b.innerHTML='🆕 Có gì mới — v'+APP_VERSION;}}store("nkhs_seen_ver",APP_VERSION);
+})();
+
 
 </script>
 <script>
@@ -855,30 +931,110 @@ function segHTML(id,label,opts){return '<div class="fgroup"><span class="flabel"
 function sumChecks(ids){return ids.reduce(function(a,id){var e=$(id);return a+(e&&e.checked?parseFloat(e.dataset.v):0)},0);}
 function tbwFactor(sex,age){return sex==="M"?(age!=null&&age>=65?0.5:0.6):(age!=null&&age>=65?0.45:0.5);}
 
-/* ---------- Vận mạch ---------- */
-var VASO={ne:{n:"Noradrenaline (norepinephrine)",w:true,u:"µg/kg/phút",amt:"mg",r:"Thường 0,05–0,5 µg/kg/phút; > 0,5 là sốc kháng trị. SSC 2021: thêm vasopressin khi noradrenaline 0,25–0,5; thêm hydrocortisone 200 mg/ngày khi ≥ 0,25 kéo dài ≥ 4 giờ."},
- epi:{n:"Adrenaline (epinephrine)",w:true,u:"µg/kg/phút",amt:"mg",r:"Thường 0,05–0,5 µg/kg/phút; thuốc thêm thứ hai/thứ ba trong sốc nhiễm trùng. Tăng lactate do tác dụng β2 (không nhất thiết do giảm tưới máu)."},
- dopa:{n:"Dopamine",w:true,u:"µg/kg/phút",amt:"mg",r:"5–20 µg/kg/phút. Không khuyến cáo là thuốc đầu tay trong sốc nhiễm trùng (nhiều loạn nhịp hơn noradrenaline)."},
- dobu:{n:"Dobutamine",w:true,u:"µg/kg/phút",amt:"mg",r:"2,5–20 µg/kg/phút. Dùng khi rối loạn chức năng tim kèm giảm tưới máu dù đã đủ dịch và MAP đạt."},
- vaso:{n:"Vasopressin",w:false,u:"đơn vị/phút",amt:"đơn vị",r:"Liều cố định 0,03 đơn vị/phút (tối đa 0,04), không chỉnh theo cân nặng."}};
-P.vaso=head("💉","Tốc độ bơm thuốc vận mạch","Đổi liều (µg/kg/phút) ↔ tốc độ bơm tiêm điện (mL/giờ) theo cách pha thực tế tại khoa.")+resHTML("res-vaso")+
- selHTML("va_drug","Thuốc",Object.keys(VASO).map(function(k,i){return [k,VASO[k].n,i===0]}))+
+/* ---------- Bộ tính liều truyền thuốc ICU (Giai đoạn 2A) ---------- */
+/* dm: đơn vị liều; am: đơn vị lượng thuốc pha; w: theo cân nặng; t: "min" (mỗi phút) | "h" (mỗi giờ)
+   lo–hi: khoảng thường dùng; max: ngưỡng cảnh báo; pre: cách pha [lượng, mL]; ex: ca kiểm thử [kg, liều, lượng, mL, mL/giờ tính tay] */
+var IV_DRUGS=[
+{k:"ne",g:"Vận mạch / tăng co bóp",n:"Noradrenaline (norepinephrine)",dm:"µg",am:"mg",w:true,t:"min",lo:0.05,hi:0.5,max:1,pre:[[4,50],[8,50],[4,250]],
+ line:"Ưu tiên tĩnh mạch trung tâm. Có thể khởi đầu qua tĩnh mạch ngoại vi lớn gần gốc chi trong thời gian ngắn khi chờ catheter TMTT — kiểm tra thoát mạch mỗi giờ.",
+ note:"Đích MAP ≥ 65 mmHg. > 0,25 µg/kg/phút: thêm vasopressin, hydrocortisone. > 0,5: sốc kháng trị. SOFA tim mạch: ≤ 0,1 → 3 điểm, > 0,1 → 4 điểm.",src:"Surviving Sepsis Campaign 2021.",
+ ex:[[60,0.1,4,50,4.5],[80,0.3,8,50,9.0]]},
+{k:"epi",g:"Vận mạch / tăng co bóp",n:"Adrenaline (epinephrine)",dm:"µg",am:"mg",w:true,t:"min",lo:0.01,hi:0.5,max:1,pre:[[4,50],[2,50],[1,50]],
+ line:"Tĩnh mạch trung tâm.",note:"Thuốc thêm vào noradrenaline khi MAP chưa đạt. Tăng lactate do tác dụng β2, nhịp nhanh, tăng đường huyết. Phản vệ kháng trị: khởi đầu ~0,1 µg/kg/phút.",src:"SSC 2021; WAO 2020.",
+ ex:[[70,0.05,4,50,2.6],[50,0.2,2,50,15.0]]},
+{k:"dobu",g:"Vận mạch / tăng co bóp",n:"Dobutamine",dm:"µg",am:"mg",w:true,t:"min",lo:2.5,hi:20,max:20,pre:[[250,50],[500,50],[250,250]],
+ line:"Truyền được qua tĩnh mạch ngoại vi.",note:"Rối loạn chức năng tim kèm giảm tưới máu dù đã đủ dịch và MAP đạt. Có thể gây tụt HA (giãn mạch), nhịp nhanh, loạn nhịp.",src:"SSC 2021; ESC Heart Failure 2021.",
+ ex:[[60,5,250,50,3.6],[80,10,500,50,4.8]]},
+{k:"dopa",g:"Vận mạch / tăng co bóp",n:"Dopamine",dm:"µg",am:"mg",w:true,t:"min",lo:5,hi:20,max:20,pre:[[200,50],[400,50]],
+ line:"Tĩnh mạch trung tâm khi liều cao.",note:"Không khuyến cáo làm thuốc đầu tay trong sốc nhiễm trùng (nhiều loạn nhịp hơn noradrenaline). Không dùng liều thấp để “bảo vệ thận”.",src:"SSC 2021.",
+ ex:[[70,5,200,50,5.3],[60,10,400,50,4.5]]},
+{k:"vaso",g:"Vận mạch / tăng co bóp",n:"Vasopressin",dm:"đv",am:"đv",w:false,t:"min",lo:0.01,hi:0.04,max:0.04,pre:[[20,100],[40,100],[20,20]],
+ line:"Tĩnh mạch trung tâm.",note:"Liều cố định 0,03 đơn vị/phút (tối đa 0,04), không chỉnh theo cân nặng. Liều cao: thiếu máu ngón, mạc treo, cơ tim.",src:"SSC 2021; VASST, N Engl J Med 2008.",
+ ex:[[60,0.03,20,100,9.0],[70,0.04,40,100,6.0]]},
+{k:"phenyl",g:"Vận mạch / tăng co bóp",n:"Phenylephrine",dm:"µg",am:"mg",w:false,t:"min",lo:10,hi:200,max:200,pre:[[10,100],[10,250]],
+ line:"Ngoại vi tạm thời hoặc trung tâm.",note:"Co mạch α1 đơn thuần: thường 40–180 µg/phút, tối đa ~200 µg/phút. Có thể gây nhịp chậm phản xạ, giảm cung lượng tim.",src:"Nhãn thuốc FDA (phenylephrine HCl injection).",
+ ex:[[60,100,10,100,60.0],[60,50,10,250,75.0]]},
+{k:"propofol",g:"An thần / giảm đau",n:"Propofol",dm:"mg",am:"mg",w:true,t:"h",lo:0.3,hi:4,max:4,pre:[[500,50],[1000,50]],
+ line:"Đường truyền riêng, thay dây truyền mỗi 12 giờ (nguy cơ nhiễm khuẩn — nhũ tương lipid).",note:"Đích RASS −2 đến 0 nếu không có chỉ định an thần sâu. > 4 mg/kg/giờ kéo dài > 48 giờ: nguy cơ hội chứng truyền propofol (toan lactic, tiêu cơ vân, loạn nhịp). Cung cấp 1,1 kcal/mL — tính vào năng lượng; theo dõi triglyceride.",src:"PADIS Guideline 2018; nhãn thuốc.",
+ ex:[[70,1,500,50,7.0],[50,2,1000,50,5.0]]},
+{k:"midazolam",g:"An thần / giảm đau",n:"Midazolam",dm:"mg",am:"mg",w:true,t:"h",lo:0.02,hi:0.1,max:0.2,pre:[[50,50],[100,50]],
+ line:"Ngoại vi hoặc trung tâm.",note:"Benzodiazepine làm tăng mê sảng và kéo dài thở máy — ưu tiên propofol / dexmedetomidine (PADIS). Tích lũy ở suy thận, suy gan, béo phì. Liều chống động kinh kháng trị cao hơn nhiều (0,05–2 mg/kg/giờ).",src:"PADIS Guideline 2018.",
+ ex:[[60,0.05,50,50,3.0],[80,0.1,50,50,8.0]]},
+{k:"fentanyl",g:"An thần / giảm đau",n:"Fentanyl",dm:"µg",am:"µg",w:true,t:"h",lo:0.7,hi:10,max:10,pre:[[500,50],[1000,50]],
+ line:"Ngoại vi hoặc trung tâm.",note:"Giảm đau trước, an thần sau (analgesia-first). Tích lũy khi truyền kéo dài; co cứng thành ngực nếu tiêm nhanh liều cao. Đánh giá đau bằng BPS / CPOT.",src:"PADIS Guideline 2018.",
+ ex:[[70,1,500,50,7.0],[50,2,1000,50,5.0]]},
+{k:"morphine",g:"An thần / giảm đau",n:"Morphine",dm:"mg",am:"mg",w:false,t:"h",lo:2,hi:30,max:30,pre:[[50,50],[10,10]],
+ line:"Ngoại vi hoặc trung tâm.",note:"Tránh khi suy thận (morphine-6-glucuronide tích lũy). Giải phóng histamin → tụt HA. Xem thêm công cụ Quy đổi opioid.",src:"PADIS Guideline 2018.",
+ ex:[[60,4,50,50,4.0],[60,10,50,50,10.0]]},
+{k:"dexmed",g:"An thần / giảm đau",n:"Dexmedetomidine",dm:"µg",am:"µg",w:true,t:"h",lo:0.2,hi:1.4,max:1.5,pre:[[200,50],[400,100]],
+ line:"Ngoại vi hoặc trung tâm.",note:"Không dùng liều nạp ở ICU (nhịp chậm, tụt HA). An thần nhẹ, bệnh nhân dễ đánh thức; giảm mê sảng. Không gây ức chế hô hấp nhưng không đủ cho an thần sâu.",src:"PADIS Guideline 2018; nhãn thuốc EMA.",
+ ex:[[70,0.5,200,50,8.8],[60,1,400,100,15.0]]},
+{k:"insulin",g:"Insulin / chống đông",n:"Insulin regular (truyền TM)",dm:"đv",am:"đv",w:false,t:"h",lo:0.5,hi:10,max:15,pre:[[50,50],[100,100]],
+ line:"Bơm tiêm điện riêng; xả bỏ đầu dây truyền (insulin bám dây).",note:"DKA: 0,1 đv/kg/giờ (xem công cụ DKA). Kiểm soát đường huyết ICU: đích 7,8–10 mmol/L, đo glucose mỗi 1–2 giờ khi truyền. Theo dõi K⁺.",src:"ADA Standards of Care 2025; ADA/EASD hyperglycemic crises 2024.",
+ ex:[[60,6,50,50,6.0],[60,3,100,100,3.0]]},
+{k:"heparin",g:"Insulin / chống đông",n:"Heparin không phân đoạn",dm:"đv",am:"đv",w:true,t:"h",lo:12,hi:18,max:25,pre:[[25000,50],[25000,250],[25000,500]],
+ line:"Ngoại vi hoặc trung tâm, đường truyền riêng.",note:"Chỉnh theo aPTT (1,5–2,5 lần chứng) hoặc anti-Xa 0,3–0,7 đv/mL — xét nghiệm 6 giờ sau khởi đầu / mỗi lần đổi liều. Theo dõi tiểu cầu (HIT). Dùng cân nặng thực.",src:"Raschke et al., Ann Intern Med 1993; ACCP 2012; ESC ACS 2023.",
+ ex:[[80,18,25000,50,2.9],[60,12,25000,250,7.2]]},
+{k:"nicardipine",g:"Thuốc truyền khác",n:"Nicardipine",dm:"mg",am:"mg",w:false,t:"h",lo:5,hi:15,max:15,pre:[[25,250],[50,250],[10,10]],
+ line:"Ngoại vi được — đổi vị trí truyền mỗi 12 giờ (viêm tĩnh mạch).",note:"Khởi đầu 5 mg/giờ, tăng 2,5 mg/giờ mỗi 5–15 phút, tối đa 15 mg/giờ. Tăng HA cấp cứu: hạ không quá 25% trong giờ đầu (trừ bóc tách ĐMC, xuất huyết não).",src:"Nhãn thuốc; ACC/AHA Hypertension 2017.",
+ ex:[[60,5,25,250,50.0],[60,15,50,250,75.0]]},
+{k:"ntg",g:"Thuốc truyền khác",n:"Nitroglycerin",dm:"µg",am:"mg",w:false,t:"min",lo:5,hi:200,max:200,pre:[[50,250],[10,50]],
+ line:"Ngoại vi được; dùng chai thủy tinh / dây không PVC nếu có.",note:"Khởi đầu 5–10 µg/phút, tăng 5–10 µg/phút mỗi 3–5 phút. Chống chỉ định: HA tâm thu < 90, nhồi máu thất phải, dùng thuốc ức chế PDE5 trong 24–48 giờ.",src:"ESC Heart Failure 2021; ESC ACS 2023.",
+ ex:[[60,20,50,250,6.0],[60,50,10,50,15.0]]},
+{k:"amio",g:"Thuốc truyền khác",n:"Amiodarone",dm:"mg",am:"mg",w:false,t:"min",lo:0.5,hi:1,max:1,pre:[[900,500],[300,50]],
+ line:"Tĩnh mạch trung tâm nếu truyền kéo dài / nồng độ > 2 mg/mL (viêm tĩnh mạch). Pha Glucose 5%.",note:"Nhịp nhanh có mạch: 150 mg trong 10 phút, sau đó 1 mg/phút × 6 giờ, rồi 0,5 mg/phút × 18 giờ (tổng ≤ 2,2 g/24 giờ). Ngừng tuần hoàn: 300 mg tiêm nhanh. Theo dõi HA, QTc, nhịp chậm.",src:"AHA ACLS 2020; nhãn thuốc.",
+ ex:[[60,1,900,500,33.3],[60,0.5,300,50,5.0]]},
+{k:"furo",g:"Thuốc truyền khác",n:"Furosemide",dm:"mg",am:"mg",w:false,t:"h",lo:5,hi:20,max:40,pre:[[100,50],[250,50]],
+ line:"Ngoại vi được.",note:"Thường tiêm bolus 40 mg (hoặc ≥ 1–2,5 lần liều uống hằng ngày) trước khi truyền. Đánh giá natri niệu sau 2 giờ (< 50–70 mmol/L → tăng liều). Liều cao: độc tai — truyền ≤ 4 mg/phút.",src:"ESC Heart Failure 2021 & 2023; ADVOR / DOSE trials.",
+ ex:[[60,10,100,50,5.0],[60,20,250,50,4.0]]}];
+function ivUnit(d){return d.dm+(d.w?"/kg":"")+"/"+(d.t==="min"?"phút":"giờ");}
+function ivConc(d,amt,vol){return amt*((d.am==="mg"&&d.dm==="µg")?1000:1)/vol;}
+function ivRate(d,kg,dose,amt,vol){return dose*(d.w?kg:1)*(d.t==="min"?60:1)/ivConc(d,amt,vol);}
+function ivDose(d,kg,rate,amt,vol){return rate*ivConc(d,amt,vol)/((d.w?kg:1)*(d.t==="min"?60:1));}
+var ivState={drug:null,pre:null};
+(function(){var groups=[];IV_DRUGS.forEach(function(d){if(groups.indexOf(d.g)<0)groups.push(d.g)});
+ var opts=groups.map(function(g){return '<optgroup label="'+g+'">'+IV_DRUGS.filter(function(d){return d.g===g}).map(function(d,i){return '<option value="'+d.k+'"'+(d.k==="ne"?" selected":"")+'>'+d.n+'</option>'}).join("")+'</optgroup>'}).join("");
+ P.vaso=head("💉","Tính liều truyền thuốc ICU","Vận mạch, an thần – giảm đau, insulin, heparin và thuốc truyền thường dùng: đổi liều ↔ tốc độ bơm (mL/giờ) theo cân nặng và cách pha tại khoa, tổng liều/ngày, thời gian dùng hết một bơm.")+resHTML("res-vaso")+
+ '<details class="notebox info ivmeta" id="iv_meta" style="margin-top:-6px"></details>'+
+ '<div class="fgroup"><label for="iv_drug">Thuốc</label><select id="iv_drug">'+opts+'</select></div>'+
  segHTML("va_mode","Tính",[["d2r","Từ liều → tốc độ (mL/giờ)"],["r2d","Từ tốc độ → liều"]])+
- '<div class="frow">'+numHTML("va_amt","Lượng thuốc pha","vd 4 (mg) — vasopressin: đơn vị","mg / đơn vị")+numHTML("va_vol","Tổng thể tích pha","vd 50","mL")+'</div>'+
- '<div class="frow">'+numHTML("va_wt","Cân nặng","vd 60","kg")+'<div id="va_dose_w">'+numHTML("va_dose","Liều","vd 0,1","µg/kg/phút hoặc đơn vị/phút")+'</div><div id="va_rate_w" style="display:none">'+numHTML("va_rate","Tốc độ bơm","vd 4,5","mL/giờ")+'</div></div>'+actions("calcVaso")+
- '<div class="notebox warn"><h4>An toàn</h4><ul><li>Kiểm tra lại cách pha theo phác đồ khoa và nhãn bơm tiêm; luôn đối chiếu hai người khi bắt đầu / đổi nồng độ.</li><li>Noradrenaline có thể khởi đầu qua đường truyền ngoại vi lớn, gần gốc chi, trong thời gian ngắn trong lúc chờ catheter tĩnh mạch trung tâm (SSC 2021).</li><li>Đặt catheter động mạch theo dõi HA xâm lấn khi dùng vận mạch kéo dài.</li></ul></div><p class="src">Nguồn: Surviving Sepsis Campaign 2021.</p>';
+ '<div id="iv_w_wrap"><div class="frow">'+numHTML("va_wt","Cân nặng thực","vd 60","kg")+numHTML("iv_ht","Chiều cao (tùy chọn — kiểm tra béo phì)","vd 160","cm")+'</div>'+
+ '<div id="iv_adj_wrap" style="display:none">'+segHTML("iv_wsel","Cân nặng dùng để tính",[["act","Cân nặng thực"],["adj","Cân nặng hiệu chỉnh"]])+'</div></div>'+
+ selHTML("iv_pre","Cách pha sẵn",[["",""]])+
+ '<div class="frow">'+numHTML("va_amt","Lượng thuốc pha","vd 4")+numHTML("va_vol","Tổng thể tích pha","vd 50","mL")+'</div>'+
+ '<div id="va_dose_w">'+numHTML("va_dose","Liều","vd 0,1")+'</div><div id="va_rate_w" style="display:none">'+numHTML("va_rate","Tốc độ bơm","vd 4,5","mL/giờ")+'</div>'+actions("calcVaso")+
+ '<div class="notebox warn"><h4>An toàn</h4><ul><li>Đối chiếu cách pha với phác đồ khoa và nhãn bơm tiêm; kiểm tra chéo 2 người khi bắt đầu hoặc đổi nồng độ.</li><li>Kết quả làm tròn 0,1 mL/giờ; bơm tiêm điện thường chỉnh được 0,1 mL/giờ.</li></ul></div>';
+})();
+function ivApplyDrug(d){
+ var lab=function(id,txt){var e=$(id);if(!e)return;var l=document.querySelector('label[for="'+id+'"]');if(l)l.innerHTML=txt;};
+ lab("va_amt",'Lượng thuốc pha <span class="unit">'+d.am+'</span>');lab("va_dose",'Liều <span class="unit">'+ivUnit(d)+'</span>');
+ $("va_dose").placeholder="vd "+String(d.ex[0][1]).replace(".",",")+" (thường "+String(d.lo).replace(".",",")+"–"+String(d.hi).replace(".",",")+")";
+ $("iv_w_wrap").style.display=d.w?"":"none";
+ var pre=$("iv_pre");pre.innerHTML=d.pre.map(function(p,i){var c=ivConc(d,p[0],p[1]);return '<option value="'+i+'">'+p[0]+" "+d.am+" / "+p[1]+" mL ("+fmt(c,c<1?3:c<10?2:1)+" "+d.dm+"/mL)"+'</option>'}).join("")+'<option value="custom">Tự nhập cách pha</option>';
+ pre.value="0";$("va_amt").value=d.pre[0][0];$("va_vol").value=d.pre[0][1];ivState.pre="0";
+ var ex=d.ex.map(function(e){return "BN "+e[0]+" kg, "+String(e[1]).replace(".",",")+" "+ivUnit(d)+", pha "+e[2]+" "+d.am+"/"+e[3]+" mL → <b>"+String(e[4]).replace(".",",")+" mL/giờ</b>"});
+ $("iv_meta").innerHTML='<summary><b>📐 Công thức, ca kiểm tra & nguồn</b> — '+d.n+'</summary><ul><li>mL/giờ = '+(d.w?"liều × cân nặng":"liều")+(d.t==="min"?" × 60":"")+' ÷ nồng độ ('+d.dm+'/mL); nồng độ = lượng thuốc'+((d.am==="mg"&&d.dm==="µg")?" × 1000":"")+' ÷ thể tích.</li><li>Ca kiểm tra tính tay: '+ex.join("; ")+'.</li><li>Khoảng thường dùng: '+String(d.lo).replace(".",",")+'–'+String(d.hi).replace(".",",")+' '+ivUnit(d)+'. '+d.note+'</li><li>Đường truyền: '+d.line+'</li><li>Nguồn: '+d.src+'</li></ul>';
+}
 function calcVaso(){
- var d=VASO[$("va_drug").value],mode=segVal("va_mode")||"d2r";$("va_dose_w").style.display=mode==="d2r"?"":"none";$("va_rate_w").style.display=mode==="d2r"?"none":"";
- var amt=num("va_amt"),vol=num("va_vol"),wt=num("va_wt");
- if(amt==null||vol==null||vol<=0||amt<=0||(d.w&&(wt==null||wt<=0))){setRes("res-vaso","—","Nhập lượng thuốc, thể tích pha"+(d.w?" và cân nặng":"")+".",null);return;}
- var conc=d.w?amt*1000/vol:amt/vol;var cTxt="Nồng độ "+fmt(conc,d.w?1:3)+(d.w?" µg/mL":" đơn vị/mL")+". ";
- var dose,rate;
- if(mode==="d2r"){dose=num("va_dose");if(dose==null){setRes("res-vaso","—",cTxt+"Nhập liều cần dùng.",null);return;}rate=d.w?dose*wt*60/conc:dose*60/conc;}
- else{rate=num("va_rate");if(rate==null){setRes("res-vaso","—",cTxt+"Nhập tốc độ bơm.",null);return;}dose=d.w?rate*conc/(60*wt):rate*conc/60;}
- var t=cTxt+d.n+": "+fmt(dose,d.w?3:3)+" "+d.u+" ⇔ "+fmt(rate,1)+" mL/giờ. "+d.r;
- if((d===VASO.ne||d===VASO.epi))t+=" SOFA tim mạch: "+(dose>0.1?"> 0,1 → 4 điểm.":"≤ 0,1 → 3 điểm.");
- var lv=0;if(d===VASO.ne&&dose>=0.25)lv=2;if(d===VASO.ne&&dose>0.5)lv=3;if(d===VASO.vaso&&dose>0.04)lv=3;if(d===VASO.dopa&&dose>20)lv=3;
- setRes("res-vaso",mode==="d2r"?fmt(rate,1)+" mL/giờ":fmt(dose,3)+" "+d.u,t,lv);
+ var d=IV_DRUGS.find(function(x){return x.k===$("iv_drug").value});if(!d)return;
+ if(ivState.drug!==d.k){ivState.drug=d.k;ivApplyDrug(d);}
+ var pv=$("iv_pre").value;if(pv!==ivState.pre){ivState.pre=pv;if(pv!=="custom"){var p=d.pre[+pv];$("va_amt").value=p[0];$("va_vol").value=p[1];}}
+ var mode=segVal("va_mode")||"d2r";$("va_dose_w").style.display=mode==="d2r"?"":"none";$("va_rate_w").style.display=mode==="d2r"?"none":"";
+ var amt=num("va_amt"),vol=num("va_vol"),wt=num("va_wt"),ht=num("iv_ht");
+ var kg=wt,wNote="";
+ if(d.w&&wt!=null&&ht!=null&&ht>=120){var bmi=wt/Math.pow(ht/100,2),sex="M",ibw=50+0.91*(ht-152.4),adj=ibw+0.4*(wt-ibw);$("iv_adj_wrap").style.display=bmi>30?"":"none";
+   if(bmi>30){wNote=" ⚠️ BMI "+fmt(bmi,1)+" > 30: cân nhắc cân nặng hiệu chỉnh ("+fmt(adj,0)+" kg, theo công thức nam — nữ thấp hơn ~4 kg) cho thuốc an thần tan trong mỡ; heparin và vận mạch thường dùng cân nặng thực.";if(segVal("iv_wsel")==="adj")kg=adj;}}
+ else $("iv_adj_wrap").style.display="none";
+ if(amt==null||vol==null||amt<=0||vol<=0||(d.w&&(kg==null||kg<=0))){setRes("res-vaso","—","Nhập "+(d.w?"cân nặng, ":"")+"lượng thuốc và thể tích pha.",null);return;}
+ var conc=ivConc(d,amt,vol),dose,rate;
+ if(mode==="d2r"){dose=num("va_dose");if(dose==null){setRes("res-vaso","—","Nồng độ "+fmt(conc,conc<1?3:2)+" "+d.dm+"/mL. Nhập liều cần dùng ("+ivUnit(d)+").",null);return;}rate=ivRate(d,kg,dose,amt,vol);}
+ else{rate=num("va_rate");if(rate==null){setRes("res-vaso","—","Nhập tốc độ bơm (mL/giờ).",null);return;}dose=ivDose(d,kg,rate,amt,vol);}
+ var perDay=rate*24*amt/vol,hours=vol/rate;
+ var t=d.n+": <b>"+fmt(dose,3)+" "+ivUnit(d)+" ⇔ "+fmt(rate,1)+" mL/giờ</b>"+(d.w?" (tính với "+fmt(kg,1)+" kg)":"")+". Nồng độ "+fmt(conc,conc<1?3:2)+" "+d.dm+"/mL. Tổng ≈ "+fmt(perDay,perDay<10?2:0)+" "+d.am+"/24 giờ; 1 bơm "+fmt(vol,0)+" mL dùng hết sau ≈ "+fmt(hours,1)+" giờ."+wNote;
+ var lv=0;if(dose>d.max){lv=3;t+=" ⛔ VƯỢT ngưỡng cảnh báo ("+String(d.max).replace(".",",")+" "+ivUnit(d)+") — kiểm tra lại liều, cách pha và chỉ định.";}else if(dose>d.hi){lv=2;t+=" ⚠️ Trên khoảng thường dùng ("+String(d.hi).replace(".",",")+").";}else if(dose<d.lo){lv=1;t+=" Dưới khoảng thường dùng ("+String(d.lo).replace(".",",")+").";}
+ if(d.k==="heparin"&&kg)t+=" Liều nạp: HKTMS 80 đv/kg = "+fmt(80*kg,0)+" đv (duy trì 18 đv/kg/giờ); hội chứng vành cấp 60 đv/kg = "+fmt(Math.min(60*kg,4000),0)+" đv (tối đa 4.000), duy trì 12 đv/kg/giờ, tối đa 1.000 đv/giờ"+(dose*kg>1000?" — ⚠️ liều hiện tại "+fmt(dose*kg,0)+" đv/giờ > 1.000.":".");
+ if(d.k==="amio")t+=" Liều nạp 150 mg trong 10 phút trước khi truyền (nhịp nhanh có mạch).";
+ setRes("res-vaso",mode==="d2r"?fmt(rate,1)+" mL/giờ":fmt(dose,3)+" "+ivUnit(d),t,lv);
 }
 
 /* ---------- Dịch ---------- */
@@ -1261,7 +1417,7 @@ var PROTO=[
 
 {id:"px_hyperk",grp:"Hồi sức",icon:"🧪",name:"Tăng kali máu",desc:"Ổn định màng tim → chuyển K vào tế bào → thải K → lọc máu.",kw:"tang kali mau hyperkalemia calcium gluconate insulin salbutamol loc mau",src:"UK Kidney Association Hyperkalaemia Guideline 2023; KDIGO.",start:"n1",nodes:{
  n1:{q:"K⁺ ≥ 6,5 mmol/L, hoặc có biến đổi ECG (T cao nhọn, mất sóng P, QRS giãn, nhịp chậm, sóng hình sin)?",o:[["Có — cấp cứu","k1"],["K⁺ 6,0–6,4, không biến đổi ECG","e3"],["K⁺ 5,5–5,9","e4"]]},
- k1:{t:"Xử trí cấp cứu",info:["① Ổn định màng tim: Calcium gluconate 10% 30 mL TM trong 5–10 phút (hoặc CaCl₂ 10% 10 mL qua tĩnh mạch lớn); lặp nếu ECG chưa cải thiện sau 5–10 phút.","② Chuyển K⁺ vào tế bào: insulin nhanh 10 đv + 25 g glucose truyền TM 15 phút (theo dõi glucose mỗi giờ trong 6 giờ — nguy cơ hạ đường huyết, nhất là suy thận); salbutamol khí dung 10–20 mg.","③ Thải K⁺: ngừng thuốc gây tăng K⁺ (ƯCMC/ƯCTT, spironolactone, NSAID, trimethoprim), chất gắn kali đường uống, lợi tiểu quai nếu còn nước tiểu và không thiếu dịch.","Monitor ECG liên tục; đo K⁺ sau 1, 2, 4, 6 giờ."],q:"Suy thận nặng / vô niệu, toan chuyển hóa nặng, hoặc K⁺ không giảm?",o:[["Có","e1"],["Không","e2"]]},
+ k1:{t:"Xử trí cấp cứu",info:["① Ổn định màng tim: Calcium gluconate 10% 30 mL TM trong 5–10 phút (hoặc CaCl₂ 10% 10 mL qua tĩnh mạch lớn); lặp nếu ECG chưa cải thiện sau 5–10 phút.","② Chuyển K⁺ vào tế bào: insulin nhanh 10 đv + 25 g glucose truyền TM 15 phút (theo dõi glucose mỗi giờ trong 6 giờ — nguy cơ hạ đường huyết, nhất là suy thận); salbutamol khí dung 10–20 mg. Glucose trước điều trị < 7 mmol/L: thêm Glucose 10% 50 mL/giờ trong 5 giờ (UKKA 2023).","③ Thải K⁺: ngừng thuốc gây tăng K⁺ (ƯCMC/ƯCTT, spironolactone, NSAID, trimethoprim), chất gắn kali đường uống, lợi tiểu quai nếu còn nước tiểu và không thiếu dịch.","Monitor ECG liên tục; đo K⁺ sau 1, 2, 4, 6 giờ."],q:"Suy thận nặng / vô niệu, toan chuyển hóa nặng, hoặc K⁺ không giảm?",o:[["Có","e1"],["Không","e2"]]},
  e1:{end:1,lv:3,t:"Lọc máu cấp cứu",info:["Liên hệ thận nhân tạo / CRRT khẩn; insulin–glucose và salbutamol chỉ là cầu nối.","NaHCO₃ chỉ dùng khi có toan chuyển hóa, không dùng đơn độc."]},
  e2:{end:1,lv:2,t:"Theo dõi sau cấp cứu",info:["K⁺ thường tăng trở lại sau 4–6 giờ (insulin hết tác dụng) — đo lại, lặp điều trị nếu cần.","Tìm nguyên nhân: AKI, thuốc, tiêu cơ vân, tan máu, toan; loại trừ tăng K⁺ giả (mẫu tan máu)."]},
  e3:{end:1,lv:2,t:"Tăng kali trung bình",info:["Insulin–glucose; monitor ECG; chất gắn kali; rà soát thuốc.","Đo lại K⁺ sau 1–2 giờ."]},
@@ -1364,7 +1520,55 @@ var PROTO=[
  s2:{t:"Rắn lục — huyết học",info:["Huyết thanh kháng nọc rắn lục khi 20WBCT không đông / chảy máu tự phát / sưng lan nhanh.","Làm lại 20WBCT mỗi 6 giờ; nhắc lại huyết thanh nếu máu vẫn không đông."],q:"Chi căng cứng, nghi hội chứng khoang?",o:[["Có","e3"],["Không","e4"]]},
  e3:{end:1,lv:3,t:"Nghi hội chứng khoang",info:["Đo áp lực khoang; chỉ mổ giải áp khi áp lực khoang tăng thật sự và đã điều chỉnh đông máu (sưng nề do nọc thường không phải hội chứng khoang thật)."]},
  e4:{end:1,lv:2,t:"Theo dõi biến chứng",info:["Đông máu, chức năng thận (tiêu cơ vân, suy thận cấp), dự phòng uốn ván; kháng sinh chỉ khi có nhiễm trùng."]},
- e5:{end:1,lv:1,t:"Theo dõi ≥ 24 giờ",info:["Rắn lục: rối loạn đông máu có thể xuất hiện muộn; cạp nia: liệt có thể khởi phát sau 12–24 giờ.","20WBCT mỗi 6 giờ."]}}}
+ e5:{end:1,lv:1,t:"Theo dõi ≥ 24 giờ",info:["Rắn lục: rối loạn đông máu có thể xuất hiện muộn; cạp nia: liệt có thể khởi phát sau 12–24 giờ.","20WBCT mỗi 6 giờ."]}}},
+{id:"px_acs",grp:"Cấp cứu",icon:"🫀",name:"Hội chứng vành cấp (STEMI / NSTEMI)",desc:"ECG 10 phút → STEMI: can thiệp / tiêu sợi huyết; NSTE-ACS: phân tầng thời điểm chụp.",kw:"hoi chung vanh cap stemi nstemi nhoi mau co tim dau nguc can thiep tieu soi huyet",src:"ESC Acute Coronary Syndromes Guideline 2023.",start:"n1",nodes:{
+ n1:{t:"Tiếp nhận đau ngực",info:["ECG 12 chuyển đạo trong 10 phút; monitor, máy sốc điện sẵn sàng.","Troponin độ nhạy cao theo phác đồ 0/1 giờ (hoặc 0/2 giờ).","Oxy chỉ khi SpO₂ < 90%. Aspirin 150–300 mg nhai (hoặc 75–250 mg TM) nếu không chống chỉ định."],q:"ECG: ST chênh lên dai dẳng (hoặc tương đương: block nhánh mới với triệu chứng điển hình, nhồi máu thành sau)?",o:[["Có — STEMI","s1"],["Không — nghi NSTE-ACS","ns1"]]},
+ s1:{q:"Thời gian từ khởi phát triệu chứng?",o:[["≤ 12 giờ","s2"],["12–48 giờ","s3"],["> 48 giờ","s4"]]},
+ s2:{q:"Có thể can thiệp mạch vành qua da (PCI) trong ≤ 120 phút kể từ khi chẩn đoán?",o:[["Có","e1"],["Không","e2"]]},
+ s3:{q:"Còn đau ngực / suy tim / sốc / loạn nhịp nguy hiểm?",o:[["Có","e1"],["Không","e3"]]},
+ s4:{q:"Còn thiếu máu cơ tim / huyết động không ổn?",o:[["Có","e1"],["Không","e4"]]},
+ e1:{end:1,lv:3,t:"Can thiệp mạch vành tiên phát",info:["Chuyển ngay phòng thông tim: mục tiêu ≤ 60 phút từ chẩn đoán đến luồn dây dẫn (≤ 90–120 phút nếu phải chuyển viện).","Kháng tiểu cầu kép: aspirin + ticagrelor 180 mg hoặc prasugrel 60 mg (clopidogrel 600 mg nếu không có / nguy cơ chảy máu cao).","Heparin không phân đoạn 70–100 đv/kg TM trong thủ thuật.","Sốc tim: tái thông thủ phạm, hội chẩn hỗ trợ tuần hoàn cơ học."]},
+ e2:{end:1,lv:3,t:"Tiêu sợi huyết (khi PCI không kịp)",info:["Trong ≤ 10 phút từ chẩn đoán: tenecteplase theo cân nặng (30–50 mg; ≥ 75 tuổi: nửa liều).","Aspirin + clopidogrel 300 mg (≥ 75 tuổi: 75 mg); enoxaparin 30 mg TM + 1 mg/kg tiêm dưới da (≥ 75 tuổi: không bolus, 0,75 mg/kg).","Chuyển trung tâm PCI: ST giảm < 50% sau 60–90 phút → PCI cứu vãn ngay; thành công → chụp mạch vành trong 2–24 giờ."]},
+ e3:{end:1,lv:2,t:"STEMI đến muộn 12–48 giờ, ổn định",info:["Cân nhắc PCI thường quy động mạch thủ phạm.","Kháng tiểu cầu kép, kháng đông, chẹn beta, statin liều cao, ƯCMC / ƯCTT."]},
+ e4:{end:1,lv:2,t:"STEMI > 48 giờ, ổn định",info:["Không PCI thường quy động mạch tắc hoàn toàn; đánh giá thiếu máu / sống còn cơ tim.","Điều trị nội khoa tối ưu, phục hồi chức năng tim."]},
+ ns1:{t:"NSTE-ACS",info:["Troponin 0/1 giờ; tính GRACE (xem công cụ GRACE).","Kháng đông: fondaparinux 2,5 mg/ngày tiêm dưới da (hoặc enoxaparin 1 mg/kg × 2 / heparin) — không cần khi chụp ngay.","Không khuyến cáo dùng thường quy ức chế P2Y12 trước khi biết giải phẫu mạch vành nếu dự kiến chụp sớm."],q:"Nguy cơ RẤT CAO? (huyết động không ổn / sốc tim, đau ngực kháng trị, loạn nhịp đe dọa tính mạng, biến chứng cơ học, suy tim cấp do thiếu máu, ST chênh xuống > 1 mm ở ≥ 6 chuyển đạo kèm ST chênh lên aVR)",o:[["Có","e5"],["Không","ns2"]]},
+ ns2:{q:"Nguy cơ CAO? (NSTEMI được xác định bằng troponin, GRACE > 140, thay đổi ST–T động, đau ngực thoáng qua tái diễn)",o:[["Có","e6"],["Không","e7"]]},
+ e5:{end:1,lv:3,t:"Chụp mạch vành ngay (< 2 giờ)",info:["Như STEMI: chuyển ngay phòng thông tim; kháng tiểu cầu kép và heparin."]},
+ e6:{end:1,lv:2,t:"Chiến lược xâm lấn sớm (< 24 giờ)",info:["Chụp mạch vành trong 24 giờ; kháng đông, aspirin; ức chế P2Y12 sau khi biết giải phẫu mạch vành (hoặc trước nếu chụp muộn).","Chẹn beta nếu không suy tim cấp; statin liều cao."]},
+ e7:{end:1,lv:1,t:"Chiến lược chọn lọc",info:["Troponin âm tính / không đổi: đánh giá thiếu máu không xâm lấn (CT mạch vành, nghiệm pháp gắng sức) hoặc chụp chọn lọc trong thời gian nằm viện.","Tìm nguyên nhân đau ngực khác (thuyên tắc phổi, bóc tách ĐMC, viêm màng ngoài tim)."]}}},
+
+{id:"px_ahf",grp:"Cấp cứu",icon:"💧",name:"Suy tim cấp",desc:"Sốc tim? → oxy / NIV → giãn mạch hoặc lợi tiểu theo HA, đánh giá natri niệu.",kw:"suy tim cap phu phoi cap soc tim loi tieu furosemide nitrate niv",src:"ESC Heart Failure Guideline 2021 & cập nhật 2023.",start:"n1",nodes:{
+ n1:{t:"Đánh giá ban đầu",info:["Tìm yếu tố khởi phát CHAMPIT: hội chứng vành cấp (C), tăng HA cấp cứu (H), loạn nhịp (A), nguyên nhân cơ học (M), thuyên tắc phổi (P), nhiễm trùng (I), chèn ép tim (T).","ECG, troponin, NT-proBNP, khí máu, siêu âm tim và siêu âm phổi tại giường."],q:"Sốc tim? (HA tâm thu < 90 mmHg + dấu hiệu giảm tưới máu: lạnh chi, lơ mơ, thiểu niệu, lactate tăng)",o:[["Có","e1"],["Không","h1"]]},
+ e1:{end:1,lv:3,t:"Sốc tim",info:["Noradrenaline để nâng MAP; dobutamine khi cung lượng tim thấp (xem Tính liều truyền thuốc ICU).","Hội chứng vành cấp → chụp và can thiệp mạch vành khẩn.","Tránh nitrate; thận trọng lợi tiểu khi giảm tưới máu nặng; hội chẩn hỗ trợ tuần hoàn cơ học."]},
+ h1:{t:"Oxy & hỗ trợ hô hấp",info:["Oxy khi SpO₂ < 90% hoặc PaO₂ < 60 mmHg.","Suy hô hấp (NT > 25, SpO₂ < 90%): CPAP / NIV sớm."],q:"Kiểu lâm sàng?",o:[["Phù phổi cấp với HA tâm thu > 110 mmHg (tăng HA)","e2"],["Ứ huyết, HA bình thường (90–110 mmHg)","e3"]]},
+ e2:{end:1,lv:2,t:"Ưu tiên giãn mạch",info:["Nitroglycerin truyền TM, khởi đầu 10–20 µg/phút, tăng dần theo HA (xem Tính liều truyền thuốc ICU); NIV.","Lợi tiểu quai liều thấp–vừa nếu có quá tải dịch.","Kiểm soát HA: giảm ~25% trong vài giờ đầu."]},
+ e3:{end:1,lv:2,t:"Ưu tiên lợi tiểu",info:["Furosemide TM: chưa dùng lợi tiểu 20–40 mg; đang dùng: 1–2,5 lần liều uống hằng ngày.","Sau 2 giờ: natri niệu < 50–70 mmol/L, hoặc sau 6 giờ nước tiểu < 100–150 mL/giờ → tăng gấp đôi liều.","Kháng lợi tiểu: thêm thiazide hoặc acetazolamide (ADVOR); theo dõi creatinin, K⁺, Mg²⁺ mỗi ngày.","Trước ra viện: khởi động / tối ưu 4 nhóm thuốc nền (ƯCMC/ARNI, chẹn beta, MRA, SGLT2i) và tái khám sớm (STRONG-HF)."]}}},
+
+{id:"px_ugib",grp:"Cấp cứu",icon:"🩸",name:"Xuất huyết tiêu hóa trên",desc:"Hồi sức, truyền máu hạn chế, giãn tĩnh mạch vs không giãn tĩnh mạch, nội soi, TIPS.",kw:"xuat huyet tieu hoa tren xhth gian tinh mach thuc quan loet da day noi soi terlipressin ppi",src:"ESGE Non-variceal UGIB Guideline 2021; Baveno VII 2022.",start:"n1",nodes:{
+ n1:{t:"Hồi sức",info:["2 đường truyền lớn, dịch tinh thể; nhóm máu, công thức máu, đông máu, urê.","Truyền máu hạn chế: Hb < 70 g/L (đích 70–90); bệnh tim mạch: Hb < 80 g/L (đích ≥ 100).","Tính Glasgow–Blatchford trước nội soi (≤ 1: có thể ngoại trú).","Đang dùng kháng đông: cân nhắc đảo ngược theo mức độ chảy máu và nguy cơ huyết khối."],q:"Nghi chảy máu do tăng áp lực tĩnh mạch cửa (xơ gan, giãn tĩnh mạch thực quản–dạ dày)?",o:[["Có","v1"],["Không","u1"],["Tính điểm Glasgow–Blatchford","@gbs"]]},
+ v1:{t:"Nghi vỡ giãn tĩnh mạch",info:["Thuốc co mạch tạng ngay: terlipressin 2 mg TM mỗi 4 giờ (giảm 1 mg khi đã cầm), HOẶC somatostatin 250 µg bolus + 250 µg/giờ, HOẶC octreotide 50 µg bolus + 50 µg/giờ — duy trì 2–5 ngày.","Kháng sinh dự phòng: ceftriaxone 1 g/ngày, tối đa 7 ngày.","Truyền máu hạn chế (Hb đích 70–80 g/L) — truyền quá nhiều làm tăng áp lực cửa.","Nội soi trong 12 giờ: thắt vòng giãn tĩnh mạch thực quản; giãn tĩnh mạch phình vị: tiêm keo cyanoacrylate.","Phòng bệnh não gan: lactulose."],q:"Còn chảy máu / tái phát sớm dù đã điều trị thuốc và nội soi?",o:[["Có","e1"],["Không","e2"]]},
+ e1:{end:1,lv:3,t:"Chảy máu kháng trị",info:["TIPS cấp cứu.","Cầu nối: stent thực quản tự bung hoặc sonde Sengstaken–Blakemore (tối đa 24 giờ)."]},
+ e2:{end:1,lv:2,t:"Đã cầm máu",info:["TIPS sớm (trong 72 giờ) cho Child–Pugh C 10–13 điểm, hoặc Child B > 7 điểm còn chảy máu lúc nội soi (Baveno VII).","Sau đó: chẹn beta không chọn lọc (propranolol / carvedilol) + thắt lại tĩnh mạch định kỳ."]},
+ u1:{t:"Không do giãn tĩnh mạch",info:["PPI liều cao TM trước nội soi (vd esomeprazol / pantoprazol 80 mg rồi 8 mg/giờ, hoặc 40 mg × 2 lần/ngày).","Erythromycin 250 mg TM 30–120 phút trước nội soi (làm sạch dạ dày).","Nội soi trong 24 giờ sau hồi sức (không khuyến cáo < 6 giờ thường quy)."],q:"Huyết động vẫn không ổn định sau hồi sức?",o:[["Có","e3"],["Không","u2"]]},
+ e3:{end:1,lv:3,t:"Nội soi khẩn sau hồi sức",info:["Nội soi càng sớm càng tốt khi đã hồi sức; đặt NKQ bảo vệ đường thở nếu nôn máu ồ ạt / ý thức giảm.","Không cầm được: CT mạch máu → nút mạch (TAE) hoặc phẫu thuật."]},
+ u2:{q:"Kết quả nội soi: tổn thương nguy cơ cao? (Forrest Ia–Ib đang chảy máu, IIa mạch máu lộ, IIb cục máu đông bám)",o:[["Có","e4"],["Không (Forrest IIc / III)","e5"]]},
+ e4:{end:1,lv:2,t:"Cầm máu qua nội soi",info:["Kẹp clip, đốt nhiệt, hoặc tiêm adrenaline PHỐI HỢP (không tiêm adrenaline đơn độc).","PPI liều cao 72 giờ (truyền liên tục hoặc ngắt quãng), sau đó uống 2 lần/ngày.","Tái phát: nội soi lần 2 → nút mạch / phẫu thuật.","Test H. pylori và điều trị tiệt trừ; xem lại NSAID, kháng tiểu cầu."]},
+ e5:{end:1,lv:1,t:"Nguy cơ thấp",info:["PPI uống, cho ăn sớm, xuất viện sớm.","Test H. pylori; ngừng NSAID nếu được."]}}},
+
+{id:"px_asthma",grp:"Cấp cứu",icon:"🌫️",name:"Cơn hen phế quản cấp",desc:"Phân độ nặng → SABA, ipratropium, corticoid, MgSO₄ → ICU.",kw:"hen phe quan cap con hen salbutamol ipratropium magnesium corticoid",src:"GINA 2024; BTS/SIGN Asthma 2019.",start:"n1",nodes:{
+ n1:{q:"Mức độ cơn hen?",o:[["Đe dọa tính mạng: lơ mơ, ngực im lặng, tím, kiệt sức, SpO₂ < 92% dù thở oxy, PaCO₂ bình thường hoặc tăng","e1"],["Nặng: nói từng chữ, ngồi cúi người, kích thích, NT > 30, mạch > 120, SpO₂ < 90%, PEF ≤ 50%","s1"],["Nhẹ–trung bình: nói được cụm từ, NT tăng, mạch 100–120, SpO₂ 90–95%, PEF > 50%","m1"]]},
+ m1:{t:"Điều trị ban đầu",info:["Salbutamol MDI + buồng đệm 4–10 nhát mỗi 20 phút trong giờ đầu (hoặc khí dung 2,5–5 mg).","Prednisolone 40–50 mg uống.","Oxy nếu cần, đích SpO₂ 93–95%."],q:"Đáp ứng tốt sau 1 giờ? (triệu chứng cải thiện, PEF > 60–80%, SpO₂ > 94%)",o:[["Có","e2"],["Không","s1"]]},
+ s1:{t:"Cơn nặng",info:["Oxy đích SpO₂ 93–95%.","Salbutamol khí dung 5 mg + ipratropium 0,5 mg mỗi 20 phút × 3 lần, sau đó theo đáp ứng.","Corticoid toàn thân: prednisolone 40–50 mg uống, hoặc methylprednisolone 40–80 mg / hydrocortisone 100–200 mg TM.","MgSO₄ 2 g TM trong 20 phút nếu không đáp ứng điều trị ban đầu.","Khí máu nếu SpO₂ < 92% hoặc cơn nặng."],q:"Không cải thiện / xấu đi sau 1 giờ?",o:[["Có","e1"],["Cải thiện","e3"]]},
+ e1:{end:1,lv:3,t:"Hen đe dọa tính mạng — ICU",info:["Tiếp tục khí dung liên tục, MgSO₄ 2 g TM, corticoid TM.","Đặt NKQ: ketamine; Vt thấp, tần số thấp, thời gian thở ra dài, chấp nhận tăng CO₂; theo dõi auto-PEEP, tụt HA sau đặt.","Tránh an thần không có hỗ trợ hô hấp; X-quang loại trừ tràn khí màng phổi."]},
+ e2:{end:1,lv:1,t:"Ra viện được",info:["Corticoid uống 5–7 ngày; ICS–formoterol hoặc tăng bậc điều trị duy trì.","Kiểm tra kỹ thuật dùng bình xịt, kế hoạch hành động; tái khám trong 2–7 ngày."]},
+ e3:{end:1,lv:2,t:"Theo dõi nội viện",info:["Giảm dần tần suất SABA, duy trì corticoid 5–7 ngày; theo dõi PEF, SpO₂."]}}},
+
+{id:"px_copd",grp:"Cấp cứu",icon:"🚬",name:"Đợt cấp COPD",desc:"Oxy đích 88–92%, giãn phế quản, corticoid, kháng sinh, NIV khi toan hô hấp.",kw:"dot cap copd phoi tac nghen man tinh niv bipap toan ho hap",src:"GOLD 2025; ERS/ATS NIV Guideline 2017.",start:"n1",nodes:{
+ n1:{t:"Đánh giá ban đầu",info:["Oxy có kiểm soát, đích SpO₂ 88–92%; khí máu động mạch.","SABA ± SAMA khí dung / MDI; prednisolone 40 mg × 5 ngày.","Kháng sinh 5–7 ngày khi đờm mủ + (tăng khó thở hoặc tăng lượng đờm), hoặc khi cần thở máy.","Loại trừ: viêm phổi, thuyên tắc phổi, suy tim, tràn khí màng phổi."],q:"Toan hô hấp? (pH < 7,35 và PaCO₂ > 45 mmHg)",o:[["Có","c1"],["Không","e1"]]},
+ e1:{end:1,lv:1,t:"Điều trị tại khoa",info:["Tiếp tục giãn phế quản, corticoid, kháng sinh nếu có chỉ định; dự phòng huyết khối.","Trước ra viện: tối ưu thuốc duy trì (LAMA/LABA ± ICS), phục hồi chức năng hô hấp, cai thuốc lá."]},
+ c1:{t:"Thông khí không xâm nhập (NIV)",info:["BiPAP: IPAP 10–12 tăng dần đến 20 cmH₂O, EPAP 4–5; khí máu lại sau 1–2 giờ.","pH < 7,25: vẫn thử NIV nhưng tại ICU, sẵn sàng đặt NKQ."],q:"Chống chỉ định NIV, ngừng thở, rối loạn ý thức nặng, không dung nạp, hoặc pH / PaCO₂ xấu đi sau 1–2 giờ?",o:[["Có","e2"],["Không — cải thiện","e3"]]},
+ e2:{end:1,lv:3,t:"Đặt nội khí quản",info:["Thở máy: Vt thấp, tần số thấp, thời gian thở ra dài, theo dõi auto-PEEP; tránh hạ CO₂ quá nhanh (về mức nền của bệnh nhân).","Cai máy sớm, có thể rút ống sang NIV."]},
+ e3:{end:1,lv:2,t:"Tiếp tục NIV",info:["Giảm dần thời gian NIV khi pH bình thường; đánh giá NIV tại nhà nếu tăng CO₂ dai dẳng sau đợt cấp."]}}}
 ];
 var PROTO_BY={};PROTO.forEach(function(p){PROTO_BY[p.id]=p;});
 PROTO.forEach(function(p){P[p.id]=head(p.icon,p.name,p.desc)+'<div class="tree-wrap" id="tree-'+p.id+'"></div><p class="src">Nguồn: '+p.src+' Phác đồ rút gọn để tra cứu nhanh — luôn đối chiếu phác đồ bệnh viện.</p>';});
@@ -1381,7 +1585,7 @@ function renderTree(pid){
   for(var i=0;i<st.path.length-1;i++){var pn=pr.nodes[st.path[i]];h+='<li class="done"><button type="button" data-back="'+i+'"><span class="sq">'+(pn.t?'<b>'+pn.t+'</b> — ':'')+(pn.q||'')+'</span><span class="sa">➜ '+st.ans[i]+'</span></button></li>';}
   h+='</ol>';
   if(n.end){h+='<div class="tnode tend lv'+n.lv+'"><div class="tk">Khuyến cáo</div><h3>'+n.t+'</h3>'+(n.info?'<ul>'+n.info.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul>':'')+'</div>';}
-  else{h+='<div class="tnode"><div class="tk">Bước '+st.path.length+'</div>'+(n.t?'<h3>'+n.t+'</h3>':'')+(n.info?'<ul class="tinfo">'+n.info.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul>':'')+(n.q?'<p class="tq">'+n.q+'</p>':'')+'<div class="topts">'+n.o.map(function(o,k){return '<button type="button" data-opt="'+k+'">'+o[0]+(o[1].charAt(0)==="@"?' <span class="tlink">→ mở phác đồ</span>':'')+'</button>'}).join("")+'</div></div>';}
+  else{h+='<div class="tnode"><div class="tk">Bước '+st.path.length+'</div>'+(n.t?'<h3>'+n.t+'</h3>':'')+(n.info?'<ul class="tinfo">'+n.info.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul>':'')+(n.q?'<p class="tq">'+n.q+'</p>':'')+'<div class="topts">'+n.o.map(function(o,k){return '<button type="button" data-opt="'+k+'">'+o[0]+(o[1].charAt(0)==="@"?' <span class="tlink">→ mở</span>':'')+'</button>'}).join("")+'</div></div>';}
  }
  box.innerHTML=h;
  box.querySelectorAll('[data-tv]').forEach(function(b){b.addEventListener('click',function(){st.full=b.dataset.tv==="full";renderTree(pid);});});
@@ -1396,8 +1600,56 @@ function treeHTML(pr,id,seen){
  var s2={};for(var k in seen)s2[k]=1;s2[id]=1;
  if(n.end)return '<li class="tleaf lv'+n.lv+'"><b>'+n.t+'</b>'+(n.info?'<ul>'+n.info.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul>':'')+'</li>';
  var h='<li class="tbranch"><div class="tn">'+(n.t?'<b>'+n.t+'</b>':'')+(n.info?'<details><summary>Chi tiết xử trí</summary><ul>'+n.info.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul></details>':'')+(n.q?'<div class="tq2">❓ '+n.q+'</div>':'')+'</div><ul>';
- n.o.forEach(function(o){h+='<li class="topt"><span class="tlab">'+o[0]+'</span>';if(o[1].charAt(0)==="@"){var t2=PROTO_BY[o[1].slice(1)];h+='<ul><li class="tref"><button type="button" class="tgo" data-goto="'+o[1].slice(1)+'">→ Mở phác đồ: '+(t2?t2.name:o[1])+'</button></li></ul>';}else h+='<ul>'+treeHTML(pr,o[1],s2)+'</ul>';h+='</li>';});
+ n.o.forEach(function(o){h+='<li class="topt"><span class="tlab">'+o[0]+'</span>';if(o[1].charAt(0)==="@"){var t2=toolById(o[1].slice(1));h+='<ul><li class="tref"><button type="button" class="tgo" data-goto="'+o[1].slice(1)+'">→ Mở: '+(t2?t2.name:o[1])+'</button></li></ul>';}else h+='<ul>'+treeHTML(pr,o[1],s2)+'</ul>';h+='</li>';});
  return h+'</ul></li>';
+}
+
+/* ---------- Checklist tại giường (Giai đoạn 2B) ---------- */
+/* role: "todo" = việc cần làm; "req" = điều kiện phải đạt hết; "stop" = có bất kỳ mục nào → dừng / thất bại */
+var CHECKS=[
+{id:"ck_sepsis",icon:"⏱️",name:"Checklist Sepsis giờ đầu",desc:"Bó 1 giờ Surviving Sepsis Campaign: lactate, cấy máu, kháng sinh, dịch 30 mL/kg, vận mạch.",time:true,src:"Surviving Sepsis Campaign 2021; Hour-1 Bundle (Levy et al., Crit Care Med 2018).",groups:[
+ {t:"Trong 1 giờ đầu (tính từ lúc nhận diện sepsis / sốc)",role:"todo",items:["Đo lactate","Cấy máu 2 bộ TRƯỚC kháng sinh (không làm chậm kháng sinh)","Kháng sinh phổ rộng đã vào người bệnh","Dịch tinh thể 30 mL/kg nếu tụt HA hoặc lactate ≥ 4 mmol/L (hoàn tất trong 3 giờ)","Vận mạch (noradrenaline) nếu MAP < 65 trong / sau bù dịch"]},
+ {t:"Trong 3–6 giờ",role:"todo",items:["Đo lại lactate nếu lần đầu > 2 mmol/L","Đánh giá lại tưới máu & đáp ứng dịch (CRT, nước tiểu, siêu âm, nâng chân thụ động)","Xác định ổ nhiễm, kế hoạch kiểm soát nguồn trong 6–12 giờ","Catheter động mạch nếu dùng vận mạch kéo dài"]}]},
+{id:"ck_vap",icon:"🫧",name:"Checklist VAP bundle",desc:"Gói dự phòng viêm phổi liên quan thở máy — kiểm tra mỗi ngày.",src:"SHEA/IDSA/APIC Compendium 2022 (VAP/VAE prevention); IHI Ventilator Bundle.",groups:[
+ {t:"Mỗi ngày với bệnh nhân thở máy",role:"todo",items:["Đầu giường nâng 30–45°","Ngắt an thần hằng ngày (SAT) nếu không chống chỉ định","Thử thở tự nhiên hằng ngày (SBT)","Vận động sớm / phục hồi chức năng","Chải răng / chăm sóc răng miệng (không dùng chlorhexidine thường quy)","Áp lực bóng chèn ống NKQ 20–30 cmH₂O","Hút đờm dưới thanh môn (ống có cổng hút) nếu dự kiến thở máy > 48–72 giờ","Không thay dây máy thở định kỳ — chỉ khi bẩn / hỏng","Dự phòng loét do stress (khi có chỉ định) và huyết khối tĩnh mạch","Ưu tiên NIV / HFNC để tránh đặt lại NKQ khi phù hợp"]}]},
+{id:"ck_sbt",icon:"🌬️",name:"Checklist SAT / SBT — cai máy thở",desc:"Ngắt an thần hằng ngày phối hợp thử thở tự nhiên, tiêu chuẩn thất bại, chuẩn bị rút ống.",src:"Girard et al., Lancet 2008 (ABC trial); ATS/ACCP Liberation Guideline 2017; PADIS 2018.",groups:[
+ {t:"① SAT — sàng lọc an toàn (tick nếu CÓ)",role:"stop",stop:"Không ngắt an thần hôm nay — đánh giá lại ngày mai.",items:["Đang dùng an thần để kiểm soát co giật","Đang điều trị hội chứng cai rượu","Đang dùng thuốc giãn cơ","Kích động đang phải tăng liều an thần","Thiếu máu cơ tim trong 24 giờ","Tăng áp lực nội sọ"]},
+ {t:"② SAT thất bại nếu (tick nếu CÓ)",role:"stop",stop:"SAT thất bại: dùng lại an thần với ½ liều trước đó, chỉnh theo RASS đích.",items:["Kích động kéo dài (RASS ≥ +2) / đau","SpO₂ < 88% ≥ 5 phút","Nhịp thở > 35 lần/phút ≥ 5 phút","Loạn nhịp tim mới","≥ 2 dấu hiệu suy hô hấp (co kéo, dùng cơ phụ, vã mồ hôi, khó thở)"]},
+ {t:"③ Đủ điều kiện SBT (tick nếu ĐẠT)",role:"req",ok:"Đủ điều kiện làm SBT: PS 5–8 cmH₂O / PEEP 5 hoặc ống chữ T trong 30–120 phút.",items:["Nguyên nhân suy hô hấp đã cải thiện","SpO₂ ≥ 90% với FiO₂ ≤ 0,4–0,5 và PEEP ≤ 8","Huyết động ổn định (không / liều thấp vận mạch)","Tự thở được, ho được","Tỉnh hoặc RASS −1 đến 0"]},
+ {t:"④ SBT thất bại nếu (tick nếu CÓ)",role:"stop",stop:"SBT thất bại: cho thở lại chế độ hỗ trợ đủ, tìm nguyên nhân (quá tải dịch, yếu cơ, đờm, an thần…), thử lại sau 24 giờ.",items:["Nhịp thở > 35 lần/phút hoặc RSBI > 105","SpO₂ < 90%","Mạch > 140 lần/phút hoặc tăng > 20%","HA tâm thu > 180 hoặc < 90 mmHg","Kích động, vã mồ hôi, co kéo, giảm ý thức"]},
+ {t:"⑤ Trước khi rút ống",role:"todo",items:["Ho hiệu quả, đờm ít, tự bảo vệ đường thở","Test rò quanh bóng chèn (cuff leak) nếu nguy cơ phù thanh quản — không đạt: methylprednisolone ≥ 4 giờ trước rút","Nguy cơ cao thất bại (> 65 tuổi, bệnh tim / phổi mạn, PaCO₂ > 45): NIV hoặc HFNC dự phòng ngay sau rút","Nhịn ăn, chuẩn bị dụng cụ đặt lại NKQ"]}]}];
+var CK_BY={};CHECKS.forEach(function(c){CK_BY[c.id]=c;});
+function ckKey(id){return "nkhs_ck_"+id;}
+function ckLoad(id){try{return JSON.parse(sessionStorage.getItem(ckKey(id))||"{}")}catch(e){return {}}}
+function ckSave(id,st){try{sessionStorage.setItem(ckKey(id),JSON.stringify(st))}catch(e){}}
+CHECKS.forEach(function(c){
+ P[c.id]=head(c.icon,c.name,c.desc)+resHTML("res-"+c.id)+
+ (c.time?'<div class="frow"><div class="fgroup"><label for="'+c.id+'_t0">Giờ nhận diện (giờ 0)</label><input type="time" id="'+c.id+'_t0"/></div><div class="fgroup"><span class="flabel">&nbsp;</span><button type="button" class="tree-reset" id="'+c.id+'_now">⏱ Đặt giờ 0 = bây giờ</button></div></div>':'')+
+ c.groups.map(function(g,gi){return '<p style="font-weight:800;margin:14px 0 8px">'+g.t+'</p><div class="checks">'+g.items.map(function(it,ii){return '<label><input type="checkbox" id="'+c.id+'_'+gi+'_'+ii+'" data-v="0"/> '+it+'</label>'}).join("")+'</div>'}).join("")+
+ '<div class="actions"><button type="button" onclick="ckReset(\''+c.id+'\')">↺ Bắt đầu checklist mới</button></div>'+
+ '<p class="hint">Chỉ lưu tạm trong phiên làm việc này (đóng tab là xóa), không lưu thông tin định danh bệnh nhân. Nút ⧉ trên ô kết quả sao chép tóm tắt để dán vào bệnh án.</p><p class="src">Nguồn: '+c.src+'</p>';
+});
+function ckReset(id){try{sessionStorage.removeItem(ckKey(id))}catch(e){}var c=CK_BY[id];c.groups.forEach(function(g,gi){g.items.forEach(function(it,ii){$(id+"_"+gi+"_"+ii).checked=false})});if(c.time)$(id+"_t0").value="";calcCheck(id);if(typeof toast==="function")toast("Đã xóa checklist");}
+function calcCheck(id){
+ var c=CK_BY[id],st={},lines=[],verdict=[],lv=0,done=0,total=0,stopped=false;
+ if(c.time){st.t0=$(id+"_t0").value;}
+ c.groups.forEach(function(g,gi){var ticked=[];g.items.forEach(function(it,ii){var on=$(id+"_"+gi+"_"+ii).checked;st[gi+"_"+ii]=on?1:0;if(on)ticked.push(it);});
+   if(g.role==="todo"){total+=g.items.length;done+=ticked.length;lines.push(g.t+": "+ticked.length+"/"+g.items.length+(ticked.length?" — "+ticked.join("; "):""));}
+   else if(g.role==="stop"){if(ticked.length&&!stopped){verdict.push("⛔ "+g.stop+" ("+ticked.join("; ")+")");lv=3;stopped=true;}lines.push(g.t+": "+(ticked.length?ticked.join("; "):"không"));}
+   else if(g.role==="req"){if(!stopped){if(ticked.length===g.items.length){verdict.push("✅ "+g.ok);}else if(ticked.length){verdict.push("Chưa đủ điều kiện SBT ("+ticked.length+"/"+g.items.length+").");lv=Math.max(lv,1);}}lines.push(g.t+": "+ticked.length+"/"+g.items.length);}
+ });
+ ckSave(id,st);
+ var big;
+ if(id==="ck_sbt"){var reqOk=verdict.some(function(v){return v.indexOf("✅")===0});var sbtStop=CK_BY.ck_sbt.groups[3].items.some(function(it,ii){return $("ck_sbt_3_"+ii).checked});
+   var sv=verdict.filter(function(v){return v.indexOf("⛔")===0})[0]||"";if(stopped){verdict=[sv].concat(verdict.filter(function(v){return v!==sv}));}
+   if(stopped)big=sv.indexOf("SBT thất bại")>=0?"SBT thất bại":sv.indexOf("SAT thất bại")>=0?"SAT thất bại":"Chưa ngắt an thần hôm nay";
+   else if(reqOk&&!sbtStop){big="Đủ điều kiện SBT";lv=0;verdict.push("Nếu SBT 30–120 phút không có dấu hiệu thất bại → đánh giá rút ống (mục ⑤).");}
+   else big=done||verdict.length?"Đang đánh giá":"—";}
+ else{big=done+" / "+total+" mục";lv=done===total?0:1;}
+ if(c.time&&st.t0){var p=st.t0.split(":");var t0=new Date();t0.setHours(+p[0],+p[1],0,0);var mins=Math.round((Date.now()-t0.getTime())/60000);if(mins<0)mins+=1440;
+   var abx=$(id+"_0_2").checked;verdict.unshift("Đã "+mins+" phút từ giờ 0 ("+st.t0+")."+(mins>60&&!abx?" ⚠️ Quá 1 giờ mà chưa có kháng sinh.":mins<=60&&!abx?" Còn "+(60-mins)+" phút để cho kháng sinh trong giờ đầu.":""));if(mins>60&&!abx)lv=3;}
+ if(total&&!c.time&&id!=="ck_sbt")verdict.push(done===total?"Đã tuân thủ đủ gói.":"Còn "+(total-done)+" mục chưa thực hiện.");
+ setRes("res-"+id,big,verdict.join(" ")+'<span class="cksum" style="display:none">\n'+lines.join("\n")+'</span>',done||verdict.length?lv:null);
 }
 
 /* Inject panels */
@@ -1427,6 +1679,12 @@ bindSeg("md_unit",function(){calcChild()});bindSeg("md_sex",function(){calcChild
 bindSeg("ap_crunit",function(){calcAPACHE()});
 ["ap_temp","ap_map","ap_hr","ap_rr","ap_fio2","ap_pao2","ap_paco2","ap_ph","ap_na","ap_k","ap_cr","ap_hct","ap_wbc","ap_gcs","ap_age","ap_chronic","ap_arf"].forEach(function(id){var e=$(id);if(e){e.addEventListener('input',function(){calcAPACHE()});e.addEventListener('change',function(){calcAPACHE()});}});
 (function(){var M={vaso:calcVaso,fluids:calcFluids,cam:calcCAM,nihss:calcNIHSS,ich:calcICH,abcd2:calcABCD2,abg:calcABG,vent:calcVent,natri:calcNatri,fena:calcFENa,heart:calcHEART,qtc:calcQTc,gbs:calcGBS,bisap:calcBISAP,maddrey:calcMaddrey,padua:calcPadua,steroid:calcSteroid,nutric:calcNUTRIC,caprini:calcCaprini,psi:calcPSI,grace:calcGRACE,doac:calcDOAC,four:calcFOUR,kmg:calcKMg,dka:calcDKA,opioid:calcOpioid};Object.keys(M).forEach(function(k){var p=$("panel-"+k),f=M[k];if(!p)return;p.querySelectorAll("input,select").forEach(function(e){e.addEventListener("input",function(){f()});e.addEventListener("change",function(){f()});});p.querySelectorAll(".seg").forEach(function(sg){bindSeg(sg.id,function(){f()});});});window.addEventListener("load",function(){try{calcNIHSS();calcABCD2();calcNUTRIC();calcFOUR();calcCaprini();calcHEART();calcICH();calcBISAP();calcPadua();calcCAM();}catch(e){}});})();
+/* Checklist: khôi phục trạng thái trong phiên + gắn sự kiện */
+CHECKS.forEach(function(c){var st=ckLoad(c.id);var p=$("panel-"+c.id);
+ c.groups.forEach(function(g,gi){g.items.forEach(function(it,ii){var e=$(c.id+"_"+gi+"_"+ii);if(st[gi+"_"+ii])e.checked=true;e.addEventListener('change',function(){calcCheck(c.id)});})});
+ if(c.time){if(st.t0)$(c.id+"_t0").value=st.t0;$(c.id+"_t0").addEventListener('change',function(){calcCheck(c.id)});$(c.id+"_now").addEventListener('click',function(){var d=new Date();$(c.id+"_t0").value=String(d.getHours()).padStart(2,"0")+":"+String(d.getMinutes()).padStart(2,"0");calcCheck(c.id);});}
+ calcCheck(c.id);});
+try{calcVaso();}catch(e){}
 window.addEventListener('load',function(){try{calcGCS();calcRASS();calcNEWS2();}catch(e){}});
 </script>
 <script>

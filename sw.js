@@ -2,7 +2,8 @@
    Cache-first cho toàn bộ app: cài / mở lần đầu có mạng là các lần sau
    mở được ngay cả khi mất mạng hoàn toàn. Khi có mạng trở lại, bản mới
    được tải nền và thay cache ở lần mở kế tiếp. */
-var CACHE = "noi-khoa-hoi-suc-v10";
+/* Phiên bản lấy từ APP_VERSION trong index.html (đăng ký sw.js?v=...) — không cần sửa file này khi lên bản mới */
+var CACHE = "noi-khoa-hoi-suc-" + (new URL(self.location.href).searchParams.get("v") || "dev");
 var CORE = [
   "./",
   "./index.html",
