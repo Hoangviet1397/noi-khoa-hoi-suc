@@ -4,6 +4,10 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v0.9.1 — 18/11/2026
+- Phác đồ viêm phổi ghi rõ phác đồ kháng sinh cụ thể kèm liều (CAP nhẹ / nhập viện / nặng ICU, HAP/VAP nguy cơ thấp / cao) thay vì chỉ ghi tên nhóm thuốc, kèm liên kết tới module kháng sinh.
+- Các bảng điểm dạng tick chọn (PERC, sPESI, Wells, CURB-65, qSOFA, SOFA, Ranson, Charlson, TIMI, 4Ts, DIC, PLASMIC, Burch-Wartofsky, CPIS, Hunt-Hess, BODE, ECOG, Rockall…) giờ tính sẵn ngay khi mở công cụ, không còn hiện ô trống chờ bấm.
+
 ## v0.9.0 — 18/11/2026
 - Thêm 10 bảng điểm chuyên sâu: TIMI (hội chứng vành cấp không ST chênh), 4Ts (giảm tiểu cầu do heparin), ISTH DIC (đông máu rải rác), PLASMIC (TTP), Burch-Wartofsky (cơn bão giáp), CPIS (viêm phổi thở máy), Hunt-Hess & WFNS (xuất huyết dưới nhện), BODE (tiên lượng COPD), ECOG (tình trạng toàn thân), Rockall (xuất huyết tiêu hoá trên). Tổng 71 công cụ • 30 phác đồ (101 mục).
 - Thêm 5 phác đồ cây: tăng áp lực thẩm thấu (HHS), viêm màng não, huyết khối tĩnh mạch sâu (DVT), tổn thương thận cấp (gói KDIGO), nhịp nhanh theo ACLS.
