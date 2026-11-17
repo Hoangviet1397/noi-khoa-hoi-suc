@@ -3,7 +3,7 @@
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — cài vào màn hình chính để dùng offline.
-**Phiên bản hiện tại:** v0.9.2 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v1.0.0 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
 
 ## Nội dung
 - **52 công cụ**: SOFA, qSOFA, NEWS2, APACHE II, mNUTRIC, kê đơn dinh dưỡng ICU, CRRT, dịch hồi sức, quy đổi opioid; GCS, RASS, CAM-ICU, NIHSS, ICH score, ABCD², FOUR; P/F – ARDS, ROX, IBW/Vt, khí máu động mạch, cơ học thở máy, PSI/PORT; eGFR & Cockcroft–Gault, Anion Gap, AKI KDIGO, điều chỉnh natri, FENa/FEUrea, bù K/Mg; MAP/Shock Index/Lactate, CHA₂DS₂-VA & HAS-BLED, HEART, QTc, GRACE, liều DOAC; CURB-65, Child–Pugh & MELD, Wells PE, BMI/BSA, Glasgow–Blatchford, BISAP, Maddrey, Padua, Caprini, DKA, quy đổi corticoid; suy tim HFrEF, GRACE.
