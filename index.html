@@ -605,8 +605,9 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
 function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d");}
 function $(id){return document.getElementById(id);}
 /* ===== PHIÊN BẢN: chỉ sửa ở đây khi phát hành (service worker tự lấy số này đặt tên bộ nhớ đệm) ===== */
-var APP_VERSION="0.7.1",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
+var APP_VERSION="0.7.2",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
 var CHANGELOG=[
+ ["0.7.2","17/11/2026",["Sửa lỗi nút Cài đặt ở thanh dưới điện thoại: bấm vào chỉ sáng nút mà không mở trang Cài đặt (thiếu nhánh xử lý trong bộ điều hướng). Giờ bấm Cài đặt mở đúng trang Cài đặt."]],
  ["0.7.1","17/11/2026",["Sửa lỗi hiển thị trang chủ: các mục theo chuyên ngành bị xếp thành dải dọc hẹp, chữ chồng lên nhau (do lưới ngoài ôm lưới trong). Trang chủ giờ xếp các mục chồng lên nhau đúng như thiết kế."]],
  ["0.7.0","17/11/2026",["Thiết kế lại theo phong cách iOS: tiêu đề lớn, tìm kiếm dính trên đầu khi cuộn, thẻ công cụ bo góc 16px.","Chọn chuyên ngành ngay lần mở đầu (Hồi sức, Tim mạch, Thận, Nội tiết, Hô hấp, Tiêu hoá – Gan mật, Thần kinh, Nội tổng quát) — trang chủ đưa công cụ của chuyên ngành bạn lên đầu.","Thanh dưới còn 5 tab: Trang chủ, Phác đồ, Kháng sinh, Bản tin, Cài đặt. Mục Đã ghim chuyển thành một mục trên trang chủ.","Trang Cài đặt riêng: đổi chuyên ngành, cỡ chữ, xóa dữ liệu, phiên bản, chia sẻ, mã QR, báo lỗi, hướng dẫn.","Mọi công cụ, phác đồ, checklist, kháng sinh và Sổ tay thuốc đều có dòng Nguồn kèm link kiểm chứng."]],
  ["0.6.4","17/11/2026",["Sửa chữ sót ở trang Bản tin: phần giới thiệu và tiêu đề còn ghi chuyên mục cũ và cập nhật mỗi tuần — nay ghi đúng chỉ còn Nghiên cứu mới, cập nhật mỗi ngày."]],
@@ -1149,7 +1150,7 @@ function copyText(txt,msg){function fb(){var ta=document.createElement('textarea
 function copyRes(btn){var r=btn.closest('.result'),p=btn.closest('.panel');var h=p&&p.querySelector('h2');var name=h?h.textContent.replace(/^\S+\s/,''):'';var big=r.querySelector('.big').textContent.trim(),it=r.querySelector('.interp').textContent.trim();copyText(name+": "+big+"\n"+it,"Đã sao chép kết quả — dán vào bệnh án");btn.classList.add('ok');btn.textContent='✓';setTimeout(function(){btn.classList.remove('ok');btn.textContent='⧉';},1400);}
 /* Thanh điều hướng dưới */
 document.querySelectorAll('.bottomnav button').forEach(function(b){b.addEventListener('click',function(){
-  var n=b.dataset.nav;if(n==='abx'){openTool('abx');return;}   if(n==='feed'){openTool('feed');return;}
+  var n=b.dataset.nav;if(n==='abx'){openTool('abx');return;}   if(n==='feed'){openTool('feed');return;}   if(n==='settings'){go('settings');return;}
   homeScroll=0;navFromHome=false;
   if(n==='home'){curQuery="";$("searchInput").value="";setCat('all');}
   if(n==='fav'){setCat('fav');}
