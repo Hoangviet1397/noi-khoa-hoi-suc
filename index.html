@@ -111,6 +111,7 @@ main{min-width:0}
 .sec-title{font-size:18px;font-weight:850;letter-spacing:-.01em}
 .sec-sub{color:var(--muted);font-size:13px}
 .grid{display:grid;grid-template-columns:1fr;gap:10px}
+.grid.flat{display:block}
 @media(min-width:620px){.grid{grid-template-columns:1fr 1fr}}
 @media(min-width:1180px){.grid{grid-template-columns:1fr 1fr 1fr}}
 .card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 8px 12px 12px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;width:100%;box-shadow:var(--shadow);transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease}
@@ -604,8 +605,9 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
 function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d");}
 function $(id){return document.getElementById(id);}
 /* ===== PHIÊN BẢN: chỉ sửa ở đây khi phát hành (service worker tự lấy số này đặt tên bộ nhớ đệm) ===== */
-var APP_VERSION="0.7.0",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
+var APP_VERSION="0.7.1",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
 var CHANGELOG=[
+ ["0.7.1","17/11/2026",["Sửa lỗi hiển thị trang chủ: các mục theo chuyên ngành bị xếp thành dải dọc hẹp, chữ chồng lên nhau (do lưới ngoài ôm lưới trong). Trang chủ giờ xếp các mục chồng lên nhau đúng như thiết kế."]],
  ["0.7.0","17/11/2026",["Thiết kế lại theo phong cách iOS: tiêu đề lớn, tìm kiếm dính trên đầu khi cuộn, thẻ công cụ bo góc 16px.","Chọn chuyên ngành ngay lần mở đầu (Hồi sức, Tim mạch, Thận, Nội tiết, Hô hấp, Tiêu hoá – Gan mật, Thần kinh, Nội tổng quát) — trang chủ đưa công cụ của chuyên ngành bạn lên đầu.","Thanh dưới còn 5 tab: Trang chủ, Phác đồ, Kháng sinh, Bản tin, Cài đặt. Mục Đã ghim chuyển thành một mục trên trang chủ.","Trang Cài đặt riêng: đổi chuyên ngành, cỡ chữ, xóa dữ liệu, phiên bản, chia sẻ, mã QR, báo lỗi, hướng dẫn.","Mọi công cụ, phác đồ, checklist, kháng sinh và Sổ tay thuốc đều có dòng Nguồn kèm link kiểm chứng."]],
  ["0.6.4","17/11/2026",["Sửa chữ sót ở trang Bản tin: phần giới thiệu và tiêu đề còn ghi chuyên mục cũ và cập nhật mỗi tuần — nay ghi đúng chỉ còn Nghiên cứu mới, cập nhật mỗi ngày."]],
  ["0.6.3","17/11/2026",["Bản tin gọn lại chỉ còn Nghiên cứu mới: bỏ 12 mục biên tập cũ (mẹo tại giường, cập nhật hướng dẫn, ca lâm sàng, cảnh báo thuốc), chỉ giữ bài nghiên cứu mới từ RSS của NEJM, JAMA, The Lancet và European Heart Journal. Cập nhật mỗi ngày một lần."]],
@@ -970,6 +972,7 @@ function renderHome(){
   var sr=$("specRow");
   if(sr){sr.innerHTML='<span class="sp">🩺 Chuyên ngành: <b>'+specName()+'</b></span><button type="button" class="chip ghost" id="specChange">Đổi</button>';var scb=$("specChange");if(scb)scb.addEventListener('click',openSpecPicker);}
   if(sectioned){
+    g.classList.add("flat");
     var specTools=spec?spec.tools.map(toolById).filter(Boolean):[];
     var specIds={};specTools.forEach(function(t){specIds[t.id]=1});
     var favArr=TOOLS.filter(function(t){return favs.has(t.id)&&!specIds[t.id]});
@@ -987,6 +990,7 @@ function renderHome(){
     $("favSection").style.display=favArr.length?"block":"none";
     $("favGrid").innerHTML=favArr.map(toolCard).join("");bindCards($("favGrid"));
   }else{
+    g.classList.remove("flat");
     g.innerHTML=rows.map(function(r){return toolCard(r[0])}).join("");bindCards(g);
     var titles={all:"Tất cả công cụ",hoisuc:"Hồi sức & tiên lượng",thankinh:"Thần kinh – an thần",hohap:"Hô hấp",than:"Thận – điện giải",timmach:"Tim mạch – sốc",noikhoa:"Nội khoa tổng quát",khangsinh:"💊 Thuốc – kháng sinh",phacdo:"🧭 Phác đồ Hồi sức – Cấp cứu – Chống độc",fav:"⭐ Đã ghim"};
     $("listTitle").textContent=toks.length?('Kết quả cho “'+curQuery+'”'):(titles[curCat]||"Tất cả công cụ");
