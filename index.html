@@ -440,6 +440,15 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
 .mono-dose{padding-left:18px;display:grid;gap:3px;margin:0;grid-template-columns:minmax(0,1fr)}
 .mono-links{display:flex;flex-wrap:wrap;gap:8px;margin-top:12px}
 .chip.book{background:var(--c-khangsinh);color:#fff;border-color:var(--c-khangsinh)}
+/* khóa kháng sinh theo hồ sơ */
+.abx-x{text-decoration:line-through;text-decoration-thickness:2px;opacity:.6}
+.abx-xt{display:inline-block;font-size:11.5px;font-weight:800;color:#b91c1c;margin:0 2px;white-space:nowrap}
+.abx-adj{border:2px solid #15803d;border-radius:14px;padding:12px 14px;margin-bottom:12px;background:var(--surface)}
+.abx-adj h4{margin:0 0 6px;color:#15803d}
+.abx-adj ul{margin:0;padding-left:18px;display:grid;gap:5px}
+.abx-adj .warnline{color:#b91c1c}
+.abx-banned{opacity:.72;border-color:#b91c1c!important}
+.abx-ban{display:inline-block;margin-left:8px;font-size:12px;font-weight:800;color:#fff;background:#b91c1c;border-radius:8px;padding:2px 8px;vertical-align:middle}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 
@@ -504,7 +513,7 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
     <div><label for="ctx_wt">Cân nặng (kg)</label><input type="text" id="ctx_wt" inputmode="decimal" placeholder="vd 60" oninput="ctxTouch()"/></div>
     <div><label for="ctx_crcl">CrCl / eGFR (mL/phút)</label><input type="text" id="ctx_crcl" inputmode="decimal" placeholder="vd 45" oninput="ctxTouch()"/></div>
     <div><label for="ctx_liver">Chức năng gan</label><select id="ctx_liver" onchange="ctxTouch()"><option value="N">Gan bình thường</option><option value="A">Child–Pugh A</option><option value="B">Child–Pugh B</option><option value="C">Child–Pugh C</option></select></div>
-    <div><label for="ctx_pen">Dị ứng penicillin</label><select id="ctx_pen" onchange="ctxTouch()"><option value="">— Chưa chọn —</option><option value="no">Không dị ứng</option><option value="yes">Có dị ứng</option></select></div>
+    <div><label for="ctx_pen">Dị ứng penicillin</label><select id="ctx_pen" onchange="ctxTouch()"><option value="">— Chưa chọn —</option><option value="none">Không dị ứng</option><option value="mild">Có — nhẹ (ban, ngứa)</option><option value="ana">Có — phản vệ / tức thì</option><option value="scar">Có — SJS / TEN / DRESS</option></select></div>
     <div><label for="ctx_mrsa">Nguy cơ MRSA</label><select id="ctx_mrsa" onchange="ctxTouch()"><option value="">— Chưa chọn —</option><option value="no">Thấp</option><option value="yes">Cao</option></select></div>
     <div><label for="ctx_esbl">Nguy cơ ESBL</label><select id="ctx_esbl" onchange="ctxTouch()"><option value="">— Chưa chọn —</option><option value="no">Thấp</option><option value="yes">Cao</option></select></div>
     <div><label for="ctx_preg">Mang thai</label><select id="ctx_preg" onchange="ctxTouch()"><option value="no">Không</option><option value="yes">Có</option></select></div>
@@ -672,8 +681,9 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
 function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d");}
 function $(id){return document.getElementById(id);}
 /* ===== PHIÊN BẢN: chỉ sửa ở đây khi phát hành (service worker tự lấy số này đặt tên bộ nhớ đệm) ===== */
-var APP_VERSION="2.0.1",APP_DATE="18/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
+var APP_VERSION="2.0.2",APP_DATE="18/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
 var CHANGELOG=[
+ ["2.0.2","18/11/2026",["Sửa 5 khóa an toàn cho chặn thật: (a) MAP bắt buộc với mọi thuốc vận mạch / tăng co bóp, MAP < 65 tô đỏ đúng mức, gợi ý vasopressin + hydrocortisone khi noradrenaline ≥ 0,25; (b) DKA bắt buộc trả lời suy tim / suy thận, phân độ nhẹ – vừa – nặng theo pH, HCO₃⁻, ceton; (c) dị ứng penicillin 4 mức và nguy cơ MRSA thay đổi phác đồ thật — gạch thuốc không dùng được, hiện phác đồ đã điều chỉnh, đánh dấu trong bảng liều; (d) nguy cơ ESBL áp dụng cho mọi hội chứng, gạch ceftriaxone / cefepime / piperacillin–tazobactam; (e) SOFA và SOFA-2 bỏ tick sẵn ô vận mạch ≥ 1 giờ, chưa xác nhận thì điểm tim mạch tính tạm. Nút Xóa ca xóa luôn cân nặng / tuổi / CrCl / dị ứng đã tự điền sang các công cụ."]],
  ["2.0.1","18/11/2026",["Sửa lỗi SOFA-2 không tính điểm trên trình duyệt thật (kiểm chứng live 18/11/2026: chọn đủ 6 hệ vẫn hiện “—”): nguyên nhân là panel dùng resHTML với id “sofa2” trong khi hàm tính gọi setRes với id “res-sofa2” — ô kết quả không tồn tại nên kết quả bị bỏ lặng, không báo lỗi. Sửa cho cả 8 công cụ mới v2.0.0 (SOFA-2, MEWS, Rumack–Matthew, MELD 3.0, HEART Pathway, Osmolal gap, CIWA-Ar, ASPECTS): ô kết quả đổi sang id “res-…” đúng quy ước của mọi công cụ cũ. Thêm nút “Tính …” thật cho 8 công cụ mới và tự tính ngay khi mở app. Refs #1." ]],
  ["2.0.0","18/11/2026",["16 mục mới: SOFA-2, MEWS, Rumack–Matthew + NAC, MELD 3.0, HEART Pathway, Osmolal gap, CIWA-Ar, ASPECTS, Tìm theo hội chứng, Cây kiến thức toàn bộ (34 nhánh, tra cứu có cấu trúc); 6 phác đồ cây mới: paraquat, phosphua nhôm, sốt xuất huyết nặng, ngộ độc nấm/cá nóc/mật cá trắm, bundle ABCDEF, HAP/VAP — khóa ESBL.","Hồ sơ ca zero-data: chỉ sống trong RAM, tự xóa sau 15 phút, không ghi localStorage, không nhập tên/CCCD/mã bệnh án; tự điền cân nặng/CrCl/gan vào mọi bảng điểm và liều thuốc.","5 khóa an toàn chặn thật (không chỉ cảnh báo): MAP/noradrenalin, kali/DKA, dị ứng penicillin/MRSA, ESBL (MERINO), SOFA — khoảng vận mạch ≥ 1 giờ.","Cập nhật guideline mới: SSC 2026 (NEWS2/MEWS thay qSOFA sàng lọc), GOLD 2026 (≥ 1 đợt cấp vừa/nặng → nhóm E), AHA CPR 2025, ATS CAP 2025 (kháng sinh < 5 ngày), ESC AF 2024 (CHA₂DS₂-VA).","Màn hình xác nhận nhân viên y tế, trang Disclaimer/Điều khoản/Bảo mật trong Cài đặt, banner cảnh báo khi nội dung quá 12 tháng chưa rà lại.","Tổng 91 công cụ • 41 phác đồ (132 mục đăng ký). Mọi mục mới đều có nguồn kèm link kiểm chứng, DOI kiểm chứng qua Crossref. Các mục P1/P2 chưa làm máy tính tương tác có trong Cây kiến thức dạng tra cứu có cấu trúc, ghi rõ sẽ nâng lên tương tác ở đợt sau." ]],
  ["1.0.0","18/11/2026",["10 công cụ mới: GOLD (phân nhóm COPD), Geneva sửa đổi, Wells DVT, AIMS65, Lille (viêm gan rượu), NAFLD Fibrosis Score, Barthel (ADL), Braden (loét tì đè), 4AT (mê sảng), STOP-BANG (ngưng thở khi ngủ).","5 phác đồ cây mới: hạ kali máu, hạ natri máu, nhịp chậm (ACLS), xuất huyết tiêu hoá dưới, nhiễm trùng tiểu (kháng sinh kinh nghiệm kèm liều).","Tổng 81 công cụ • 35 phác đồ (116 công cụ đăng ký). Mọi mục mới đều có nguồn kèm link kiểm chứng."]],
@@ -1455,7 +1465,7 @@ function setRes(id,big,interp,lv){var r=$(id);if(!r)return;var lvTxt=["Bình th�
 var P={};
 P.sofa=head("🫀","SOFA Score","6 hệ cơ quan, mỗi hệ 0–4 điểm. SOFA ≥ 2 ở bệnh nhân nhiễm trùng = tiêu chuẩn Sepsis-3.")+resHTML("res-sofa")+
  '<div class="frow">'+selHTML("sofa_resp","Hô hấp — PaO₂/FiO₂ (có hỗ trợ hô hấp)",[[0,"≥ 400 — 0đ"],[1,"< 400 — 1đ"],[2,"< 300 — 2đ"],[3,"< 200, có hỗ trợ hô hấp — 3đ"],[4,"< 100, có hỗ trợ hô hấp — 4đ"]])+selHTML("sofa_coag","Đông máu — Tiểu cầu (×10³/µL)",[[0,"≥ 150 — 0đ"],[1,"< 150 — 1đ"],[2,"< 100 — 2đ"],[3,"< 50 — 3đ"],[4,"< 20 — 4đ"]])+'</div>'+
- '<div class="frow">'+selHTML("sofa_liver","Gan — Bilirubin mg/dL (µmol/L)",[[0,"< 1,2 (< 20) — 0đ"],[1,"1,2–1,9 (20–32) — 1đ"],[2,"2,0–5,9 (33–101) — 2đ"],[3,"6,0–11,9 (102–204) — 3đ"],[4,"≥ 12 (> 204) — 4đ"]])+selHTML("sofa_cardio","Tim mạch — MAP / vận mạch (duy trì ≥ 1 giờ)",[[0,"MAP ≥ 70 — 0đ"],[1,"MAP < 70 — 1đ"],[2,"Dopamine ≤5 hoặc dobutamine (≥ 1 giờ) — 2đ"],[3,"Dopamine >5 hoặc epi/norepi ≤0,1 (≥ 1 giờ) — 3đ"],[4,"Dopamine >15 hoặc epi/norepi >0,1 (≥ 1 giờ) — 4đ"]])+'</div><label style="display:block;margin:6px 0"><input type="checkbox" id="sofa_vaso1h" checked/> Vận mạch duy trì liên tục ≥ 1 giờ — chưa đủ 1 giờ thì điểm tim mạch chưa đủ điều kiện (nguồn sai số từng làm SOFA tụt 14→11)</label>'
+ '<div class="frow">'+selHTML("sofa_liver","Gan — Bilirubin mg/dL (µmol/L)",[[0,"< 1,2 (< 20) — 0đ"],[1,"1,2–1,9 (20–32) — 1đ"],[2,"2,0–5,9 (33–101) — 2đ"],[3,"6,0–11,9 (102–204) — 3đ"],[4,"≥ 12 (> 204) — 4đ"]])+selHTML("sofa_cardio","Tim mạch — MAP / vận mạch (duy trì ≥ 1 giờ)",[[0,"MAP ≥ 70 — 0đ"],[1,"MAP < 70 — 1đ"],[2,"Dopamine ≤5 hoặc dobutamine (≥ 1 giờ) — 2đ"],[3,"Dopamine >5 hoặc epi/norepi ≤0,1 (≥ 1 giờ) — 3đ"],[4,"Dopamine >15 hoặc epi/norepi >0,1 (≥ 1 giờ) — 4đ"]])+'</div><label style="display:block;margin:6px 0"><input type="checkbox" id="sofa_vaso1h"/> Vận mạch đã duy trì liên tục ≥ 1 giờ (bắt buộc xác nhận khi chọn mức vận mạch 2–4 điểm)</label>'
  +'<div class="frow">'+selHTML("sofa_cns","Thần kinh — GCS",[[0,"15 — 0đ"],[1,"13–14 — 1đ"],[2,"10–12 — 2đ"],[3,"6–9 — 3đ"],[4,"< 6 — 4đ"]])+selHTML("sofa_renal","Thận — Creatinin mg/dL (µmol/L) / nước tiểu",[[0,"< 1,2 (< 110) — 0đ"],[1,"1,2–1,9 (110–170) — 1đ"],[2,"2,0–3,4 (171–299) — 2đ"],[3,"3,5–4,9 (300–440) hoặc NT < 500 mL/ngày — 3đ"],[4,"≥ 5,0 (> 440) hoặc NT < 200 mL/ngày — 4đ"]])+'</div>'+actions("calcSOFA")+
  '<div class="notebox info"><h4>Diễn giải</h4><ul><li><strong>0–6:</strong> tử vong ICU ước tính &lt;10%.</li><li><strong>7–9:</strong> khoảng 15–20%. <strong>10–12:</strong> 40–50%.</li><li><strong>13–14:</strong> 50–60%. <strong>≥15:</strong> &gt;80% (theo SOFA lúc nhập ICU, Ferreira 2001 — thay đổi theo quần thể). Xu hướng SOFA trong 48–96 giờ đầu có giá trị tiên lượng hơn một lần đo.</li><li>Sepsis-3: <strong>SOFA tăng ≥ 2 điểm so với nền</strong> do nhiễm trùng = rối loạn chức năng tạng. Không biết nền và không có bệnh tạng mạn → coi nền = 0.</li><li>Lấy giá trị xấu nhất trong 24 giờ. Tim mạch: liều vận mạch tính bằng µg/kg/phút, duy trì ≥ 1 giờ. Thần kinh: dùng GCS ước tính trước an thần.</li></ul></div><p class="src">Nguồn: Vincent et al., Intensive Care Med 1996; Ferreira et al., JAMA 2001; Singer et al., JAMA 2016 (Sepsis-3); Surviving Sepsis Campaign 2021.</p>';
 
@@ -1655,7 +1665,7 @@ var ivState={drug:null,pre:null};
  '<div id="iv_adj_wrap" style="display:none">'+segHTML("iv_wsel","Cân nặng dùng để tính",[["act","Cân nặng thực"],["adj","Cân nặng hiệu chỉnh"]])+'</div></div>'+
  selHTML("iv_pre","Cách pha sẵn",[["",""]])+
  '<div class="frow">'+numHTML("va_amt","Lượng thuốc pha","vd 4")+numHTML("va_vol","Tổng thể tích pha","vd 50","mL")+'</div>'+
- numHTML("va_map","MAP hiện tại (bắt buộc khi tính noradrenaline)","mmHg")+'<div id="va_dose_w">'+numHTML("va_dose","Liều","vd 0,1")+'</div><div id="va_rate_w" style="display:none">'+numHTML("va_rate","Tốc độ bơm","vd 4,5","mL/giờ")+'</div>'+actions("calcVaso")+
+ numHTML("va_map","MAP hiện tại (bắt buộc với thuốc vận mạch / tăng co bóp)","vd 65","mmHg")+'<div id="va_dose_w">'+numHTML("va_dose","Liều","vd 0,1")+'</div><div id="va_rate_w" style="display:none">'+numHTML("va_rate","Tốc độ bơm","vd 4,5","mL/giờ")+'</div>'+actions("calcVaso")+
  '<div class="notebox warn"><h4>An toàn</h4><ul><li>Đối chiếu cách pha với phác đồ khoa và nhãn bơm tiêm; kiểm tra chéo 2 người khi bắt đầu hoặc đổi nồng độ.</li><li>Kết quả làm tròn 0,1 mL/giờ; bơm tiêm điện thường chỉnh được 0,1 mL/giờ.</li></ul></div>';
 })();
 function ivApplyDrug(d){
@@ -1670,8 +1680,9 @@ function ivApplyDrug(d){
 }
 function calcVaso(){
  var d=IV_DRUGS.find(function(x){return x.k===$("iv_drug").value});if(!d)return;
- if(d.k==="ne"&&num("va_map")==null){setRes("res-vaso","⛔ ĐÃ KHÓA","Nhập MAP hiện tại trước khi tính noradrenaline — máy không cho tính khi chưa biết MAP (lỗi đã soi ở v0.5.0).",3);return;}
  if(ivState.drug!==d.k){ivState.drug=d.k;ivApplyDrug(d);}
+ var isVP=d.g==="Vận mạch / tăng co bóp";
+ if(isVP&&num("va_map")==null){setRes("res-vaso","⛔ ĐÃ KHÓA — cần MAP","Nhập MAP hiện tại trước khi tính "+d.n+". Không tính liều vận mạch / tăng co bóp khi chưa biết huyết áp trung bình.",3);return;}
  var pv=$("iv_pre").value;if(pv!==ivState.pre){ivState.pre=pv;if(pv!=="custom"){var p=d.pre[+pv];$("va_amt").value=p[0];$("va_vol").value=p[1];}}
  var mode=segVal("va_mode")||"d2r";$("va_dose_w").style.display=mode==="d2r"?"":"none";$("va_rate_w").style.display=mode==="d2r"?"none":"";
  var amt=num("va_amt"),vol=num("va_vol"),wt=num("va_wt"),ht=num("iv_ht");
@@ -1685,8 +1696,11 @@ function calcVaso(){
  else{rate=num("va_rate");if(rate==null){setRes("res-vaso","—","Nhập tốc độ bơm (mL/giờ).",null);return;}dose=ivDose(d,kg,rate,amt,vol);}
  var perDay=rate*24*amt/vol,hours=vol/rate;
  var t=d.n+": <b>"+fmt(dose,3)+" "+ivUnit(d)+" ⇔ "+fmt(rate,1)+" mL/giờ</b>"+(d.w?" (tính với "+fmt(kg,1)+" kg)":"")+". Nồng độ "+fmt(conc,conc<1?3:2)+" "+d.dm+"/mL. Tổng ≈ "+fmt(perDay,perDay<10?2:0)+" "+d.am+"/24 giờ; 1 bơm "+fmt(vol,0)+" mL dùng hết sau ≈ "+fmt(hours,1)+" giờ."+wNote;
- var mp=num("va_map");if(d.k==="ne"&&mp!=null){if(mp<65){lv=3;t+=" <b style='color:#b91c1c'>⛔ MAP "+fmt(mp,0)+" mmHg — DƯỚI mục tiêu ≥ 65 mmHg: tăng liều vận mạch / thêm thuốc thứ 2, kiểm tra lại sau 15 phút.</b>";}else{t+=" MAP "+fmt(mp,0)+" mmHg — đạt mục tiêu ≥ 65 mmHg.";}}
  var lv=0;if(dose>d.max){lv=3;t+=" ⛔ VƯỢT ngưỡng cảnh báo ("+String(d.max).replace(".",",")+" "+ivUnit(d)+") — kiểm tra lại liều, cách pha và chỉ định.";}else if(dose>d.hi){lv=2;t+=" ⚠️ Trên khoảng thường dùng ("+String(d.hi).replace(".",",")+").";}else if(dose<d.lo){lv=1;t+=" Dưới khoảng thường dùng ("+String(d.lo).replace(".",",")+").";}
+ var mp=num("va_map");if(isVP&&mp!=null){
+   if(mp<65){lv=3;t+=" <b>⛔ MAP "+fmt(mp,0)+" mmHg — DƯỚI mục tiêu ≥ 65 mmHg</b>"+(d.k==="dobu"?": dobutamine có thể làm tụt huyết áp thêm — cần vận mạch (noradrenaline) đạt MAP trước khi dùng / tăng dobutamine.":": bù dịch nếu còn đáp ứng dịch, tăng liều / thêm thuốc thứ hai, kiểm tra lại sau 5–15 phút.");}
+   else t+=" MAP "+fmt(mp,0)+" mmHg — đạt mục tiêu ≥ 65 mmHg (cá thể hóa theo bệnh nền).";
+   if(d.k==="ne"&&d.w&&dose>=0.25)t+=" Noradrenaline ≥ 0,25 µg/kg/phút: cân nhắc thêm vasopressin 0,03 đv/phút và hydrocortisone 200 mg/ngày (SSC 2021).";}
  if(d.k==="heparin"&&kg)t+=" Liều nạp: HKTMS 80 đv/kg = "+fmt(80*kg,0)+" đv (duy trì 18 đv/kg/giờ); hội chứng vành cấp 60 đv/kg = "+fmt(Math.min(60*kg,4000),0)+" đv (tối đa 4.000), duy trì 12 đv/kg/giờ, tối đa 1.000 đv/giờ"+(dose*kg>1000?" — ⚠️ liều hiện tại "+fmt(dose*kg,0)+" đv/giờ > 1.000.":".");
  if(d.k==="amio")t+=" Liều nạp 150 mg trong 10 phút trước khi truyền (nhịp nhanh có mạch).";
  setRes("res-vaso",mode==="d2r"?fmt(rate,1)+" mL/giờ":fmt(dose,3)+" "+ivUnit(d),t,lv);
@@ -2015,15 +2029,22 @@ function calcKMg(){var k=num("km_k"),mg=num("km_mg"),sym=$("km_sym").checked,ren
 P.dka=head("🩸","Toan ceton đái tháo đường (DKA) — Dịch, insulin, kali","Tính nhanh theo đồng thuận ADA/EASD/JBDS 2024. Xem thêm phác đồ dạng cây “Toan ceton” trong mục Phác đồ.")+resHTML("res-dka")+
  '<div class="frow">'+numHTML("dk_wt","Cân nặng","vd 60","kg")+numHTML("dk_glu","Glucose","vd 28","mmol/L")+'</div>'+
  '<div class="frow">'+numHTML("dk_k","K⁺","vd 4,2","mmol/L")+numHTML("dk_ph","pH (tùy chọn)","vd 7,1")+'</div>'+
- numHTML("dk_ket","Ceton máu (beta-hydroxybutyrate)","mmol/L")+numHTML("dk_hco3","HCO₃⁻","mmol/L")+numHTML("dk_na","Na⁺","mmol/L")+segHTML("dk_hf","Suy tim?",[["no","Không"],["yes","Có"]])+segHTML("dk_renal","Suy thận / suy thận mạn?",[["no","Không"],["yes","Có"]])+'</div><div class="frow">'
+ numHTML("dk_ket","Ceton máu (beta-hydroxybutyrate)","mmol/L")+numHTML("dk_hco3","HCO₃⁻","mmol/L")+numHTML("dk_na","Na⁺","mmol/L")+segHTML("dk_hf","Suy tim? (bắt buộc)",[["","— Chưa chọn —"],["no","Không"],["yes","Có"]])+segHTML("dk_renal","Suy thận / suy thận mạn? (bắt buộc)",[["","— Chưa chọn —"],["no","Không"],["yes","Có"]])+'</div><div class="frow">'
  +numHTML("dk_conc","Nồng độ insulin pha (đơn vị/mL)","mặc định 1 (50 đv / 50 mL)","đv/mL")+actions("calcDKA")+
  '<div class="notebox info"><h4>Tiêu chuẩn chẩn đoán & hết DKA</h4><ul><li>Chẩn đoán: glucose ≥ 11,1 mmol/L (hoặc ĐTĐ đã biết), ceton máu ≥ 3 mmol/L (niệu ≥ 2+), pH &lt; 7,3 và/hoặc HCO₃ &lt; 18.</li><li>Hết DKA: pH ≥ 7,3, HCO₃ ≥ 18 và ceton máu &lt; 0,6 mmol/L.</li><li>Theo dõi: glucose mao mạch mỗi giờ; điện giải, khí máu tĩnh mạch, ceton mỗi 2–4 giờ.</li></ul></div><p class="src">Nguồn: Umpierrez et al., Diabetes Care 2024 (ADA/EASD/JBDS/AACE consensus).</p>';
 function calcDKA(){var w=num("dk_wt"),g=num("dk_glu"),k=num("dk_k"),ph=num("dk_ph"),c=num("dk_conc")||1;if(w==null||g==null||k==null){setRes("res-dka","—","Nhập cân nặng, glucose và K⁺.",null);return;}
  var ket=num("dk_ket"),hco3=num("dk_hco3"),na=num("dk_na");
  if(ket==null||hco3==null||na==null){setRes("res-dka","⛔ ĐÃ KHÓA","Nhập ceton máu, HCO₃⁻ và Na⁺ trước khi tính insulin/truyền dịch — máy cần ceton để xác nhận DKA, HCO₃⁻ để phân tầng nặng, Na⁺ để tính Na hiệu chỉnh.",3);return;}
+ var hfV=segVal("dk_hf")||"",rnV=segVal("dk_renal")||"";
+ if(!hfV||!rnV){setRes("res-dka","⛔ ĐÃ KHÓA","Trả lời <b>Suy tim?</b> và <b>Suy thận?</b> trước khi tính dịch — có suy tim / suy thận thì liều dịch giờ đầu khác hẳn (10 mL/kg thay vì 15–20 mL/kg).",3);return;}
  var nacorr=na+0.286*(g-5.6);
  var p=[];
- var hf=segVal("dk_hf")==="yes",rn=segVal("dk_renal")==="yes";
+ var hf=hfV==="yes",rn=rnV==="yes";
+ var sev=(ph!=null&&ph<7.0)||hco3<10?3:(ph!=null&&ph<7.25)||hco3<15?2:(ph!=null&&ph<=7.30)||hco3<18?1:0;
+ var sevName=["không đủ toan","NHẸ","VỪA","NẶNG"][sev];
+ if(ket<3)p.push("<b>⚠️ Ceton máu "+fmt(ket,1)+" mmol/L &lt; 3:</b> chưa đủ tiêu chuẩn DKA (đồng thuận 2024) — xem lại chẩn đoán: HHS, toan ceton do đói / rượu, toan lactic, nhiễm độc.");
+ if(sev===0)p.push("<b>⚠️ pH &gt; 7,30 và HCO₃⁻ ≥ 18:</b> không đủ tiêu chuẩn toan của DKA — nghĩ tăng đường huyết đơn thuần hoặc HHS; phác đồ dưới đây chỉ áp dụng khi đã xác định DKA.");
+ else p.push("<b>Phân độ DKA: "+sevName+"</b> (pH "+(ph!=null?fmt(ph,2):"chưa có")+", HCO₃⁻ "+fmt(hco3,0)+" mmol/L, ceton "+fmt(ket,1)+" mmol/L)."+(sev===3||ket>6||hco3<5||k<3.5?" <b>Điều trị tại ICU / đơn vị theo dõi tích cực</b>"+(ket>6||hco3<5?" — có dấu hiệu nặng theo JBDS (ceton &gt; 6 hoặc HCO₃⁻ &lt; 5).":"."):sev===2?" Theo dõi sát tại đơn vị cấp cứu / HDU.":" Có thể điều trị tại khoa thường nếu theo dõi được glucose mỗi giờ."));
  if(hf||rn)p.push("<b>Dịch (thận trọng — "+(hf?"suy tim":"")+(hf&&rn?" + ":"")+(rn?"suy thận":"")+":</b> 10 mL/kg = "+fmt(10*w,0)+" mL trong giờ đầu (KHÔNG 15–20 mL/kg), sau đó 125–250 mL/giờ, đánh giá lại lâm sàng + nghe phổi + siêu âm tim/phổi sau mỗi lần truyền; tránh quá tải.");
  else p.push("<b>Dịch:</b> NaCl 0,9% hoặc dịch cân bằng "+fmt(15*w,0)+"–"+fmt(20*w,0)+" mL trong giờ đầu, sau đó 250–500 mL/giờ theo huyết động; chuyển NaCl 0,45% nếu Na hiệu chỉnh bình thường/cao.");
  p.push("<b>Na hiệu chỉnh:</b> "+fmt(nacorr,1)+" mmol/L (Na đo "+fmt(na,0)+" + 0,286×(glucose "+fmt(g,1)+" − 5,6)).");
@@ -2034,7 +2055,7 @@ function calcDKA(){var w=num("dk_wt"),g=num("dk_glu"),k=num("dk_k"),ph=num("dk_p
  if(ph!=null)p.push(ph<7?"<b>pH &lt; 7,0:</b> có thể cân nhắc NaHCO₃ (vd 100 mmol trong 2 giờ) đến khi pH ≥ 7,0.":"Không dùng bicarbonate khi pH ≥ 7,0.");
  if(g>=33.3&&(ph==null||ph>=7.3))p.push("Glucose ≥ 33,3 mmol/L, pH không toan: nghĩ tăng áp lực thẩm thấu (HHS) — bù dịch là chính, insulin liều thấp hơn (0,02–0,05 đv/kg/giờ) khi glucose không còn giảm nhờ dịch.");
  p.push("Chuyển insulin dưới da: tiêm basal 1–2 giờ TRƯỚC khi ngừng truyền.");
- setRes("res-dka",k<3.5?"Bù K⁺ trước — chưa insulin":fmt(rate/c,1)+" mL/giờ insulin",p.join("<br/>"),k<3.5?3:2);}
+ setRes("res-dka",(sev?"DKA "+sevName+" • ":"")+(k<3.5?"Bù K⁺ trước — chưa insulin":fmt(rate/c,1)+" mL/giờ insulin"),p.join("<br/>"),k<3.5||sev===3?3:2);}
 
 
 /* ---------- Kê đơn dinh dưỡng ICU (v0.6.0) ---------- */
@@ -2849,7 +2870,7 @@ P.sofa2 =
  +'<div class="frow">'+selHTML("sofa2_kidney","Thận — creatinine (mg/dL)",[[0,"< 1,2 — 0đ"],[1,"1,2–1,9 — 1đ"],[2,"2,0–3,4 — 2đ"],[3,"3,5–4,9 hoặc nước tiểu < 500 mL/ngày — 3đ"],[4,"> 5,0 hoặc nước tiểu < 200 mL/ngày — 4đ"]])+selHTML("sofa2_cns","Thần kinh — GCS (trước an thần)",[[0,"15 — 0đ"],[1,"13–14 — 1đ"],[2,"10–12 — 2đ"],[3,"6–9 — 3đ"],[4,"< 6 — 4đ"]])+'</div>'
  +'<label style="display:block;margin:6px 0"><input type="checkbox" id="sofa2_rrt"/> Đang lọc máu thay thận (RRT) — điểm thận = 4</label>'
  +'<label style="display:block;margin:6px 0"><input type="checkbox" id="sofa2_delirium"/> Mê sảng cần thuốc (delirium) — điểm não tối thiểu 1</label>'
- +'<label style="display:block;margin:6px 0"><input type="checkbox" id="sofa2_vaso1h" checked/> Vận mạch duy trì liên tục ≥ 1 giờ (điều kiện tính điểm tim mạch)</label>'
+ +'<label style="display:block;margin:6px 0"><input type="checkbox" id="sofa2_vaso1h"/> Vận mạch đã duy trì liên tục ≥ 1 giờ (bắt buộc xác nhận khi chọn mức vận mạch 2–4 điểm)</label>'
  +'<div class="actions"><button type="button" onclick="calcSOFA2()">🧮 Tính SOFA-2</button></div>'+resHTML("res-sofa2")+actions("calcSOFA2")
  +notebox("warn","<b>SOFA-2 vs SOFA cũ (Moreno et al., JAMA 2025; DOI 10.1001/jama.2025.20516):</b> AUROC tử vong tại viện 0,79 so với 0,77 của SOFA cũ. Dùng song song để so sánh; không dùng SOFA-2 thay hẳn SOFA cũ cho tới khi phác đồ bệnh viện cập nhật.")
  +notebox("info","SpO₂/FiO₂ ≥ 357 tương đương PaO₂/FiO₂ ≥ 400 (ngưỡng chuyển đổi theo SOFA-2).")
@@ -3063,7 +3084,7 @@ window.addEventListener('load',function(){try{calcGCS();calcRASS();calcNEWS2();}
 /* ============ Calculators ============ */
 var SHARED={crcl:null,egfr:null,child:null,meld:null};
 function fio2Val(v){if(v==null)return null;return v>1.5?v/100:v;}
-function calcSOFA(){var ids=["sofa_resp","sofa_coag","sofa_liver","sofa_cardio","sofa_cns","sofa_renal"];var s=ids.reduce(function(a,id){return a+parseInt($(id).value)},0);var cardioV=parseInt($("sofa_cardio").value);var vaso1h=$("sofa_vaso1h");var lv=s<=6?0:s<=9?1:s<=12?2:3;var txt=s<=6?"Nguy cơ tử vong ICU thấp (ước tính <10%).":s<=9?"Nguy cơ tử vong trung bình (~15–20%).":s<=12?"Nguy cơ tử vong cao (~40–50%).":s<=14?"Nguy cơ tử vong rất cao (~50–60%).":"Nguy cơ tử vong rất cao (>80%).";if(cardioV>=2&&(!vaso1h||!vaso1h.checked))txt+=" ⚠️ Vận mạch chưa đủ 1 giờ: điểm tim mạch có thể chưa đủ điều kiện — đây là nguồn sai số từng làm SOFA tụt 14→11.";if(s>=2)txt+=" Nếu SOFA tăng ≥ 2 điểm so với nền và do nhiễm trùng → đạt tiêu chuẩn sepsis (Sepsis-3).";setRes("res-sofa","SOFA = "+s+" / 24",txt,lv);}
+function calcSOFA(){var ids=["sofa_resp","sofa_coag","sofa_liver","sofa_cardio","sofa_cns","sofa_renal"];var s=ids.reduce(function(a,id){return a+parseInt($(id).value)},0);var cardioV=parseInt($("sofa_cardio").value);var vaso1h=$("sofa_vaso1h");var tmp=cardioV>=2&&(!vaso1h||!vaso1h.checked);if(tmp)s=s-cardioV+1;var lv=s<=6?0:s<=9?1:s<=12?2:3;var txt=s<=6?"Nguy cơ tử vong ICU thấp (ước tính <10%).":s<=9?"Nguy cơ tử vong trung bình (~15–20%).":s<=12?"Nguy cơ tử vong cao (~40–50%).":s<=14?"Nguy cơ tử vong rất cao (~50–60%).":"Nguy cơ tử vong rất cao (>80%).";if(tmp)txt+=" ⚠️ <b>Chưa xác nhận vận mạch ≥ 1 giờ:</b> điểm tim mạch đang tính TẠM = 1 (MAP &lt; 70) thay vì "+cardioV+". Tick ô xác nhận khi vận mạch đã chạy đủ 1 giờ để tính đủ điểm.";if(s>=2)txt+=" Nếu SOFA tăng ≥ 2 điểm so với nền và do nhiễm trùng → đạt tiêu chuẩn sepsis (Sepsis-3).";setRes("res-sofa","SOFA = "+s+" / 24"+(tmp?" (tạm)":""),txt,lv);}
 function calcQSOFA(){var s=checkCount("qf",3);setRes("res-qsofa","qSOFA = "+s+" / 3",s>=2?"⚠️ qSOFA ≥ 2: nguy cơ kết cục xấu cao — đánh giá SOFA đầy đủ, lactate, cấy máu và kháng sinh sớm.":"qSOFA < 2: nguy cơ thấp hơn, nhưng không loại trừ nhiễm trùng huyết — tiếp tục theo dõi lâm sàng.",s>=2?3:0);}
 function calcNEWS2(){var sc2=$("nw_scale").value==="2";$("nw_spo2_w1").style.display=sc2?"none":"";$("nw_spo2_w2").style.display=sc2?"":"none";var ids=["nw_rr",sc2?"nw_spo2b":"nw_spo2","nw_o2","nw_sbp","nw_hr","nw_temp","nw_avpu"];var s=ids.reduce(function(a,id){return a+parseInt($(id).value)},0);var any3=ids.some(function(id){return parseInt($(id).value)===3});var lv=s>=7?3:s>=5?2:any3?2:(s>=1?1:0);var txt=s>=7?"Mức CAO (≥ 7): phản ứng cấp cứu — đội hồi sức / ICU đánh giá ngay, theo dõi liên tục.":s>=5?"Mức TRUNG BÌNH (5–6): bác sĩ đánh giá khẩn, theo dõi tối thiểu mỗi giờ.":any3?"Mức THẤP–TRUNG BÌNH: có 1 thông số 3 điểm — báo bác sĩ đánh giá khẩn, theo dõi tối thiểu mỗi giờ.":s>=1?"Mức THẤP (1–4): điều dưỡng đánh giá, theo dõi tối thiểu mỗi 4–6 giờ.":"NEWS2 = 0: theo dõi tối thiểu mỗi 12 giờ.";if(sc2)txt+=" Đang dùng thang SpO₂ 2 — chỉ đúng khi đã xác định suy hô hấp tăng CO₂.";setRes("res-news2","NEWS2 = "+s,txt,lv);}
 function calcGCS(){var e=parseInt($("gcs_e").value),m=parseInt($("gcs_m").value);if($("gcs_v").value==="T"){setRes("res-gcs","GCS = E"+e+" VT M"+m,"Đặt nội khí quản: báo cáo từng thành phần, không cộng thành một tổng 3–15. Đáp ứng vận động (M"+m+") là thành phần có giá trị tiên lượng nhất"+(m<=4?" — M ≤ 4 gợi ý tổn thương thần kinh nặng nếu không do an thần.":".")+" Nếu cần điểm cho SOFA/APACHE, dùng GCS ước tính trước an thần.",m<=4?3:m===5?1:0);return;}var v=parseInt($("gcs_v").value);var s=e+v+m;var lv=s>=13?0:s>=9?1:3;setRes("res-gcs","GCS = "+s+" (E"+e+" V"+v+" M"+m+")",s>=13?"Mức nhẹ (13–15).":s>=9?"Mức trung bình (9–12) — theo dõi tri giác sát, tìm nguyên nhân.":"Mức nặng (3–8) — hôn mê; bảo vệ đường thở, cân nhắc đặt nội khí quản và hồi sức thần kinh.",lv);}
@@ -3219,7 +3240,7 @@ function calcNFS(){var age=num("nf_age"),bmi=num("nf_bmi"),ast=num("nf_ast"),alt
 function calcBarthel(){var s=["ba_eat","ba_bath","ba_groom","ba_dress","ba_bowel","ba_bladder","ba_toilet","ba_transfer","ba_walk","ba_stairs"].reduce(function(a,id){return a+parseInt($(id).value)},0);setRes("res-barthel","Barthel = "+s+" / 100",s<20?"PHỤ THUỘC HOÀN TOÀN (< 20) — cần chăm sóc toàn diện, lập kế hoạch chăm sóc dài hạn.":s<=60?"PHỤ THUỘC NẶNG (20–60) — cần hỗ trợ nhiều trong sinh hoạt hằng ngày; phục hồi chức năng tích cực.":s<=90?"PHỤ THUỘC VỪA (61–90) — cần hỗ trợ một phần; tập phục hồi chức năng, dụng cụ hỗ trợ.":s<100?"PHỤ THUỘC NHẸ (91–99) — gần như độc lập; hướng dẫn và theo dõi.":"ĐỘC LẬP (100) — tự chăm sóc hoàn toàn.",s<20?3:s<=60?2:s<=90?1:0);}
 function calcBraden(){var s=["br_sens","br_moist","br_act","br_mob","br_nutr","br_fric"].reduce(function(a,id){return a+parseInt($(id).value)},0);setRes("res-braden","Braden = "+s+" / 23",s<=9?"NGUY CƠ RẤT CAO (≤ 9) — dự phòng tích cực: xoay trở mỗi 2 giờ, nệm giảm áp, chăm sóc da, tối ưu dinh dưỡng.":s<=12?"NGUY CƠ CAO (10–12) — xoay trở mỗi 2 giờ, nệm giảm áp, theo dõi da hằng ngày.":s<=14?"NGUY CƠ VỪA (13–14) — xoay trở định kỳ, nệm hỗ trợ, chăm sóc da.":s<=18?"NGUY CƠ NHẸ (15–18) — xoay trở và theo dõi da định kỳ.":"KHÔNG NGUY CƠ (19–23) — theo dõi định kỳ khi nhập viện.",s<=9?3:s<=12?2:s<=14?1:0);}
 function calc4AT(){var s=["fa_alert","fa_amt","fa_att","fa_change"].reduce(function(a,id){return a+parseInt($(id).value)},0);setRes("res-fourat","4AT = "+s+" / 12",s===0?"ÍT KHẢ NĂNG MÊ SẢNG / SUY GIẢM NHẬN THỨC (0) — theo dõi thường quy.":s<=3?"CÓ THỂ SUY GIẢM NHẬN THỨC (1–3) — đánh giá nhận thức thêm (MMSE/MoCA), tìm nguyên nhân.":"MÊ SẢNG (≥ 4) — tìm và xử trí nguyên nhân (nhiễm trùng, thuốc, đau, bí tiểu, thiếu oxy); đánh giá CAM-ICU khi ở ICU.",s===0?0:s<=3?1:3);}
-function calcSOFA2(){var ids=["sofa2_resp","sofa2_plate","sofa2_liver","sofa2_cardio","sofa2_kidney","sofa2_cns"];var s=ids.reduce(function(a,id){return a+parseInt($(id).value);},0);var rrt=$("sofa2_rrt");if(rrt&&rrt.checked)s=s-parseInt($("sofa2_kidney").value)+4;var del=$("sofa2_delirium");if(del&&del.checked&&parseInt($("sofa2_cns").value)===0)s+=1;var cardio=parseInt($("sofa2_cardio").value);var v1h=$("sofa2_vaso1h");var lv=s<=6?0:s<=9?1:s<=12?2:3;var txt=s<=6?"Nguy cơ tử vong ICU thấp (ước tính <10%).":s<=9?"Nguy cơ tử vong trung bình (ước tính 10–30%).":s<=12?"Nguy cơ tử vong cao (ước tính 30–50%).":"Nguy cơ tử vong rất cao (ước tính >50%).";if(cardio>=2&&(!v1h||!v1h.checked))txt+=" ⚠️ Vận mạch chưa đủ 1 giờ: điểm tim mạch có thể chưa đủ điều kiện.";txt+=" SOFA-2 AUROC 0,79 vs SOFA cũ 0,77 (JAMA 2025). So sánh với SOFA cũ để đánh giá xu hướng.";setRes("res-sofa2","SOFA-2: "+s+" / 24",txt,lv);}
+function calcSOFA2(){var ids=["sofa2_resp","sofa2_plate","sofa2_liver","sofa2_cardio","sofa2_kidney","sofa2_cns"];var s=ids.reduce(function(a,id){return a+parseInt($(id).value);},0);var rrt=$("sofa2_rrt");if(rrt&&rrt.checked)s=s-parseInt($("sofa2_kidney").value)+4;var del=$("sofa2_delirium");if(del&&del.checked&&parseInt($("sofa2_cns").value)===0)s+=1;var cardio=parseInt($("sofa2_cardio").value);var v1h=$("sofa2_vaso1h");var tmp=cardio>=2&&(!v1h||!v1h.checked);if(tmp)s=s-cardio+1;var lv=s<=6?0:s<=9?1:s<=12?2:3;var txt=s<=6?"Nguy cơ tử vong ICU thấp (ước tính <10%).":s<=9?"Nguy cơ tử vong trung bình (ước tính 10–30%).":s<=12?"Nguy cơ tử vong cao (ước tính 30–50%).":"Nguy cơ tử vong rất cao (ước tính >50%).";if(tmp)txt+=" ⚠️ <b>Chưa xác nhận vận mạch ≥ 1 giờ:</b> điểm tim mạch đang tính TẠM = 1 (MAP &lt; 70) thay vì "+cardio+".";txt+=" SOFA-2 AUROC 0,79 vs SOFA cũ 0,77 (JAMA 2025). So sánh với SOFA cũ để đánh giá xu hướng.";setRes("res-sofa2","SOFA-2: "+s+" / 24"+(tmp?" (tạm)":""),txt,lv);}
 function calcMEWS(){var ids=["mews_sbp","mews_hr","mews_rr","mews_temp","mews_avpu"];var s=ids.reduce(function(a,id){return a+parseInt($(id).value);},0);var any3=ids.some(function(id){return parseInt($(id).value)===3;});var lv=s>=5||any3?3:s>=3?2:s>=1?1:0;var txt=s>=5?"MEWS ≥ 5 — nguy cơ cao: báo bác sĩ trực / hồi sức ngay, theo dõi mỗi 30–60 phút, đánh giá SOFA/NEWS2.":any3?"Có tiêu chí 3 điểm — nguy cơ cao: báo bác sĩ trực ngay dù tổng < 5.":s>=3?"MEWS 3–4 — nguy cơ trung bình: theo dõi mỗi 2 giờ, đánh giá lại.":"MEWS 0–2 — nguy cơ thấp: theo dõi mỗi 4–6 giờ.";setRes("res-mews","MEWS: "+s+" / 14",txt,lv);}
 function calcRumack(){var h=num("rum_h"),lvl=num("rum_lvl");if(h==null||lvl==null){setRes("res-rumack","—","Nhập giờ sau uống và nồng độ paracetamol.",null);return;}var unc=$("rum_unc");if(h<4){setRes("res-rumack","Chưa vẽ được nomogram","< 4 giờ sau uống: nồng độ chưa phản ánh đỉnh — lấy mẫu lại lúc 4 giờ. Nếu liều uống ≥ 150 mg/kg hoặc không rõ liều, cho NAC sớm, đừng chờ kết quả.",2);return;}if(h>24){setRes("res-rumack","Ngoài 24 giờ","Nomogram chỉ áp dụng 4–24 giờ. Quyết định theo lâm sàng + AST/ALT, INR, pH: có dấu hiệu suy gan → NAC ngay, hội chẩn chống độc/gan.",2);return;}var thr=150*Math.pow(0.5,(h-4)/4);var lv=lvl>thr?3:0;var txt=lvl>thr?"Nồng độ "+fmt(lvl,0)+" mg/L VƯỢT vạch điều trị ("+fmt(thr,0)+" mg/L lúc "+fmt(h,1)+" giờ) → <b>cho NAC ngay</b> (IV 21 giờ hoặc PO 72 giờ), theo dõi AST/ALT, INR, pH.":"Nồng độ "+fmt(lvl,0)+" mg/L dưới vạch điều trị ("+fmt(thr,0)+" mg/L lúc "+fmt(h,1)+" giờ) → nguy cơ độc gan thấp; vẫn theo dõi AST/ALT sau 24 giờ nếu liều uống lớn.";if(unc&&unc.checked)txt+=" ⚠️ Không rõ giờ uống / uống lặp lại: nomogram kém tin cậy — cho NAC khi nghi ngờ, hội chẩn chống độc.";setRes("res-rumack",lvl>thr?"⛔ TRÊN VẠCH — CHO NAC":"Dưới vạch điều trị",txt,lv);}
 function calcMELD3(){var b=num("meld3_bili"),inr=num("meld3_inr"),cr=num("meld3_cr"),alb=num("meld3_alb"),na=num("meld3_na");if(b==null||inr==null||cr==null||alb==null||na==null){setRes("res-meld3","—","Nhập đủ bilirubin, INR, creatinine, albumin và Na.",null);return;}var dial=$("meld3_dial");if(dial&&dial.checked)cr=4;var bb=Math.max(b,1),ii=Math.max(inr,1),cc=Math.min(Math.max(cr,1),4),aa=Math.min(alb,3.5),nn=Math.min(Math.max(na,125),137);var sex=segVal("meld3_sex")||"M";var m=(sex==="F"?1.33:0)+4.56*Math.log(bb)+0.82*(137-nn)-0.24*(137-nn)*Math.log(bb)+9.09*Math.log(ii)+11.14*Math.log(cc)+1.85*(3.5-aa)-1.83*(3.5-aa)*Math.log(cc)+6;m=Math.round(Math.max(m,6));var lv=m>=25?3:m>=20?2:m>=15?1:0;var txt=m>=25?"MELD 3.0 ≥ 25 — ưu tiên ghép gan cao, tử vong 3 tháng rất cao; hội chẩn gan mật/ghép gan.":m>=20?"MELD 3.0 20–24 — nguy cơ tử vong 3 tháng cao.":m>=15?"MELD 3.0 15–19 — nguy cơ trung bình; theo dõi sát, đánh giá ghép gan.":"MELD 3.0 < 15 — nguy cơ thấp; theo dõi định kỳ.";setRes("res-meld3","MELD 3.0: "+m,txt,lv);}
@@ -3281,7 +3302,7 @@ function buildAbxPanel(){
  '<div class="fgroup"><label for="abx_band_sel">Hoặc chọn khoảng CrCl / phương thức lọc</label><select id="abx_band_sel"><option value="b90">CrCl ≥ 90</option><option value="b60">CrCl 60–89</option><option value="b30">CrCl 30–59</option><option value="b15">CrCl 15–29</option><option value="blt">CrCl &lt; 15 (chưa lọc máu)</option><option value="hd">Lọc máu / CRRT</option></select></div></div>'+
  '<div class="frow"><div class="fgroup"><label for="abx_child">Chức năng gan</label><select id="abx_child"><option value="N" selected>Gan bình thường — không chỉnh liều theo gan</option><option value="A">Child–Pugh A (xơ gan, còn bù)</option><option value="B">Child–Pugh B (xơ gan)</option><option value="C">Child–Pugh C / suy gan nặng</option></select><p class="hint" id="abx_child_hint">Mặc định là gan bình thường: liều chỉ chỉnh theo thận và mức độ bệnh. Chỉ chọn Child–Pugh khi bệnh nhân có xơ gan.</p></div>'+
  '<div class="fgroup"><label for="abx_sev">Mức độ bệnh</label><select id="abx_sev"><option value="mild">Nhiễm trùng nhẹ – trung bình</option><option value="severe" selected>Nhiễm trùng nặng</option><option value="shock">Sốc nhiễm trùng / ICU</option></select></div></div>'+
- '<div class="frow">'+segHTML("abx_allergy","Dị ứng penicillin?",[["","— Chưa chọn —"],["none","Không dị ứng"],["pen","Có dị ứng penicillin"]])+segHTML("abx_mrsa","Nguy cơ MRSA?",[["","— Chưa chọn —"],["no","Thấp"],["yes","Cao"]])+segHTML("abx_esbl","Nguy cơ ESBL?",[["","— Chưa chọn —"],["no","Thấp"],["yes","Cao"]])+'</div>'
+ '<div class="frow">'+selHTML("abx_allergy","Dị ứng penicillin?",[["","— Chưa chọn —",true],["none","Không dị ứng"],["mild","Có — nhẹ (ban, ngứa, không phản vệ)"],["ana","Có — phản vệ / mày đay, phù mạch tức thì"],["scar","Có — SJS / TEN / DRESS (phản ứng da nặng)"]])+segHTML("abx_mrsa","Nguy cơ MRSA?",[["","— Chưa chọn —"],["no","Thấp"],["yes","Cao"]])+segHTML("abx_esbl","Nguy cơ ESBL?",[["","— Chưa chọn —"],["no","Thấp"],["yes","Cao"]])+'</div>'
  +'<div class="fgroup"><label for="abx_search">Tìm theo tên kháng sinh</label><input type="text" id="abx_search" placeholder="vd vanco, mero, pip… (không dấu cũng được)"/></div>'+
  '<div class="fgroup"><span class="flabel">Lọc theo hội chứng</span><div class="seg" id="abx_syn">'+synOpts+'</div></div>'+
  '<div class="notebox info" id="abx_ctx" style="margin:0"></div></div>'+
@@ -3295,7 +3316,7 @@ function buildAbxPanel(){
  $("abx_sev").addEventListener('change',function(){abxState.sev=this.value;renderAbx();});
  $("abx_search").addEventListener('input',function(){abxState.q=this.value.trim();renderAbx();});
  $("abx_syn").querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){$("abx_syn").querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');abxState.syn=b.dataset.syn;renderAbx();});});
- bindSeg("abx_allergy",function(){var v=segVal("abx_allergy");abxState.allergy=v?v:null;renderAbx();});
+ $("abx_allergy").addEventListener('change',function(){abxState.allergy=this.value?this.value:null;renderAbx();});
  bindSeg("abx_mrsa",function(){var v=segVal("abx_mrsa");abxState.mrsa=v?v:null;renderAbx();});
  bindSeg("abx_esbl",function(){var v=segVal("abx_esbl");abxState.esbl=v?v:null;renderAbx();});
 }
@@ -3315,20 +3336,99 @@ skin:{title:"Nhiễm trùng da – mô mềm",short:"Có mủ thì dẫn lưu l�
 men:{title:"Viêm màng não vi khuẩn",short:"Ceftriaxone liều màng não + Vancomycin. Trên 50 tuổi / suy giảm miễn dịch phải thêm Ampicillin cho Listeria. Không trì hoãn kháng sinh vì chờ CT / chọc dò.",when:"Sốt + cổ cứng / rối loạn tri giác / dấu màng não, nghi viêm màng não vi khuẩn cộng đồng hoặc sau phẫu thuật thần kinh. Cho kháng sinh ngay sau cấy máu nếu không chọc dò được ngay.",regimen:["<strong>Người lớn &lt;50 tuổi, miễn dịch bình thường:</strong> Ceftriaxone 2 g IV mỗi 12h (liều màng não) + Vancomycin theo AUC. Cộng <strong>Dexamethasone</strong> 0,15 mg/kg mỗi 6h — liều đầu cùng hoặc ngay trước liều kháng sinh đầu — khi nghi phế cầu, theo phác đồ bệnh viện.","<strong>≥50 tuổi, có thai, suy giảm miễn dịch, nghiện rượu:</strong> phác đồ trên <strong>+ Ampicillin 2 g IV mỗi 4h</strong> (hoặc Penicillin G liều cao) để bao phủ <em>Listeria monocytogenes</em>.","<strong>Sau mổ thần kinh / có shunt / chấn thương sọ hở:</strong> Vancomycin + Cefepime <em>hoặc</em> Meropenem (bao phủ Pseudomonas và Gram âm bệnh viện) — hội chẩn ngoại thần kinh + nhiễm khuẩn."],add:["<strong>Dị ứng penicillin / cephalosporin nặng:</strong> hội chẩn nhiễm khuẩn ngay — lựa chọn thay thế (Meropenem, TMP–SMX cho Listeria, Vancomycin) phụ thuộc tiền sử dị ứng chéo, không tự ý dùng liều thấp cephalosporin.","Không dùng Ceftriaxone liều thường (1 g/ngày) cho màng não — phải dùng liều màng não và khoảng cách 12 giờ.","Acyclovir kinh nghiệm chỉ cộng khi nghi viêm não Herpes kèm theo (rối loạn hành vi, co giật thùy thái dương, dịch não tủy lympho ưu thế)."],duration:"Thường <strong>7 ngày</strong> với màng não cầu, <strong>10–14 ngày</strong> với phế cầu, <strong>21 ngày</strong> với Listeria / Gram âm — chốt theo tác nhân và đáp ứng. Dexamethasone thường 4 ngày nếu phế cầu được xác nhận.",source:"Cấy máu trước kháng sinh; chọc dò thắt lưng khi an toàn (không trì hoãn kháng sinh >1 giờ vì chờ hình ảnh). Dịch não tủy: tế bào, protein, glucose, Gram, cấy, PCR đa tác nhân nếu có.",src:"IDSA Bacterial Meningitis Guideline; ESCMID Meningitis Guideline."},
 sepsis:{title:"Nhiễm trùng huyết chưa rõ ổ",short:"Trong sốc: Pip–tazo + Vancomycin là khởi đầu thường dùng khi chưa rõ ổ; nâng lên Meropenem khi nguy cơ ESBL cao. Tìm ổ song song, không chờ tìm xong mới cho kháng sinh.",when:"Sepsis / sốc nhiễm trùng chưa xác định được ổ sau khám và hình ảnh ban đầu. Mục tiêu (SSC 2021): sốc hoặc khả năng sepsis cao → kháng sinh trong <strong>1 giờ</strong>, sau khi lấy cấy máu; nghi sepsis chưa sốc → đánh giá nhanh, nếu vẫn nghi nhiễm trùng thì cho kháng sinh trong <strong>3 giờ</strong>.",regimen:["<strong>Khởi đầu thường dùng (chưa rõ ổ, có sốc):</strong> Piperacillin–tazobactam truyền kéo dài + Vancomycin (liều nạp đầy đủ). Phác đồ này bao phủ Pseudomonas, đa số Gram âm, kỵ khí và MRSA trong lúc chờ định hướng ổ.","<strong>Nâng lên Meropenem thay Pip–tazo</strong> khi: tiền sử ESBL, vừa dùng pip–tazo / cephalosporin phổ rộng gần đây, sốc rất nặng, nằm ICU kéo dài hoặc tỉ lệ ESBL tại khoa cao.","<strong>Cộng Amikacin liều duy nhất</strong> khi sốc nặng và nguy cơ Gram âm kháng thuốc cao — sau đó dừng / xuống thang theo cấy, không kéo dài aminoglycoside thường quy."],add:["Định hướng lại ngay khi có gợi ý ổ: phổi → theo HAP/CAP; bụng → đảm bảo kỵ khí + kiểm soát nguồn; tiết niệu → xem ESBL; da / catheter → ưu tiên MRSA; màng não → chuyển phác đồ liều màng não.","<strong>Cân nhắc kháng nấm kinh nghiệm</strong> chỉ khi nguy cơ Candida xâm lấn cao (CVC lâu ngày, TPN, phẫu thuật bụng gần đây, Candida cư trú nhiều vị trí + sốc không giải thích).","Ngừng Vancomycin sau 48h nếu không có bằng chứng MRSA và PCR mũi âm tính (khi ổ là phổi) — tránh kéo dài thuốc MRSA không cần thiết gây độc thận."],duration:"Đánh giá lại bắt buộc ở <strong>48–72 giờ</strong>: xuống thang theo vi sinh, ngừng thuốc trùng phổ, chuyển uống khi ổn. Tổng thời gian thường <strong>7 ngày</strong> cho nhiễm trùng huyết đáp ứng tốt sau kiểm soát nguồn, trừ các ổ cần dài hơn (màng não, nội tâm mạc, xương khớp, áp xe chưa dẫn lưu).",source:"Bundle giờ đầu: lactate (đo lại nếu &gt; 2), cấy máu 2 bộ, kháng sinh phổ rộng, dịch tinh thể 30 mL/kg trong 3 giờ đầu khi tụt HA / lactate ≥ 4 (ưu tiên dịch cân bằng), norepinephrine khi MAP &lt; 65 sau dịch — có thể bắt đầu qua đường truyền ngoại vi. Sốc cần norepinephrine ≥ 0,25 µg/kg/phút: thêm Hydrocortisone 200 mg/ngày. Tìm ổ bằng khám, hình ảnh, rà soát catheter và hội chẩn ngoại khi nghi ổ bụng / mô mềm hoại tử.",src:"Surviving Sepsis Campaign 2021 — Hour-1 bundle."}
 };
+/* ============ v2.0.2: khóa dị ứng / MRSA / ESBL áp dụng thật vào phác đồ ============ */
+var ABX_ADJ={
+cap:{pen:"Ceftriaxone 1–2 g IV mỗi 24h + Azithromycin 500 mg mỗi 24h (bỏ ampicillin–sulbactam / amoxicillin–clavulanate). Cần phủ Pseudomonas: Cefepime 2 g mỗi 8h hoặc Meropenem 1 g mỗi 8h.",
+ scar:"Levofloxacin 750 mg mỗi 24h đơn trị (loại trừ lao trước). Cần phủ Pseudomonas: Aztreonam 2 g mỗi 8h + Levofloxacin.",
+ esbl:"Thay Ceftriaxone bằng Ertapenem 1 g mỗi 24h (không cần phủ Pseudomonas) hoặc Meropenem 1 g mỗi 8h (ICU / cần phủ Pseudomonas), giữ Azithromycin.",
+ mrsa:"Cộng Vancomycin (nạp 20–35 mg/kg, duy trì theo AUC 400–600) hoặc Linezolid 600 mg mỗi 12h. PCR MRSA mũi âm tính → ngừng thuốc MRSA sau 48 giờ.",
+ mrsaNo:"không cộng thuốc MRSA."},
+hap:{pen:"Cefepime 2 g mỗi 8h truyền kéo dài hoặc Meropenem 1–2 g mỗi 8h làm beta-lactam lõi (bỏ piperacillin–tazobactam).",
+ scar:"Aztreonam 2 g mỗi 8h + Amikacin 15–20 mg/kg mỗi 24h hoặc Levofloxacin 750 mg mỗi 24h. Hội chẩn dị ứng – nhiễm khuẩn.",
+ esbl:"Meropenem 1–2 g mỗi 8h truyền kéo dài 3 giờ là beta-lactam lõi. Không dùng piperacillin–tazobactam, cefepime, ceftriaxone (MERINO; IDSA AMR Guidance 2024).",
+ mrsa:"Cộng Vancomycin theo AUC hoặc Linezolid 600 mg mỗi 12h (ưu tiên linezolid khi suy thận / đang dùng thuốc độc thận).",
+ mrsaNo:"không cộng thuốc MRSA nếu tỉ lệ MRSA tại khoa < 10–20%."},
+uti:{pen:"Ceftriaxone 1–2 g IV mỗi 24h; sốc: Cefepime 2 g mỗi 8h hoặc Meropenem 1 g mỗi 8h (bỏ piperacillin–tazobactam).",
+ scar:"Amikacin 15–20 mg/kg mỗi 24h hoặc Ciprofloxacin / Levofloxacin nếu tỉ lệ nhạy tại chỗ cho phép. Viêm bàng quang đơn thuần: Fosfomycin hoặc Nitrofurantoin.",
+ esbl:"Sốc: Meropenem 1 g mỗi 8h; không sốc: Ertapenem 1 g mỗi 24h. Amikacin là lựa chọn thay thế cho viêm thận – bể thận. Không dùng ceftriaxone, cefepime, piperacillin–tazobactam.",
+ mrsa:"MRSA hiếm gây nhiễm trùng tiểu: chỉ cộng Vancomycin khi cấy nước tiểu / máu trước đó có MRSA."},
+abd:{pen:"Ceftriaxone + Metronidazole 500 mg mỗi 8h; nặng / bệnh viện / sau mổ: Cefepime 2 g mỗi 8h + Metronidazole, hoặc Meropenem (bỏ piperacillin–tazobactam, ampicillin).",
+ scar:"Nặng / bệnh viện: Aztreonam 2 g mỗi 8h + Metronidazole 500 mg mỗi 8h + Vancomycin (phủ Enterococcus). Nhẹ: Ciprofloxacin / Levofloxacin + Metronidazole.",
+ esbl:"Meropenem 1 g mỗi 8h, hoặc Ertapenem 1 g mỗi 24h khi cộng đồng và không sốc; không cần thêm Metronidazole. Không dùng ceftriaxone, cefepime, piperacillin–tazobactam.",
+ mrsa:"Cộng Vancomycin khi cấy trước đó có MRSA / E. faecium hoặc nhiễm trùng sau mổ nặng."},
+skin:{pen:"Viêm mô tế bào cần IV: Cefazolin 2 g mỗi 8h. Uống: dị ứng nhẹ dùng được Cephalexin; phản vệ thì tránh cephalexin (cùng chuỗi bên với amoxicillin) — dùng Clindamycin 300–450 mg mỗi 6–8h. Bàn chân đái tháo đường / hoại tử: Cefepime + Metronidazole hoặc Meropenem, + Vancomycin + Clindamycin.",
+ scar:"Vancomycin hoặc Linezolid IV; nhẹ đường uống: Clindamycin, Doxycycline hoặc TMP–SMX. Bàn chân đái tháo đường / hoại tử: Vancomycin + Levofloxacin (hoặc Aztreonam) + Metronidazole hoặc Clindamycin.",
+ esbl:"Bàn chân đái tháo đường / viêm cân mạc hoại tử: dùng Meropenem thay piperacillin–tazobactam / cefepime.",
+ mrsa:"Cộng Vancomycin hoặc Linezolid ngay, không chờ 48 giờ. Áp xe sau dẫn lưu: TMP–SMX hoặc Doxycycline."},
+men:{pen:"Ceftriaxone 2 g mỗi 12h + Vancomycin vẫn dùng được. Cần phủ Listeria (≥ 50 tuổi, có thai, suy giảm miễn dịch): thay Ampicillin bằng TMP–SMX 10–20 mg/kg/ngày (theo TMP) chia mỗi 6–12h.",
+ scar:"Vancomycin + Moxifloxacin 400 mg mỗi 24h (hoặc Aztreonam 2 g mỗi 6–8h cho Gram âm) + TMP–SMX khi cần phủ Listeria. Hội chẩn nhiễm khuẩn ngay.",
+ esbl:"Sau mổ thần kinh / nghi Gram âm ESBL: Meropenem 2 g mỗi 8h + Vancomycin thay cefepime.",
+ mrsa:"Vancomycin đã có trong phác đồ — giữ liều theo AUC.",
+ mrsaNo:"Vancomycin trong viêm màng não cộng đồng là để phủ phế cầu kháng ceftriaxone — vẫn giữ dù nguy cơ MRSA thấp."},
+sepsis:{pen:"Cefepime 2 g mỗi 8h (+ Metronidazole 500 mg mỗi 8h nếu nghi ổ bụng / kỵ khí) hoặc Meropenem 1 g mỗi 8h, thay piperacillin–tazobactam.",
+ scar:"Aztreonam 2 g mỗi 8h + Vancomycin + Amikacin 15–20 mg/kg liều duy nhất (+ Metronidazole nếu nghi ổ bụng). Hội chẩn nhiễm khuẩn – dị ứng.",
+ esbl:"Meropenem 1 g mỗi 8h truyền kéo dài thay piperacillin–tazobactam.",
+ mrsa:"Giữ Vancomycin liều nạp 20–35 mg/kg (hoặc Linezolid 600 mg mỗi 12h).",
+ mrsaNo:"không cần Vancomycin — SSC 2021 chỉ khuyến cáo phủ MRSA khi nguy cơ MRSA cao."}
+};
+var ABX_PEN_RX=/(Piperacillin[–-]tazobactam|Pip[–-]tazo|Ampicillin[–-]sulbactam|Amoxicillin[–-]clavulanate|Penicillin G|Ampicillin)/gi;
+var ABX_SIDE_RX=/(Cephalexin|Cefaclor|Cefadroxil)/gi;
+var ABX_BL_RX=/(Piperacillin[–-]tazobactam|Pip[–-]tazo|Ampicillin[–-]sulbactam|Amoxicillin[–-]clavulanate|Penicillin G|Ampicillin|Ceftazidime[–-]avibactam|Ceftazidime|Ceftriaxone|Cefepime|Cefazolin|Cephalexin|Cefaclor|Cefadroxil|Meropenem|Imipenem|Ertapenem)/gi;
+var ABX_ESBL_RX=/(Piperacillin[–-]tazobactam|Pip[–-]tazo|Ampicillin[–-]sulbactam|Amoxicillin[–-]clavulanate|Ceftriaxone|Cefepime)/gi;
+function abxBanned(){var r=[],al=abxState.allergy;
+ if(al==="mild")r.push([ABX_PEN_RX,"dị ứng penicillin"]);
+ if(al==="ana"){r.push([ABX_PEN_RX,"dị ứng penicillin"]);r.push([ABX_SIDE_RX,"cùng chuỗi bên amoxicillin"]);}
+ if(al==="scar")r.push([ABX_BL_RX,"SJS/TEN/DRESS — tránh beta-lactam"]);
+ if(abxState.esbl==="yes")r.push([ABX_ESBL_RX,"ESBL"]);
+ return r;}
+function abxStrike(html,syn){
+ var rules=abxBanned().slice();
+ if(syn==="sepsis"&&abxState.mrsa==="no")rules.push([/(Vancomycin)/g,"MRSA thấp"]);
+ if(!rules.length)return html;
+ var parts=html.split(/(<[^>]+>)/);
+ return parts.map(function(p){if(!p||p.charAt(0)==="<")return p;
+   var marks=[];rules.forEach(function(rl){
+     if(rl[1]==="ESBL"&&/CRAB|Acinetobacter/.test(html))return;
+     rl[0].lastIndex=0;var m;while((m=rl[0].exec(p))){marks.push([m.index,m.index+m[0].length,rl[1]]);}});
+   if(!marks.length)return p;
+   marks.sort(function(a,b){return a[0]-b[0]||b[1]-a[1]});
+   var keep=[];
+   marks.forEach(function(k){var l=keep[keep.length-1];
+     if(l&&k[0]<l.e){if(l.why.indexOf(k[2])<0)l.why.push(k[2]);return;}
+     keep.push({s:k[0],e:k[1],why:[k[2]]});});
+   var out="",pos=0;
+   keep.forEach(function(w){out+=p.slice(pos,w.s)+'<s class="abx-x">'+p.slice(w.s,w.e)+'</s><span class="abx-xt">⛔ '+w.why.join(", ")+'</span>';pos=w.e;});
+   return out+p.slice(pos);
+ }).join("");}
+function abxAdjHTML(syn){
+ var a=ABX_ADJ[syn];if(!a)return "";var al=abxState.allergy,es=abxState.esbl==="yes",mr=abxState.mrsa,L=[];
+ if(es&&al==="scar")L.push('<li class="warnline"><b>ESBL + SJS/TEN/DRESS:</b> không dùng được carbapenem. Hội chẩn nhiễm khuẩn – dị ứng ngay; tạm thời Amikacin 15–20 mg/kg mỗi 24h ± Fluoroquinolone (nếu tỉ lệ nhạy cho phép); Tigecycline chỉ cho ổ bụng / da – mô mềm, không dùng đơn độc cho nhiễm khuẩn huyết.</li>');
+ else if(es)L.push('<li><b>Nguy cơ ESBL cao:</b> '+a.esbl+'</li>');
+ if(al==="mild"||al==="ana")L.push('<li><b>Dị ứng penicillin ('+(al==="ana"?"phản vệ / tức thì":"nhẹ")+'):</b> '+(es?"Carbapenem trong phác đồ ESBL ở trên vẫn dùng được (phản ứng chéo với penicillin &lt; 1%) — không dùng piperacillin–tazobactam, ampicillin–sulbactam, amoxicillin–clavulanate.":a.pen)+' '+(al==="ana"?(es?'Theo dõi sát liều đầu carbapenem.':'Cephalosporin khác chuỗi bên (ceftriaxone, cefepime, cefazolin), carbapenem và aztreonam dùng được — theo dõi sát liều đầu; tránh cephalexin, cefaclor, cefadroxil.'):(es?'':'Cephalosporin và carbapenem dùng được (phản ứng chéo &lt; 1–2%).'))+'</li>');
+ if(al==="scar"&&!es)L.push('<li class="warnline"><b>Tiền sử SJS / TEN / DRESS với penicillin:</b> '+a.scar+' Tránh mọi beta-lactam; aztreonam chỉ dùng sau khi hội chẩn dị ứng.</li>');
+ if(mr==="yes")L.push('<li><b>Nguy cơ MRSA cao:</b> '+a.mrsa+'</li>');
+ else if(mr==="no"&&a.mrsaNo)L.push('<li><b>Nguy cơ MRSA thấp:</b> '+a.mrsaNo+'</li>');
+ if(!L.length)return '<div class="abx-adj"><h4>✅ Hồ sơ: không dị ứng, MRSA và ESBL nguy cơ thấp</h4><ul><li>Dùng phác đồ gốc bên dưới; vẫn đối chiếu kháng sinh đồ tại khoa.</li></ul></div>';
+ return '<div class="abx-adj"><h4>✅ Phác đồ đã điều chỉnh cho bệnh nhân này</h4><ul>'+L.join("")+'</ul><p class="hint" style="margin:8px 0 0">Thuốc bị gạch ngang trong phác đồ gốc bên dưới là thuốc không dùng được theo hồ sơ đã chọn. Nguồn dị ứng: AAAAI/ACAAI Drug Allergy Practice Parameter 2022.</p></div>';}
+function abxCardBan(a){var nm=a.n,g=a.g,al=abxState.allergy;
+ var isPen=/Penicillin|Aminopenicillin/.test(g),isCeph=/Cephalosporin/.test(g),isCarb=/Carbapenem/.test(g);
+ if(al==="scar"&&(isPen||isCeph||isCarb))return "SJS/TEN/DRESS — tránh beta-lactam";
+ if((al==="mild"||al==="ana")&&isPen)return "Dị ứng penicillin";
+ if(abxState.esbl==="yes"&&/Ceftriaxone|Cefepime|Piperacillin|Ampicillin–Sulbactam|Amoxicillin–Clavulanate/.test(nm))return "Không phủ ESBL chắc chắn";
+ return "";}
 function renderEmpiric(){
  var box=$("abx_emp");if(!box)return;
  var syn=abxState.syn;
- if(abxState.allergy==null||abxState.mrsa==null){box.innerHTML='<div class="lockbox"><h4>⛔ ĐÃ KHÓA — Chưa đủ thông tin an toàn</h4><p>Chọn <b>Dị ứng penicillin?</b> và <b>Nguy cơ MRSA?</b> ở phía trên trước khi xem phác đồ kháng sinh kinh nghiệm. (Lỗi đã soi ở v0.5.0: kháng sinh kinh nghiệm không hỏi dị ứng/MRSA.)</p></div>';return;}
+ if(abxState.allergy==null||abxState.mrsa==null||abxState.esbl==null){box.innerHTML='<div class="lockbox"><h4>⛔ ĐÃ KHÓA — Chưa đủ thông tin an toàn</h4><p>Chọn <b>Dị ứng penicillin?</b>, <b>Nguy cơ MRSA?</b> và <b>Nguy cơ ESBL?</b> ở phía trên trước khi xem phác đồ kháng sinh kinh nghiệm — phác đồ sẽ tự bỏ thuốc không dùng được và thêm thuốc cần thiết theo 3 câu trả lời này.</p></div>';return;}
  if(syn==="all"){
    box.innerHTML='<div class="emp-grid">'+SYNDROMES.filter(function(s){return s[0]!=="all"}).map(function(s){var e=EMP[s[0]];return '<button type="button" class="emp-card" data-emp="'+s[0]+'"><h4>'+e.title+'</h4><p>'+e.short+'</p><span class="go">Xem phác đồ kinh nghiệm →</span></button>'}).join("")+'</div><p class="hint" style="margin-top:10px">Khuyến cáo này là điểm khởi đầu khi chưa có vi sinh — luôn điều chỉnh theo kháng thuốc tại bệnh viện, tiền sử cấy / kháng sinh 90 ngày trước, dị ứng và ổ nhiễm thực tế. Không dùng thay phác đồ kháng sinh của bệnh viện.</p>';
    box.querySelectorAll('[data-emp]').forEach(function(b){b.addEventListener('click',function(){abxState.syn=b.dataset.emp;var seg=$("abx_syn");if(seg){seg.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x.dataset.syn===abxState.syn)});}renderAbx();var w=$("abx_emp_wrap");if(w)w.scrollIntoView({behavior:"smooth",block:"start"});});});
    return;
  }
  var e=EMP[syn];if(!e){box.innerHTML="";return;}
- var esblBan=(syn==="hap"&&abxState.esbl==="yes")?'<div class="lockbox"><h4>⛔ KHÓA ESBL — MERINO</h4><p>Nguy cơ ESBL cao: beta-lactam lõi phải là <b>meropenem</b>. Piperacillin–tazobactam và cefepime KHÔNG phủ ESBL chắc chắn (thử nghiệm MERINO) — không chọn 2 thuốc này.</p></div>':'';
- box.innerHTML=esblBan+'<div class="emp-detail"><h4>'+e.title+' — phác đồ theo kinh nghiệm</h4><p class="sub">'+e.when+'</p>'+
- '<div class="emp-cols"><div class="emp-box emp-reg"><h5>Phác đồ ưu tiên</h5><ul>'+e.regimen.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul></div>'+
- '<div class="emp-box emp-warn"><h5>Khi nào cộng thêm / đổi thuốc</h5><ul>'+e.add.map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul></div></div>'+
+ box.innerHTML=abxAdjHTML(syn)+'<div class="emp-detail"><h4>'+e.title+' — phác đồ theo kinh nghiệm</h4><p class="sub">'+e.when+'</p>'+
+ '<div class="emp-cols"><div class="emp-box emp-reg"><h5>Phác đồ gốc'+(abxBanned().length?' — thuốc gạch ngang không dùng được cho bệnh nhân này':'')+'</h5><ul>'+e.regimen.map(function(x){return '<li>'+abxStrike(x,syn)+'</li>'}).join("")+'</ul></div>'+
+ '<div class="emp-box emp-warn"><h5>Khi nào cộng thêm / đổi thuốc</h5><ul>'+e.add.map(function(x){return '<li>'+abxStrike(x,syn)+'</li>'}).join("")+'</ul></div></div>'+
  '<div class="emp-foot"><span><strong>⏱ Thời gian & xuống thang:</strong> '+e.duration+'</span><span><strong>🔎 Xét nghiệm & kiểm soát nguồn:</strong> '+e.source+'</span><span style="color:var(--muted)">Nguồn: '+e.src+' Liều từng thuốc: tra bảng bên dưới theo CrCl <strong>'+bandLabel(abxState.band)+'</strong> • Gan: <strong>'+(abxState.child==="N"?"bình thường — không chỉnh liều theo gan":("Child–Pugh "+abxState.child))+'</strong> đang chọn ở trên.</span></div></div>';
 }
 function renderAbx(){
@@ -3347,7 +3447,8 @@ function renderAbx(){
  $("abx_list").innerHTML=list.map(function(a){
    var cells=bands.map(function(b){return '<div class="dose-cell'+(b===abxState.band?' hl':'')+'"><b>'+bandLabel(b)+(b===abxState.band?' • đang chọn':'')+'</b>'+a.d[b]+'</div>'}).join("");
    var synNames=a.syn.map(function(s){var f=SYNDROMES.find(function(x){return x[0]===s});return f?f[1]:""}).join(" • ");
-   return '<div class="abx"><span class="grp">'+a.g+'</span><h3>'+a.n+(a.tdm?'<span class="tdm">Cần TDM</span>':"")+'</h3><p class="syn">Hội chứng: '+synNames+'</p><div class="dose-grid">'+cells+'</div><div class="meta"><span><strong>Liều nạp:</strong> '+a.load+'</span><span><strong>Theo gan:</strong> '+(abxState.child==="N"?"Gan bình thường — <strong>không cần chỉnh liều theo gan</strong>; liều phía trên chỉ chỉnh theo thận (CrCl) và mức độ bệnh.":("Đang chọn Child–Pugh "+abxState.child+" — "+a.liver))+'</span><span><strong>Lưu ý:</strong> '+a.note+'</span></div></div>';
+   var ban=abxCardBan(a);
+   return '<div class="abx'+(ban?' abx-banned':'')+'"><span class="grp">'+a.g+'</span><h3>'+a.n+(a.tdm?'<span class="tdm">Cần TDM</span>':"")+(ban?'<span class="abx-ban">⛔ '+ban+'</span>':"")+'</h3><p class="syn">Hội chứng: '+synNames+'</p><div class="dose-grid">'+cells+'</div><div class="meta"><span><strong>Liều nạp:</strong> '+a.load+'</span><span><strong>Theo gan:</strong> '+(abxState.child==="N"?"Gan bình thường — <strong>không cần chỉnh liều theo gan</strong>; liều phía trên chỉ chỉnh theo thận (CrCl) và mức độ bệnh.":("Đang chọn Child–Pugh "+abxState.child+" — "+a.liver))+'</span><span><strong>Lưu ý:</strong> '+a.note+'</span></div></div>';
  }).join("");
 }
 // ============ v2.0.0: Ho so ca zero-data (RAM-only) ============
@@ -3362,19 +3463,25 @@ function ctxApply(){
  var mr=$("ctx_mrsa");CTX.mrsa=mr&&mr.value?mr.value:null;
  var es=$("ctx_esbl");CTX.esbl=es&&es.value?es.value:null;
  var pr=$("ctx_preg");CTX.preg=pr?pr.value:"no";
- if(CTX.wt!=null){var a=$("va_wt");if(a&&!a.value)a.value=CTX.wt;var b=$("dk_wt");if(b&&!b.value)b.value=CTX.wt;}
- if(CTX.age!=null){var f=$("fb_age");if(f&&!f.value)f.value=CTX.age;}
+ ctxFill(["va_wt","dk_wt","nt_wt","cr_wt","fl_wt"],CTX.wt);ctxFill(["fb_age"],CTX.age);
  if(CTX.crcl!=null&&typeof bandFromCrcl==="function"){var bd=bandFromCrcl(CTX.crcl);if(bd){abxState.band=bd;var s=$("abx_band_sel");if(s)s.value=bd;var c=$("abx_crcl");if(c)c.value=Math.round(CTX.crcl);}}
  if(CTX.liver&&CTX.liver!=="N"){abxState.child=CTX.liver;var ch=$("abx_child");if(ch)ch.value=CTX.liver;}
- if(CTX.pen){abxState.allergy=CTX.pen;setSeg("abx_allergy",CTX.pen==="yes"?"pen":"none");}
+ if(CTX.pen){abxState.allergy=CTX.pen;var al=$("abx_allergy");if(al)al.value=CTX.pen;}
  if(CTX.mrsa){abxState.mrsa=CTX.mrsa;setSeg("abx_mrsa",CTX.mrsa);}
  if(CTX.esbl){abxState.esbl=CTX.esbl;setSeg("abx_esbl",CTX.esbl);}
  if(typeof renderAbx==="function"&&$("abx_list"))renderAbx();
 }
+function ctxFill(ids,v){if(!CTX.auto)CTX.auto={};ids.forEach(function(id){var e=$(id);if(!e)return;var cur=String(e.value);
+  if(v==null){if(CTX.auto[id]!=null&&cur===CTX.auto[id]){e.value="";e.dispatchEvent(new Event('input',{bubbles:true}));}delete CTX.auto[id];return;}
+  var nv=String(v);if(cur===""||cur===CTX.auto[id]){if(cur!==nv){e.value=nv;e.dispatchEvent(new Event('input',{bubbles:true}));}CTX.auto[id]=nv;}});}
 function ctxClear(){
+ var auto=CTX.auto||{};Object.keys(auto).forEach(function(id){var e=$(id);if(e&&String(e.value)===auto[id]){e.value="";e.dispatchEvent(new Event('input',{bubbles:true}));}});
+ if(CTX.crcl!=null){var ci=$("abx_crcl");if(ci&&String(ci.value)===String(Math.round(CTX.crcl)))ci.value="";abxState.band="b90";var bs=$("abx_band_sel");if(bs)bs.value="b90";}
+ if(CTX.liver&&CTX.liver!=="N"){abxState.child="N";var chs=$("abx_child");if(chs)chs.value="N";}
+ abxState.allergy=null;abxState.mrsa=null;abxState.esbl=null;var al=$("abx_allergy");if(al)al.value="";setSeg("abx_mrsa","");setSeg("abx_esbl","");
  ["ctx_age","ctx_wt","ctx_crcl"].forEach(function(id){var e=$(id);if(e)e.value="";});
  ["ctx_liver","ctx_pen","ctx_mrsa","ctx_esbl","ctx_preg"].forEach(function(id){var e=$(id);if(e)e.selectedIndex=0;});
- CTX={age:null,wt:null,crcl:null,liver:"N",pen:null,mrsa:null,esbl:null,preg:"no",last:Date.now(),hiddenAt:null};
+ CTX={age:null,wt:null,crcl:null,liver:"N",pen:null,mrsa:null,esbl:null,preg:"no",last:Date.now(),hiddenAt:null,auto:{}};
  updCtxTimer();
  if(typeof renderAbx==="function"&&$("abx_list"))renderAbx();
  if(typeof toast==="function")toast("Đã xóa hồ sơ ca — không còn dữ liệu bệnh nhân trong app.");

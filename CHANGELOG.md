@@ -4,6 +4,17 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v2.0.2 — 18/11/2026 — 5 khóa an toàn chặn thật
+
+Rà soát mã v2.0.1 cho thấy 3/5 khóa an toàn chỉ là hình thức (chọn gì cũng ra cùng phác đồ, ô xác nhận được tick sẵn). Sửa:
+- **(a) MAP:** bắt buộc nhập MAP với **mọi thuốc vận mạch / tăng co bóp** (noradrenaline, adrenaline, dopamine, dobutamine, vasopressin, phenylephrine), không chỉ noradrenaline. Sửa lỗi MAP < 65 không tô đỏ kết quả (biến mức cảnh báo bị gán lại về 0) và lỗi đổi thuốc khi đang khóa không cập nhật cách pha. Noradrenaline ≥ 0,25 µg/kg/phút → gợi ý vasopressin + hydrocortisone (SSC 2021). Dobutamine với MAP < 65 → cảnh báo cần vận mạch trước.
+- **(b) DKA:** câu hỏi suy tim / suy thận nay **bắt buộc** (trước đây mặc định "Không"). Ceton, HCO₃⁻, pH dùng để **phân độ DKA nhẹ – vừa – nặng** (đồng thuận ADA/EASD/JBDS 2024), cảnh báo khi ceton < 3 hoặc không đủ toan, gợi ý ICU khi nặng / ceton > 6 / HCO₃⁻ < 5 / K⁺ < 3,5.
+- **(c) Dị ứng penicillin / MRSA:** dị ứng có 4 mức (không / nhẹ / phản vệ / SJS–TEN–DRESS). Phác đồ kinh nghiệm **gạch ngang thuốc không dùng được** (penicillin; thêm cephalexin khi phản vệ; mọi beta-lactam trừ aztreonam khi SJS/TEN/DRESS) và hiện khung **"Phác đồ đã điều chỉnh"** cho từng hội chứng. MRSA cao → thêm vancomycin / linezolid; MRSA thấp trong nhiễm trùng huyết chưa rõ ổ → gạch vancomycin (SSC 2021). Bảng liều đánh dấu ⛔ thuốc không dùng được. Nguồn: AAAAI/ACAAI Drug Allergy Practice Parameter 2022.
+- **(d) ESBL:** bắt buộc trả lời và áp dụng cho **mọi hội chứng** (trước chỉ HAP/VAP và chỉ hiện chữ). Nguy cơ cao → gạch ceftriaxone, cefepime, piperacillin–tazobactam, ampicillin–sulbactam, amoxicillin–clavulanate; khuyến nghị meropenem / ertapenem (MERINO; IDSA AMR Guidance 2024). ESBL + SJS/TEN/DRESS → hướng dẫn phương án không beta-lactam và hội chẩn.
+- **(e) SOFA / SOFA-2:** ô "vận mạch ≥ 1 giờ" **không còn tick sẵn**; chưa xác nhận thì điểm tim mạch tính tạm = 1 và kết quả ghi "(tạm)".
+- **Hồ sơ ca:** nút Xóa ca xóa luôn cân nặng, tuổi, CrCl, gan, dị ứng, MRSA, ESBL đã tự điền sang các công cụ; ca mới ghi đè giá trị tự điền cũ (trước đây bệnh nhân sau có thể bị tính theo cân nặng bệnh nhân trước). Tự điền cân nặng thêm cho dinh dưỡng, CRRT, dịch.
+- Bỏ các dòng ghi chú nội bộ ("lỗi đã soi ở v0.5.0", "SOFA tụt 14→11") khỏi màn hình người dùng.
+
 ## v2.0.1 — 18/11/2026 — Sửa SOFA-2 không tính điểm
 
 - **Sửa lỗi SOFA-2 không tính điểm trên trình duyệt thật (kiểm chứng live 18/11/2026, 4/5 mục PASS, riêng SOFA-2 FAIL):** chọn đủ 6 hệ cơ quan (kỳ vọng 11/24) mà khung kết quả vẫn hiện “— / Nhập số liệu để xem kết quả”. Nguyên nhân: panel dùng `resHTML("sofa2")` (ô kết quả có id `sofa2`) trong khi hàm tính gọi `setRes("res-sofa2")` — ô kết quả không tồn tại nên kết quả bị bỏ lặng, không báo lỗi. Harness kiểm thử cũ không bắt được vì DOM giả lập tự tạo element cho mọi id.

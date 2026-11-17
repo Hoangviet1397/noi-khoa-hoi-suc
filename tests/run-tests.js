@@ -51,7 +51,7 @@ PROTO.forEach(p => {
 });
 
 // 3) Mọi công cụ đều có bảng điều khiển
-const panels = new Set([...html.matchAll(/P\.(\w+)=head\(/g)].map(m => m[1]));
+const panels = new Set([...html.matchAll(/P\.(\w+)\s*=\s*head\(/g)].map(m => m[1]));
 PROTO.forEach(p => panels.add(p.id));
 ["ck_sepsis", "ck_vap", "ck_sbt", "abx"].forEach(x => panels.add(x));
 toolIds.forEach(id => ok(panels.has(id), "Công cụ " + id + " chưa có bảng điều khiển"));

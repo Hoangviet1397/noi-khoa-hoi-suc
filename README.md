@@ -3,7 +3,7 @@
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức — nay có hồ sơ ca zero-data, 5 khóa an toàn chặn thật, tìm theo hội chứng, cây kiến thức toàn bộ và module chống độc Việt Nam.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — cài vào màn hình chính để dùng offline.
-**Phiên bản hiện tại:** v2.0.1 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v2.0.2 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
 
 ## Sửa ở v2.0.1
 - **SOFA-2 không tính điểm trên trình duyệt thật — đã sửa:** kiểm chứng live 18/11/2026 thấy chọn đủ 6 hệ (kỳ vọng 11/24) mà kết quả vẫn “—”. Nguyên nhân: panel dùng ô kết quả id `sofa2` nhưng hàm tính ghi vào id `res-sofa2` (không tồn tại) nên kết quả bị bỏ lặng. Sửa cho cả 8 công cụ mới v2.0.0 (SOFA-2, MEWS, Rumack–Matthew, MELD 3.0, HEART Pathway, Osmolal gap, CIWA-Ar, ASPECTS): ô kết quả đổi sang id `res-…` đúng quy ước cũ, thêm nút “Tính …” thật và tự tính ngay khi mở app.
