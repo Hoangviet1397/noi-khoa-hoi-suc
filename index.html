@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
 <meta charset="utf-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover"/>
+<meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"/>
 <meta name="color-scheme" content="light dark"/>
 <!-- PWA: cài vào màn hình chính, mở offline như app -->
 <link rel="manifest" href="manifest.webmanifest"/>
@@ -204,7 +204,8 @@ select{color:var(--ink);font-weight:550;appearance:none;-webkit-appearance:none;
 .notebox.info{background:var(--primary-soft);border:1.5px solid color-mix(in srgb,var(--primary) 50%,transparent)}
 .notebox h4{margin:0 0 6px;font-size:15px}
 .notebox ul{padding-left:20px;display:grid;gap:4px}
-.tblwrap{overflow-x:auto}
+.tblwrap{overflow-x:auto;-webkit-overflow-scrolling:touch;max-width:100%;margin:12px 0;border-radius:12px}
+.tblwrap>table.mini{margin:0}
 table.mini{width:100%;border-collapse:separate;border-spacing:0;font-size:14px;margin:12px 0;border:1px solid var(--line);border-radius:12px;overflow:hidden}
 table.mini th,table.mini td{border-bottom:1px solid var(--line);padding:8px 10px;text-align:left;vertical-align:top}
 table.mini tr:last-child td{border-bottom:0}
@@ -339,6 +340,41 @@ ul.tree ul>li::before{content:"";position:absolute;left:-16px;top:16px;width:12p
 .footer a{color:var(--primary)}
 .src .rev{white-space:nowrap}
 .ivmeta summary{min-height:0;padding:2px 0;font-size:14.5px}.ivmeta[open] summary{margin-bottom:6px}
+/* ---------- Cảm giác như app thật: không zoom, không cuộn ngang, không nảy ---------- */
+html{touch-action:pan-x pan-y;overscroll-behavior:none}
+body{overscroll-behavior:none}
+button,.card,.chip,.bottomnav,.topbar,a{-webkit-touch-callout:none}
+.card,.chip,.topbar,.bottomnav,.seg,.tree-bar,.ptop{-webkit-user-select:none;user-select:none}
+.chiprow,.tblwrap{touch-action:pan-x pan-y;overscroll-behavior-x:contain}
+.fsize{display:flex;gap:10px;align-items:center;flex-wrap:wrap;margin-top:12px;font-size:14.5px;font-weight:700}
+.fsize .seg{flex:1;min-width:220px}
+/* ---------- Chống cuộn ngang trên điện thoại ---------- */
+body{overflow-wrap:break-word}
+.grid{grid-template-columns:minmax(0,1fr)}
+@media(min-width:620px){.grid{grid-template-columns:repeat(2,minmax(0,1fr))}}
+@media(min-width:1180px){.grid{grid-template-columns:repeat(3,minmax(0,1fr))}}
+.pinrow{grid-template-columns:repeat(2,minmax(0,1fr))}
+@media(min-width:620px){.pinrow{grid-template-columns:repeat(3,minmax(0,1fr))}}
+@media(min-width:1180px){.pinrow{grid-template-columns:repeat(4,minmax(0,1fr))}}
+.grid>*,.frow>*,.checks>*,.topts>*,.dose-grid>*,.emp-grid>*,.emp-cols>*,ul>li,ol>li{min-width:0}
+.notebox ul,.emp-box ul,.tnode ul,.cl ul,.pwa-steps ol{grid-template-columns:minmax(0,1fr)}
+.emp-badge{white-space:normal}
+.card h3,.card p,.tnode h3,.tq{overflow-wrap:anywhere}
+html,body{max-width:100%;overflow-x:clip}
+main,.panel,.layout>*{min-width:0}
+.panel,.notebox,.result,.tnode,.emp-detail,.abx,.dlg{overflow-wrap:break-word}
+table.mini{table-layout:auto}
+table.mini th,table.mini td{overflow-wrap:break-word}
+@media(max-width:560px){
+  table.mini{font-size:13px}
+  table.mini th,table.mini td{padding:7px 7px}
+  table.mini th{font-size:11px;letter-spacing:.02em}
+  ul.tree ul{padding-left:9px;margin-left:3px}
+  ul.tree ul>li::before{left:-9px;width:7px}
+  .tn,.tleaf{padding:8px 9px}
+  .tn,.tleaf,.tlab,.tref{overflow-wrap:anywhere}
+  .tlab{white-space:normal}
+}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
 </style>
@@ -347,6 +383,7 @@ ul.tree ul>li::before{content:"";position:absolute;left:-16px;top:16px;width:12p
 <header class="topbar">
   <button type="button" class="mark" id="brandBtn" aria-label="Về trang chủ">✚</button>
   <div class="titles" id="brandTitle"><div class="t1">Nội khoa &amp; Hồi sức</div><div class="t2" id="topSub">45 công cụ + 15 phác đồ • Thang điểm • Liều kháng sinh</div></div>
+  <button type="button" class="iconbtn" id="fontBtn" aria-label="Cỡ chữ" title="Cỡ chữ">A</button>
   <button type="button" class="iconbtn" id="themeBtn" aria-label="Đổi giao diện sáng / tối" title="Giao diện: tự động">🌓</button>
 </header>
 
@@ -406,6 +443,7 @@ ul.tree ul>li::before{content:"";position:absolute;left:-16px;top:16px;width:12p
           </div>
           <div class="pwa-steps" id="pwaSteps" aria-live="polite"></div>
         </div>
+        <div class="fsize"><span>🔠 Cỡ chữ</span><div class="seg" id="fontSize"><button type="button" data-v="1">Vừa</button><button type="button" data-v="1.12">Lớn</button><button type="button" data-v="1.25">Rất lớn</button></div></div>
       </details>
 
       <div class="notebox warn" style="margin-top:14px">
@@ -441,8 +479,9 @@ ul.tree ul>li::before{content:"";position:absolute;left:-16px;top:16px;width:12p
 function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d");}
 function $(id){return document.getElementById(id);}
 /* ===== PHIÊN BẢN: chỉ sửa ở đây khi phát hành (service worker tự lấy số này đặt tên bộ nhớ đệm) ===== */
-var APP_VERSION="0.3.0",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
+var APP_VERSION="0.3.1",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
 var CHANGELOG=[
+ ["0.3.1","17/11/2026",["Dùng như app thật: không phóng to bằng hai ngón / chạm đúp, không cuộn ngang, không nảy khi kéo quá mép; thêm nút Cỡ chữ (A / A+ / A++) để chữ to hơn khi cần.","Sửa lỗi trang bị cuộn ngang trên điện thoại: bảng rộng (quy đổi corticoid…) chỉ cuộn trong khung riêng, chế độ “Toàn bộ cây” của phác đồ thu gọn thụt lề, chặn tràn ngang cho toàn trang. Đã kiểm tra mọi công cụ ở bề rộng 320 px."]],
  ["0.3.0","17/11/2026",["Bộ tính liều truyền thuốc ICU 17 thuốc: vận mạch (noradrenaline, adrenaline, dobutamine, dopamine, vasopressin, phenylephrine), an thần – giảm đau (propofol, midazolam, fentanyl, morphine, dexmedetomidine), insulin, heparin, nicardipine, nitroglycerin, amiodarone, furosemide — mL/giờ ↔ liều, tổng liều/ngày, cảnh báo liều tối đa, công thức + 2 ca kiểm tra mỗi thuốc.","3 checklist tại giường: Sepsis giờ đầu (có đồng hồ giờ 0), VAP bundle, SAT/SBT cai máy — sao chép tóm tắt vào bệnh án.","5 phác đồ cây mới: hội chứng vành cấp (STEMI/NSTEMI), suy tim cấp, xuất huyết tiêu hóa trên, cơn hen cấp, đợt cấp COPD (tổng 20 phác đồ). Rà soát tăng kali máu.","Nút Báo lỗi / Góp ý mở GitHub Issue có mẫu sẵn; hiển thị phiên bản và “Có gì mới”; nút Chia sẻ app kèm mã QR dùng được offline."]],
  ["0.2.0","17/11/2026",["Sửa chế độ offline / cài vào màn hình chính (PWA).","Rà soát lâm sàng toàn bộ: bảng liều kháng sinh, APACHE II, MELD-Na, AKI, NEWS2, ARDS 2023, CHA₂DS₂-VA…","45 công cụ, 27 kháng sinh / kháng nấm, 15 phác đồ dạng cây Hồi sức – Cấp cứu – Chống độc.","Giao diện mới: nút Back hoạt động, tìm kiếm thông minh, nhập dấu phẩy, thanh kết quả nổi, sao chép kết quả, chế độ tối."]],
  ["0.1.0","11/2026",["Bản đầu tiên: 19 công cụ và module kháng sinh theo chức năng thận – gan."]]];
@@ -739,6 +778,17 @@ document.addEventListener('keydown',function(e){
   if(e.key==="/"&&!typing){e.preventDefault();if(location.hash.length>2)go("");setTimeout(function(){$("searchInput").focus();},30);}
   if(e.key==="Escape"&&$("detailView").style.display!=="none"&&!typing)backHome();
 });
+/* Như app thật: chặn chụm-zoom và chạm đúp zoom (Safari iOS bỏ qua user-scalable=no) */
+["gesturestart","gesturechange","gestureend"].forEach(function(ev){document.addEventListener(ev,function(e){e.preventDefault();},{passive:false});});
+document.addEventListener('touchmove',function(e){if(e.touches&&e.touches.length>1)e.preventDefault();else if(typeof e.scale==="number"&&e.scale!==1)e.preventDefault();},{passive:false});
+var lastTouchEnd=0;document.addEventListener('touchend',function(e){var now=Date.now();if(now-lastTouchEnd<300){var t=e.target;if(!(t.closest&&t.closest('input,select,textarea')))e.preventDefault();}lastTouchEnd=now;},{passive:false});
+document.addEventListener('wheel',function(e){if(e.ctrlKey)e.preventDefault();},{passive:false});
+/* Cỡ chữ trong app — thay cho phóng to bằng tay */
+(function(){var sizes=["1","1.12","1.25"],names={"1":"vừa","1.12":"lớn","1.25":"rất lớn"};var cur=String(store("nkhs_fs")||"1");if(sizes.indexOf(cur)<0)cur="1";
+ function ap(){document.body.style.zoom=cur==="1"?"":cur;document.querySelectorAll('#fontSize button').forEach(function(b){b.classList.toggle('on',b.dataset.v===cur)});var fb=$("fontBtn");if(fb){fb.textContent=cur==="1"?"A":cur==="1.12"?"A+":"A++";fb.setAttribute('aria-label',"Cỡ chữ: "+names[cur]);}if(typeof updateSticky==="function")updateSticky();}
+ function set(v){cur=v;store("nkhs_fs",cur);ap();toast("Cỡ chữ: "+names[cur]);}
+ ap();document.querySelectorAll('#fontSize button').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.v)})});
+ $("fontBtn").addEventListener('click',function(){set(sizes[(sizes.indexOf(cur)+1)%sizes.length]);});})();
 /* Giao diện sáng / tối / tự động */
 (function(){var modes=["auto","light","dark"],ic={auto:"🌓",light:"☀️",dark:"🌙"},lb={auto:"tự động theo máy",light:"sáng",dark:"tối"};var m=store("nkhs_theme")||"auto";
   function ap(){if(m==="auto")document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',m);var b=$("themeBtn");b.textContent=ic[m];b.title="Giao diện: "+lb[m];b.setAttribute('aria-label',"Đổi giao diện (đang: "+lb[m]+")");}
@@ -1235,7 +1285,7 @@ function calcPadua(){var s=sumChecks(["pd0","pd1","pd2","pd3","pd4","pd5","pd6",
 var STER=[["hc","Hydrocortisone",20,"8–12 giờ","Mạnh (1)"],["pred","Prednisolone / Prednisone",5,"12–36 giờ","Vừa (0,8)"],["mp","Methylprednisolone",4,"12–36 giờ","Rất ít (0,5)"],["dexa","Dexamethasone",0.75,"36–72 giờ","Không đáng kể (0)"],["beta","Betamethasone",0.6,"36–72 giờ","Không đáng kể (0)"]];
 P.steroid=head("💊","Quy đổi corticoid","Quy đổi liều tương đương theo tác dụng kháng viêm (glucocorticoid).")+resHTML("res-steroid")+
  '<div class="frow">'+selHTML("st_drug","Thuốc đang dùng",STER.map(function(x,i){return [x[0],x[1],i===1]}))+numHTML("st_dose","Liều / ngày","vd 40","mg")+'</div>'+actions("calcSteroid")+
- '<table class="mini"><tr><th>Thuốc</th><th>Liều tương đương</th><th>Thời gian tác dụng</th><th>Mineralocorticoid</th></tr>'+STER.map(function(x){return '<tr><td>'+x[1]+'</td><td>'+String(x[2]).replace(".",",")+' mg</td><td>'+x[3]+'</td><td>'+x[4]+'</td></tr>'}).join("")+'</table>'+
+ '<table class="mini"><tr><th>Thuốc</th><th>Liều tương đương</th><th>Thời gian · Mineralo</th></tr>'+STER.map(function(x){return '<tr><td><b>'+x[1].replace(" / ","<br/>")+'</b></td><td>'+String(x[2]).replace(".",",")+' mg</td><td>'+x[3]+'<br/><span class="unit">Mineralo: '+x[4]+'</span></td></tr>'}).join("")+'</table>'+
  '<p class="hint">Sốc nhiễm trùng: hydrocortisone 200 mg/ngày (có tác dụng mineralocorticoid) — không thay bằng dexamethasone. Dùng ≥ 3 tuần liều tương đương prednisolone ≥ 20 mg/ngày: nguy cơ suy thượng thận khi ngừng — giảm liều từ từ, cân nhắc liều stress khi phẫu thuật / bệnh nặng.</p><p class="src">Nguồn: Liu et al., Allergy Asthma Clin Immunol 2013; SSC 2021.</p>';
 function calcSteroid(){var d=num("st_dose");var id=$("st_drug").value;var src=STER.find(function(x){return x[0]===id});if(d==null||d<=0){setRes("res-steroid","—","Nhập liều đang dùng.",null);return;}var eq=d/src[2];setRes("res-steroid",fmt(d,1)+" mg "+src[1]+" ≈ "+fmt(eq*5,1)+" mg prednisolone",STER.filter(function(x){return x[0]!==id}).map(function(x){return x[1]+": "+fmt(eq*x[2],1)+" mg"}).join(" • ")+". Tương đương theo tác dụng kháng viêm — khác nhau về mineralocorticoid và thời gian tác dụng.",eq*5>=20?1:0);}
 
@@ -1679,6 +1729,9 @@ bindSeg("md_unit",function(){calcChild()});bindSeg("md_sex",function(){calcChild
 bindSeg("ap_crunit",function(){calcAPACHE()});
 ["ap_temp","ap_map","ap_hr","ap_rr","ap_fio2","ap_pao2","ap_paco2","ap_ph","ap_na","ap_k","ap_cr","ap_hct","ap_wbc","ap_gcs","ap_age","ap_chronic","ap_arf"].forEach(function(id){var e=$(id);if(e){e.addEventListener('input',function(){calcAPACHE()});e.addEventListener('change',function(){calcAPACHE()});}});
 (function(){var M={vaso:calcVaso,fluids:calcFluids,cam:calcCAM,nihss:calcNIHSS,ich:calcICH,abcd2:calcABCD2,abg:calcABG,vent:calcVent,natri:calcNatri,fena:calcFENa,heart:calcHEART,qtc:calcQTc,gbs:calcGBS,bisap:calcBISAP,maddrey:calcMaddrey,padua:calcPadua,steroid:calcSteroid,nutric:calcNUTRIC,caprini:calcCaprini,psi:calcPSI,grace:calcGRACE,doac:calcDOAC,four:calcFOUR,kmg:calcKMg,dka:calcDKA,opioid:calcOpioid};Object.keys(M).forEach(function(k){var p=$("panel-"+k),f=M[k];if(!p)return;p.querySelectorAll("input,select").forEach(function(e){e.addEventListener("input",function(){f()});e.addEventListener("change",function(){f()});});p.querySelectorAll(".seg").forEach(function(sg){bindSeg(sg.id,function(){f()});});});window.addEventListener("load",function(){try{calcNIHSS();calcABCD2();calcNUTRIC();calcFOUR();calcCaprini();calcHEART();calcICH();calcBISAP();calcPadua();calcCAM();}catch(e){}});})();
+/* Bảng rộng chỉ cuộn ngang bên trong khung của nó — không kéo cả trang */
+function wrapTables(root){(root||document).querySelectorAll('table.mini').forEach(function(t){if(t.parentElement&&t.parentElement.classList.contains('tblwrap'))return;var w=document.createElement('div');w.className='tblwrap';t.parentNode.insertBefore(w,t);w.appendChild(t);});}
+wrapTables($("detailView"));
 /* Checklist: khôi phục trạng thái trong phiên + gắn sự kiện */
 CHECKS.forEach(function(c){var st=ckLoad(c.id);var p=$("panel-"+c.id);
  c.groups.forEach(function(g,gi){g.items.forEach(function(it,ii){var e=$(c.id+"_"+gi+"_"+ii);if(st[gi+"_"+ii])e.checked=true;e.addEventListener('change',function(){calcCheck(c.id)});})});
