@@ -4,6 +4,13 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v0.7.0 — 17/11/2026
+- **Thiết kế lại theo phong cách iOS:** tiêu đề lớn, thanh tìm kiếm dính trên đầu khi cuộn, thẻ công cụ bo góc 16px, bóng mờ nhẹ, font hệ thống.
+- **Chọn chuyên ngành ngay lần mở đầu:** Hồi sức – Cấp cứu, Tim mạch, Thận – Tiết niệu, Nội tiết – Chuyển hoá, Hô hấp, Tiêu hoá – Gan mật, Thần kinh, Nội tổng quát — trang chủ đưa công cụ của chuyên ngành bạn lên đầu, vẫn tìm được toàn bộ 73 công cụ.
+- **Thanh dưới còn 5 tab:** Trang chủ, Phác đồ, Kháng sinh, Bản tin, Cài đặt. Mục Đã ghim chuyển thành một mục trên trang chủ.
+- **Trang Cài đặt riêng:** đổi chuyên ngành, cỡ chữ (Nhỏ/Vừa/Lớn/Rất lớn), xóa dữ liệu đã lưu, phiên bản + nhật ký thay đổi, chia sẻ app, mã QR, báo lỗi/góp ý, hướng dẫn sử dụng, cài app offline.
+- **Nguồn kèm link cho mọi mục:** mỗi công cụ (73), phác đồ cây (20), checklist và module kháng sinh đều có dòng "Nguồn:" với link tới hướng dẫn/bài báo gốc (DOI hoặc trang chính thức) để kiểm chứng; Sổ tay thuốc (82 thuốc) mỗi thuốc có link nhãn FDA qua DailyMed.
+
 ## v0.6.4 — 17/11/2026
 - Sửa chữ sót ở trang Bản tin: phần giới thiệu và tiêu đề còn ghi chuyên mục cũ và cập nhật mỗi tuần — nay ghi đúng chỉ còn Nghiên cứu mới, cập nhật mỗi ngày.
 
