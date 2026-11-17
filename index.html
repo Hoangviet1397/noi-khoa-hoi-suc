@@ -412,13 +412,51 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
 .chip.book{background:var(--c-khangsinh);color:#fff;border-color:var(--c-khangsinh)}
 @media (prefers-reduced-motion: reduce){*{animation:none!important;transition:none!important;scroll-behavior:auto!important}}
 
+
+/* ---------- v0.7.0: iOS-style home, specialty, settings, sources ---------- */
+.bigtitle{font-size:32px;font-weight:800;letter-spacing:-.02em;margin:6px 0 2px}
+.bigsub{color:var(--muted);font-size:14px;margin-bottom:12px}
+.searchwrap{position:sticky;top:calc(var(--header-h) + env(safe-area-inset-top));z-index:30;background:var(--bg);padding:8px 0 6px}
+.specrow{display:flex;align-items:center;gap:8px;background:var(--surface);border:1px solid var(--line);border-radius:16px;padding:10px 12px;margin:0 0 10px;box-shadow:var(--shadow);font-size:14.5px}
+.specrow .sp{flex:1;min-width:0}
+.specrow b{font-weight:800}
+.card{border-radius:16px}
+.srcline,.srcpanel{margin-top:18px;padding-top:12px;border-top:1px solid var(--line);font-size:13px;line-height:1.6;color:var(--muted)}
+.srcline a,.srcpanel a{font-weight:650}
+/* onboarding */
+.onb{position:fixed;inset:0;z-index:200;background:var(--bg);display:none;overflow-y:auto;padding:28px 18px calc(28px + env(safe-area-inset-bottom))}
+.onb.show{display:block}
+.onb-in{max-width:560px;margin:0 auto}
+.onb h1{font-size:28px;font-weight:800;letter-spacing:-.02em;margin:8px 0 6px}
+.onb p.sub{color:var(--muted);font-size:15px;margin-bottom:18px}
+.specgrid{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.speccard{background:var(--surface);border:1.5px solid var(--line);border-radius:16px;padding:14px;text-align:left;cursor:pointer;box-shadow:var(--shadow)}
+.speccard .si{font-size:26px}
+.speccard b{display:block;font-size:15.5px;margin-top:4px}
+.speccard span{font-size:12.5px;color:var(--muted)}
+.speccard.on{border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+.onb .later{display:block;width:100%;margin-top:14px;background:none;border:0;color:var(--primary);font-weight:700;cursor:pointer}
+/* settings */
+.setgroup{margin:0 0 20px}
+.setgroup>h3{font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.04em;color:var(--muted);margin:0 0 6px 12px}
+.setlist{background:var(--surface);border:1px solid var(--line);border-radius:16px;overflow:hidden;box-shadow:var(--shadow)}
+.setrow{display:flex;align-items:center;gap:12px;width:100%;padding:13px 14px;background:none;border:0;border-bottom:1px solid var(--line);text-align:left;font-size:15px;cursor:pointer;color:var(--ink)}
+.setrow:last-child{border-bottom:0}
+.setrow .ic{font-size:19px;flex:none}
+.setrow .tx{flex:1;min-width:0}
+.setrow .tx small{display:block;color:var(--muted);font-size:12.5px;margin-top:1px}
+.setrow .val{color:var(--muted);font-size:14px;flex:none}
+.setrow .chev{color:var(--muted);flex:none}
+.setrow.danger .tx{color:var(--red)}
+.setnote{padding:13px 14px;font-size:14px;line-height:1.6;color:var(--muted)}
+.setnote p+p{margin-top:8px}
+.setlist .offlinebar{border:0;box-shadow:none}
 </style>
 </head>
 <body>
 <header class="topbar">
   <button type="button" class="mark" id="brandBtn" aria-label="Về trang chủ">✚</button>
   <div class="titles" id="brandTitle"><div class="t1">Nội khoa &amp; Hồi sức</div><div class="t2" id="topSub">45 công cụ + 15 phác đồ • Thang điểm • Liều kháng sinh</div></div>
-  <button type="button" class="iconbtn" id="fontBtn" aria-label="Cỡ chữ" title="Cỡ chữ">A</button>
   <button type="button" class="iconbtn" id="themeBtn" aria-label="Đổi giao diện sáng / tối" title="Giao diện: tự động">🌓</button>
 </header>
 
@@ -428,6 +466,9 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
   <main id="main">
     <!-- HOME -->
     <section id="homeView">
+      <h1 class="bigtitle">Nội khoa &amp; Hồi sức</h1>
+      <p class="bigsub">Thang điểm • Máy tính lâm sàng • Phác đồ cấp cứu</p>
+      <div class="specrow" id="specRow"></div>
       <div class="searchwrap">
         <div class="search" id="searchBox">
           <span class="si" aria-hidden="true">🔍</span>
@@ -445,13 +486,7 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
         <button type="button" class="x" id="installX" aria-label="Ẩn gợi ý cài đặt">✕</button>
       </div>
 
-      <div class="chiprow quickrow">
-        <button type="button" class="chip ghost" id="btnGuide">❓ Hướng dẫn</button>
-        <button type="button" class="chip ghost" id="btnShare">📤 Chia sẻ app</button>
-        <button type="button" class="chip ghost" id="btnFeedback">💬 Báo lỗi / Góp ý</button>
-        <button type="button" class="chip ghost" id="btnNews">🆕 Có gì mới</button>
-        <button type="button" class="chip ghost" id="btnFeed">📰 Bản tin</button>
-      </div>
+      
 
       <div id="recentWrap" style="display:none">
         <div class="rowlabel">🕘 Dùng gần đây</div>
@@ -468,21 +503,7 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
       <div class="grid" id="toolGrid"></div>
       <div class="empty" id="noResult" style="display:none">Không tìm thấy công cụ nào khớp.<br/>Thử từ khóa ngắn hơn, ví dụ “sofa”, “natri”, “khang sinh”.</div>
 
-      <details class="appcard" id="appCard">
-        <summary>⚙️ Cài đặt app &amp; dùng offline</summary>
-        <div class="offlinebar pwabar" id="offlineBar">
-          <div class="pwa-main">
-            <div class="otxt"><strong id="offlineTitle"><span class="odot" aria-hidden="true"></span> Cài như app — mở offline</strong><span id="offlineStatus">Cài một lần vào màn hình chính: bấm icon là mở như app và dùng được cả khi mất mạng.</span></div>
-            <span class="pwa-badge" id="pwaBadge" style="display:none">ĐÃ CÀI ✓</span>
-            <div class="pwa-actions">
-              <button type="button" id="btnInstall">📲 Cài vào màn hình chính</button>
-              <button type="button" id="btnOfflineDownload" class="ghost">⬇ Tải file offline (dự phòng)</button>
-            </div>
-          </div>
-          <div class="pwa-steps" id="pwaSteps" aria-live="polite"></div>
-        </div>
-        <div class="fsize"><span>🔠 Cỡ chữ</span><div class="seg" id="fontSize"><button type="button" data-v="1">Vừa</button><button type="button" data-v="1.12">Lớn</button><button type="button" data-v="1.25">Rất lớn</button></div></div>
-      </details>
+      
 
       <div class="notebox warn" style="margin-top:14px">
         <h4>⚠️ Lưu ý khi dùng tại giường bệnh</h4>
@@ -496,6 +517,61 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
 
     <!-- DETAIL -->
     <section id="detailView" style="display:none"></section>
+
+    <!-- SETTINGS -->
+    <section id="settingsView" style="display:none">
+      <h1 class="bigtitle">Cài đặt</h1>
+      <p class="bigsub">Chuyên ngành, hiển thị, dữ liệu và giới thiệu về app.</p>
+      <div class="setgroup"><h3>Chuyên ngành</h3>
+        <div class="setlist">
+          <button type="button" class="setrow" id="setSpecBtn"><span class="ic">🩺</span><span class="tx">Chuyên ngành của bạn<small>Trang chủ đưa công cụ của chuyên ngành này lên đầu</small></span><span class="val" id="setSpecName"></span><span class="chev">›</span></button>
+        </div>
+      </div>
+      <div class="setgroup"><h3>Hiển thị</h3>
+        <div class="setlist">
+          <div class="setrow" style="cursor:default"><span class="ic">🔠</span><span class="tx">Cỡ chữ</span><div class="seg" id="fontSize"><button type="button" data-v="0.9">Nhỏ</button><button type="button" data-v="1">Vừa</button><button type="button" data-v="1.12">Lớn</button><button type="button" data-v="1.25">Rất lớn</button></div></div>
+          <button type="button" class="setrow" id="setThemeBtn"><span class="ic">🌓</span><span class="tx">Giao diện<small id="setThemeVal"></small></span><span class="chev">›</span></button>
+        </div>
+      </div>
+      <div class="setgroup"><h3>Dữ liệu</h3>
+        <div class="setlist">
+          <button type="button" class="setrow" id="setClearFav"><span class="ic">⭐</span><span class="tx">Xóa mục đã ghim<small id="setFavCount"></small></span></button>
+          <button type="button" class="setrow" id="setReadAll"><span class="ic">📰</span><span class="tx">Đánh dấu tất cả tin đã đọc<small>Bản tin — Nghiên cứu mới</small></span></button>
+          <button type="button" class="setrow danger" id="setWipe"><span class="ic">🗑️</span><span class="tx">Xóa dữ liệu đã lưu<small>Chuyên ngành, mục đã ghim, tin đã đọc, cỡ chữ, giao diện</small></span></button>
+        </div>
+      </div>
+      <div class="setgroup"><h3>Ứng dụng</h3>
+        <div class="setlist">
+          <button type="button" class="setrow" id="setNews"><span class="ic">🆕</span><span class="tx">Phiên bản<small>Xem nhật ký thay đổi</small></span><span class="val" id="setVer"></span><span class="chev">›</span></button>
+          <button type="button" class="setrow" id="setShare"><span class="ic">📤</span><span class="tx">Chia sẻ app<small>Gửi link cho đồng nghiệp</small></span><span class="chev">›</span></button>
+          <button type="button" class="setrow" id="setQR"><span class="ic">🔳</span><span class="tx">Mã QR<small>Quét để mở app</small></span><span class="chev">›</span></button>
+          <button type="button" class="setrow" id="setFeedback"><span class="ic">💬</span><span class="tx">Báo lỗi / Góp ý<small>Mở GitHub Issue có mẫu điền sẵn</small></span><span class="chev">›</span></button>
+          <button type="button" class="setrow" id="setGuide"><span class="ic">❓</span><span class="tx">Hướng dẫn sử dụng</span><span class="chev">›</span></button>
+        </div>
+      </div>
+      <div class="setgroup"><h3>Cài như app — dùng offline</h3>
+        <div class="setlist">
+<div class="offlinebar pwabar" id="offlineBar">
+          <div class="pwa-main">
+            <div class="otxt"><strong id="offlineTitle"><span class="odot" aria-hidden="true"></span> Cài như app — mở offline</strong><span id="offlineStatus">Cài một lần vào màn hình chính: bấm icon là mở như app và dùng được cả khi mất mạng.</span></div>
+            <span class="pwa-badge" id="pwaBadge" style="display:none">ĐÃ CÀI ✓</span>
+            <div class="pwa-actions">
+              <button type="button" id="btnInstall">📲 Cài vào màn hình chính</button>
+              <button type="button" id="btnOfflineDownload" class="ghost">⬇ Tải file offline (dự phòng)</button>
+            </div>
+          </div>
+          <div class="pwa-steps" id="pwaSteps" aria-live="polite"></div>
+        </div>
+        </div>
+      </div>
+      <div class="setgroup"><h3>Giới thiệu</h3>
+        <div class="setlist"><div class="setnote">
+          <p><b>Nội khoa &amp; Hồi sức</b> chạy hoàn toàn trên máy của bạn — mọi phép tính diễn ra offline, không gửi dữ liệu bệnh nhân đi đâu.</p>
+          <p>⚠️ Các thang điểm và máy tính chỉ hỗ trợ quyết định — không thay thế đánh giá lâm sàng và phác đồ của bệnh viện. Luôn đối chiếu phác đồ bệnh viện và kháng sinh đồ.</p>
+          <p>Mã nguồn: <a href="https://github.com/Hoangviet1397/noi-khoa-hoi-suc" target="_blank" rel="noopener">github.com/Hoangviet1397/noi-khoa-hoi-suc</a></p>
+        </div></div>
+      </div>
+    </section>
   </main>
 </div>
 
@@ -509,17 +585,28 @@ body.searching .installbar,body.searching .quickrow{display:none!important}
   <button type="button" data-nav="home" class="on"><span class="bi">🏠</span>Trang chủ</button>
   <button type="button" data-nav="phacdo"><span class="bi">🧭</span>Phác đồ</button>
   <button type="button" data-nav="abx"><span class="bi">💊</span>Kháng sinh</button>
-  <button type="button" data-nav="fav"><span class="bi">⭐</span>Đã ghim</button>
+  <button type="button" data-nav="settings"><span class="bi">⚙️</span>Cài đặt</button>
   <button type="button" data-nav="feed"><span class="bi">📰</span>Bản tin</button>
 </nav>
+
+<div class="onb" id="onb" role="dialog" aria-modal="true" aria-label="Chọn chuyên ngành">
+  <div class="onb-in">
+    <div style="font-size:34px">✚</div>
+    <h1>Bạn là bác sĩ<br/>chuyên ngành nào?</h1>
+    <p class="sub">App sẽ đưa công cụ của chuyên ngành bạn lên đầu trang chủ. Bạn vẫn tìm được toàn bộ 73 công cụ, và đổi lại bất cứ lúc nào trong Cài đặt.</p>
+    <div class="specgrid" id="onbGrid"></div>
+    <button type="button" class="later" id="onbLater">Để sau — dùng Nội tổng quát</button>
+  </div>
+</div>
 
 <script>
 /* ============ Helpers ============ */
 function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d");}
 function $(id){return document.getElementById(id);}
 /* ===== PHIÊN BẢN: chỉ sửa ở đây khi phát hành (service worker tự lấy số này đặt tên bộ nhớ đệm) ===== */
-var APP_VERSION="0.6.4",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
+var APP_VERSION="0.7.0",APP_DATE="17/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
 var CHANGELOG=[
+ ["0.7.0","17/11/2026",["Thiết kế lại theo phong cách iOS: tiêu đề lớn, tìm kiếm dính trên đầu khi cuộn, thẻ công cụ bo góc 16px.","Chọn chuyên ngành ngay lần mở đầu (Hồi sức, Tim mạch, Thận, Nội tiết, Hô hấp, Tiêu hoá – Gan mật, Thần kinh, Nội tổng quát) — trang chủ đưa công cụ của chuyên ngành bạn lên đầu.","Thanh dưới còn 5 tab: Trang chủ, Phác đồ, Kháng sinh, Bản tin, Cài đặt. Mục Đã ghim chuyển thành một mục trên trang chủ.","Trang Cài đặt riêng: đổi chuyên ngành, cỡ chữ, xóa dữ liệu, phiên bản, chia sẻ, mã QR, báo lỗi, hướng dẫn.","Mọi công cụ, phác đồ, checklist, kháng sinh và Sổ tay thuốc đều có dòng Nguồn kèm link kiểm chứng."]],
  ["0.6.4","17/11/2026",["Sửa chữ sót ở trang Bản tin: phần giới thiệu và tiêu đề còn ghi chuyên mục cũ và cập nhật mỗi tuần — nay ghi đúng chỉ còn Nghiên cứu mới, cập nhật mỗi ngày."]],
  ["0.6.3","17/11/2026",["Bản tin gọn lại chỉ còn Nghiên cứu mới: bỏ 12 mục biên tập cũ (mẹo tại giường, cập nhật hướng dẫn, ca lâm sàng, cảnh báo thuốc), chỉ giữ bài nghiên cứu mới từ RSS của NEJM, JAMA, The Lancet và European Heart Journal. Cập nhật mỗi ngày một lần."]],
  ["0.6.2","17/11/2026",["Bản tin thêm chuyên mục Nghiên cứu mới từ RSS: 5 bài đầu tiên — prasugrel so với ticagrelor trong ACS (NEJM), PEPPER dự phòng VTE sau thay khớp (NEJM), pelacarsen hạ Lp(a) thất bại pha 3 (JAMA), insulin nền efsitora mỗi tuần (JAMA), mười điều răn ESC 2025 về viêm cơ tim/màng ngoài tim (Eur Heart J). Bài mới được cập nhật mỗi tuần từ RSS của NEJM, JAMA, The Lancet và European Heart Journal."]],
@@ -625,6 +712,119 @@ var curCat="all", curQuery="";
 
 /* ============ Trang chủ: danh mục, tìm kiếm, thẻ ============ */
 var CATS=[["all","Tất cả","🏠"],["phacdo","Phác đồ","🧭"],["hoisuc","Hồi sức","🫀"],["thankinh","Thần kinh","🧠"],["hohap","Hô hấp","🫁"],["than","Thận – điện giải","🩸"],["timmach","Tim mạch","❤️"],["noikhoa","Nội khoa","📋"],["khangsinh","Thuốc – kháng sinh","💊"],["fav","Đã ghim","⭐"]];
+
+/* ============ v0.7.0: Chuyên ngành & Nguồn tham khảo ============ */
+var SPECS=[
+ {sid:"icu",ic:"🫀",name:"Hồi sức – Cấp cứu",sub:"ICU • Cấp cứu",tools:["sofa","qsofa","news2","apache","vaso","fluids","px_sepsis","ck_sepsis","ck_vap","ck_sbt","mapshock","pf","rox","nutri","crrt"]},
+ {sid:"cardio",ic:"❤️",name:"Tim mạch",sub:"Tim mạch • Sốc",tools:["grace","px_acs","chads","heart","hfref","px_ahf","wells","doac","qtc","vaso"]},
+ {sid:"renal",ic:"🩸",name:"Thận – Tiết niệu",sub:"Thận • Điện giải",tools:["egfr","aki","crrt","natri","fena","kmg","anion","doac","fluids"]},
+ {sid:"endo",ic:"🧪",name:"Nội tiết – Chuyển hoá",sub:"Đái tháo đường • Chuyển hoá",tools:["dka","px_dka","px_hypo","anion","natri","kmg","bmi","nutri"]},
+ {sid:"resp",ic:"🫁",name:"Hô hấp",sub:"Hô hấp • Thở máy",tools:["pf","rox","ibw","vent","abg","px_resp","px_asthma","px_copd","psi","curb65","ck_vap","ck_sbt"]},
+ {sid:"gi",ic:"🟤",name:"Tiêu hoá – Gan mật",sub:"Gan mật • Tiêu hoá",tools:["childmeld","maddrey","gbs","px_ugib","bisap","anion","nutri"]},
+ {sid:"neuro",ic:"🧠",name:"Thần kinh",sub:"Thần kinh • Đột quỵ",tools:["gcs","rass","nihss","ich","abcd2","four","cam","px_stroke","px_se"]},
+ {sid:"general",ic:"📋",name:"Nội tổng quát",sub:"Mọi chuyên ngành",tools:["sofa","news2","egfr","grace","curb65","psi","wells","chads","abx","vaso","dka","px_sepsis"]}
+];
+function getSpec(){var id=store("nkhs_spec");if(!id)return null;for(var i=0;i<SPECS.length;i++)if(SPECS[i].sid===id)return SPECS[i];return null;}
+function specName(){var sp=getSpec();return sp?sp.name:"Nội tổng quát";}
+function setSpec(id){store("nkhs_spec",id);hideOnb();renderHome();}
+function showOnb(){var o=$("onb");if(!o)return;var cur=getSpec();o.querySelector("#onbGrid").innerHTML=SPECS.map(function(sp){return '<button type="button" class="speccard'+(cur&&cur.sid===sp.sid?' on':'')+'" data-spec="'+sp.sid+'"><span class="si">'+sp.ic+'</span><b>'+sp.name+'</b><span>'+sp.sub+'</span></button>'}).join("");o.querySelectorAll('[data-spec]').forEach(function(b){b.addEventListener('click',function(){setSpec(b.dataset.spec);toast("Chuyên ngành: "+specName());});});o.classList.add("show");document.body.style.overflow="hidden";}
+function hideOnb(){var o=$("onb");if(!o)return;o.classList.remove("show");document.body.style.overflow="";}
+function openSpecPicker(){showOnb();}
+var DOI="https://doi.org/";
+var SOURCES={
+ sofa:[["Sepsis-3 (JAMA 2016)",DOI+"10.1001/jama.2016.0287"]],
+ qsofa:[["Sepsis-3 (JAMA 2016)",DOI+"10.1001/jama.2016.0287"]],
+ news2:[["RCP — National Early Warning Score (NEWS) 2","https://www.rcp.ac.uk/improving-care/resources/national-early-warning-score-news-2/"]],
+ apache:[["Knaus 1985 — APACHE II (Crit Care Med)",DOI+"10.1097/00003246-198510000-00009"]],
+ gcs:[["Teasdale & Jennett 1974 — GCS (Lancet)",DOI+"10.1016/S0140-6736(74)91639-0"]],
+ rass:[["Sessler 2002 — RASS (AJRCCM)",DOI+"10.1164/rccm.2107138"]],
+ pf:[["Định nghĩa ARDS toàn cầu 2023 (ATS/ESICM/SCCM)",DOI+"10.1164/rccm.202303-0558WS"]],
+ rox:[["Roca 2019 — ROX Index (AJRCCM)",DOI+"10.1164/rccm.201803-0589OC"]],
+ ibw:[["ARDSNet 2000 — Vt thấp (NEJM)",DOI+"10.1056/NEJM200005043421801"]],
+ egfr:[["KDIGO 2024 — Hướng dẫn CKD","https://kdigo.org/wp-content/uploads/2017/02/KDIGO-2024-CKD-Guideline-Executive-Summary.pdf"]],
+ anion:[["Kraut & Madias — Anion gap (CJASN)",DOI+"10.2215/CJN.04040413"]],
+ aki:[["KDIGO 2012 — Hướng dẫn AKI",DOI+"10.1038/kisup.2012.1"]],
+ mapshock:[["Surviving Sepsis Campaign 2021","https://sccm.org/sepsisguidelines"]],
+ curb65:[["Lim 2003 — CURB-65 (Thorax)",DOI+"10.1136/thorax.58.5.377"]],
+ childmeld:[["Kamath 2001 — MELD (Hepatology)",DOI+"10.1053/jhep.2001.22172"]],
+ chads:[["ESC 2020 — Rung nhĩ: CHA₂DS₂-VASc & HAS-BLED",DOI+"10.1093/eurheartj/ehaa612"]],
+ wells:[["Wells 2000 — Mô hình lâm sàng PE (Thromb Haemost)",DOI+"10.1055/s-0037-1613830"]],
+ bmi:[["WHO — Phân loại BMI","https://www.who.int/data/gho/data/themes/theme-details/GHO/body-mass-index-(bmi)"]],
+ abx:[["Sanford Guide to Antimicrobial Therapy","https://www.sanfordguide.com/"]],
+ vaso:[["Surviving Sepsis Campaign 2021","https://sccm.org/sepsisguidelines"]],
+ fluids:[["Surviving Sepsis Campaign 2021","https://sccm.org/sepsisguidelines"]],
+ cam:[["Ely 2001 — CAM-ICU (Crit Care Med)",DOI+"10.1097/00003246-200107000-00012"]],
+ nihss:[["Brott 1989 — NIHSS (Stroke)",DOI+"10.1161/01.STR.20.7.864"]],
+ ich:[["Hemphill 2001 — ICH Score (Stroke)",DOI+"10.1161/01.STR.32.4.891"]],
+ abcd2:[["Johnston 2007 — ABCD² (Lancet)",DOI+"10.1016/S0140-6736(07)60150-0"]],
+ abg:[["Kraut & Madias 2010 — Toan chuyển hoá (Nat Rev Nephrol)",DOI+"10.1038/nrneph.2010.33"]],
+ vent:[["ARDSNet 2000 — Vt thấp (NEJM)",DOI+"10.1056/NEJM200005043421801"]],
+ natri:[["Adrogué & Madias 2000 — Hạ natri máu (NEJM)",DOI+"10.1056/NEJM200005253422107"]],
+ fena:[["Miller 1978 — Chỉ số chẩn đoán nước tiểu trong AKI (Ann Intern Med)",DOI+"10.7326/0003-4819-89-1-47"]],
+ heart:[["Six 2008 — HEART score (Neth Heart J)",DOI+"10.1007/BF03086144"]],
+ qtc:[["Postema & Wilde 2014 — Đo khoảng QT (Curr Cardiol Rev)",DOI+"10.2174/1573403X10666140514103612"]],
+ gbs:[["Blatchford 2000 — Glasgow–Blatchford (Lancet)",DOI+"10.1016/S0140-6736(00)02816-6"]],
+ bisap:[["Wu 2008 — BISAP (Gut)",DOI+"10.1136/gut.2008.152702"]],
+ maddrey:[["EASL 2018 — Bệnh gan do rượu (J Hepatol)",DOI+"10.1016/j.jhep.2018.03.018"]],
+ padua:[["CHEST 2012 — Phòng ngừa VTE ở bệnh nhân nội khoa",DOI+"10.1378/chest.11-2296"]],
+ steroid:[["Surviving Sepsis Campaign 2021","https://sccm.org/sepsisguidelines"]],
+ nutric:[["Heyland 2015 — mNUTRIC (Clin Nutr)",DOI+"10.1016/j.clnu.2015.01.015"]],
+ opioid:[["CDC 2022 — Hướng dẫn kê opioid (MMWR)","https://pubmed.ncbi.nlm.nih.gov/36327391/"]],
+ four:[["Wijdicks 2005 — FOUR score (Ann Neurol)",DOI+"10.1002/ana.20611"]],
+ psi:[["Fine 1997 — PSI/PORT (NEJM)",DOI+"10.1056/NEJM199701233360402"]],
+ kmg:[["Gennari 1998 — Hạ kali máu (NEJM)",DOI+"10.1056/NEJM199808133390707"]],
+ grace:[["ESC 2023 — Hội chứng vành cấp","https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes"]],
+ doac:[["EHRA 2021 — Hướng dẫn thực hành DOAC (Europace)",DOI+"10.1093/europace/euab217"]],
+ dka:[["ADA 2024 — Chăm sóc đái tháo đường trong bệnh viện",DOI+"10.2337/dc24-S016"]],
+ caprini:[["CHEST 2008 — Phòng ngừa VTE (theo nguy cơ Caprini)",DOI+"10.1378/chest.08-0656"]],
+ px_sepsis:[["Surviving Sepsis Campaign 2021","https://sccm.org/sepsisguidelines"]],
+ px_arrest:[["AHA 2020 — Hướng dẫn CPR & ECC (Circulation)",DOI+"10.1161/CIR.0000000000000918"]],
+ px_resp:[["Định nghĩa ARDS toàn cầu 2023 (ATS/ESICM/SCCM)",DOI+"10.1164/rccm.202303-0558WS"]],
+ px_hyperk:[["Palmer & Clegg 2017 — Tăng kali máu (Cleve Clin J Med)",DOI+"10.3949/ccjm.84a.17056"]],
+ px_anaph:[["WAO 2020 — Hướng dẫn phản vệ",DOI+"10.1016/j.waojou.2020.100472"]],
+ px_dka:[["ADA 2024 — Chăm sóc đái tháo đường trong bệnh viện",DOI+"10.2337/dc24-S016"]],
+ px_hypo:[["ADA 2024 — Mục tiêu đường huyết & hạ đường huyết",DOI+"10.2337/dc24-S006"]],
+ px_stroke:[["AHA/ASA 2019 — Đột quỵ thiếu máu cấp (Stroke)",DOI+"10.1161/STR.0000000000000211"]],
+ px_se:[["Brophy 2012 — Trạng thái động kinh (Neurocrit Care)",DOI+"10.1007/s12028-012-9695-z"]],
+ px_tox:[["Poison Control — Tiếp cận ngộ độc (National Capital Poison Center)","https://www.poison.org/"]],
+ px_para:[["Rumack 1975 — Ngộ độc paracetamol (Pediatrics)",DOI+"10.1542/peds.55.6.871"]],
+ px_op:[["Eddleston 2008 — Ngộ độc phospho hữu cơ (Lancet)",DOI+"10.1016/S0140-6736(07)61202-1"]],
+ px_opioid:[["CDC 2022 — Hướng dẫn kê opioid (MMWR)","https://pubmed.ncbi.nlm.nih.gov/36327391/"]],
+ px_methanol:[["Barceloux 2002 — Ngộ độc methanol (J Toxicol Clin Toxicol)",DOI+"10.1081/CLT-120006745"]],
+ px_snake:[["WHO — Hướng dẫn phòng ngừa & xử trí rắn cắn (châu Phi)","https://iris.who.int/handle/10665/204458"]],
+ ck_sepsis:[["Surviving Sepsis Campaign 2021","https://sccm.org/sepsisguidelines"]],
+ ck_vap:[["Kalil 2016 — Viêm phổi bệnh viện / VAP (ATS/IDSA)",DOI+"10.1093/cid/ciw353"]],
+ ck_sbt:[["Ouellette 2017 — Cai máy thở (ATS/ACCP)",DOI+"10.1016/j.chest.2016.10.036"]],
+ px_acs:[["ESC 2023 — Hội chứng vành cấp","https://www.escardio.org/Guidelines/Clinical-Practice-Guidelines/Acute-Coronary-Syndromes"]],
+ px_ahf:[["ESC 2021 — Suy tim (Eur Heart J)",DOI+"10.1093/eurheartj/ehab368"]],
+ px_ugib:[["ACG 2021 — Xuất huyết tiêu hoá trên",DOI+"10.14309/ajg.0000000000001245"]],
+ px_asthma:[["GINA 2024 — Chiến lược hen toàn cầu","https://ginasthma.org/wp-content/uploads/2024/05/GINA-2024-Strategy-Report-24_05_22_WMS.pdf"]],
+ px_copd:[["GOLD 2024 — Báo cáo COPD toàn cầu","https://goldcopd.org/2024-gold-report/"]],
+ drugbook:[["Nhãn FDA từng thuốc — DailyMed","https://dailymed.nlm.nih.gov/dailymed/"]],
+ nutri:[["ESPEN 2023 — Dinh dưỡng ICU (Clin Nutr)",DOI+"10.1016/j.clnu.2023.07.011"]],
+ crrt:[["KDIGO 2012 — Hướng dẫn AKI",DOI+"10.1038/kisup.2012.1"]],
+ hfref:[["ESC 2021 — Suy tim (Eur Heart J)",DOI+"10.1093/eurheartj/ehab368"]]
+};
+function srcHTML(id){var sp=SOURCES[id];if(!sp)return "";return '<div class="srcpanel">🔗 Nguồn: '+sp.map(function(x){return '<a href="'+x[1]+'" target="_blank" rel="noopener">'+x[0]+'</a>'}).join(" • ")+'</div>';}
+function addSrcLine(id){var p=$("panel-"+id);if(!p)return;for(var i=p.children.length-1;i>=0;i--){if(p.children[i].classList&&p.children[i].classList.contains("srcpanel"))p.removeChild(p.children[i]);}var h=srcHTML(id);if(h)p.insertAdjacentHTML("beforeend",h);}
+function drugSrcLine(name){var u="https://dailymed.nlm.nih.gov/dailymed/search.cfm?query="+encodeURIComponent(name)+"&searchdb=all";return '<div class="srcline">🔗 Nguồn: <a href="'+u+'" target="_blank" rel="noopener">Nhãn FDA — '+name+' (DailyMed)</a></div>';}
+function showSettings(){var sv=$("settingsView");if(!sv)return;$("homeView").style.display="none";$("detailView").style.display="none";sv.style.display="block";curRes=null;updateSticky();setNav("settings");document.title="Cài đặt — Nội khoa & Hồi sức";renderSettings();window.scrollTo({top:0,behavior:"instant"});}
+function renderSettings(){var n=$("setSpecName");if(n)n.textContent=specName();var v=$("setVer");if(v)v.textContent="v"+APP_VERSION;var f=$("setFavCount");if(f)f.textContent=favs.size?favs.size+" công cụ đã ghim":"Chưa ghim công cụ nào";var th=$("setThemeVal");if(th){var m=store("nkhs_theme")||"auto";th.textContent=m==="light"?"Sáng":m==="dark"?"Tối":"Tự động theo máy";}}
+function bindSettings(){
+ var b;
+ b=$("setSpecBtn");if(b)b.addEventListener('click',openSpecPicker);
+ b=$("setThemeBtn");if(b)b.addEventListener('click',function(){var t=$("themeBtn");if(t)t.click();renderSettings();});
+ b=$("setClearFav");if(b)b.addEventListener('click',function(){if(!favs.size){toast("Chưa có mục nào đã ghim");return;}if(!confirm("Xóa tất cả "+favs.size+" mục đã ghim?"))return;favs.clear();saveFavs();renderHome();renderSettings();toast("Đã xóa mục đã ghim");});
+ b=$("setReadAll");if(b)b.addEventListener('click',function(){try{localStorage.setItem("nkhs_feed_read",JSON.stringify(FEED.map(function(f){return f.id})))}catch(e){}toast("Đã đánh dấu tất cả tin đã đọc");});
+ b=$("setWipe");if(b)b.addEventListener('click',function(){if(!confirm("Xóa toàn bộ dữ liệu đã lưu (chuyên ngành, mục đã ghim, tin đã đọc, cỡ chữ, giao diện)? App sẽ tải lại và hỏi chọn chuyên ngành."))return;["nkhs_spec","nkhs_favs","nkhs_feed_read","nkhs_recent","nkhs_fs","nkhs_theme","nkhs_guide_seen","nkhs_install_x","nkhs_seen_ver"].forEach(function(k){try{localStorage.removeItem(k)}catch(e){}});location.reload();});
+ b=$("setNews");if(b)b.addEventListener('click',openNews);
+ b=$("setShare");if(b)b.addEventListener('click',openShare);
+ b=$("setQR");if(b)b.addEventListener('click',openShare);
+ b=$("setFeedback");if(b)b.addEventListener('click',function(){openFeedback(null);});
+ b=$("setGuide");if(b)b.addEventListener('click',openGuide);
+ b=$("onbLater");if(b)b.addEventListener('click',function(){setSpec("general");});
+}
+
 function catColor(c){return (c==="all"||c==="fav")?"var(--primary)":"var(--c-"+c+")";}
 function store(k,v){try{if(v===undefined)return JSON.parse(localStorage.getItem(k)||"null");localStorage.setItem(k,JSON.stringify(v));}catch(e){return null;}}
 (function(){var r=store("nkhs_recent");if(Array.isArray(r))recent=r.filter(function(id){return TOOLS.some(function(t){return t.id===id})});})();
@@ -636,7 +836,7 @@ function toolCard(t){
 function catCount(c){return c==="all"?TOOLS.length:c==="fav"?favs.size:TOOLS.filter(function(t){return t.cat===c}).length;}
 function renderCats(){
   $("catBar").innerHTML=CATS.map(function(c){var on=curCat===c[0];return '<button type="button" class="chip'+(on?' on':'')+'" data-cat="'+c[0]+'" role="tab" aria-selected="'+on+'" style="--c:'+catColor(c[0])+'">'+((c[0]==="all"||c[0]==="fav")?c[2]:'<span class="dot"></span>')+' '+c[1]+' <span class="n">'+catCount(c[0])+'</span></button>'}).join("");
-  $("sideNav").innerHTML='<h3>Nhóm chuyên khoa</h3>'+CATS.map(function(c){return '<button type="button" data-cat="'+c[0]+'"'+(curCat===c[0]?' class="on"':'')+' style="--c:'+catColor(c[0])+'">'+((c[0]==="all"||c[0]==="fav")?c[2]:'<span class="dot"></span>')+' '+c[1]+'<span class="n">'+catCount(c[0])+'</span></button>'}).join("");
+  $("sideNav").innerHTML='<h3>Nhóm chuyên khoa</h3>'+CATS.map(function(c){return '<button type="button" data-cat="'+c[0]+'"'+(curCat===c[0]?' class="on"':'')+' style="--c:'+catColor(c[0])+'">'+((c[0]==="all"||c[0]==="fav")?c[2]:'<span class="dot"></span>')+' '+c[1]+'<span class="n">'+catCount(c[0])+'</span></button>'}).join("")+'<button type="button" data-nav="settings" style="--c:var(--primary)" onclick="go(\'settings\')">⚙️ Cài đặt</button>';
   document.querySelectorAll('#catBar [data-cat],#sideNav [data-cat]').forEach(function(b){b.addEventListener('click',function(){homeScroll=0;if(location.hash.length>2)go("");setCat(b.dataset.cat);if(b.closest('#sideNav'))window.scrollTo({top:0});var on=$("catBar").querySelector('.on');if(on&&on.scrollIntoView)on.scrollIntoView({inline:"center",block:"nearest",behavior:"smooth"});});});
 }
 function bindCards(root){
@@ -764,15 +964,40 @@ function renderHome(){
     return [t,sc];
   }).filter(Boolean);
   if(toks.length)rows.sort(function(a,b){return b[1]-a[1]});
-  var g=$("toolGrid");g.innerHTML=rows.map(function(r){return toolCard(r[0])}).join("");bindCards(g);
+  var g=$("toolGrid");
+  var spec=getSpec();
+  var sectioned=!toks.length&&curCat==="all";
+  var sr=$("specRow");
+  if(sr){sr.innerHTML='<span class="sp">🩺 Chuyên ngành: <b>'+specName()+'</b></span><button type="button" class="chip ghost" id="specChange">Đổi</button>';var scb=$("specChange");if(scb)scb.addEventListener('click',openSpecPicker);}
+  if(sectioned){
+    var specTools=spec?spec.tools.map(toolById).filter(Boolean):[];
+    var specIds={};specTools.forEach(function(t){specIds[t.id]=1});
+    var favArr=TOOLS.filter(function(t){return favs.has(t.id)&&!specIds[t.id]});
+    var rest=TOOLS.filter(function(t){return !specIds[t.id]&&!favs.has(t.id)});
+    var h="";
+    if(specTools.length)h+='<div class="sec-head"><h2 class="sec-title">🩺 Cho chuyên ngành của bạn</h2><span class="sec-sub">'+specName()+' • '+specTools.length+' công cụ</span></div><div class="grid">'+specTools.map(toolCard).join("")+'</div>';
+    CATS.forEach(function(c){
+      if(c[0]==="all"||c[0]==="fav")return;
+      var items=rest.filter(function(t){return t.cat===c[0]});
+      if(!items.length)return;
+      h+='<div class="sec-head"><h2 class="sec-title">'+c[1]+'</h2><span class="sec-sub">'+items.length+' công cụ</span></div><div class="grid">'+items.map(toolCard).join("")+'</div>';
+    });
+    g.innerHTML=h;bindCards(g);
+    $("listTitle").parentElement.style.display="none";
+    $("favSection").style.display=favArr.length?"block":"none";
+    $("favGrid").innerHTML=favArr.map(toolCard).join("");bindCards($("favGrid"));
+  }else{
+    g.innerHTML=rows.map(function(r){return toolCard(r[0])}).join("");bindCards(g);
+    var titles={all:"Tất cả công cụ",hoisuc:"Hồi sức & tiên lượng",thankinh:"Thần kinh – an thần",hohap:"Hô hấp",than:"Thận – điện giải",timmach:"Tim mạch – sốc",noikhoa:"Nội khoa tổng quát",khangsinh:"💊 Thuốc – kháng sinh",phacdo:"🧭 Phác đồ Hồi sức – Cấp cứu – Chống độc",fav:"⭐ Đã ghim"};
+    $("listTitle").textContent=toks.length?('Kết quả cho “'+curQuery+'”'):(titles[curCat]||"Tất cả công cụ");
+    $("listSub").textContent=rows.length+" công cụ"+(toks.length?" — tìm trong mọi nhóm":"");
+    var fg2=TOOLS.filter(function(t){return favs.has(t.id)});
+    var showFav2=fg2.length&&curCat==="all"&&!toks.length;
+    $("favSection").style.display=showFav2?"block":"none";
+    var fgEl2=$("favGrid");fgEl2.innerHTML=showFav2?fg2.map(toolCard).join(""):"";bindCards(fgEl2);
+  }
   var nDrug=renderDrugHits(toks);$("noResult").style.display=(rows.length||nDrug)?"none":"block";
-  var titles={all:"Tất cả công cụ",hoisuc:"Hồi sức & tiên lượng",thankinh:"Thần kinh – an thần",hohap:"Hô hấp",than:"Thận – điện giải",timmach:"Tim mạch – sốc",noikhoa:"Nội khoa tổng quát",khangsinh:"💊 Thuốc – kháng sinh",phacdo:"🧭 Phác đồ Hồi sức – Cấp cứu – Chống độc",fav:"⭐ Đã ghim"};
-  $("listTitle").textContent=toks.length?('Kết quả cho “'+curQuery+'”'):(titles[curCat]||"Tất cả công cụ");
-  $("listSub").textContent=rows.length+" công cụ"+(toks.length?" — tìm trong mọi nhóm":"");$("listTitle").parentElement.style.display=(toks.length&&!rows.length&&nDrug)?"none":"";
-  var fg=TOOLS.filter(function(t){return favs.has(t.id)});
-  var showFav=fg.length&&curCat==="all"&&!toks.length;
-  $("favSection").style.display=showFav?"block":"none";
-  var fgEl=$("favGrid");fgEl.innerHTML=showFav?fg.map(toolCard).join(""):"";bindCards(fgEl);
+  $("listTitle").parentElement.style.display=(sectioned||(toks.length&&!rows.length&&nDrug))?"none":"";
   var rc=recent.map(toolById).filter(Boolean);
   $("recentWrap").style.display=(rc.length&&!toks.length&&curCat==="all")?"block":"none";
   $("recentChips").innerHTML=rc.map(function(t){return '<button type="button" class="chip" data-open="'+t.id+'" style="--c:'+catColor(t.cat)+'"><span aria-hidden="true">'+t.icon+'</span>'+t.name.split(" — ")[0]+'</button>'}).join("");
@@ -869,23 +1094,23 @@ var navFromHome=false,homeScroll=0,curRes=null,stTick=false;
 function go(id){var h=id?"#/"+id:"#/";if(location.hash===h||(!id&&location.hash==="")){route();return;}location.hash=h;}
 function openTool(id){if($("homeView").style.display!=="none"){navFromHome=true;homeScroll=window.scrollY;}go(id);}
 function backHome(){if(navFromHome){navFromHome=false;history.back();}else go("");}
-function route(){var m=(location.hash||"").match(/^#\/([\w-]+)/);var id=m&&m[1];if(id&&$("panel-"+id))showTool(id);else showHome();}
+function route(){var m=(location.hash||"").match(/^#\/([\w-]+)/);var id=m&&m[1];if(id==="settings"){showSettings();return;}if(id==="fav"){go("");return;}if(id&&$("panel-"+id))showTool(id);else showHome();}
 window.addEventListener('hashchange',route);
 function setNav(n){document.querySelectorAll('.bottomnav button').forEach(function(x){x.classList.toggle('on',x.dataset.nav===n)});}
 function showHome(){
-  $("detailView").style.display="none";$("homeView").style.display="block";curRes=null;updateSticky();
-  setNav(curCat==="fav"?"fav":curCat==="phacdo"?"phacdo":"home");document.title="Công cụ Nội khoa & Hồi sức";
+  $("detailView").style.display="none";var sv=$("settingsView");if(sv)sv.style.display="none";$("homeView").style.display="block";curRes=null;updateSticky();
+  setNav(curCat==="phacdo"?"phacdo":"home");document.title="Công cụ Nội khoa & Hồi sức";
   var y=homeScroll;requestAnimationFrame(function(){window.scrollTo({top:y,behavior:"instant"});});
 }
 function showTool(id){
   recent=[id].concat(recent.filter(function(x){return x!==id})).slice(0,6);store("nkhs_recent",recent);
-  $("homeView").style.display="none";var dv=$("detailView");dv.style.display="block";
+  $("homeView").style.display="none";var sv=$("settingsView");if(sv)sv.style.display="none";var dv=$("detailView");dv.style.display="block";
   dv.querySelectorAll('.panel').forEach(function(p){p.classList.toggle('open',p.id==='panel-'+id);});
   if(id==='abx')renderAbx();
   if(id.indexOf('px_')===0)renderTree(id);
   if(id==='drugbook')renderDrugBook();
   if(id==='feed')renderFeed();
-  enhancePanel(id);window.scrollTo({top:0,behavior:"instant"});
+  enhancePanel(id);addSrcLine(id);window.scrollTo({top:0,behavior:"instant"});
   setNav(id==="abx"?"abx":id==="feed"?"feed":id.indexOf("px_")===0?"phacdo":"");var t=toolById(id);if(t)document.title=t.name+" — Nội khoa & Hồi sức";
   curRes=$("panel-"+id).querySelector('.result');updateSticky();renderHome();
 }
@@ -942,11 +1167,11 @@ document.addEventListener('touchmove',function(e){if(e.touches&&e.touches.length
 var lastTouchEnd=0;document.addEventListener('touchend',function(e){var now=Date.now();if(now-lastTouchEnd<300){var t=e.target;if(!(t.closest&&t.closest('input,select,textarea')))e.preventDefault();}lastTouchEnd=now;},{passive:false});
 document.addEventListener('wheel',function(e){if(e.ctrlKey)e.preventDefault();},{passive:false});
 /* Cỡ chữ trong app — thay cho phóng to bằng tay */
-(function(){var sizes=["1","1.12","1.25"],names={"1":"vừa","1.12":"lớn","1.25":"rất lớn"};var cur=String(store("nkhs_fs")||"1");if(sizes.indexOf(cur)<0)cur="1";
+(function(){var sizes=["0.9","1","1.12","1.25"],names={"0.9":"nhỏ","1":"vừa","1.12":"lớn","1.25":"rất lớn"};var cur=String(store("nkhs_fs")||"1");if(sizes.indexOf(cur)<0)cur="1";
  function ap(){document.body.style.zoom=cur==="1"?"":cur;document.querySelectorAll('#fontSize button').forEach(function(b){b.classList.toggle('on',b.dataset.v===cur)});var fb=$("fontBtn");if(fb){fb.textContent=cur==="1"?"A":cur==="1.12"?"A+":"A++";fb.setAttribute('aria-label',"Cỡ chữ: "+names[cur]);}if(typeof updateSticky==="function")updateSticky();}
  function set(v){cur=v;store("nkhs_fs",cur);ap();toast("Cỡ chữ: "+names[cur]);}
  ap();document.querySelectorAll('#fontSize button').forEach(function(b){b.addEventListener('click',function(){set(b.dataset.v)})});
- $("fontBtn").addEventListener('click',function(){set(sizes[(sizes.indexOf(cur)+1)%sizes.length]);});})();
+ var fb0=$("fontBtn");if(fb0)fb0.addEventListener('click',function(){set(sizes[(sizes.indexOf(cur)+1)%sizes.length]);});})();
 /* Giao diện sáng / tối / tự động */
 (function(){var modes=["auto","light","dark"],ic={auto:"🌓",light:"☀️",dark:"🌙"},lb={auto:"tự động theo máy",light:"sáng",dark:"tối"};var m=store("nkhs_theme")||"auto";
   function ap(){if(m==="auto")document.documentElement.removeAttribute('data-theme');else document.documentElement.setAttribute('data-theme',m);var b=$("themeBtn");b.textContent=ic[m];b.title="Giao diện: "+lb[m];b.setAttribute('aria-label',"Đổi giao diện (đang: "+lb[m]+")");}
@@ -982,7 +1207,7 @@ function openNews(){openDlg('<h3>🆕 Có gì mới</h3>'+CHANGELOG.map(function
 var GUIDE=[
  ["🔍","Tìm nhanh","Gõ vào ô tìm kiếm — không dấu cũng được: tên thang điểm (<i>sofa, glasgow, curb</i>), bệnh cảnh (<i>soc nhiem trung, ngo doc</i>) hoặc <b>tên thuốc / biệt dược</b> (<i>augmentin, tazocin, levophed, seduxen, xarelto</i>). Mục <b>💊 Thuốc</b> cho biết biệt dược đó là hoạt chất gì và mở thẳng công cụ liên quan. Nhấn Enter để mở kết quả đầu tiên."],
  ["🧭","Nhóm & phác đồ","Hàng nút dưới ô tìm kiếm lọc theo nhóm. Nhóm <b>Phác đồ</b> (nút 🧭 ở thanh dưới) gồm các cây quyết định Hồi sức – Cấp cứu – Chống độc."],
- ["⭐","Ghim công cụ hay dùng","Chạm ☆ trên thẻ hoặc trong công cụ để ghim — công cụ đã ghim hiện ở đầu trang chủ và ở nút ⭐ Đã ghim. Mục <b>Dùng gần đây</b> nhớ 6 công cụ mở gần nhất."],
+ ["⭐","Ghim công cụ hay dùng","Chạm ☆ trên thẻ hoặc trong công cụ để ghim — công cụ đã ghim hiện ở mục ⭐ Đã ghim trên trang chủ. Mục <b>Dùng gần đây</b> nhớ 6 công cụ mở gần nhất."],
  ["🎨","Đọc kết quả","Kết quả tính ngay khi nhập, có màu và chữ diễn giải: <span class='gl g0'>xanh</span> bình thường / nguy cơ thấp, <span class='gl g1'>vàng</span> cần theo dõi, <span class='gl g2'>cam</span> bất thường, <span class='gl g3'>đỏ</span> nguy hiểm. Số thập phân nhập bằng dấu phẩy hoặc chấm đều được; ô nhập sai sẽ viền đỏ."],
  ["⧉","Sao chép vào bệnh án","Nút ⧉ trên ô kết quả sao chép tên công cụ, kết quả và diễn giải để dán vào bệnh án / tin nhắn. Khi cuộn xuống nhập liệu, <b>thanh kết quả nổi</b> phía dưới luôn hiện số đang tính — chạm vào để quay lại."],
  ["🌳","Phác đồ dạng cây","<b>Từng bước</b>: trả lời câu hỏi để đi tới khuyến cáo; chạm vào bước đã chọn để quay lại sửa. <b>Toàn bộ cây</b>: xem tất cả nhánh một lúc. Một số nút mở thẳng phác đồ hoặc công cụ khác."],
@@ -995,15 +1220,14 @@ var GUIDE=[
  ["💬","Báo lỗi / góp ý","Nút ⚑ trong công cụ hoặc 💬 ở trang chủ mở GitHub Issue có mẫu sẵn. Không ghi tên, mã hồ sơ hay thông tin định danh bệnh nhân."]];
 function openGuide(){store("nkhs_guide_seen",1);var b=$("btnGuide");if(b)b.classList.remove('new');
  openDlg('<h3>❓ Hướng dẫn sử dụng</h3><div class="guide">'+GUIDE.map(function(g){return '<div class="gi"><span class="gic" aria-hidden="true">'+g[0]+'</span><div><b>'+g[1]+'</b><p>'+g[2]+'</p></div></div>'}).join("")+'</div><p class="dlg-note">⚠️ Công cụ chỉ hỗ trợ quyết định — không thay thế đánh giá lâm sàng và phác đồ của bệnh viện. Mọi phép tính chạy trên máy, không gửi dữ liệu đi đâu.</p>');}
-$("btnGuide").addEventListener('click',openGuide);
+var _g70g=$("btnGuide");if(_g70g)_g70g.addEventListener('click',openGuide);
 if(!store("nkhs_guide_seen")){var bg=$("btnGuide");if(bg)bg.classList.add('new');}
 
-$("btnShare").addEventListener('click',openShare);$("btnFeedback").addEventListener('click',function(){openFeedback(null);});$("btnNews").addEventListener('click',openNews);
-$("btnFeed").addEventListener('click',function(){openTool('feed');});
+var _g70s=$("btnShare");if(_g70s)_g70s.addEventListener('click',openShare);var _g70f=$("btnFeedback");if(_g70f)_g70f.addEventListener('click',function(){openFeedback(null);});var _g70n=$("btnNews");if(_g70n)_g70n.addEventListener('click',openNews);
+var _g70d=$("btnFeed");if(_g70d)_g70d.addEventListener('click',function(){openTool('feed');});
 (function(){var nT=TOOLS.filter(function(t){return t.cat!=="phacdo"}).length,nP=TOOLS.length-nT;
  $("topSub").textContent=nT+" công cụ • "+nP+" phác đồ • v"+APP_VERSION;
- $("verLine").innerHTML='<b>Phiên bản v'+APP_VERSION+'</b> — cập nhật '+APP_DATE+' · <a href="#" id="flGuide">Hướng dẫn</a> · <a href="#" id="flNews">Có gì mới</a> · <a href="#" id="flFb">Báo lỗi / Góp ý</a> · <a href="#" id="flShare">Chia sẻ app</a>';
- $("flNews").addEventListener('click',function(e){e.preventDefault();openNews();});$("flGuide").addEventListener('click',function(e){e.preventDefault();openGuide();});$("flFb").addEventListener('click',function(e){e.preventDefault();openFeedback(null);});$("flShare").addEventListener('click',function(e){e.preventDefault();openShare();});
+ $("verLine").innerHTML='<b>Phiên bản v'+APP_VERSION+'</b> — cập nhật '+APP_DATE+' · Xem “Có gì mới” và các mục khác trong Cài đặt.';
  var seen=store("nkhs_seen_ver");if(seen&&seen!==APP_VERSION){var b=$("btnNews");if(b){b.classList.add('new');b.innerHTML='🆕 Có gì mới — v'+APP_VERSION;}}store("nkhs_seen_ver",APP_VERSION);
 })();
 
@@ -2116,7 +2340,7 @@ function renderDrugBook(){
  if(dbState.sel!=null&&DRUGDB[dbState.sel]){var i=dbState.sel,r=monoText(i),d=r.d;
    view.innerHTML='<button type="button" class="back" id="dbBack">← Danh sách thuốc</button><div class="mono"><div class="mono-h"><div><h3>'+d.g+'</h3>'+(d.b.length?'<div class="db">'+d.b.join(" · ")+'</div>':'')+'<span class="dc">'+d.c+'</span></div><button type="button" class="pact" id="dbCopy" title="Sao chép hướng dẫn" aria-label="Sao chép hướng dẫn">⧉</button></div>'+
    dbSec("🎯","Chỉ định",r.m.ind)+dbSec("💊","Liều người lớn",r.dose)+dbSec("🧪","Cách pha – cách dùng",r.use)+dbSec("⛔","Chống chỉ định – thận trọng",r.ci)+dbSec("⚠️","Tác dụng phụ – theo dõi",r.ae)+dbSec("🤰","Thai kỳ",r.m.preg)+
-   '<div class="mono-links">'+d.t.map(function(x,j){var l=drugLinkLabel(x);return l?'<button type="button" class="chip" data-dr="'+i+'" data-dj="'+j+'">'+l+'</button>':''}).join("")+'</div></div>';
+   '<div class="mono-links">'+d.t.map(function(x,j){var l=drugLinkLabel(x);return l?'<button type="button" class="chip" data-dr="'+i+'" data-dj="'+j+'">'+l+'</button>':''}).join("")+'</div>'+drugSrcLine(d.g)+'</div>';
    $("dbBack").addEventListener('click',function(){dbState.sel=null;renderDrugBook();});
    view.querySelectorAll('[data-dr]').forEach(function(b){b.addEventListener('click',function(){openDrug(+b.dataset.dr,+b.dataset.dj);});});
    $("dbCopy").addEventListener('click',function(){var el=document.createElement('div');el.innerHTML=view.querySelector('.mono').innerHTML;el.querySelectorAll('button').forEach(function(x){x.remove()});el.querySelectorAll('h4,li,p').forEach(function(x){x.insertAdjacentText('beforebegin',"\n")});copyText(el.textContent.replace(/\n\s*\n+/g,"\n").trim(),"Đã sao chép hướng dẫn thuốc");});
@@ -2417,6 +2641,8 @@ function renderAbx(){
 buildAbxPanel();
 renderAbx();
 renderHome();
+bindSettings();
+if(!store("nkhs_spec"))showOnb();
 route();
 </script>
 </body>
