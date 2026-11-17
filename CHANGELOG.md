@@ -4,6 +4,9 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v0.6.4 — 17/11/2026
+- Sửa chữ sót ở trang Bản tin: phần giới thiệu và tiêu đề còn ghi chuyên mục cũ và cập nhật mỗi tuần — nay ghi đúng chỉ còn Nghiên cứu mới, cập nhật mỗi ngày.
+
 ## v0.6.3 — 17/11/2026
 - **Bản tin gọn lại chỉ còn Nghiên cứu mới:** bỏ 12 mục biên tập cũ (mẹo tại giường, cập nhật hướng dẫn, ca lâm sàng, cảnh báo thuốc), chỉ giữ bài nghiên cứu mới từ RSS của NEJM, JAMA, The Lancet và European Heart Journal. Cập nhật mỗi ngày một lần.
 
