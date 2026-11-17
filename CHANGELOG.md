@@ -4,6 +4,9 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v0.9.2 — 18/11/2026
+- Phác đồ viêm phổi (HAP/VAP nguy cơ cao): thêm lưu ý ESBL — nguy cơ ESBL cao thì chọn meropenem, vì piperacillin–tazobactam và cefepime không phủ ESBL chắc chắn (thử nghiệm MERINO).
+
 ## v0.9.1 — 18/11/2026
 - Phác đồ viêm phổi ghi rõ phác đồ kháng sinh cụ thể kèm liều (CAP nhẹ / nhập viện / nặng ICU, HAP/VAP nguy cơ thấp / cao) thay vì chỉ ghi tên nhóm thuốc, kèm liên kết tới module kháng sinh.
 - Các bảng điểm dạng tick chọn (PERC, sPESI, Wells, CURB-65, qSOFA, SOFA, Ranson, Charlson, TIMI, 4Ts, DIC, PLASMIC, Burch-Wartofsky, CPIS, Hunt-Hess, BODE, ECOG, Rockall…) giờ tính sẵn ngay khi mở công cụ, không còn hiện ô trống chờ bấm.
