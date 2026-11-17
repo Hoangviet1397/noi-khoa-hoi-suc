@@ -4,6 +4,9 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v0.6.2 — 17/11/2026
+- **Bản tin thêm chuyên mục Nghiên cứu mới từ RSS:** 5 bài đầu tiên — prasugrel so với ticagrelor trong ACS (NEJM), PEPPER dự phòng VTE sau thay khớp (NEJM), pelacarsen hạ Lp(a) thất bại pha 3 (JAMA), insulin nền efsitora mỗi tuần (JAMA), mười điều răn ESC 2025 về viêm cơ tim/màng ngoài tim (Eur Heart J). Bài mới được cập nhật mỗi tuần từ RSS của NEJM, JAMA, The Lancet và European Heart Journal (qua PubMed).
+
 ## v0.6.1 — 17/11/2026
 - **Bản tin làm lại như feed bài báo:** mỗi mục có toàn văn (chạm thẻ hoặc nút Đọc tiếp để mở rộng), tên nguồn và nút “🔗 Đọc bản gốc” dẫn tới toàn văn hướng dẫn gốc để kiểm chứng: SSC 2021, Sepsis-3 (JAMA 2016), KDIGO 2024, ESC 2023, định nghĩa ARDS toàn cầu 2023, ESPEN 2023, nhãn thuốc Merrem (FDA), hướng dẫn vancomycin ASHP/IDSA 2020, ADA Standards of Care 2024. Chạm vào thẻ tin cũng đánh dấu đã đọc.
 
