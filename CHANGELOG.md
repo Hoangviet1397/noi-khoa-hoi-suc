@@ -4,6 +4,11 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v2.5.1 — 18/11/2026 — Khóa 3 áp dụng cho bảng liều + sửa link #/tin-tuc
+
+- **Khóa 3 (dị ứng / MRSA / ESBL) áp dụng thật cho cả bảng liều:** trước đây phác đồ kinh nghiệm đã khóa khi chưa trả lời 3 câu an toàn, nhưng bảng "Liều từng thuốc" vẫn hiện liều từng thuốc. Nay bảng liều cũng khóa cho tới khi trả lời đủ dị ứng penicillin, nguy cơ MRSA và nguy cơ ESBL — sau đó mới gạch thuốc không dùng được như phác đồ.
+- **Sửa lỗi điều hướng:** mở `#/tin-tuc` trước đây quay về trang chủ — nay `#/tin-tuc` mở đúng trang Bản tin như `#/feed`.
+
 ## v2.5.0 — 18/11/2026 — Bỏ chế độ offline
 
 - **Bỏ chế độ offline:** gỡ service worker lưu app vào máy và bỏ nút "⬇ Tải file offline (dự phòng)". App luôn tải bản mới nhất mỗi lần mở (cần mạng), tránh trường hợp dùng nhầm bản cũ khi liều / phác đồ đã được sửa.

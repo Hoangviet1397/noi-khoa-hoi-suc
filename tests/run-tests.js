@@ -3,6 +3,8 @@
 //  1) Bộ tính liều truyền thuốc ICU: mọi ca kiểm tra tính tay (ex) khớp công thức, 2 chiều liều ↔ mL/giờ.
 //  2) Phác đồ dạng cây: không có nút thiếu, nhánh cụt, nút không tới được, liên kết hỏng.
 //  3) Checklist và đăng ký công cụ: mọi công cụ có bảng điều khiển tương ứng.
+//  4) Tra cứu thuốc và Sổ tay thuốc: liên kết, từ khóa, hướng dẫn đủ mục.
+//  6) v2.5.1 hồi quy: bảng liều khóa khi chưa trả lời đủ 3 câu an toàn; #/tin-tuc mở Bản tin.
 const fs = require("fs"), path = require("path"), vm = require("vm");
 const html = fs.readFileSync(path.join(__dirname, "..", "index.html"), "utf8");
 function grab(startMarker, endMarker) {
@@ -84,6 +86,34 @@ DRUGDB.forEach(d => {
     if (x[0] === "vaso" && x[1]) ok(ivKeys.has(x[1]), d.g + ": mã thuốc truyền không tồn tại " + x[1]);
   });
 });
+
+// 6) v2.5.1 hồi quy: khóa 3 áp dụng cho bảng liều + alias #/tin-tuc → Bản tin
+// 6a) Điều hướng: #/tin-tuc mở Bản tin như #/feed, hash lạ vẫn về trang chủ
+const ctx4 = { location: { hash: "" }, $: id => (id === "panel-feed" ? {} : null), showSettings: () => { ctx4.shown = "settings"; }, showHome: () => { ctx4.shown = "home"; }, showTool: id => { ctx4.shown = id; }, go: () => {} };
+vm.createContext(ctx4);
+vm.runInContext(grab("function route(){", "window.addEventListener('hashchange',route);"), ctx4);
+ctx4.location.hash = "#/tin-tuc"; vm.runInContext("route()", ctx4);
+ok(ctx4.shown === "feed", "#/tin-tuc phải mở Bản tin (feed), nhận: " + ctx4.shown);
+ctx4.location.hash = "#/feed"; vm.runInContext("route()", ctx4);
+ok(ctx4.shown === "feed", "#/feed phải mở Bản tin, nhận: " + ctx4.shown);
+ctx4.location.hash = "#/khong-co"; vm.runInContext("route()", ctx4);
+ok(ctx4.shown === "home", "hash lạ phải về trang chủ, nhận: " + ctx4.shown);
+// 6b) Bảng liều khóa khi chưa trả lời đủ 3 câu an toàn (dị ứng / MRSA / ESBL)
+const abxEls = {};
+function abxEl() { return { innerHTML: "", textContent: "", value: "", style: {}, dataset: {}, classList: { toggle() {}, add() {}, remove() {} }, addEventListener() {}, querySelectorAll() { return []; }, querySelector() { return null; } }; }
+const ctx5 = { norm: ctx3.norm, SYNDROMES: [["all", "Tất cả hội chứng"], ["cap", "Viêm phổi cộng đồng (CAP)"], ["hap", "Viêm phổi bệnh viện / VAP"], ["uti", "Nhiễm trùng tiết niệu"], ["abd", "Nhiễm trùng ổ bụng"], ["skin", "Da – mô mềm"], ["men", "Viêm màng não"], ["sepsis", "Nhiễm trùng huyết không rõ ổ"]], ABX: [{ n: "Ceftriaxone", g: "Cephalosporin", syn: ["cap"], tdm: false, d: { b90: "1–2 g IV mỗi 24h", b60: "1–2 g IV mỗi 24h", b30: "1 g IV mỗi 24h", b15: "1 g IV mỗi 24h", blt: "1 g IV mỗi 24h", hd: "1 g IV mỗi 24h" }, load: "2 g", liver: "không chỉnh", note: "thử" }], $: id => (abxEls[id] || (abxEls[id] = abxEl())) };
+vm.createContext(ctx5);
+vm.runInContext(grab("var abxState={", "// ============ v2.0.0: Ho so ca zero-data (RAM-only) ============"), ctx5);
+function abxListHTML() { return abxEls["abx_list"] ? abxEls["abx_list"].innerHTML : ""; }
+vm.runInContext("renderAbx()", ctx5);
+ok(abxListHTML().includes("ĐÃ KHÓA") && !abxListHTML().includes("Ceftriaxone"), "Bảng liều phải khóa khi chưa trả lời dị ứng/MRSA/ESBL");
+vm.runInContext("abxState.allergy='none'; abxState.mrsa=null; abxState.esbl='no'; renderAbx()", ctx5);
+ok(abxListHTML().includes("ĐÃ KHÓA"), "Bảng liều phải khóa khi mới trả lời 2/3 câu an toàn");
+vm.runInContext("abxState.mrsa='no'; renderAbx()", ctx5);
+ok(abxListHTML().includes("Ceftriaxone") && abxListHTML().includes("1–2 g IV mỗi 24h") && !abxListHTML().includes("ĐÃ KHÓA"), "Bảng liều phải hiện khi trả lời đủ 3 câu an toàn");
+vm.runInContext("abxState.esbl='yes'; renderAbx()", ctx5);
+ok(abxListHTML().includes("abx-ban") && abxListHTML().includes("Không phủ ESBL chắc chắn"), "ESBL cao: Ceftriaxone trong bảng liều phải bị đánh dấu không dùng được");
+console.log("Hồi quy v2.5.1: khóa bảng liều + alias #/tin-tuc");
 
 console.log(fail ? `\n❌ ${fail} lỗi, ${pass} đạt` : `\n✅ Tất cả ${pass} kiểm tra đều đạt`);
 process.exit(fail ? 1 : 0);
