@@ -4,6 +4,14 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 rồi cập nhật file này. (Lưu ý: từ v2.5.0 app đã bỏ chế độ offline — không còn service worker.)
 
+## v2.6.1 — 18/11/2026 — Module kháng sinh: bước ③ làm lại kiểu cây phác đồ
+
+- **Cây hỏi nguy cơ kháng thuốc thay 2 checklist:** bước ③ của module kháng sinh giờ hỏi từng bước, một câu một thẻ (giống phác đồ cây): tiền sử nhiễm/mang MRSA hoặc ESBL → nằm viện/ICU/dưỡng lão 90 ngày → kháng sinh phổ rộng gần đây → sonde tiểu/thủ thuật xâm lấn → lọc máu/vết thương mạn/viêm phổi nặng. Mỗi yếu tố chỉ hỏi đúng một lần — sửa đúng điểm Việt chê ở v2.6.0 (câu nằm viện và dùng kháng sinh bị hỏi lặp 2–3 lần ở cả 2 checklist, khó dùng trên điện thoại).
+- **Rẽ nhánh:** tiền sử "Có cả hai" thì chốt luôn cả hai nguy cơ cao; "Có ESBL" thì bỏ qua câu sonde tiểu; "Có MRSA" thì bỏ qua câu lọc máu/vết thương. Các câu đã trả lời xếp thành danh sách, chạm để quay lại sửa; có nút làm lại từ đầu. Kết luận hiện rõ cả hai nguy cơ cùng lý do.
+- **Quy tắc giữ như v2.6.0:** 1 yếu tố "Có" là cao, toàn "Không" mới thấp, có "Không biết" là "chưa rõ"; "Không biết" không bao giờ tính là thấp; "chưa rõ" mặc định theo mức nặng nhẹ (nặng phủ rộng chờ cấy, nhẹ dùng phác đồ chuẩn).
+- **Sửa lỗi đường tắt "Tôi đã biết nguy cơ":** trước đây vào đường tắt app giữ nguy cơ cũ (mặc định THẤP) trước khi người dùng chọn — nay vào đường tắt thì trống, phải bấm Cao hoặc Thấp mới tính.
+- **Kiểm tra:** test harness 4.151 kiểm tra đều đạt (thêm hồi quy cây hỏi v2.6.1: rẽ nhánh, 1 Có → cao, Không biết → chưa rõ, khóa, đường tắt không mặc định).
+
 ## v2.6.0 — 18/11/2026 — Bản tin kiểu Feed (30 bài, ảnh minh hoạ) + checklist nguy cơ MRSA/ESBL
 
 - **Bản tin làm lại kiểu Feed:** 30 bài Nghiên cứu mới mới nhất (thêm 20 bài), thẻ bài có ảnh minh hoạ lớn phía trên, tiêu đề tiếng Việt, tóm tắt 2–3 câu, nguồn + ngày đăng, huy hiệu “Mới” cho bài chưa đọc; sắp xếp nghiêm theo ngày xuất bản, mới nhất lên đầu. Chạm thẻ mở toàn văn và đánh dấu đã đọc; giữ nguyên lọc theo chuyên mục, tìm kiếm và đánh dấu đã đọc.

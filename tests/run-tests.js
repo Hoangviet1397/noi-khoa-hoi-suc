@@ -140,22 +140,82 @@ ok(html.includes("feedSorted().filter"), "renderFeed phải dùng feedSorted() �
 ok(html.includes('class="feedcard"') && html.includes('class="feedimg"'), "Thẻ feed phải có ảnh lớn phía trên (feedcard/feedimg)");
 console.log("Hồi quy v2.6.0 Bản tin: 30 mục, mới nhất lên đầu, ảnh + nguồn mới");
 
-// 8) v2.6.0 hồi quy checklist nguy cơ MRSA/ESBL
-const abxRiskFromChk = vm.runInContext("abxRiskFromChk", ctx5), abxRiskEff = vm.runInContext("abxRiskEff", ctx5);
+// 8) v2.6.1 hồi quy cây hỏi nguy cơ MRSA/ESBL (thay 2 checklist v2.6.0)
+const abxRiskFromTree = vm.runInContext("abxRiskFromTree", ctx5), abxRiskEff = vm.runInContext("abxRiskEff", ctx5);
+const abxRiskNext = vm.runInContext("abxRiskNext", ctx5), abxRiskDone = vm.runInContext("abxRiskDone", ctx5);
 const abxCardBan = vm.runInContext("abxCardBan", ctx5);
-function resetRisk() { vm.runInContext("abxState.mrsaChk={}; abxState.esblChk={}; abxState.mrsaMode='chk'; abxState.esblMode='chk'; abxState.mrsa=null; abxState.esbl=null; abxState.sev='severe';", ctx5); }
-resetRisk();
-ok(abxRiskFromChk("mrsa").risk === null, "MRSA: chưa tick yếu tố nào thì nguy cơ chưa xác định");
-vm.runInContext("abxState.mrsaChk={prior:'yes'};", ctx5);
-ok(abxRiskFromChk("mrsa").risk === "yes", "MRSA: chỉ cần 1 tick Có (từng nhiễm/mang) là nguy cơ cao, dù chưa tick hết");
-vm.runInContext("abxState.mrsaChk={prior:'no',hosp:'no',abx:'no',wound:'no'};", ctx5);
-ok(abxRiskFromChk("mrsa").risk === "no", "MRSA: toàn Không mới là nguy cơ thấp");
-vm.runInContext("abxState.mrsaChk={prior:'no',hosp:'dk',abx:'no',wound:'no'};", ctx5);
-ok(abxRiskFromChk("mrsa").risk === "unk", "MRSA: có Không biết + còn lại Không thì là chưa rõ, không được tính thấp");
-vm.runInContext("abxState.mrsaChk={prior:'no',hosp:'no'};", ctx5);
-ok(abxRiskFromChk("mrsa").risk === null, "MRSA: mới tick một phần, chưa có Có, thì chưa xác định (không mở khóa)");
-vm.runInContext("abxState.esblChk={prior:'no',hosp:'no',ceph:'no',cath:'dk',uti:'no'};", ctx5);
-ok(abxRiskFromChk("esbl").risk === "unk", "ESBL: 5 yếu tố, 1 Không biết (sonde tiểu) thì là chưa rõ");
+function setTree(ans, path) { vm.runInContext("abxState.riskMode='tree'; abxState.riskAns=" + JSON.stringify(ans) + "; abxState.riskPath=" + JSON.stringify(path) + "; abxState.sev='severe'; abxRiskSync();", ctx5); }
+function riskOf(kind) { return vm.runInContext("abxState." + kind, ctx5); }
+function treeHTML() { return abxEls["abx_risk_tree"] ? abxEls["abx_risk_tree"].innerHTML : ""; }
+// Rẽ nhánh: mỗi câu chỉ hỏi một lần, câu không còn liên quan thì bỏ qua
+vm.runInContext("abxState.riskAns={q1:'both'};", ctx5);
+ok(abxRiskNext("q1") === null, "Rẽ nhánh: q1 Có cả hai thì chốt luôn, bỏ qua q2–q5");
+vm.runInContext("abxState.riskAns={q1:'esbl'};", ctx5);
+ok(abxRiskNext("q3") === "q5", "Rẽ nhánh: q1 Có ESBL thì sau q3 bỏ qua q4 (sonde tiểu chỉ ảnh hưởng ESBL), sang q5");
+vm.runInContext("abxState.riskAns={q1:'mrsa'};", ctx5);
+ok(abxRiskNext("q4") === null, "Rẽ nhánh: q1 Có MRSA thì sau q4 bỏ qua q5 (chỉ ảnh hưởng MRSA), tới kết luận");
+vm.runInContext("abxState.riskAns={q1:'no'};", ctx5);
+ok(abxRiskNext("q1") === "q2" && abxRiskNext("q3") === "q4" && abxRiskNext("q4") === "q5" && abxRiskNext("q5") === null, "Rẽ nhánh: q1 Không thì đi đủ 5 câu theo thứ tự q1→q2→q3→q4→q5");
+// Chưa trả lời gì thì chưa xác định
+setTree({}, ["q1"]);
+ok(riskOf("mrsa") === null && riskOf("esbl") === null, "Cây hỏi: chưa trả lời câu nào thì cả hai nguy cơ đều chưa xác định");
+ok(abxRiskDone() === false, "Cây hỏi: chưa trả lời thì chưa tới kết luận");
+// q1 Có MRSA thì MRSA cao ngay, ESBL chưa xác định
+setTree({ q1: "mrsa" }, ["q1", "q2"]);
+ok(riskOf("mrsa") === "yes" && riskOf("esbl") === null, "Cây hỏi: q1 Có MRSA thì MRSA cao ngay, ESBL chưa xác định cho tới khi hỏi xong");
+// Đường đi đầy đủ: toàn Không → cả hai thấp
+setTree({ q1: "no", q2: "no", q3: "no", q4: "no", q5: "no" }, ["q1", "q2", "q3", "q4", "q5"]);
+ok(riskOf("mrsa") === "no" && riskOf("esbl") === "no", "Cây hỏi: toàn Không → cả hai nguy cơ thấp");
+ok(abxRiskDone() === true, "Cây hỏi: trả lời đủ 5 câu thì tới kết luận");
+// 1 Có ở q2 (nằm viện) → cả hai cao
+setTree({ q1: "no", q2: "yes", q3: "no", q4: "no", q5: "no" }, ["q1", "q2", "q3", "q4", "q5"]);
+ok(riskOf("mrsa") === "yes" && riskOf("esbl") === "yes", "Cây hỏi: nằm viện 90 ngày qua (Có) → cả hai nguy cơ cao");
+// q4 chỉ ảnh hưởng ESBL
+setTree({ q1: "no", q2: "no", q3: "no", q4: "yes", q5: "no" }, ["q1", "q2", "q3", "q4", "q5"]);
+ok(riskOf("mrsa") === "no" && riskOf("esbl") === "yes", "Cây hỏi: sonde tiểu (Có) chỉ làm ESBL cao, MRSA vẫn thấp");
+// q5 chỉ ảnh hưởng MRSA
+setTree({ q1: "no", q2: "no", q3: "no", q4: "no", q5: "yes" }, ["q1", "q2", "q3", "q4", "q5"]);
+ok(riskOf("mrsa") === "yes" && riskOf("esbl") === "no", "Cây hỏi: lọc máu/vết thương/viêm phổi nặng (Có) chỉ làm MRSA cao, ESBL vẫn thấp");
+// Có MRSA ở q1 → chốt MRSA cao, bỏ qua q5
+setTree({ q1: "mrsa", q2: "no", q3: "no", q4: "no" }, ["q1", "q2", "q3", "q4"]);
+ok(riskOf("mrsa") === "yes" && riskOf("esbl") === "no", "Cây hỏi: q1 Có MRSA → MRSA cao, ESBL thấp (bỏ qua q5)");
+ok(abxRiskDone() === true, "Cây hỏi: q1 Có MRSA + trả lời đủ q2–q4 thì tới kết luận");
+// Có ESBL ở q1 → chốt ESBL cao, bỏ qua q4
+setTree({ q1: "esbl", q2: "no", q3: "no", q5: "no" }, ["q1", "q2", "q3", "q5"]);
+ok(riskOf("mrsa") === "no" && riskOf("esbl") === "yes", "Cây hỏi: q1 Có ESBL → ESBL cao, MRSA thấp (bỏ qua q4)");
+ok(abxRiskDone() === true, "Cây hỏi: q1 Có ESBL + trả lời đủ q2,q3,q5 thì tới kết luận");
+// Có cả hai ở q1 → cả hai cao, không cần câu sau
+setTree({ q1: "both" }, ["q1"]);
+ok(riskOf("mrsa") === "yes" && riskOf("esbl") === "yes", "Cây hỏi: q1 Có cả hai → cả hai nguy cơ cao");
+ok(abxRiskDone() === true, "Cây hỏi: q1 Có cả hai thì tới kết luận ngay");
+// Không biết ở q1 → cả hai chưa rõ
+setTree({ q1: "dk", q2: "no", q3: "no", q4: "no", q5: "no" }, ["q1", "q2", "q3", "q4", "q5"]);
+ok(riskOf("mrsa") === "unk" && riskOf("esbl") === "unk", "Cây hỏi: Không biết tiền sử + còn lại Không → cả hai chưa rõ, không được tính thấp");
+// Không biết ở q2 → cả hai chưa rõ
+setTree({ q1: "no", q2: "dk", q3: "no", q4: "no", q5: "no" }, ["q1", "q2", "q3", "q4", "q5"]);
+ok(riskOf("mrsa") === "unk" && riskOf("esbl") === "unk", "Cây hỏi: Không biết nằm viện + còn lại Không → cả hai chưa rõ");
+// Không biết ở q4 → chỉ ESBL chưa rõ
+setTree({ q1: "no", q2: "no", q3: "no", q4: "dk", q5: "no" }, ["q1", "q2", "q3", "q4", "q5"]);
+ok(riskOf("mrsa") === "no" && riskOf("esbl") === "unk", "Cây hỏi: Không biết sonde tiểu → chỉ ESBL chưa rõ, MRSA thấp");
+// Mới trả lời một phần, chưa có Có → chưa xác định (không mở khóa)
+setTree({ q1: "no", q2: "no" }, ["q1", "q2", "q3"]);
+ok(riskOf("mrsa") === null && riskOf("esbl") === null, "Cây hỏi: mới trả lời một phần, chưa có Có, thì chưa xác định");
+ok(abxRiskDone() === false, "Cây hỏi: chưa trả lời hết thì chưa tới kết luận");
+// Lý do hiển thị: kết luận phải nêu đúng yếu tố gây cao / chưa rõ
+setTree({ q1: "no", q2: "yes", q3: "no", q4: "no", q5: "no" }, ["q1", "q2", "q3", "q4", "q5"]);
+vm.runInContext("renderAbxRisk();", ctx5);
+ok(treeHTML().includes("Nguy cơ MRSA: CAO") && treeHTML().includes("nằm viện / ICU / dưỡng lão trong 90 ngày qua"), "Cây hỏi: kết luận MRSA cao phải nêu đúng lý do (nằm viện 90 ngày)");
+// Giao diện cây: bước 1 hiện câu tiền sử; đi hết cây hiện kết luận + danh sách câu đã trả lời có nút quay lại
+vm.runInContext("abxState.riskMode='tree'; abxState.riskAns={}; abxState.riskPath=['q1']; abxState.mrsa=null; abxState.esbl=null; renderAbxRisk();", ctx5);
+ok(treeHTML().includes("Bước 1") && treeHTML().includes("Từng nhiễm hoặc mang MRSA hoặc ESBL chưa?"), "Cây hỏi: bước 1 hiện câu tiền sử MRSA/ESBL");
+setTree({ q1: "no", q2: "no", q3: "no", q4: "no", q5: "no" }, ["q1", "q2", "q3", "q4", "q5"]);
+vm.runInContext("renderAbxRisk();", ctx5);
+ok(treeHTML().includes("Kết luận") && treeHTML().includes("Nguy cơ MRSA: THẤP") && treeHTML().includes("Nguy cơ ESBL: THẤP"), "Cây hỏi: đi hết cây (toàn Không) hiện kết luận cả hai THẤP");
+ok(treeHTML().includes('data-back="0"') && treeHTML().includes("➜ Không"), "Cây hỏi: các câu đã trả lời hiện trong danh sách, chạm để quay lại sửa");
+// Chưa rõ + nhiễm trùng nặng thì hiện hướng dẫn phủ rộng
+setTree({ q1: "dk", q2: "no", q3: "no", q4: "no", q5: "no" }, ["q1", "q2", "q3", "q4", "q5"]);
+vm.runInContext("renderAbxRisk();", ctx5);
+ok(treeHTML().includes("CHƯA RÕ") && treeHTML().includes("phủ rộng chờ kết quả cấy"), "Cây hỏi: Không biết tiền sử → kết luận CHƯA RÕ kèm hướng dẫn phủ rộng khi nhiễm trùng nặng");
 // Mặc định theo mức nặng nhẹ khi "chưa rõ"
 vm.runInContext("abxState.mrsa='unk'; abxState.esbl='unk'; abxState.sev='severe';", ctx5);
 ok(abxRiskEff("mrsa") === "yes" && abxRiskEff("esbl") === "yes", "Chưa rõ + nhiễm trùng nặng: mặc định phủ rộng (hiệu lực = cao)");
@@ -170,10 +230,21 @@ vm.runInContext("abxState.allergy='none'; abxState.mrsa='unk'; abxState.esbl='un
 ok(abxListHTML().includes("Ceftriaxone") && !abxListHTML().includes("ĐÃ KHÓA"), "Bảng liều phải mở khi nguy cơ đã xác định (kể cả chưa rõ)");
 vm.runInContext("abxState.mrsa=null; renderAbx()", ctx5);
 ok(abxListHTML().includes("ĐÃ KHÓA"), "Bảng liều phải khóa khi nguy cơ MRSA chưa xác định");
-// Đường tắt: chọn thẳng cao/thấp
-vm.runInContext("abxState.mrsaMode='direct'; abxState.mrsa='yes'; abxState.esbl='no'; abxState.allergy='none'; renderAbx()", ctx5);
-ok(abxRiskEff("mrsa") === "yes" && !abxListHTML().includes("ĐÃ KHÓA"), "Đường tắt “Tôi đã biết nguy cơ”: chọn thẳng Cao thì mở khóa và hiệu lực = cao");
-console.log("Hồi quy v2.6.0 MRSA/ESBL: checklist, chưa rõ, mặc định theo mức nặng nhẹ, đường tắt");
+// Đường tắt "Tôi đã biết nguy cơ": vào đường tắt phải trống, không mặc định THẤP (lỗi v2.6.0)
+vm.runInContext("abxState.riskMode='tree'; abxState.riskAns={q1:'no',q2:'no',q3:'no',q4:'no',q5:'no'}; abxState.riskPath=['q1','q2','q3','q4','q5']; abxRiskSync();", ctx5);
+ok(riskOf("mrsa") === "no" && riskOf("esbl") === "no", "Cây hỏi xong (toàn Không) thì cả hai thấp");
+vm.runInContext("abxState.riskMode='direct'; abxState.mrsa=null; abxState.esbl=null; renderAbxRisk();", ctx5);
+ok(treeHTML().includes("Chưa chọn đủ") && !treeHTML().includes('class="on"'), "Đường tắt: mới vào thì chưa chọn gì, không được mặc định THẤP, phải hiện 'Chưa chọn đủ'");
+vm.runInContext("abxState.mrsa='yes'; abxState.esbl='no'; renderAbxRisk();", ctx5);
+ok(treeHTML().includes('class="on"') && treeHTML().includes("(chọn thẳng, không qua cây hỏi)"), "Đường tắt: chọn Cao cho MRSA thì nút Cao sáng lên, kết quả ghi rõ chọn thẳng");
+vm.runInContext("abxState.allergy='none'; renderAbx()", ctx5);
+ok(abxRiskEff("mrsa") === "yes" && !abxListHTML().includes("ĐÃ KHÓA"), "Đường tắt: chọn thẳng Cao thì mở khóa và hiệu lực = cao");
+// Cấu trúc: một khung cây hỏi duy nhất, không còn 2 khung checklist riêng
+ok(html.includes('id="abx_risk_tree"'), "Bước ③ phải dùng một khung cây hỏi duy nhất (abx_risk_tree)");
+ok(!html.includes('id="abx_risk_mrsa"') && !html.includes('id="abx_risk_esbl"'), "Không còn 2 khung checklist MRSA/ESBL riêng");
+ok(html.includes("abxRiskNext") && html.includes("abxRiskFromTree"), "Cây hỏi phải có hàm rẽ nhánh abxRiskNext và tính nguy cơ abxRiskFromTree");
+ok(html.includes("Tôi đã biết nguy cơ"), "Cây hỏi giữ nút đường tắt 'Tôi đã biết nguy cơ'");
+console.log("Hồi quy v2.6.1 cây hỏi MRSA/ESBL: rẽ nhánh, 1 Có → cao, Không biết → chưa rõ, khóa, đường tắt không mặc định");
 
 console.log(fail ? `\n❌ ${fail} lỗi, ${pass} đạt` : `\n✅ Tất cả ${pass} kiểm tra đều đạt`);
 process.exit(fail ? 1 : 0);

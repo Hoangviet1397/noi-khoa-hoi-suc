@@ -758,8 +758,9 @@ details.abx .dose-cell.hl{display:none}
 function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d");}
 function $(id){return document.getElementById(id);}
 /* ===== PHIÊN BẢN: chỉ sửa ở đây khi phát hành (service worker tự lấy số này đặt tên bộ nhớ đệm) ===== */
-var APP_VERSION="2.6.0",APP_DATE="18/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
+var APP_VERSION="2.6.1",APP_DATE="18/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
 var CHANGELOG=[
+  ["2.6.1","18/11/2026",["Module kháng sinh: bước ③ nguy cơ MRSA/ESBL làm lại kiểu cây phác đồ, thay 2 checklist checkbox ở v2.6.0 (câu hỏi nằm viện và dùng kháng sinh bị hỏi lặp 2–3 lần, khó dùng trên điện thoại). Giờ hỏi từng bước, một câu một thẻ: tiền sử nhiễm/mang MRSA hoặc ESBL → nằm viện/ICU/dưỡng lão 90 ngày → kháng sinh phổ rộng gần đây → sonde tiểu/thủ thuật xâm lấn → lọc máu/vết thương mạn/viêm phổi nặng; mỗi yếu tố chỉ hỏi đúng một lần. Rẽ nhánh: tiền sử “Có cả hai” thì chốt luôn cả hai nguy cơ cao; “Có ESBL” thì bỏ qua câu sonde tiểu; “Có MRSA” thì bỏ qua câu lọc máu/vết thương. Các câu đã trả lời xếp thành danh sách, chạm để quay lại sửa; có nút làm lại từ đầu. Kết luận hiện rõ cả hai nguy cơ cùng lý do; quy tắc giữ như v2.6.0 (1 yếu tố “Có” là cao, toàn “Không” mới thấp, có “Không biết” là “chưa rõ”; “Không biết” không bao giờ tính là thấp; “chưa rõ” mặc định theo mức nặng nhẹ). Sửa lỗi đường tắt “Tôi đã biết nguy cơ”: trước đây vào đường tắt app giữ nguy cơ cũ (mặc định THẤP) trước khi người dùng chọn — nay vào đường tắt thì trống, phải bấm Cao hoặc Thấp mới tính. Phác đồ kinh nghiệm và bảng “Liều từng thuốc” vẫn khóa cho tới khi nguy cơ được xác định."]],
   ["2.6.0","18/11/2026",["Bản tin làm lại kiểu Feed: 30 bài Nghiên cứu mới mới nhất (thêm 20 bài), thẻ bài có ảnh minh hoạ lớn phía trên, tiêu đề, tóm tắt, nguồn + ngày đăng, huy hiệu chưa đọc; sắp xếp nghiêm theo ngày xuất bản, mới nhất lên đầu. Thêm 5 nguồn tạp chí mới qua PubMed/RSS: BMJ, Annals of Internal Medicine, Critical Care, Intensive Care Medicine, CHEST (cùng NEJM, JAMA, The Lancet, European Heart Journal). Ảnh: 3 bài Critical Care dùng hình Fig. 1 của chính bài báo (Springer Nature, link ổn định); các bài khác dùng ảnh minh hoạ theo chủ đề, ghi rõ “Ảnh minh hoạ”.","Module kháng sinh: thay 2 câu hỏi trừu tượng “Nguy cơ MRSA cao hay thấp?” / “Nguy cơ ESBL cao hay thấp?” bằng checklist yếu tố nguy cơ cụ thể, mỗi yếu tố chọn Có / Không / Không biết (kèm gợi ý tra cứu cấy cũ, giấy ra viện, hỏi người nhà, hệ thống xét nghiệm). App tự tính nguy cơ và hiện lý do; chỉ cần một tick “Có” là nguy cơ cao, toàn “Không” mới là thấp, còn lại là “chưa rõ”. “Không biết” không bao giờ tính là thấp: nhiễm trùng nặng thì phủ rộng chờ cấy rồi hạ thang (nghi MRSA thêm vancomycin/linezolid, nghi ESBL dùng meropenem), nhiễm trùng nhẹ thì dùng phác đồ chuẩn kèm nhắc xem lại khi có cấy. Có nút “Tôi đã biết nguy cơ” để chọn thẳng cao/thấp. Phác đồ kinh nghiệm và bảng “Liều từng thuốc” vẫn khóa cho tới khi nguy cơ được xác định."]],
   ["2.5.1","18/11/2026",["Khóa an toàn dị ứng / MRSA / ESBL (khóa 3) áp dụng thật cho cả bảng liều: trước đây phác đồ kinh nghiệm đã khóa khi chưa trả lời 3 câu an toàn, nhưng bảng “Liều từng thuốc” vẫn hiện liều từng thuốc — nay bảng liều cũng khóa cho tới khi trả lời đủ dị ứng penicillin, nguy cơ MRSA và nguy cơ ESBL, rồi mới gạch thuốc không dùng được như phác đồ.","Sửa lỗi điều hướng: mở #/tin-tuc trước đây quay về trang chủ — nay #/tin-tuc mở đúng trang Bản tin như #/feed."]],
   ["2.5.0","18/11/2026",["Bỏ chế độ offline: không còn lưu app vào bộ nhớ máy (service worker) và bỏ nút “Tải file offline”. App luôn tải bản mới nhất mỗi lần mở (cần mạng) — tránh dùng nhầm bản cũ với liều / phác đồ đã sửa. Máy đã cài bản cũ tự gỡ bộ nhớ offline ở lần mở kế tiếp có mạng. Vẫn thêm được icon ra màn hình chính để mở nhanh như app."]],
@@ -4161,76 +4162,125 @@ var ABX=[
 {n:"Fluconazole",g:"Kháng nấm Azole",syn:["sepsis","uti","abd"],load:"12 mg/kg (thường 800 mg) IV/PO ngày 1 — KHÔNG giảm theo thận",d:{b90:"6 mg/kg (thường 400 mg) mỗi 24h",b60:"Như bình thường (CrCl > 50)",b30:"CrCl > 50: như bình thường. CrCl ≤ 50: giảm 50% liều duy trì (vd 200 mg mỗi 24h)",b15:"50% liều duy trì",blt:"50% liều duy trì",hd:"100% liều (vd 400 mg) sau mỗi lần lọc máu. CRRT: 400–800 mg/ngày (thường cần liều cao)"},liver:"Child B/C: thận trọng, theo dõi men gan. Ức chế CYP2C9/3A4 — tương tác warfarin, phenytoin, statin, tacrolimus.",tdm:false,note:"Không phải lựa chọn đầu tay cho nhiễm Candida máu ở bệnh nhân nặng (ưu tiên echinocandin); C. krusei kháng tự nhiên, C. glabrata thường kém nhạy. Kéo dài QT."},
 {n:"Caspofungin",g:"Kháng nấm Echinocandin",syn:["sepsis","abd"],load:"70 mg IV ngày 1",d:{b90:"50 mg IV mỗi 24h (> 80 kg: có thể 70 mg mỗi 24h)",b60:"Không chỉnh theo thận",b30:"Không chỉnh theo thận",b15:"Không chỉnh theo thận",blt:"Không chỉnh theo thận",hd:"Không cần bổ sung sau lọc máu"},liver:"Child B: nạp 70 mg, sau đó 35 mg mỗi 24h. Child C: không có dữ liệu — cân nhắc thuốc khác / hội chẩn.",tdm:false,note:"Lựa chọn đầu tay cho nhiễm Candida máu / Candida xâm lấn ở bệnh nhân nặng (IDSA 2016); xuống thang fluconazole khi chủng nhạy và lâm sàng ổn (thường sau 5–7 ngày). Thay thế: Micafungin 100 mg mỗi 24h, Anidulafungin 200 mg rồi 100 mg mỗi 24h. Thấm kém vào nước tiểu, mắt, dịch não tủy."}
 ];
-var abxState={band:"b90",child:"N",sev:"severe",syn:"all",q:"",allergy:null,mrsa:null,esbl:null,mrsaChk:{},esblChk:{},mrsaMode:"chk",esblMode:"chk"};
-/* ============ v2.6.0: checklist yếu tố nguy cơ MRSA / ESBL ============ */
-/* Quy tắc: 1 tick “Có” → nguy cơ cao; toàn “Không” → thấp; còn lại (có “Không biết”, đã trả lời đủ) → “chưa rõ”.
-   “Không biết” không bao giờ tính là thấp. “Chưa rõ” mặc định theo mức độ bệnh (xem abxRiskEff).
+var abxState={band:"b90",child:"N",sev:"severe",syn:"all",q:"",allergy:null,mrsa:null,esbl:null,riskMode:"tree",riskAns:{},riskPath:["q1"]};
+/* ============ v2.6.1: cây hỏi nguy cơ kháng thuốc (thay 2 checklist v2.6.0) ============ */
+/* Giao diện giống phác đồ cây (renderTree): một câu hỏi một thẻ (.tnode), chạm đáp án sang
+   câu tiếp theo, các câu đã trả lời xếp thành danh sách (.steps) chạm để quay lại, nút ↺ làm lại.
+   Mỗi yếu tố chỉ hỏi đúng một lần: q1 tiền sử (tách MRSA/ESBL) → q2 nằm viện 90 ngày →
+   q3 kháng sinh phổ rộng → q4 sonde tiểu/thủ thuật (chỉ ảnh hưởng ESBL) → q5 lọc máu/
+   vết thương mạn/viêm phổi nặng (chỉ ảnh hưởng MRSA). Rẽ nhánh: q1 "Có cả hai" thì chốt
+   luôn cả hai nguy cơ cao, bỏ qua q2–q5; q1 "Có ESBL" thì bỏ qua q4; q1 "Có MRSA" thì
+   bỏ qua q5. Quy tắc giữ như v2.6.0: 1 yếu tố mạnh "Có" → cao; toàn "Không" mới thấp;
+   có "Không biết" và không có "Có" → "chưa rõ". "Không biết" không bao giờ tính là thấp.
+   "Chưa rõ" mặc định theo mức độ bệnh (xem abxRiskEff).
    abxState.mrsa/esbl: null (chưa xác định) | "no" (thấp) | "yes" (cao) | "unk" (chưa rõ).
-   mrsaChk/esblChk: {yếu tố: "yes"|"no"|"dk"}; mrsaMode/esblMode: "chk" (checklist) | "direct" (chọn thẳng). */
-var ABX_RISK_F={
- mrsa:[["prior","Từng nhiễm hoặc mang MRSA (cấy dương tính / cư trú)","Kiểm tra ở đâu: kết quả cấy cũ, giấy ra viện, hỏi người nhà, hệ thống xét nghiệm của bệnh viện.","từng nhiễm/mang MRSA"],
- ["hosp","Nằm viện / viện dưỡng lão / lọc máu trong 90 ngày qua","","nằm viện / dưỡng lão / lọc máu trong 90 ngày qua"],
- ["abx","Dùng kháng sinh gần đây (trong 90 ngày qua)","","dùng kháng sinh gần đây"],
- ["wound","Vết thương mạn tính hoặc tổn thương da","","vết thương mạn / tổn thương da"]],
- esbl:[["prior","Từng nhiễm hoặc mang ESBL (cấy dương tính / cư trú)","Kiểm tra ở đâu: kết quả cấy cũ, giấy ra viện, hỏi người nhà, hệ thống xét nghiệm của bệnh viện.","từng nhiễm/mang ESBL"],
- ["hosp","Nằm viện / viện dưỡng lão trong 90 ngày qua","","nằm viện / dưỡng lão trong 90 ngày qua"],
- ["ceph","Dùng cephalosporin hoặc fluoroquinolon gần đây","","dùng cephalosporin hoặc fluoroquinolon gần đây"],
- ["cath","Đang đặt sonde tiểu","","đang đặt sonde tiểu"],
- ["uti","Nhiễm trùng tiểu tái phát","","nhiễm trùng tiểu tái phát"]]};
-var ABX_RISK_LBL={mrsa:"MRSA",esbl:"ESBL"};
-function abxRiskFromChk(kind){
- var chk=abxState[kind+"Chk"]||{},fs=ABX_RISK_F[kind],yes=[],dk=[],n=0;
- fs.forEach(function(f){var v=chk[f[0]];if(v){n++;if(v==="yes")yes.push(f[3]);else if(v==="dk")dk.push(f[3]);}});
+   riskAns: {q1:"mrsa"|"esbl"|"both"|"no"|"dk", q2..q5:"yes"|"no"|"dk"}; riskPath: các nút đã đi qua;
+   riskMode: "tree" (cây hỏi) | "direct" (chọn thẳng). */
+var ABX_RISK_TREE={
+ q1:{t:"Tiền sử nhiễm / mang MRSA hoặc ESBL",q:"Từng nhiễm hoặc mang MRSA hoặc ESBL chưa?",hint:"Kiểm tra ở đâu: kết quả cấy cũ, giấy ra viện, hỏi người nhà, hệ thống xét nghiệm của bệnh viện.",o:[["Có MRSA","mrsa"],["Có ESBL","esbl"],["Có cả hai","both"],["Không","no"],["Không biết","dk"]]},
+ q2:{t:"Nằm viện / ICU / viện dưỡng lão 90 ngày qua",q:"Nằm viện, ICU hoặc viện dưỡng lão trong 90 ngày qua?",o:[["Có","yes"],["Không","no"],["Không biết","dk"]]},
+ q3:{t:"Kháng sinh phổ rộng gần đây",q:"Dùng kháng sinh phổ rộng gần đây (cephalosporin, quinolon, carbapenem)?",o:[["Có","yes"],["Không","no"],["Không biết","dk"]]},
+ q4:{t:"Sonde tiểu / thủ thuật xâm lấn",q:"Đang đặt sonde tiểu hoặc thủ thuật xâm lấn gần đây?",o:[["Có","yes"],["Không","no"],["Không biết","dk"]]},
+ q5:{t:"Lọc máu / vết thương mạn / viêm phổi nặng",q:"Đang lọc máu, có vết thương mạn, hay viêm phổi nặng?",o:[["Có","yes"],["Không","no"],["Không biết","dk"]]}};
+var ABX_RISK_REL={mrsa:["q1","q2","q3","q5"],esbl:["q1","q2","q3","q4"]};
+var ABX_RISK_SHORT={q2:"nằm viện / ICU / dưỡng lão trong 90 ngày qua",q3:"dùng kháng sinh phổ rộng gần đây",q4:"đang đặt sonde tiểu / thủ thuật xâm lấn",q5:"lọc máu / vết thương mạn / viêm phổi nặng"};
+function abxRiskNext(cur){
+ var a=abxState.riskAns||{};
+ if(cur==="q1")return a.q1==="both"?null:"q2";
+ if(cur==="q2")return "q3";
+ if(cur==="q3")return (a.q1==="esbl"||a.q1==="both")?"q5":"q4";
+ if(cur==="q4")return (a.q1==="mrsa"||a.q1==="both")?null:"q5";
+ return null;}
+function abxRiskFromTree(kind){
+ var a=abxState.riskAns||{},rel=ABX_RISK_REL[kind],yes=[],dk=[],n=0;
+ rel.forEach(function(q){
+  var v=a[q];if(!v)return;n++;
+  if(q==="q1"){
+   if(v==="both"||v===(kind==="mrsa"?"mrsa":"esbl"))yes.push("từng nhiễm/mang "+(kind==="mrsa"?"MRSA":"ESBL"));
+   else if(v==="dk")dk.push("từng nhiễm/mang "+(kind==="mrsa"?"MRSA":"ESBL"));
+  }else if(v==="yes")yes.push(ABX_RISK_SHORT[q]);
+  else if(v==="dk")dk.push(ABX_RISK_SHORT[q]);
+ });
  var risk=null;
  if(yes.length)risk="yes";
- else if(n===fs.length)risk=dk.length?"unk":"no";
- return {risk:risk,yes:yes,dk:dk,n:n,total:fs.length};}
+ else if(n===rel.length)risk=dk.length?"unk":"no";
+ return {risk:risk,yes:yes,dk:dk,n:n,total:rel.length};}
 function abxRiskEff(kind){var r=abxState[kind];if(r==="yes"||r==="no")return r;if(r==="unk")return abxState.sev==="mild"?"no":"yes";return null;}
-function abxRiskSync(kind){if(abxState[kind+"Mode"]!=="chk")return;abxState[kind]=abxRiskFromChk(kind).risk;}
-function abxRiskResHTML(kind){
- var L=ABX_RISK_LBL[kind],mode=abxState[kind+"Mode"];
- if(mode==="direct"){
-  var r=abxState[kind];
-  if(!r)return '<span class="hint">Chưa chọn — bấm Cao hoặc Thấp.</span>';
-  return '→ <b>Nguy cơ '+L+': '+(r==="yes"?"CAO":"THẤP")+'</b> (chọn thẳng, không qua checklist).';}
- var res=abxRiskFromChk(kind);
- if(!res.risk){
-  if(!res.n)return '<span class="hint">Chưa trả lời yếu tố nào — trả lời đủ '+res.total+' yếu tố (hoặc bấm “Tôi đã biết nguy cơ”).</span>';
-  return '<span class="hint">Đã trả lời '+res.n+'/'+res.total+' yếu tố — trả lời nốt để app tính nguy cơ.</span>';}
+function abxRiskSync(){if(abxState.riskMode!=="tree")return;abxState.mrsa=abxRiskFromTree("mrsa").risk;abxState.esbl=abxRiskFromTree("esbl").risk;}
+function abxRiskDone(){var p=abxState.riskPath||["q1"],cur=p[p.length-1];return !!(abxState.riskAns||{})[cur]&&abxRiskNext(cur)===null;}
+function abxRiskLine(kind){
+ var L=kind==="mrsa"?"MRSA":"ESBL",res=abxRiskFromTree(kind);
+ if(!res.risk)return null;
  if(res.risk==="yes")return '→ <b>Nguy cơ '+L+': CAO</b> — vì có: '+res.yes.join("; ")+'.';
- if(res.risk==="no")return '→ <b>Nguy cơ '+L+': THẤP</b> — toàn bộ '+res.total+' yếu tố đều Không.';
- if(abxState.sev==="mild")return '→ <b>Nguy cơ '+L+': CHƯA RÕ</b> — chưa biết: '+res.dk.join("; ")+'. “Không biết” không tính là thấp. Nhiễm trùng nhẹ–trung bình → dùng phác đồ chuẩn, xem lại khi có kết quả cấy.';
- return '→ <b>Nguy cơ '+L+': CHƯA RÕ</b> — chưa biết: '+res.dk.join("; ")+'. “Không biết” không tính là thấp. Nhiễm trùng nặng → phủ rộng chờ kết quả cấy rồi hạ thang ('+(kind==="mrsa"?"nghi MRSA thêm vancomycin/linezolid":"nghi ESBL dùng meropenem")+').';}
-function abxRiskHTML(kind){
- var L=ABX_RISK_LBL[kind],fs=ABX_RISK_F[kind],mode=abxState[kind+"Mode"],chk=abxState[kind+"Chk"]||{};
- var h='<div class="abx-risk-h"><b>Nguy cơ '+L+' — checklist yếu tố nguy cơ</b><span class="hint">Chạm Có / Không / Không biết cho từng yếu tố.</span></div>';
- if(mode==="direct"){
-  h+='<div class="frow"><div class="fgroup"><span class="flabel">Nguy cơ '+L+' (đã biết)</span><div class="seg" id="abx_'+kind+'_direct">'+[["no","Thấp"],["yes","Cao"]].map(function(o){return '<button type="button" data-v="'+o[0]+'"'+(abxState[kind]===o[0]?' class="on"':"")+">"+o[1]+"</button>"}).join("")+"</div></div></div>"
-   +'<button type="button" class="chip ghost" data-risk-back="'+kind+'">← Quay lại checklist yếu tố nguy cơ</button>';
- }else{
-  h+=fs.map(function(f){var v=chk[f[0]];
-   return '<div class="abx-f"><div class="abx-fq">'+f[1]+(f[2]?'<span class="hint">'+f[2]+'</span>':"")+'</div><div class="seg abx-tri" data-risk-f="'+kind+':'+f[0]+'">'+[["yes","Có"],["no","Không"],["dk","Không biết"]].map(function(o){return '<button type="button" data-v="'+o[0]+'"'+(v===o[0]?' class="on"':"")+">"+o[1]+"</button>"}).join("")+"</div></div>";
-  }).join("")
-   +'<button type="button" class="chip ghost" data-risk-direct="'+kind+'">Tôi đã biết nguy cơ '+L+' — chọn thẳng cao / thấp</button>';
+ if(res.risk==="no")return '→ <b>Nguy cơ '+L+': THẤP</b> — các yếu tố đã hỏi đều Không.';
+ var tail=abxState.sev==="mild"?'Nhiễm trùng nhẹ–trung bình → dùng phác đồ chuẩn, xem lại khi có kết quả cấy.':'Nhiễm trùng nặng → phủ rộng chờ kết quả cấy rồi hạ thang ('+(kind==="mrsa"?"nghi MRSA thêm vancomycin/linezolid":"nghi ESBL dùng meropenem")+').';
+ return '→ <b>Nguy cơ '+L+': CHƯA RÕ</b> — chưa biết: '+res.dk.join("; ")+'. “Không biết” không tính là thấp. '+tail;}
+function abxRiskResHTML(){
+ if(abxState.riskMode==="direct"){
+  var m=abxState.mrsa,e=abxState.esbl;
+  if(m==null||e==null)return '<span class="hint">Chưa chọn đủ — bấm Cao hoặc Thấp cho cả MRSA và ESBL (chưa có mặc định).</span>';
+  return '<div>→ <b>Nguy cơ MRSA: '+(m==="yes"?"CAO":"THẤP")+'</b> (chọn thẳng, không qua cây hỏi).</div><div>→ <b>Nguy cơ ESBL: '+(e==="yes"?"CAO":"THẤP")+'</b> (chọn thẳng, không qua cây hỏi).</div>';
  }
- return h+'<div class="abx-risk-res" id="abx_'+kind+'_res">'+abxRiskResHTML(kind)+'</div>';}
-function renderAbxRisk(kind){
- var box=$("abx_risk_"+kind);if(!box)return;
- box.innerHTML=abxRiskHTML(kind);
- box.querySelectorAll("[data-risk-f]").forEach(function(g){
-  g.querySelectorAll("button").forEach(function(b){
-   b.addEventListener("click",function(){
-    var p=g.dataset.riskF.split(":"),k=p[0],f=p[1];
-    abxState[k+"Chk"][f]=b.dataset.v;abxState[k+"Mode"]="chk";abxRiskSync(k);
-    renderAbxRisk(k);renderAbx();
-   });
-  });
+ var lines=[];
+ ["mrsa","esbl"].forEach(function(k){var l=abxRiskLine(k);if(l)lines.push(l);});
+ if(abxRiskDone())return lines.join("<br>");
+ var n=Object.keys(abxState.riskAns||{}).length;
+ return (lines.length?lines.join("<br>")+"<br>":"")+'<span class="hint">Đã trả lời '+n+' câu — đi hết cây hỏi để app tính nguy cơ (hoặc bấm “Tôi đã biết nguy cơ” để chọn thẳng).</span>';
+}
+function abxRiskHTML(){
+ var h='<div class="abx-risk-h"><b>Nguy cơ kháng thuốc — cây hỏi từng bước</b><span class="hint">Mỗi yếu tố chỉ hỏi một lần — chạm đáp án để sang câu tiếp theo.</span></div>';
+ if(abxState.riskMode==="direct"){
+  h+='<div class="frow"><div class="fgroup"><span class="flabel">Nguy cơ MRSA (đã biết)</span><div class="seg" id="abx_mrsa_direct">'+[["no","Thấp"],["yes","Cao"]].map(function(o){return '<button type="button" data-v="'+o[0]+'"'+(abxState.mrsa===o[0]?' class="on"':"")+">"+o[1]+"</button>"}).join("")+'</div></div>'
+   +'<div class="fgroup"><span class="flabel">Nguy cơ ESBL (đã biết)</span><div class="seg" id="abx_esbl_direct">'+[["no","Thấp"],["yes","Cao"]].map(function(o){return '<button type="button" data-v="'+o[0]+'"'+(abxState.esbl===o[0]?' class="on"':"")+">"+o[1]+"</button>"}).join("")+'</div></div></div>'
+   +'<button type="button" class="chip ghost" data-risk-back>← Quay lại cây hỏi</button>';
+ }else{
+  var p=abxState.riskPath||["q1"],a=abxState.riskAns||{},done=abxRiskDone(),showN=done?p.length:p.length-1;
+  h+='<ol class="steps">';
+  for(var i=0;i<showN;i++){var pn=ABX_RISK_TREE[p[i]],av=a[p[i]],al=null;
+   pn.o.forEach(function(o){if(o[1]===av)al=o[0];});
+   h+='<li class="done"><button type="button" data-back="'+i+'"><span class="sq">'+pn.t+'</span><span class="sa">➜ '+al+'</span></button></li>';}
+  h+='</ol>';
+  if(done){
+   h+='<div class="tnode tend lv0"><div class="tk">Kết luận</div><h3>Đã đủ thông tin nguy cơ kháng thuốc</h3><ul><li>Kết quả ở ô bên dưới — phác đồ kinh nghiệm và bảng liều đã mở khóa.</li></ul></div>';
+  }else{
+   var cur=p[p.length-1],n=ABX_RISK_TREE[cur];
+   h+='<div class="tnode"><div class="tk">Bước '+p.length+'</div>'+(n.t?'<h3>'+n.t+'</h3>':'')+(n.hint?'<ul class="tinfo"><li>'+n.hint+'</li></ul>':'')+'<p class="tq">'+n.q+'</p><div class="topts">'+n.o.map(function(o,k){return '<button type="button" data-opt="'+k+'">'+o[0]+'</button>'}).join("")+'</div></div>';
+  }
+  if(p.length>1)h+='<button type="button" class="tree-reset" data-risk-reset>↺ Làm lại từ đầu</button>';
+  h+='<button type="button" class="chip ghost" data-risk-direct>Tôi đã biết nguy cơ — chọn thẳng cao / thấp</button>';
+ }
+ return h+'<div class="abx-risk-res" id="abx_risk_res">'+abxRiskResHTML()+'</div>';
+}
+function renderAbxRisk(){
+ var box=$("abx_risk_tree");if(!box)return;
+ box.innerHTML=abxRiskHTML();
+ box.querySelectorAll("[data-opt]").forEach(function(b){b.addEventListener("click",function(){
+  var cur=abxState.riskPath[abxState.riskPath.length-1],n=ABX_RISK_TREE[cur],o=n.o[+b.dataset.opt];
+  abxState.riskAns[cur]=o[1];
+  var nx=abxRiskNext(cur);
+  if(nx)abxState.riskPath.push(nx);
+  abxRiskSync();renderAbxRisk();renderAbx();
+  var cn=box.querySelector('.tnode');if(cn)cn.scrollIntoView({behavior:"smooth",block:"nearest"});
+ });});
+ box.querySelectorAll("[data-back]").forEach(function(b){b.addEventListener("click",function(){
+  var i=+b.dataset.back,p=abxState.riskPath,dropped=p.slice(i+1);
+  abxState.riskPath=p.slice(0,i+1);
+  dropped.forEach(function(id){delete abxState.riskAns[id];});
+  abxRiskSync();renderAbxRisk();renderAbx();
+ });});
+ var rs=box.querySelector('[data-risk-reset]');
+ if(rs)rs.addEventListener("click",function(){abxState.riskAns={};abxState.riskPath=["q1"];abxRiskSync();renderAbxRisk();renderAbx();});
+ box.querySelectorAll("[data-risk-direct]").forEach(function(b){b.addEventListener("click",function(){
+  /* SỬA LỖI v2.6.0: vào đường tắt phải xóa nguy cơ cũ — không mặc định THẤP trước khi người dùng chọn. */
+  abxState.riskMode="direct";abxState.mrsa=null;abxState.esbl=null;renderAbxRisk();renderAbx();
+ });});
+ box.querySelectorAll("[data-risk-back]").forEach(function(b){b.addEventListener("click",function(){abxState.riskMode="tree";abxRiskSync();renderAbxRisk();renderAbx();});});
+ ["mrsa","esbl"].forEach(function(k){
+  var d=$("abx_"+k+"_direct");
+  if(d)d.querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){abxState[k]=b.dataset.v;renderAbxRisk();renderAbx();});});
  });
- box.querySelectorAll("[data-risk-direct]").forEach(function(b){b.addEventListener("click",function(){abxState[kind+"Mode"]="direct";renderAbxRisk(kind);renderAbx();});});
- box.querySelectorAll("[data-risk-back]").forEach(function(b){b.addEventListener("click",function(){abxState[kind+"Mode"]="chk";abxState[kind]=abxRiskFromChk(kind).risk;renderAbxRisk(kind);renderAbx();});});
- var d=$("abx_"+kind+"_direct");
- if(d)d.querySelectorAll("button").forEach(function(b){b.addEventListener("click",function(){abxState[kind]=b.dataset.v;renderAbxRisk(kind);renderAbx();});});}
-function abxRiskRefresh(){["mrsa","esbl"].forEach(function(k){var e=$("abx_"+k+"_res");if(e)e.innerHTML=abxRiskResHTML(k);});}
+}
+function abxRiskRefresh(){var e=$("abx_risk_res");if(e)e.innerHTML=abxRiskResHTML();}
 function liverLabel(v){return v==="N"?"Gan bình thường":("Child–Pugh "+v);}
 function bandFromCrcl(v){if(v==null||isNaN(v))return null;if(v>=90)return "b90";if(v>=60)return "b60";if(v>=30)return "b30";if(v>=15)return "b15";return "blt";}
 function bandLabel(b){return {b90:"CrCl ≥ 90",b60:"CrCl 60–89",b30:"CrCl 30–59",b15:"CrCl 15–29",blt:"CrCl < 15",hd:"Lọc máu / CRRT"}[b];}
@@ -4251,7 +4301,7 @@ function buildAbxPanel(){
  '<div class="frow"><div class="fgroup"><label for="abx_child">Chức năng gan</label><select id="abx_child"><option value="N" selected>Gan bình thường — không chỉnh liều theo gan</option><option value="A">Child–Pugh A (xơ gan, còn bù)</option><option value="B">Child–Pugh B (xơ gan)</option><option value="C">Child–Pugh C / suy gan nặng</option></select><p class="hint" id="abx_child_hint">Chỉ chọn Child–Pugh khi có xơ gan.</p></div>'+
  '<div class="fgroup"><label for="abx_sev">Mức độ bệnh</label><select id="abx_sev"><option value="mild">Nhiễm trùng nhẹ – trung bình</option><option value="severe" selected>Nhiễm trùng nặng</option><option value="shock">Sốc nhiễm trùng / ICU</option></select></div></div></div>'+
  '<div class="abx-step"><div class="abx-sh"><span class="abx-n">3</span>Ba câu an toàn (bắt buộc)</div><div class="frow">'+selHTML("abx_allergy","Dị ứng penicillin?",[["","— Chưa chọn —",true],["none","Không dị ứng"],["mild","Có — nhẹ (ban, ngứa, không phản vệ)"],["ana","Có — phản vệ / mày đay, phù mạch tức thì"],["scar","Có — SJS / TEN / DRESS (phản ứng da nặng)"]])+'</div>'
- +'<div class="abx-risk" id="abx_risk_mrsa"></div><div class="abx-risk" id="abx_risk_esbl"></div>'
+ +'<div class="abx-risk" id="abx_risk_tree"></div>'
  +'</div>'+
  '<div class="abx-ctx" id="abx_ctx"></div>'+
  '<div class="emp-wrap" id="abx_emp_wrap"><div class="emp-head"><div><h3>🧭 Phác đồ kinh nghiệm</h3><p>Khi chưa có kết quả vi sinh. Thuốc bị gạch ngang là thuốc không dùng được theo câu trả lời ở bước ③.</p></div><span class="emp-badge">Trước kháng sinh đồ</span></div><div id="abx_emp"></div></div>'+
@@ -4266,7 +4316,7 @@ function buildAbxPanel(){
  $("abx_search").addEventListener('input',function(){abxState.q=this.value.trim();renderAbx();});
  $("abx_syn").querySelectorAll('button').forEach(function(b){b.addEventListener('click',function(){$("abx_syn").querySelectorAll('button').forEach(function(x){x.classList.remove('on')});b.classList.add('on');abxState.syn=b.dataset.syn;renderAbx();});});
  $("abx_allergy").addEventListener('change',function(){abxState.allergy=this.value?this.value:null;renderAbx();});
- renderAbxRisk("mrsa");renderAbxRisk("esbl");
+ renderAbxRisk();
 }
 function syncAbxFromShared(){
  var inp=$("abx_crcl");if(!inp)return;
@@ -4370,7 +4420,7 @@ function abxCardBan(a){var nm=a.n,g=a.g,al=abxState.allergy;
 function renderEmpiric(){
  var box=$("abx_emp");if(!box)return;
  var syn=abxState.syn;
- if(abxState.allergy==null||abxState.mrsa==null||abxState.esbl==null){box.innerHTML='<div class="lockbox"><h4>⛔ ĐÃ KHÓA — Chưa đủ thông tin an toàn</h4><p>Trả lời <b>Dị ứng penicillin?</b> và checklist <b>nguy cơ MRSA / ESBL</b> ở bước ③ phía trên (hoặc bấm “Tôi đã biết nguy cơ” để chọn thẳng) trước khi xem phác đồ kháng sinh kinh nghiệm — phác đồ sẽ tự bỏ thuốc không dùng được và thêm thuốc cần thiết theo 3 câu trả lời này.</p></div>';return;}
+ if(abxState.allergy==null||abxState.mrsa==null||abxState.esbl==null){box.innerHTML='<div class="lockbox"><h4>⛔ ĐÃ KHÓA — Chưa đủ thông tin an toàn</h4><p>Trả lời <b>Dị ứng penicillin?</b> và cây hỏi <b>nguy cơ MRSA / ESBL</b> ở bước ③ phía trên (hoặc bấm “Tôi đã biết nguy cơ” để chọn thẳng) trước khi xem phác đồ kháng sinh kinh nghiệm — phác đồ sẽ tự bỏ thuốc không dùng được và thêm thuốc cần thiết theo 3 câu trả lời này.</p></div>';return;}
  if(syn==="all"){
    box.innerHTML='<div class="emp-grid">'+SYNDROMES.filter(function(s){return s[0]!=="all"}).map(function(s){var e=EMP[s[0]];return '<button type="button" class="emp-card" data-emp="'+s[0]+'"><h4>'+e.title+'</h4><p>'+e.short+'</p><span class="go">Xem phác đồ kinh nghiệm →</span></button>'}).join("")+'</div><p class="hint" style="margin-top:10px">Khuyến cáo này là điểm khởi đầu khi chưa có vi sinh — luôn điều chỉnh theo kháng thuốc tại bệnh viện, tiền sử cấy / kháng sinh 90 ngày trước, dị ứng và ổ nhiễm thực tế. Không dùng thay phác đồ kháng sinh của bệnh viện.</p>';
    box.querySelectorAll('[data-emp]').forEach(function(b){b.addEventListener('click',function(){abxState.syn=b.dataset.emp;var seg=$("abx_syn");if(seg){seg.querySelectorAll('button').forEach(function(x){x.classList.toggle('on',x.dataset.syn===abxState.syn)});}renderAbx();var w=$("abx_emp_wrap");if(w)w.scrollIntoView({behavior:"smooth",block:"start"});});});
@@ -4389,7 +4439,7 @@ function renderAbx(){
  var synF=SYNDROMES.find(function(x){return x[0]===abxState.syn});
  $("abx_ctx").innerHTML="<b>Đang tính cho:</b> "+(abxState.syn==="all"?"chưa chọn hội chứng":synF[1])+" • <b>"+bandLabel(abxState.band)+"</b> • gan "+(abxState.child==="N"?"bình thường":"Child–Pugh "+abxState.child)+" • "+{mild:"nhẹ – trung bình",severe:"nặng",shock:"sốc nhiễm trùng"}[abxState.sev];var sn=$("abx_sevnote");if(sn)sn.textContent=sevTxt;
  renderEmpiric();
- if(abxState.allergy==null||abxState.mrsa==null||abxState.esbl==null){$("abx_list").innerHTML='<div class="lockbox"><h4>⛔ ĐÃ KHÓA — Chưa đủ thông tin an toàn</h4><p>Trả lời <b>Dị ứng penicillin?</b> và checklist <b>nguy cơ MRSA / ESBL</b> ở bước ③ phía trên (hoặc bấm “Tôi đã biết nguy cơ” để chọn thẳng) trước khi xem liều từng thuốc — bảng liều sẽ tự gạch thuốc không dùng được và chỉ hiện liều đúng cho bệnh nhân này.</p></div>';return;}
+ if(abxState.allergy==null||abxState.mrsa==null||abxState.esbl==null){$("abx_list").innerHTML='<div class="lockbox"><h4>⛔ ĐÃ KHÓA — Chưa đủ thông tin an toàn</h4><p>Trả lời <b>Dị ứng penicillin?</b> và cây hỏi <b>nguy cơ MRSA / ESBL</b> ở bước ③ phía trên (hoặc bấm “Tôi đã biết nguy cơ” để chọn thẳng) trước khi xem liều từng thuốc — bảng liều sẽ tự gạch thuốc không dùng được và chỉ hiện liều đúng cho bệnh nhân này.</p></div>';return;}
  var q=norm(abxState.q);
  var list=ABX.filter(function(a){
    if(abxState.syn!=="all"&&a.syn.indexOf(abxState.syn)<0)return false;
@@ -4421,8 +4471,7 @@ function ctxApply(){
  if(CTX.crcl!=null&&typeof bandFromCrcl==="function"){var bd=bandFromCrcl(CTX.crcl);if(bd){abxState.band=bd;var s=$("abx_band_sel");if(s)s.value=bd;var c=$("abx_crcl");if(c)c.value=Math.round(CTX.crcl);}}
  if(CTX.liver&&CTX.liver!=="N"){abxState.child=CTX.liver;var ch=$("abx_child");if(ch)ch.value=CTX.liver;}
  if(CTX.pen){abxState.allergy=CTX.pen;var al=$("abx_allergy");if(al)al.value=CTX.pen;}
- if(CTX.mrsa){abxState.mrsaMode="direct";abxState.mrsa=CTX.mrsa;renderAbxRisk("mrsa");}
- if(CTX.esbl){abxState.esblMode="direct";abxState.esbl=CTX.esbl;renderAbxRisk("esbl");}
+ if(CTX.mrsa||CTX.esbl){abxState.riskMode="direct";if(CTX.mrsa)abxState.mrsa=CTX.mrsa;if(CTX.esbl)abxState.esbl=CTX.esbl;renderAbxRisk();}
  if(typeof renderAbx==="function"&&$("abx_list"))renderAbx();
 }
 function ctxFill(ids,v){if(!CTX.auto)CTX.auto={};ids.forEach(function(id){var e=$(id);if(!e)return;var cur=String(e.value);
@@ -4432,7 +4481,7 @@ function ctxClear(){
  var auto=CTX.auto||{};Object.keys(auto).forEach(function(id){var e=$(id);if(e&&String(e.value)===auto[id]){e.value="";e.dispatchEvent(new Event('input',{bubbles:true}));}});
  if(CTX.crcl!=null){var ci=$("abx_crcl");if(ci&&String(ci.value)===String(Math.round(CTX.crcl)))ci.value="";abxState.band="b90";var bs=$("abx_band_sel");if(bs)bs.value="b90";}
  if(CTX.liver&&CTX.liver!=="N"){abxState.child="N";var chs=$("abx_child");if(chs)chs.value="N";}
- abxState.allergy=null;abxState.mrsa=null;abxState.esbl=null;abxState.mrsaChk={};abxState.esblChk={};abxState.mrsaMode="chk";abxState.esblMode="chk";var al=$("abx_allergy");if(al)al.value="";renderAbxRisk("mrsa");renderAbxRisk("esbl");
+ abxState.allergy=null;abxState.mrsa=null;abxState.esbl=null;abxState.riskMode="tree";abxState.riskAns={};abxState.riskPath=["q1"];var al=$("abx_allergy");if(al)al.value="";renderAbxRisk();
  ["ctx_age","ctx_wt","ctx_crcl"].forEach(function(id){var e=$(id);if(e)e.value="";});
  ["ctx_liver","ctx_pen","ctx_mrsa","ctx_esbl","ctx_preg"].forEach(function(id){var e=$(id);if(e)e.selectedIndex=0;});
  CTX={age:null,wt:null,crcl:null,liver:"N",pen:null,mrsa:null,esbl:null,preg:"no",last:Date.now(),hiddenAt:null,auto:{}};

@@ -3,7 +3,11 @@
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức — nay có hồ sơ ca zero-data, 5 khóa an toàn chặn thật, tìm theo hội chứng, cây kiến thức toàn bộ và module chống độc Việt Nam.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — thêm vào màn hình chính để mở nhanh như app (cần mạng).
-**Phiên bản hiện tại:** v2.6.0 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v2.6.1 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+
+## Có gì mới ở v2.6.1
+- **Module kháng sinh — bước ③ làm lại kiểu cây phác đồ:** thay 2 checklist checkbox ở v2.6.0 (câu nằm viện và dùng kháng sinh bị hỏi lặp 2–3 lần) bằng cây hỏi từng bước, một câu một thẻ: tiền sử nhiễm/mang MRSA hoặc ESBL → nằm viện/ICU/dưỡng lão 90 ngày → kháng sinh phổ rộng gần đây → sonde tiểu/thủ thuật xâm lấn → lọc máu/vết thương mạn/viêm phổi nặng; mỗi yếu tố chỉ hỏi đúng một lần. Rẽ nhánh: "Có cả hai" chốt luôn cả hai cao; "Có ESBL" bỏ qua câu sonde tiểu; "Có MRSA" bỏ qua câu lọc máu/vết thương. Câu đã trả lời xếp thành danh sách, chạm để quay lại sửa; có nút làm lại từ đầu. Kết luận hiện rõ cả hai nguy cơ cùng lý do; quy tắc giữ như v2.6.0 ("Không biết" không bao giờ tính là thấp; "chưa rõ" mặc định theo mức nặng nhẹ).
+- **Sửa lỗi đường tắt "Tôi đã biết nguy cơ":** trước đây vào đường tắt app giữ nguy cơ cũ (mặc định THẤP) trước khi người dùng chọn — nay vào đường tắt thì trống, phải bấm Cao hoặc Thấp mới tính.
 
 ## Có gì mới ở v2.6.0
 - **Bản tin làm lại kiểu Feed:** 30 bài Nghiên cứu mới mới nhất (thêm 20 bài), thẻ bài có ảnh minh hoạ lớn phía trên, tiêu đề tiếng Việt, tóm tắt 2–3 câu, nguồn + ngày đăng, huy hiệu “Mới” cho bài chưa đọc; sắp xếp nghiêm theo ngày xuất bản, mới nhất lên đầu. Chạm thẻ mở toàn văn và đánh dấu đã đọc (giữ nguyên lọc, tìm kiếm, đánh dấu đã đọc).
