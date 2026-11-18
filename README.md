@@ -3,7 +3,13 @@
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức — nay có hồ sơ ca zero-data, 5 khóa an toàn chặn thật, tìm theo hội chứng, cây kiến thức toàn bộ và module chống độc Việt Nam.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — thêm vào màn hình chính để mở nhanh như app (cần mạng).
-**Phiên bản hiện tại:** v2.5.1 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v2.6.0 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+
+## Có gì mới ở v2.6.0
+- **Bản tin làm lại kiểu Feed:** 30 bài Nghiên cứu mới mới nhất (thêm 20 bài), thẻ bài có ảnh minh hoạ lớn phía trên, tiêu đề tiếng Việt, tóm tắt 2–3 câu, nguồn + ngày đăng, huy hiệu “Mới” cho bài chưa đọc; sắp xếp nghiêm theo ngày xuất bản, mới nhất lên đầu. Chạm thẻ mở toàn văn và đánh dấu đã đọc (giữ nguyên lọc, tìm kiếm, đánh dấu đã đọc).
+- **Thêm 5 nguồn tạp chí mới** (xác minh RSS/PubMed lấy được thật ngày 18/11/2026): BMJ (RSS trực tiếp 27+ bài), Annals of Internal Medicine, Critical Care, Intensive Care Medicine, CHEST (qua PubMed E-utilities — RSS trực tiếp của 4 tạp chí này trả 403/404/500). Cùng NEJM, JAMA, The Lancet, European Heart Journal: tổng 9 nguồn.
+- **Ảnh minh hoạ:** 3 bài Critical Care dùng hình Fig. 1 của chính bài báo (media.springernature.com — link ổn định); các bài khác dùng ảnh minh hoạ theo chủ đề do app tự vẽ (gradient + nhãn chủ đề), luôn ghi rõ “Ảnh minh hoạ”, không giả làm hình của bài báo. Trang NEJM/JAMA/Lancet/EHJ/Annals/BMJ/CHEST/ICM chặn tải trang nên không lấy được og:image — khi nào lấy được thì ghi URL vào trường `img` (xem schema trong ghi chú trước `FEED` trong `index.html`).
+- **Module kháng sinh — checklist nguy cơ MRSA/ESBL:** thay 2 câu hỏi trừu tượng “Nguy cơ MRSA cao hay thấp?” / “Nguy cơ ESBL cao hay thấp?” bằng checklist yếu tố nguy cơ cụ thể, mỗi yếu tố chọn Có / Không / Không biết (MRSA 4 yếu tố, ESBL 5 yếu tố; câu “từng nhiễm/mang” kèm gợi ý tra cứu cấy cũ, giấy ra viện, hỏi người nhà, hệ thống xét nghiệm). App tự tính nguy cơ và hiện lý do; 1 tick “Có” là cao, toàn “Không” mới là thấp, còn lại là “chưa rõ”. “Không biết” không bao giờ tính là thấp: nhiễm trùng nặng thì phủ rộng chờ cấy rồi hạ thang (nghi MRSA thêm vancomycin/linezolid, nghi ESBL dùng meropenem), nhiễm trùng nhẹ thì dùng phác đồ chuẩn kèm nhắc xem lại khi có cấy. Nút “Tôi đã biết nguy cơ” cho chọn thẳng cao/thấp. Phác đồ kinh nghiệm và bảng “Liều từng thuốc” vẫn khóa cho tới khi nguy cơ được xác định.
 
 ## Sửa ở v2.0.1
 - **SOFA-2 không tính điểm trên trình duyệt thật — đã sửa:** kiểm chứng live 18/11/2026 thấy chọn đủ 6 hệ (kỳ vọng 11/24) mà kết quả vẫn “—”. Nguyên nhân: panel dùng ô kết quả id `sofa2` nhưng hàm tính ghi vào id `res-sofa2` (không tồn tại) nên kết quả bị bỏ lặng. Sửa cho cả 8 công cụ mới v2.0.0 (SOFA-2, MEWS, Rumack–Matthew, MELD 3.0, HEART Pathway, Osmolal gap, CIWA-Ar, ASPECTS): ô kết quả đổi sang id `res-…` đúng quy ước cũ, thêm nút “Tính …” thật và tự tính ngay khi mở app.
@@ -25,8 +31,8 @@ Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác 
 - **41 phác đồ dạng cây quyết định**: hồi sức, cấp cứu, chống độc (xem trong app, tab Phác đồ).
 - **Tra cứu thuốc**: gõ biệt dược hoặc hoạt chất thông dụng tại Việt Nam (82 hoạt chất) để biết hoạt chất và mở công cụ liên quan.
 - **📖 Sổ tay thuốc**: hướng dẫn sử dụng rút gọn 273 thuốc (chỉ định, liều, cách pha – dùng, chống chỉ định, tác dụng phụ, thai kỳ).
-- **📰 Bản tin**: Nghiên cứu mới từ RSS của NEJM, JAMA, The Lancet và European Heart Journal, cập nhật mỗi ngày.
-- **Module kháng sinh**: khuyến cáo kinh nghiệm theo hội chứng + liều theo CrCl, chức năng gan và mức độ bệnh cho 27 kháng sinh / kháng nấm — nay có khóa dị ứng penicillin/MRSA và khóa ESBL.
+- **📰 Bản tin**: 30 nghiên cứu mới nhất kiểu Feed (thẻ có ảnh minh hoạ, mới nhất lên đầu) từ NEJM, JAMA, The Lancet, European Heart Journal, BMJ, Annals of Internal Medicine, Critical Care, Intensive Care Medicine và CHEST — cập nhật theo từng phiên bản app.
+- **Module kháng sinh**: khuyến cáo kinh nghiệm theo hội chứng + liều theo CrCl, chức năng gan và mức độ bệnh cho 27 kháng sinh / kháng nấm — khóa dị ứng penicillin/MRSA và khóa ESBL; nguy cơ MRSA/ESBL hỏi bằng checklist yếu tố nguy cơ Có / Không / Không biết (có đường tắt “Tôi đã biết nguy cơ”).
 
 ## Nguyên tắc
 - Mọi tính toán chạy trên máy, không gửi dữ liệu bệnh nhân đi đâu. Hồ sơ ca chỉ sống trong RAM và tự xóa sau 15 phút.

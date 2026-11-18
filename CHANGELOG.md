@@ -2,7 +2,15 @@
 
 Số phiên bản và nội dung này cũng hiển thị trong app (chân trang → "Có gì mới").
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
-(service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
+rồi cập nhật file này. (Lưu ý: từ v2.5.0 app đã bỏ chế độ offline — không còn service worker.)
+
+## v2.6.0 — 18/11/2026 — Bản tin kiểu Feed (30 bài, ảnh minh hoạ) + checklist nguy cơ MRSA/ESBL
+
+- **Bản tin làm lại kiểu Feed:** 30 bài Nghiên cứu mới mới nhất (thêm 20 bài), thẻ bài có ảnh minh hoạ lớn phía trên, tiêu đề tiếng Việt, tóm tắt 2–3 câu, nguồn + ngày đăng, huy hiệu “Mới” cho bài chưa đọc; sắp xếp nghiêm theo ngày xuất bản, mới nhất lên đầu. Chạm thẻ mở toàn văn và đánh dấu đã đọc; giữ nguyên lọc theo chuyên mục, tìm kiếm và đánh dấu đã đọc.
+- **Thêm 5 nguồn tạp chí mới** (xác minh RSS/PubMed lấy được thật ngày 18/11/2026): BMJ (RSS trực tiếp), Annals of Internal Medicine, Critical Care, Intensive Care Medicine, CHEST (qua PubMed E-utilities — RSS trực tiếp của 4 tạp chí này trả 403/404/500). Tổng 9 nguồn cùng NEJM, JAMA, The Lancet, European Heart Journal.
+- **Ảnh minh hoạ cho từng bài:** 3 bài Critical Care dùng hình Fig. 1 của chính bài báo (media.springernature.com — link ổn định, không hết hạn); các bài khác dùng ảnh minh hoạ theo chủ đề do app tự vẽ (gradient + nhãn chủ đề), ghi rõ “Ảnh minh hoạ”. Thêm trường `img` vào schema mục feed và ghi chú schema trong repo (ghi chú trước `FEED` trong `index.html`) để bộ cập nhật định kỳ thêm bài có ảnh đúng chuẩn.
+- **Module kháng sinh — checklist nguy cơ MRSA/ESBL:** thay 2 câu hỏi trừu tượng bằng checklist yếu tố nguy cơ cụ thể, mỗi yếu tố Có / Không / Không biết (MRSA: từng nhiễm/mang MRSA, nằm viện/dưỡng lão/lọc máu 90 ngày qua, dùng kháng sinh gần đây, vết thương mạn/tổn thương da; ESBL: từng nhiễm/mang ESBL, nằm viện/dưỡng lão 90 ngày qua, dùng cephalosporin/fluoroquinolon gần đây, sonde tiểu, nhiễm trùng tiểu tái phát). Câu “từng nhiễm/mang” kèm gợi ý tra cứu: kết quả cấy cũ, giấy ra viện, hỏi người nhà, hệ thống xét nghiệm của bệnh viện. App tự tính nguy cơ và hiện lý do; 1 tick “Có” là cao, toàn “Không” mới là thấp, còn lại là “chưa rõ”. “Không biết” không bao giờ tính là thấp: nhiễm trùng nặng thì phủ rộng chờ cấy rồi hạ thang (nghi MRSA thêm vancomycin/linezolid, nghi ESBL dùng meropenem), nhiễm trùng nhẹ thì dùng phác đồ chuẩn kèm nhắc xem lại khi có cấy. Nút “Tôi đã biết nguy cơ” cho chọn thẳng cao/thấp. Phác đồ kinh nghiệm và bảng “Liều từng thuốc” vẫn khóa cho tới khi nguy cơ được xác định; cách gạch thuốc không dùng được giữ như v2.0.2. Không đổi liều thuốc hay nội dung guideline.
+- **Kiểm tra:** test harness 4.122 kiểm tra đều đạt (thêm hồi quy feed v2.6.0 và checklist MRSA/ESBL); kiểm tra smoke render feed: 30 thẻ, mới nhất lên đầu, đủ nhãn ảnh/huy hiệu.
 
 ## v2.5.1 — 18/11/2026 — Khóa 3 áp dụng cho bảng liều + sửa link #/tin-tuc
 

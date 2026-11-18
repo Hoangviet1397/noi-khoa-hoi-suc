@@ -115,5 +115,65 @@ vm.runInContext("abxState.esbl='yes'; renderAbx()", ctx5);
 ok(abxListHTML().includes("abx-ban") && abxListHTML().includes("Không phủ ESBL chắc chắn"), "ESBL cao: Ceftriaxone trong bảng liều phải bị đánh dấu không dùng được");
 console.log("Hồi quy v2.5.1: khóa bảng liều + alias #/tin-tuc");
 
+
+// 7) v2.6.0 hồi quy Bản tin: 30 mục, sắp xếp mới nhất lên đầu, trường ảnh, nguồn mới
+const ctx6 = {}; vm.createContext(ctx6);
+vm.runInContext(grab("var FEED_TOPICS={", "var feedState="), ctx6);
+const FEED = vm.runInContext("FEED", ctx6), FEED_TOPICS = vm.runInContext("FEED_TOPICS", ctx6);
+const feedDate = vm.runInContext("feedDate", ctx6), feedSorted = vm.runInContext("feedSorted", ctx6);
+console.log("Bản tin v2.6.0: " + FEED.length + " mục");
+ok(FEED.length === 30, "Bản tin phải giữ đúng 30 mục Nghiên cứu mới nhất, nhận: " + FEED.length);
+ok(new Set(FEED.map(f => f.id)).size === FEED.length, "ID mục feed phải duy nhất");
+FEED.forEach(f => {
+  ok(f.id && /^\d{2}\/\d{2}\/\d{4}$/.test(f.d) && f.c === "Nghiên cứu mới" && f.t && f.s && f.body && f.src && /^https?:\/\//.test(f.url), f.id + ": thiếu trường bắt buộc hoặc sai định dạng (d/c/t/s/body/src/url)");
+  ok(f.img, f.id + ": thiếu trường ảnh img");
+  ok(f.img.indexOf("http") === 0 || FEED_TOPICS[f.img], f.id + ": img phải là URL https hoặc khóa chủ đề trong FEED_TOPICS, nhận: " + f.img);
+  if (f.tool) ok(toolIds.has(f.tool), f.id + ": liên kết công cụ không tồn tại: " + f.tool);
+});
+const sorted = feedSorted();
+ok(sorted.length === FEED.length, "feedSorted() phải trả đủ 30 mục");
+for (let i = 0; i + 1 < sorted.length; i++) ok(feedDate(sorted[i]) >= feedDate(sorted[i + 1]), "feedSorted() phải mới nhất lên đầu: " + sorted[i].id + " (" + sorted[i].d + ") trước " + sorted[i + 1].id + " (" + sorted[i + 1].d + ")");
+const srcs = new Set(FEED.map(f => f.src));
+["BMJ 2026", "Annals of Internal Medicine 2026", "Critical Care 2026", "Intensive Care Medicine 2026", "CHEST 2026"].forEach(s => ok(srcs.has(s), "Bản tin thiếu nguồn mới: " + s));
+ok(FEED.filter(f => f.img.indexOf("http") === 0).every(f => f.img.indexOf("https://media.springernature.com/") === 0), "Ảnh bài gốc phải dùng link ổn định media.springernature.com");
+ok(html.includes("feedSorted().filter"), "renderFeed phải dùng feedSorted() để sắp xếp mới nhất lên đầu");
+ok(html.includes('class="feedcard"') && html.includes('class="feedimg"'), "Thẻ feed phải có ảnh lớn phía trên (feedcard/feedimg)");
+console.log("Hồi quy v2.6.0 Bản tin: 30 mục, mới nhất lên đầu, ảnh + nguồn mới");
+
+// 8) v2.6.0 hồi quy checklist nguy cơ MRSA/ESBL
+const abxRiskFromChk = vm.runInContext("abxRiskFromChk", ctx5), abxRiskEff = vm.runInContext("abxRiskEff", ctx5);
+const abxCardBan = vm.runInContext("abxCardBan", ctx5);
+function resetRisk() { vm.runInContext("abxState.mrsaChk={}; abxState.esblChk={}; abxState.mrsaMode='chk'; abxState.esblMode='chk'; abxState.mrsa=null; abxState.esbl=null; abxState.sev='severe';", ctx5); }
+resetRisk();
+ok(abxRiskFromChk("mrsa").risk === null, "MRSA: chưa tick yếu tố nào thì nguy cơ chưa xác định");
+vm.runInContext("abxState.mrsaChk={prior:'yes'};", ctx5);
+ok(abxRiskFromChk("mrsa").risk === "yes", "MRSA: chỉ cần 1 tick Có (từng nhiễm/mang) là nguy cơ cao, dù chưa tick hết");
+vm.runInContext("abxState.mrsaChk={prior:'no',hosp:'no',abx:'no',wound:'no'};", ctx5);
+ok(abxRiskFromChk("mrsa").risk === "no", "MRSA: toàn Không mới là nguy cơ thấp");
+vm.runInContext("abxState.mrsaChk={prior:'no',hosp:'dk',abx:'no',wound:'no'};", ctx5);
+ok(abxRiskFromChk("mrsa").risk === "unk", "MRSA: có Không biết + còn lại Không thì là chưa rõ, không được tính thấp");
+vm.runInContext("abxState.mrsaChk={prior:'no',hosp:'no'};", ctx5);
+ok(abxRiskFromChk("mrsa").risk === null, "MRSA: mới tick một phần, chưa có Có, thì chưa xác định (không mở khóa)");
+vm.runInContext("abxState.esblChk={prior:'no',hosp:'no',ceph:'no',cath:'dk',uti:'no'};", ctx5);
+ok(abxRiskFromChk("esbl").risk === "unk", "ESBL: 5 yếu tố, 1 Không biết (sonde tiểu) thì là chưa rõ");
+// Mặc định theo mức nặng nhẹ khi "chưa rõ"
+vm.runInContext("abxState.mrsa='unk'; abxState.esbl='unk'; abxState.sev='severe';", ctx5);
+ok(abxRiskEff("mrsa") === "yes" && abxRiskEff("esbl") === "yes", "Chưa rõ + nhiễm trùng nặng: mặc định phủ rộng (hiệu lực = cao)");
+vm.runInContext("abxState.sev='mild';", ctx5);
+ok(abxRiskEff("mrsa") === "no" && abxRiskEff("esbl") === "no", "Chưa rõ + nhiễm trùng nhẹ: mặc định phác đồ chuẩn (hiệu lực = thấp)");
+vm.runInContext("abxState.sev='shock';", ctx5);
+ok(abxCardBan({ n: "Ceftriaxone", g: "Cephalosporin" }).includes("ESBL"), "Chưa rõ ESBL + sốc: Ceftriaxone trong bảng liều phải bị đánh dấu không phủ ESBL");
+vm.runInContext("abxState.sev='mild';", ctx5);
+ok(abxCardBan({ n: "Ceftriaxone", g: "Cephalosporin" }) === "", "Chưa rõ ESBL + nhẹ: Ceftriaxone không bị đánh dấu");
+// Khóa: "chưa rõ" (đã trả lời đủ) thì mở khóa; chưa xác định thì vẫn khóa
+vm.runInContext("abxState.allergy='none'; abxState.mrsa='unk'; abxState.esbl='unk'; abxState.sev='severe'; renderAbx()", ctx5);
+ok(abxListHTML().includes("Ceftriaxone") && !abxListHTML().includes("ĐÃ KHÓA"), "Bảng liều phải mở khi nguy cơ đã xác định (kể cả chưa rõ)");
+vm.runInContext("abxState.mrsa=null; renderAbx()", ctx5);
+ok(abxListHTML().includes("ĐÃ KHÓA"), "Bảng liều phải khóa khi nguy cơ MRSA chưa xác định");
+// Đường tắt: chọn thẳng cao/thấp
+vm.runInContext("abxState.mrsaMode='direct'; abxState.mrsa='yes'; abxState.esbl='no'; abxState.allergy='none'; renderAbx()", ctx5);
+ok(abxRiskEff("mrsa") === "yes" && !abxListHTML().includes("ĐÃ KHÓA"), "Đường tắt “Tôi đã biết nguy cơ”: chọn thẳng Cao thì mở khóa và hiệu lực = cao");
+console.log("Hồi quy v2.6.0 MRSA/ESBL: checklist, chưa rõ, mặc định theo mức nặng nhẹ, đường tắt");
+
 console.log(fail ? `\n❌ ${fail} lỗi, ${pass} đạt` : `\n✅ Tất cả ${pass} kiểm tra đều đạt`);
 process.exit(fail ? 1 : 0);
