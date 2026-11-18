@@ -246,5 +246,129 @@ ok(html.includes("abxRiskNext") && html.includes("abxRiskFromTree"), "Cây hỏi
 ok(html.includes("Tôi đã biết nguy cơ"), "Cây hỏi giữ nút đường tắt 'Tôi đã biết nguy cơ'");
 console.log("Hồi quy v2.6.1 cây hỏi MRSA/ESBL: rẽ nhánh, 1 Có → cao, Không biết → chưa rõ, khóa, đường tắt không mặc định");
 
+
+
+// 9) v2.7.0 hồi quy wizard kháng sinh 5 bước + sửa 3 lỗi v2.6.1 + dọn hscc.vn + thuốc thay thế
+const abxWizPick = vm.runInContext("abxWizPick", ctx5), abxWizGo = vm.runInContext("abxWizGo", ctx5), abxWizNext = vm.runInContext("abxWizNext", ctx5);
+const abxRiskBackTo = vm.runInContext("abxRiskBackTo", ctx5), abxReset = vm.runInContext("abxReset", ctx5);
+const ABX_ALT = vm.runInContext("ABX_ALT", ctx5), EMP = vm.runInContext("EMP", ctx5);
+const ABX3 = vm.runInContext("ABX", ctx3);
+const readme = fs.readFileSync(path.join(__dirname, "..", "README.md"), "utf8");
+function wizState() { return vm.runInContext("({syn:abxState.syn,sev:abxState.sev,allergy:abxState.allergy,mrsa:abxState.mrsa,esbl:abxState.esbl,wstep:abxState.wstep,wmax:abxState.wmax,wchanged:abxState.wchanged})", ctx5); }
+function wizHTML(id) { return abxEls[id] ? abxEls[id].innerHTML : ""; }
+function wizText(id) { return abxEls[id] ? abxEls[id].textContent : ""; }
+// Cấu trúc wizard: 5 bước + thanh tiến trình + dải tóm tắt dính + màn hình kết quả riêng
+ok(html.includes("ABX_WIZ_SYN") && html.includes("abxWizPick") && html.includes("abxWizGo") && html.includes("abxWizNext") && html.includes("renderAbxWizard"), "Wizard phải có ABX_WIZ_SYN, abxWizPick/Go/Next và renderAbxWizard");
+ok(html.includes('id="abx_wizbar"') && html.includes('id="abx_wizsum"') && html.includes('id="abx_wizcard"') && html.includes('id="abx_result"') && html.includes('id="abx_why"') && html.includes('id="abx_alt"'), "Panel kháng sinh phải có thanh tiến trình, dải tóm tắt, thẻ câu hỏi, màn hình kết quả, hộp 'vì sao' và hộp thuốc thay thế");
+ok(html.includes("Bước") && html.includes("/5") && html.includes("position:sticky"), "Thanh tiến trình phải hiện Bước X/5; dải tóm tắt phải dính (sticky)");
+ok(!html.includes('id="abx_syn"') && !html.includes('id="abx_sev"') && !html.includes('id="abx_allergy"'), "Không còn khung chọn hội chứng / mức độ / dị ứng cũ trong panel (đã chuyển vào wizard)");
+// Đi hết wizard 5 bước: CAP nặng, không dị ứng, nguy cơ thấp → mở khóa, có phác đồ + bảng liều + vì sao + thuốc thay thế
+vm.runInContext("abxReset(); renderAbx();", ctx5);
+let s = wizState();
+ok(s.wstep === 1 && s.syn === null && s.sev === null && s.allergy === null, "Wizard bắt đầu ở bước 1, chưa chọn gì (không mặc định)");
+ok(wizHTML("abx_wizcard").includes("Ổ nhiễm trùng là gì?"), "Bước 1 hỏi hội chứng bằng thẻ lớn");
+vm.runInContext("abxWizPick(1,'syn','cap');", ctx5);
+s = wizState();
+ok(s.syn === "cap" && s.wstep === 2, "Bước 1: chọn Viêm phổi cộng đồng thì sang bước 2");
+ok(wizHTML("abx_wizcard").includes("Mức độ nặng?"), "Bước 2 hỏi mức độ nặng");
+vm.runInContext("abxWizPick(2,'sev','severe');", ctx5);
+s = wizState();
+ok(s.sev === "severe" && s.wstep === 3, "Bước 2: chọn Nặng thì sang bước 3");
+ok(wizHTML("abx_wizcard").includes("Dị ứng penicillin?"), "Bước 3 hỏi dị ứng penicillin");
+vm.runInContext("abxWizPick(3,'allergy','none');", ctx5);
+s = wizState();
+ok(s.allergy === "none" && s.wstep === 4, "Bước 3: chọn Không dị ứng thì sang bước 4");
+ok(wizHTML("abx_wizcard").includes("Nguy cơ kháng thuốc?") && wizHTML("abx_risk_tree").includes("Từng nhiễm hoặc mang MRSA hoặc ESBL chưa?"), "Bước 4 dùng lại cây hỏi nguy cơ MRSA/ESBL");
+setTree({ q1: "no", q2: "no", q3: "no", q4: "no", q5: "no" }, ["q1", "q2", "q3", "q4", "q5"]);
+ok(riskOf("mrsa") === "no" && riskOf("esbl") === "no", "Bước 4: toàn Không → cả hai nguy cơ thấp");
+vm.runInContext("abxWizNext(5);", ctx5);
+s = wizState();
+ok(s.wstep === 5, "Bước 4 xong thì sang bước 5 (thận/gan)");
+ok(wizHTML("abx_wizcard").includes("Chức năng thận / gan?"), "Bước 5 hỏi chức năng thận/gan");
+// Thêm Cefotaxime (thuốc thay thế của Ceftriaxone) vào ABX của ctx5 để kiểm tra hộp thuốc thay thế
+vm.runInContext("ABX.push({n:'Cefotaxime',g:'Cephalosporin',syn:['cap'],tdm:false,d:{b90:'1–2 g mỗi 8h',b60:'1–2 g mỗi 8h',b30:'1 g mỗi 8h',b15:'1 g mỗi 12h',blt:'1 g mỗi 12h',hd:'1 g mỗi 12h'},load:'1–2 g',liver:'không chỉnh',note:'thử'});", ctx5);
+vm.runInContext("abxWizNext(6); renderAbx();", ctx5);
+s = wizState();
+ok(s.wstep === 6, "Bước 5 xong thì sang màn hình kết quả");
+ok(!abxListHTML().includes("ĐÃ KHÓA") && abxListHTML().includes("Ceftriaxone"), "Kết quả: bảng liều mở khóa, hiện Ceftriaxone");
+ok(wizHTML("abx_emp").includes("Viêm phổi cộng đồng") && !wizHTML("abx_emp").includes("ĐÃ KHÓA"), "Kết quả: phác đồ kinh nghiệm CAP hiện, không còn khóa");
+ok(wizHTML("abx_why").includes("Vì sao dùng thuốc này") && wizHTML("abx_why").includes("Nhiễm trùng nặng"), "Kết quả: giải thích 'vì sao dùng thuốc này' nêu đúng mức độ nặng");
+ok(wizHTML("abx_alt").includes("Nếu không có") && wizHTML("abx_alt").includes("Cefotaxime"), "Kết quả: hộp thuốc thay thế nêu Cefotaxime thay Ceftriaxone kèm liều");
+// Nhảy về sửa giữa chừng rồi tính lại (kèm dòng "đã đổi")
+vm.runInContext("abxWizGo(2);", ctx5);
+s = wizState();
+ok(s.wstep === 2, "Dải tóm tắt: chạm câu đã trả lời thì nhảy về đúng bước đó");
+vm.runInContext("abxWizPick(2,'sev','mild');", ctx5);
+s = wizState();
+ok(s.wstep === 3 && s.wchanged.includes("Đã đổi") && s.wchanged.includes("Nặng") && s.wchanged.includes("Nhẹ"), "Đổi mức độ Nặng → Nhẹ thì tính lại và ghi rõ điều đã đổi");
+ok(s.allergy === null && s.mrsa === null && s.esbl === null, "Đổi đáp án giữa chừng thì các bước sau bị xóa để trả lời lại (không giữ đáp án cũ sai ngữ cảnh)");
+// Trả lời lại các bước sau rồi về kết quả: dòng "Đã đổi" còn hiện trên màn hình kết quả
+vm.runInContext("abxWizPick(3,'allergy','none');", ctx5);
+setTree({ q1: "no", q2: "no", q3: "no", q4: "no", q5: "no" }, ["q1", "q2", "q3", "q4", "q5"]);
+// setTree() đặt lại sev='severe' (mặc định của mục 8) — trả về 'mild' để kiểm tra tính lại theo mức nhẹ
+vm.runInContext("abxState.sev='mild';", ctx5);
+vm.runInContext("abxWizNext(5); abxWizNext(6); renderAbx();", ctx5);
+ok(wizText("abx_changed").includes("Đã đổi") && wizText("abx_changed").includes("Nặng"), "Màn hình kết quả hiện rõ dòng 'Đã đổi' sau khi sửa giữa chừng");
+ok(wizHTML("abx_why").includes("Nhiễm trùng nhẹ"), "Sau khi đổi sang Nhẹ, giải thích 'vì sao' tính lại theo mức nhẹ");
+// Lỗi (a): nhánh "Có cả hai" — quay lại/sửa/làm lại được
+vm.runInContext("abxReset(); abxState.riskMode='tree'; abxState.riskAns={q1:'both'}; abxState.riskPath=['q1']; abxRiskSync(); renderAbxRisk();", ctx5);
+ok(abxRiskDone() === true && riskOf("mrsa") === "yes" && riskOf("esbl") === "yes", "Nhánh Có cả hai: cả hai nguy cơ cao, tới kết luận ngay");
+ok(treeHTML().includes('data-back="0"') && treeHTML().includes("data-risk-reset"), "Lỗi (a): nhánh Có cả hai phải có nút quay lại câu q1 và nút Làm lại từ đầu");
+vm.runInContext("abxRiskBackTo(0);", ctx5);
+ok(JSON.stringify(vm.runInContext("abxState.riskAns", ctx5)) === "{}" && abxRiskDone() === false && riskOf("mrsa") === null, "Lỗi (a): chạm q1 ở nhánh Có cả hai thì mở lại câu hỏi — đáp án q1 bị xóa, chưa tới kết luận");
+vm.runInContext("abxState.riskAns={q1:'both'}; abxState.riskPath=['q1']; abxRiskSync(); abxReset();", ctx5);
+s = wizState();
+ok(s.wstep === 1 && s.syn === null && s.allergy === null && JSON.stringify(vm.runInContext("abxState.riskAns", ctx5)) === "{}", "Lỗi (a): Làm lại từ đầu (abxReset) đặt lại toàn bộ wizard + cây hỏi về bước 1");
+ok(html.includes("abxReset();location.reload()"), "Lỗi (a): 'Xóa dữ liệu đã lưu' phải gọi abxReset() trước khi tải lại trang");
+// Lỗi (b): dòng "đã mở khóa" chỉ hiện khi thực sự đã mở khóa
+vm.runInContext("abxState.riskMode='tree'; abxState.riskAns={q1:'no',q2:'no',q3:'no',q4:'no',q5:'no'}; abxState.riskPath=['q1','q2','q3','q4','q5']; abxState.allergy=null; abxRiskSync(); renderAbxRisk();", ctx5);
+ok(!treeHTML().includes("đã mở khóa"), "Lỗi (b): chưa chọn dị ứng thì kết luận cây hỏi không được ghi 'đã mở khóa'");
+vm.runInContext("abxState.allergy='none'; renderAbxRisk();", ctx5);
+ok(treeHTML().includes("đã mở khóa"), "Lỗi (b): đã chọn dị ứng + nguy cơ xong thì kết luận mới ghi 'đã mở khóa'");
+ok(html.includes('abxUnlocked()?"Kết quả ở ô bên dưới'), "Lỗi (b): dòng 'đã mở khóa' phải nằm trong điều kiện abxUnlocked()");
+// Lỗi (c): bộ đếm "Đã trả lời N câu" khớp đúng số câu đã trả lời
+vm.runInContext("abxState.riskMode='tree'; abxState.riskAns={q1:'no',q2:'no',q3:'no'}; abxState.riskPath=['q1','q2']; abxRiskSync(); renderAbxRisk();", ctx5);
+ok(treeHTML().includes("Đã trả lời 2 câu"), "Lỗi (c): bộ đếm chỉ đếm câu trong đường đi hiện tại (2), không đếm đáp án thừa ngoài đường đi (3)");
+vm.runInContext("abxState.riskAns={q1:'no',q2:'no'}; abxState.riskPath=['q1','q2','q3']; abxRiskSync(); renderAbxRisk();", ctx5);
+ok(treeHTML().includes("Đã trả lời 2 câu"), "Lỗi (c): mới trả lời 2/5 câu thì bộ đếm ghi 2 câu");
+ok(!html.includes("Object.keys(abxState.riskAns).length"), "Lỗi (c): không còn đếm bằng Object.keys(riskAns)");
+// Đường tắt không mặc định (giữ nguyên v2.6.1)
+ok(html.includes('abxState.riskMode="direct";abxState.mrsa=null;abxState.esbl=null;'), "Đường tắt 'Tôi đã biết nguy cơ' phải xóa nguy cơ cũ, không mặc định");
+// Dọn hscc.vn
+ok(!html.includes("hscc.vn"), "Không còn chuỗi hscc.vn trong index.html");
+ok(!readme.includes("https://hscc.vn") && !readme.includes("Nguồn tham khảo hscc.vn"), "README không còn link hscc.vn hay dẫn hscc.vn làm nguồn (chỉ còn ghi chú đã dọn trong mục v2.7.0)");
+ok(html.includes("doi.org/10.3109/15563650.2014.946994") && html.includes("pmc.ncbi.nlm.nih.gov/articles/PMC2493390"), "Link hscc.vn đã thay bằng nguồn gốc: EXTRIP 2014 và Eddleston Lancet 2008 (PMC)");
+// Thuốc thay thế: mọi thuốc thay thế đều có trong bảng liều, có đủ liều, truy được về guideline đã trích dẫn
+const NEW_DRUGS = ["Aztreonam", "Ertapenem", "Cefotaxime", "Ceftazidime", "Nitrofurantoin", "Fosfomycin", "Cephalexin", "Moxifloxacin", "Meropenem–Vaborbactam"];
+console.log("Thuốc thay thế v2.7.0: " + ABX3.length + " kháng sinh/kháng nấm trong bảng liều");
+ok(ABX3.length === 36, "Bảng liều phải có 36 kháng sinh/kháng nấm (27 cũ + 9 mới), nhận: " + ABX3.length);
+NEW_DRUGS.forEach(n => {
+  const a = ABX3.find(x => x.n === n);
+  ok(!!a, "Bảng liều thiếu thuốc mới: " + n);
+  if (a) ["b90", "b60", "b30", "b15", "blt", "hd"].forEach(b => ok(a.d && a.d[b] && a.d[b].length > 0, n + ": thiếu liều mức " + b));
+});
+Object.keys(EMP).forEach(k => {
+  ok(EMP[k].drugs && EMP[k].drugs.length > 0, "Phác đồ " + k + " phải có danh sách thuốc chính (drugs)");
+  (EMP[k].drugs || []).forEach(dn => ok(ABX3.some(a => a.n === dn), "Phác đồ " + k + ": thuốc chính không có trong bảng liều: " + dn));
+});
+Object.keys(ABX_ALT).forEach(dn => {
+  ok(ABX3.some(a => a.n === dn), "ABX_ALT: thuốc chính không có trong bảng liều: " + dn);
+  ABX_ALT[dn].forEach(a => {
+    const alt = ABX3.find(x => x.n === a.n);
+    ok(!!alt, "ABX_ALT: thuốc thay thế không có trong bảng liều: " + a.n + " (thay " + dn + ")");
+    if (alt) ["b90", "b60", "b30", "b15", "blt", "hd"].forEach(b => ok(alt.d && alt.d[b] && alt.d[b].length > 0, "Thuốc thay thế " + a.n + ": thiếu liều mức " + b));
+    ok(a.src && /IDSA|SSC|EAU|Tokyo|ATS/.test(a.src), "ABX_ALT: thuốc thay thế " + a.n + " phải ghi rõ guideline nguồn đã trích dẫn trong app, nhận: " + a.src);
+    ok(a.why && a.why.length > 5, "ABX_ALT: thuốc thay thế " + a.n + " thiếu giải thích ngắn");
+  });
+});
+// Ceftazidime/Cefotaxime/Cephalexin không phủ ESBL; Ceftazidime–Avibactam thì có phủ
+vm.runInContext("abxState.esbl='yes'; abxState.sev='severe';", ctx5);
+["Cefotaxime", "Ceftazidime", "Cephalexin"].forEach(n => ok(abxCardBan({ n, g: "Cephalosporin" }).includes("ESBL"), "ESBL cao: " + n + " phải bị đánh dấu không phủ ESBL"));
+ok(abxCardBan({ n: "Ceftazidime–Avibactam", g: "Cephalosporin" }) === "", "ESBL cao: Ceftazidime–Avibactam vẫn phủ ESBL (avibactam), không được đánh dấu");
+ok(abxCardBan({ n: "Meropenem–Vaborbactam", g: "Carbapenem" }) === "", "ESBL cao: Meropenem–Vaborbactam vẫn phủ ESBL, không được đánh dấu");
+// Phiên bản v2.7.0
+ok(html.includes('APP_VERSION="2.7.0"'), "APP_VERSION phải là 2.7.0");
+console.log("Hồi quy v2.7.0 wizard kháng sinh: đi hết 5 bước, sửa giữa chừng, lỗi (a)(b)(c), hscc.vn, thuốc thay thế");
+
 console.log(fail ? `\n❌ ${fail} lỗi, ${pass} đạt` : `\n✅ Tất cả ${pass} kiểm tra đều đạt`);
 process.exit(fail ? 1 : 0);

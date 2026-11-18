@@ -3,7 +3,13 @@
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức — nay có hồ sơ ca zero-data, 5 khóa an toàn chặn thật, tìm theo hội chứng, cây kiến thức toàn bộ và module chống độc Việt Nam.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — thêm vào màn hình chính để mở nhanh như app (cần mạng).
-**Phiên bản hiện tại:** v2.6.1 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v2.7.0 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+
+## Có gì mới ở v2.7.0
+- **Module kháng sinh làm lại thành wizard 5 bước:** thay toàn bộ trang dài bằng wizard một câu hỏi một màn hình (thẻ bấm lớn, không checkbox): ① hội chứng (7 thẻ lớn: phổi cộng đồng/bệnh viện, tiết niệu, ổ bụng, da–mô mềm, màng não, nhiễm trùng huyết) → ② mức độ nặng → ③ dị ứng penicillin (bắt buộc, không mặc định) → ④ cây hỏi nguy cơ MRSA/ESBL (giữ nguyên cây v2.6.1) → ⑤ thận/gan (chỉ hỏi khi cần chỉnh liều, lấy sẵn từ Hồ sơ ca) → kết quả: phác đồ kinh nghiệm + bảng “Liều từng thuốc” + giải thích “vì sao dùng thuốc này” + thuốc thay thế cho từng thuốc chính. Thanh tiến trình “Bước X/5” + dải tóm tắt dính (chạm để nhảy về sửa; đổi đáp án thì tính lại và hiện rõ điều đã đổi). Bảng liều chỉ hiện sau khi chốt phác đồ.
+- **Sửa 3 lỗi v2.6.1:** (a) nhánh “Có cả hai” nay quay lại/sửa/làm lại được (trước đây chạm câu đã trả lời không mở lại, nút làm lại biến mất, “Xóa dữ liệu đã lưu” cũng không đặt lại được); (b) dòng “đã mở khóa” chỉ hiện khi thực sự đã mở khóa; (c) bộ đếm “Đã trả lời N câu” khớp đúng số câu đã trả lời.
+- **Dọn sạch link hscc.vn:** hscc.vn chỉ là trang trung gian, không phải nguồn dẫn chứng — toàn bộ link hscc.vn đã thay bằng nguồn gốc (Rumack 1975, EXTRIP 2014, Eddleston Lancet 2008/PMC, Hướng dẫn Bộ Y tế QĐ 3610/QĐ-BYT, Hội HSCC&CĐ VN 2020) hoặc bỏ khi không xác định được nguồn gốc.
+- **Thuốc thay thế cho phác đồ kháng sinh:** 36 kháng sinh/kháng nấm trong bảng liều (thêm Aztreonam, Ertapenem, Cefotaxime, Ceftazidime, Nitrofurantoin, Fosfomycin, Cephalexin, Moxifloxacin, Meropenem–Vaborbactam); mỗi thuốc chính trong phác đồ có 1–2 thuốc thay thế cùng phổ theo đúng guideline đã trích dẫn (vd meropenem → imipenem–cilastatin, vancomycin → linezolid, piperacillin–tazobactam → cefepime + metronidazol), kèm liều đầy đủ đã chỉnh theo thận/gan. Phác đồ nào guideline không liệt kê thuốc thay thế thì để trống, không bịa thêm.
 
 ## Có gì mới ở v2.6.1
 - **Module kháng sinh — bước ③ làm lại kiểu cây phác đồ:** thay 2 checklist checkbox ở v2.6.0 (câu nằm viện và dùng kháng sinh bị hỏi lặp 2–3 lần) bằng cây hỏi từng bước, một câu một thẻ: tiền sử nhiễm/mang MRSA hoặc ESBL → nằm viện/ICU/dưỡng lão 90 ngày → kháng sinh phổ rộng gần đây → sonde tiểu/thủ thuật xâm lấn → lọc máu/vết thương mạn/viêm phổi nặng; mỗi yếu tố chỉ hỏi đúng một lần. Rẽ nhánh: "Có cả hai" chốt luôn cả hai cao; "Có ESBL" bỏ qua câu sonde tiểu; "Có MRSA" bỏ qua câu lọc máu/vết thương. Câu đã trả lời xếp thành danh sách, chạm để quay lại sửa; có nút làm lại từ đầu. Kết luận hiện rõ cả hai nguy cơ cùng lý do; quy tắc giữ như v2.6.0 ("Không biết" không bao giờ tính là thấp; "chưa rõ" mặc định theo mức nặng nhẹ).
@@ -24,7 +30,7 @@ Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác 
 - **10 công cụ mới:** SOFA-2, MEWS, Rumack–Matthew + NAC, MELD 3.0, HEART Pathway, Osmolal gap, CIWA-Ar, ASPECTS, Tìm theo hội chứng, Cây kiến thức toàn bộ.
 - **6 phác đồ cây mới:** ngộ độc paraquat, ngộ độc phosphua nhôm, sốt xuất huyết nặng, ngộ độc nấm/cá nóc/mật cá trắm, bundle ABCDEF (PADIS 2025), HAP/VAP — khóa ESBL.
 - **Cây kiến thức toàn bộ:** 4 lĩnh vực, 34 nhánh + 4 nhánh Nền tảng & Kinh điển, 12 thay đổi lớn 2024–2026, bảng giải độc 16 dòng, bảng EXTRIP, mục "Chưa xác minh được". Các mục P1/P2 chưa làm máy tính tương tác có trong cây dạng tra cứu có cấu trúc, ghi rõ sẽ nâng lên tương tác ở đợt sau.
-- **Chống độc Việt Nam:** phospho hữu cơ, paraquat, methanol/ethylene glycol, phosphua nhôm, rắn cắn (IVAC), dengue nặng, nấm/cá nóc/mật cá trắm. Nguồn tham khảo hscc.vn — chỉ dẫn link bài miễn phí, KHÔNG sao chép nội dung VIP.
+- **Chống độc Việt Nam:** phospho hữu cơ, paraquat, methanol/ethylene glycol, phosphua nhôm, rắn cắn (IVAC), dengue nặng, nấm/cá nóc/mật cá trắm. Nguồn gốc: Hướng dẫn Bộ Y tế (QĐ 3610/QĐ-BYT), Trung tâm Chống độc Bạch Mai, Eddleston Lancet 2008, EXTRIP — không dẫn qua trang trung gian.
 - **Pháp lý:** màn hình xác nhận "Tôi là nhân viên y tế" lúc mở lần đầu; Disclaimer/Điều khoản/Bảo mật/Giấy phép trong Cài đặt; banner cảnh báo khi nội dung quá 12 tháng chưa rà lại. Bộ file pháp lý (LICENSE MIT + phụ lục miễn trừ y khoa, TERMS.md, DISCLAIMER.md, PRIVACY.md) là bản nháp cần luật sư y tế rà lại.
 - **Giao diện:** 3 chế độ Cấp cứu (đỏ) / Hồi sức (xanh) / Tra cứu, chế độ đêm, nút to dùng một tay, thêm được vào màn hình chính (không còn chế độ offline từ v2.5.0).
 
@@ -36,7 +42,7 @@ Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác 
 - **Tra cứu thuốc**: gõ biệt dược hoặc hoạt chất thông dụng tại Việt Nam (82 hoạt chất) để biết hoạt chất và mở công cụ liên quan.
 - **📖 Sổ tay thuốc**: hướng dẫn sử dụng rút gọn 273 thuốc (chỉ định, liều, cách pha – dùng, chống chỉ định, tác dụng phụ, thai kỳ).
 - **📰 Bản tin**: 30 nghiên cứu mới nhất kiểu Feed (thẻ có ảnh minh hoạ, mới nhất lên đầu) từ NEJM, JAMA, The Lancet, European Heart Journal, BMJ, Annals of Internal Medicine, Critical Care, Intensive Care Medicine và CHEST — cập nhật theo từng phiên bản app.
-- **Module kháng sinh**: khuyến cáo kinh nghiệm theo hội chứng + liều theo CrCl, chức năng gan và mức độ bệnh cho 27 kháng sinh / kháng nấm — khóa dị ứng penicillin/MRSA và khóa ESBL; nguy cơ MRSA/ESBL hỏi bằng checklist yếu tố nguy cơ Có / Không / Không biết (có đường tắt “Tôi đã biết nguy cơ”).
+- **Module kháng sinh**: wizard 5 bước (hội chứng → mức độ nặng → dị ứng penicillin → cây hỏi nguy cơ MRSA/ESBL → thận/gan) + khuyến cáo kinh nghiệm theo hội chứng + liều theo CrCl, chức năng gan và mức độ bệnh cho 36 kháng sinh / kháng nấm — khóa dị ứng penicillin/MRSA và khóa ESBL; mỗi thuốc chính có thuốc thay thế cùng phổ kèm liều đầy đủ.
 
 ## Nguyên tắc
 - Mọi tính toán chạy trên máy, không gửi dữ liệu bệnh nhân đi đâu. Hồ sơ ca chỉ sống trong RAM và tự xóa sau 15 phút.
@@ -55,5 +61,4 @@ Dùng nút **⚑** trong từng công cụ hoặc **💬 Báo lỗi / Góp ý** 
 ## Hạn chế đã biết (v2.0.1)
 - Các mục P1/P2 trong cây kiến thức chỉ ở dạng tra cứu có cấu trúc, chưa phải máy tính tương tác.
 - KDIGO AKI/AKD 2026 bản cuối, ESC PE cập nhật, hướng dẫn BYT Việt Nam toàn văn và ERC 2025 chưa kiểm chứng bản chính.
-- Link hscc.vn trả 200 nhưng trang có Cloudflare Turnstile nên máy tự động chỉ thấy trang xác minh — link vẫn là URL bài viết chính thức.
 - Chưa kiểm chứng trên trình duyệt thật trong môi trường build (không có Chromium) — cần kiểm chứng live trên điện thoại sau khi đẩy GitHub Pages, đặc biệt SOFA-2 (ca 11/24) và 7 công cụ mới còn lại.

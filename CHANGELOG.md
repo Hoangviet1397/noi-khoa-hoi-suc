@@ -4,6 +4,13 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 rồi cập nhật file này. (Lưu ý: từ v2.5.0 app đã bỏ chế độ offline — không còn service worker.)
 
+## v2.7.0 — 18/11/2026 — Module kháng sinh: wizard 5 bước + thuốc thay thế + dọn link hscc.vn
+
+- **Wizard 5 bước thay toàn bộ page kháng sinh:** một câu hỏi một màn hình, đáp án là nút bấm lớn (không checkbox): ① hội chứng (7 thẻ lớn) → ② mức độ nặng → ③ dị ứng penicillin (bắt buộc, không mặc định) → ④ cây hỏi nguy cơ MRSA/ESBL v2.6.1 → ⑤ thận/gan (chỉ hỏi khi cần chỉnh liều, lấy sẵn từ Hồ sơ ca) → kết quả: phác đồ kinh nghiệm + bảng “Liều từng thuốc” + giải thích “vì sao dùng thuốc này” + thuốc thay thế. Thanh tiến trình “Bước X/5” + dải tóm tắt dính (chạm để nhảy về sửa; đổi đáp án thì tính lại và hiện rõ điều đã đổi). Bảng liều chỉ hiện sau khi chốt phác đồ.
+- **Sửa 3 lỗi v2.6.1:** (a) nhánh “Có cả hai” quay lại/sửa/làm lại được; “Xóa dữ liệu đã lưu” đặt lại được cây kháng sinh; (b) dòng “đã mở khóa” chỉ hiện khi thực sự đã mở khóa; (c) bộ đếm “Đã trả lời N câu” khớp đúng số câu đã trả lời.
+- **Dọn sạch link hscc.vn:** thay bằng nguồn gốc — Rumack 1975 (DOI 10.1542/peds.55.6.871), EXTRIP 2014 (DOI 10.3109/15563650.2014.946994), Eddleston Lancet 2008 (PMC2493390), Hướng dẫn Bộ Y tế QĐ 3610/QĐ-BYT (31/08/2015), Hội HSCC&CĐ VN 2020 (giữ trích dẫn dạng text, bỏ link) — hoặc bỏ link khi không xác định được nguồn gốc.
+- **Thuốc thay thế:** 36 kháng sinh/kháng nấm trong bảng liều (thêm Aztreonam, Ertapenem, Cefotaxime, Ceftazidime, Nitrofurantoin, Fosfomycin, Cephalexin, Moxifloxacin, Meropenem–Vaborbactam); mỗi thuốc chính có 1–2 thuốc thay thế cùng phổ theo đúng guideline đã trích dẫn cho phác đồ đó, kèm liều đầy đủ đã chỉnh theo thận/gan; thuốc thay thế cũng bị gạch khi không dùng được cho bệnh nhân (dị ứng/ESBL).
+
 ## v2.6.1 — 18/11/2026 — Module kháng sinh: bước ③ làm lại kiểu cây phác đồ
 
 - **Cây hỏi nguy cơ kháng thuốc thay 2 checklist:** bước ③ của module kháng sinh giờ hỏi từng bước, một câu một thẻ (giống phác đồ cây): tiền sử nhiễm/mang MRSA hoặc ESBL → nằm viện/ICU/dưỡng lão 90 ngày → kháng sinh phổ rộng gần đây → sonde tiểu/thủ thuật xâm lấn → lọc máu/vết thương mạn/viêm phổi nặng. Mỗi yếu tố chỉ hỏi đúng một lần — sửa đúng điểm Việt chê ở v2.6.0 (câu nằm viện và dùng kháng sinh bị hỏi lặp 2–3 lần ở cả 2 checklist, khó dùng trên điện thoại).
