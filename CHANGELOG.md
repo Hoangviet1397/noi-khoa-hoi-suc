@@ -4,6 +4,10 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 rồi cập nhật file này. (Lưu ý: từ v2.5.0 app đã bỏ chế độ offline — không còn service worker.)
 
+## v2.7.2 — 18/11/2026 — Bản tin: 1 nghiên cứu mới
+
+- **Pelacarsen không giảm biến cố tim mạch dù hạ Lp(a) mạnh (Lp(a)HORIZON, NEJM 2026):** thử nghiệm trên 8.350 bệnh nhân có bệnh tim mạch sẵn và Lp(a) ≥70 mg/dL — pelacarsen 80 mg/tháng hạ Lp(a) từ 236 xuống 64,4 nmol/L sau 12 tháng, nhưng biến cố chính sau trung vị 4,7 năm không khác placebo (12,3% so với 12,1%; HR 1,02; KTC 95%: 0,90–1,15; p=0,76). Kể cả nhóm Lp(a) nền ≥90 mg/dL cũng không khác biệt.
+
 ## v2.7.1 — 18/11/2026 — Bản tin: 1 nghiên cứu mới
 
 - **Protein theo cân nặng hiệu chỉnh ở bệnh nhân ICU thừa cân/béo phì (Critical Care 2026):** phân tích 9.068 bệnh nhân tại 785 ICU — protein 4 ngày đầu dưới ~0,45 g/kg cân nặng hiệu chỉnh/ngày liên quan tử vong trong ICU cao hơn; ở mức 0 g/kg/ngày, nguy cơ cao hơn khoảng 38% (tỉ suất nguy cơ hiệu chỉnh 1,41; KTC 95%: 1,17–1,69). Trên ngưỡng này, tăng thêm protein không liên quan rõ với tử vong. Nghiên cứu quan sát.
