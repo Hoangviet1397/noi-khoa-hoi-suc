@@ -3,7 +3,11 @@
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức — nay có hồ sơ ca zero-data, 5 khóa an toàn chặn thật, tìm theo hội chứng, cây kiến thức toàn bộ và module chống độc Việt Nam.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — thêm vào màn hình chính để mở nhanh như app (cần mạng).
-**Phiên bản hiện tại:** v2.7.0 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v2.7.1 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+
+## Có gì mới ở v2.7.1
+
+- **Bản tin — 1 nghiên cứu mới (Critical Care 2026):** protein theo cân nặng hiệu chỉnh ở bệnh nhân ICU thừa cân/béo phì — protein 4 ngày đầu dưới ~0,45 g/kg/ngày liên quan tử vong trong ICU cao hơn (ở mức 0 g/kg/ngày, nguy cơ cao hơn khoảng 38%).
 
 ## Có gì mới ở v2.7.0
 - **Module kháng sinh làm lại thành wizard 5 bước:** thay toàn bộ trang dài bằng wizard một câu hỏi một màn hình (thẻ bấm lớn, không checkbox): ① hội chứng (7 thẻ lớn: phổi cộng đồng/bệnh viện, tiết niệu, ổ bụng, da–mô mềm, màng não, nhiễm trùng huyết) → ② mức độ nặng → ③ dị ứng penicillin (bắt buộc, không mặc định) → ④ cây hỏi nguy cơ MRSA/ESBL (giữ nguyên cây v2.6.1) → ⑤ thận/gan (chỉ hỏi khi cần chỉnh liều, lấy sẵn từ Hồ sơ ca) → kết quả: phác đồ kinh nghiệm + bảng “Liều từng thuốc” + giải thích “vì sao dùng thuốc này” + thuốc thay thế cho từng thuốc chính. Thanh tiến trình “Bước X/5” + dải tóm tắt dính (chạm để nhảy về sửa; đổi đáp án thì tính lại và hiện rõ điều đã đổi). Bảng liều chỉ hiện sau khi chốt phác đồ.

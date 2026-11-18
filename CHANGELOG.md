@@ -4,6 +4,10 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 rồi cập nhật file này. (Lưu ý: từ v2.5.0 app đã bỏ chế độ offline — không còn service worker.)
 
+## v2.7.1 — 18/11/2026 — Bản tin: 1 nghiên cứu mới
+
+- **Protein theo cân nặng hiệu chỉnh ở bệnh nhân ICU thừa cân/béo phì (Critical Care 2026):** phân tích 9.068 bệnh nhân tại 785 ICU — protein 4 ngày đầu dưới ~0,45 g/kg cân nặng hiệu chỉnh/ngày liên quan tử vong trong ICU cao hơn; ở mức 0 g/kg/ngày, nguy cơ cao hơn khoảng 38% (tỉ suất nguy cơ hiệu chỉnh 1,41; KTC 95%: 1,17–1,69). Trên ngưỡng này, tăng thêm protein không liên quan rõ với tử vong. Nghiên cứu quan sát.
+
 ## v2.7.0 — 18/11/2026 — Module kháng sinh: wizard 5 bước + thuốc thay thế + dọn link hscc.vn
 
 - **Wizard 5 bước thay toàn bộ page kháng sinh:** một câu hỏi một màn hình, đáp án là nút bấm lớn (không checkbox): ① hội chứng (7 thẻ lớn) → ② mức độ nặng → ③ dị ứng penicillin (bắt buộc, không mặc định) → ④ cây hỏi nguy cơ MRSA/ESBL v2.6.1 → ⑤ thận/gan (chỉ hỏi khi cần chỉnh liều, lấy sẵn từ Hồ sơ ca) → kết quả: phác đồ kinh nghiệm + bảng “Liều từng thuốc” + giải thích “vì sao dùng thuốc này” + thuốc thay thế. Thanh tiến trình “Bước X/5” + dải tóm tắt dính (chạm để nhảy về sửa; đổi đáp án thì tính lại và hiện rõ điều đã đổi). Bảng liều chỉ hiện sau khi chốt phác đồ.
