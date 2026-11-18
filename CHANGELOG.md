@@ -4,6 +4,20 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v2.2.0 — 18/11/2026 — 20 thang điểm + 2 phác đồ cây từ Cây kiến thức
+
+Nâng các mục 🆕 trong Cây kiến thức toàn bộ thành công cụ tương tác (tính ngay khi chọn, có màu mức nguy cơ, diễn giải và hướng xử trí, nguồn gốc):
+- **Hồi sức – cấp cứu:** ESI phân loại cấp cứu 5 mức (ESI v5); SIC — rối loạn đông máu do nhiễm trùng (Iba 2017).
+- **Ung bướu – huyết học:** Hội chứng ly giải u Cairo–Bishop (kèm cảnh báo rasburicase chống chỉ định khi thiếu G6PD); MASCC sốt giảm bạch cầu hạt; Khorana huyết khối do ung thư (ASCO 2023).
+- **Nhiễm trùng:** LRINEC viêm cân mạc hoại tử; Thwaites lao màng não vs vi khuẩn (Thwaites 2002, phát triển tại TP.HCM).
+- **Tiêu hóa:** Oakland xuất huyết tiêu hóa dưới; Tokyo TG18 phân độ viêm đường mật cấp.
+- **Thuyên tắc phổi:** YEARS (D-dimer ngưỡng 1000 / 500), Bova (PE huyết động ổn), Hestia (điều trị ngoại trú).
+- **Hô hấp:** RAPID nhiễm trùng màng phổi, GAP xơ phổi vô căn, FACED giãn phế quản, Epworth buồn ngủ ban ngày.
+- **Đợt 2 (đối chiếu bài gốc trước khi làm):** Duke-ISCVID 2023 viêm nội tâm mạc (Fowler, CID 2023 — chắc chắn / có thể / bác bỏ); SAPS II tiên lượng tử vong ICU (Le Gall, JAMA 1993 — kiểm chứng với bản MIMIC-IV); SLEDAI-2K hoạt động lupus (Gladman 2002 — 24 mục, tổng trọng số 105); ISS mức độ nặng chấn thương (Baker 1974). Phác đồ cây: **suy thượng thận cấp** (hydrocortisone 100 mg → 200 mg/24 giờ, liều stress, quy tắc ngày ốm — Endocrine Society 2016, Society for Endocrinology) và **ngộ độc CO / khói cháy — cyanide** (oxy 100%, hydroxocobalamin 5 g, tiêu chí oxy cao áp — ACEP, nhãn Cyanokit).
+- Không đưa vào: **PPS** (bản quyền Victoria Hospice, không cho sửa đổi); **APACHE IV** (hệ số độc quyền).
+- **An toàn:** chưa chọn đủ các mục thì không hiện kết luận (ô chọn mặc định "— Chọn —"); công cụ chỉ gồm tiêu chí tick (Hestia, Bova, ly giải u, Tokyo) phải tick "Đã rà đủ các tiêu chí" mới ra kết quả — tránh kết luận "ngoại trú" / "loại trừ" khi chưa nhập gì.
+- Cây kiến thức: các mục trên đổi 🆕 → ✅ và có liên kết mở thẳng công cụ. Công cụ được thêm vào chuyên ngành tương ứng trên trang chủ.
+
 ## v2.1.1 — 18/11/2026 — Bản tin: 5 nghiên cứu mới
 
 - **ECPR tiền viện ở ngừng tim ngoài viện ≤50 tuổi (OnScene, NEJM 2026):** đội trực thăng có khả năng ECPR giúp 40% sống tới khi ra viện so với 20% chăm sóc thường quy (OR 2,72); kết cục thần kinh tốt sau 6 tháng 36% so với 13%. Nghiên cứu quan sát, chưa phải thử nghiệm ngẫu nhiên.
