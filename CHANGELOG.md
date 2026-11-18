@@ -4,6 +4,14 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v2.1.1 — 18/11/2026 — Bản tin: 5 nghiên cứu mới
+
+- **ECPR tiền viện ở ngừng tim ngoài viện ≤50 tuổi (OnScene, NEJM 2026):** đội trực thăng có khả năng ECPR giúp 40% sống tới khi ra viện so với 20% chăm sóc thường quy (OR 2,72); kết cục thần kinh tốt sau 6 tháng 36% so với 13%. Nghiên cứu quan sát, chưa phải thử nghiệm ngẫu nhiên.
+- **Tiêu huyết khối qua catheter ở thuyên tắc phổi nguy cơ trung bình-cao (PRAGUE-26, NEJM 2026):** alteplase qua catheter + chống đông giảm biến cố chính trong 7 ngày xuống 0,7% so với 6,8% chỉ chống đông (RR 0,10), không tăng chảy máu chung; xuất huyết nội sọ 2 ca so với 0.
+- **Kháng sinh toàn thân ngắn ≤7 ngày sau mổ nhiễm trùng chỉnh hình (SOLARIO, NEJM 2026):** không thua kém dài ≥4 tuần về thất bại điều trị sau 12 tháng (11,1% so với 14,1%), ít triệu chứng do thuốc hơn (17,2% so với 45,2% tới tuần 6). Chỉ áp dụng khi có đặt chất mang kháng sinh tại chỗ trong mổ.
+- **Bỏ aspirin, chỉ prasugrel sau PCI tiên phát STEMI (PREMIUM, NEJM 2026):** không chứng minh được không thua kém DAPT về tử vong/đột quỵ/nhồi máu cơ tim sau 12 tháng (11,0% so với 8,5%; HR 1,34), dù chảy máu lớn ít hơn (5,6% so với 8,4%).
+- **Hạ huyết áp tâm thu về <120 mmHg ở đái tháo đường type 2 (OPTIMAL-DIABETES, NEJM 2026):** không giảm biến cố tim mạch chính so với đích <140 mmHg sau 4 năm (6,0% so với 6,7%; HR 0,90; p=0,20).
+
 ## v2.1.0 — 18/11/2026 — Gọn giao diện
 
 - **Hồ sơ ca thu gọn thành 1 dòng** trên cùng: hiện tóm tắt (vd "65 tuổi • 70 kg • CrCl 25 • phản vệ PNC") và giờ tự xóa; chạm để mở form, nút "✓ Xong — thu gọn". Chỉ hiện ở trang chủ và các công cụ dùng hồ sơ (vận mạch, DKA, kháng sinh, FIB-4, dinh dưỡng, CRRT, dịch). Trước đây form 8 ô chiếm gần nửa màn hình ở **mọi** trang, kể cả Cài đặt.
