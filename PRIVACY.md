@@ -15,7 +15,7 @@ Cụ thể:
 - Ứng dụng **không thu thập, không lưu lên máy chủ, không chia sẻ và không bán** dữ liệu bệnh nhân.
 - Mọi tính toán (bảng điểm, liều thuốc, phác đồ) chỉ thực hiện **trên thiết bị của người dùng**.
 
-Chính sách này áp dụng cho cả bản PWA cài trên màn hình chính và bản file HTML offline đã tải về máy.
+Chính sách này áp dụng cho bản web và bản thêm vào màn hình chính. Từ v2.5.0 ứng dụng không còn chế độ offline và không còn tải file HTML về máy; file đã tải từ bản cũ vẫn tuân theo chính sách này.
 
 ## 2. Hồ sơ ca trong v2.0 — chỉ sống trong RAM, tự xóa
 

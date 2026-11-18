@@ -4,6 +4,12 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v2.5.0 — 18/11/2026 — Bỏ chế độ offline
+
+- **Bỏ chế độ offline:** gỡ service worker lưu app vào máy và bỏ nút "⬇ Tải file offline (dự phòng)". App luôn tải bản mới nhất mỗi lần mở (cần mạng), tránh trường hợp dùng nhầm bản cũ khi liều / phác đồ đã được sửa.
+- `sw.js` thay bằng bản **tự gỡ**: máy đã cài bản cũ, ở lần mở kế tiếp có mạng, tự xóa toàn bộ bộ nhớ đệm, gỡ service worker và tải lại trang mới. index.html cũng chủ động gỡ đăng ký và xóa bộ nhớ đệm cũ. Giữ file `sw.js` này vài tháng để mọi máy kịp tự gỡ.
+- **Giữ nút thêm vào màn hình chính:** vẫn có icon mở 1 chạm như app (cần mạng). Sửa toàn bộ chữ "dùng được khi mất mạng" trong app, hướng dẫn, manifest, README, PRIVACY / TERMS / DISCLAIMER.
+
 ## v2.4.0 — 18/11/2026 — Sổ tay thuốc: 273 thuốc
 
 - **Thêm 191 thuốc nội khoa thông dụng tại Việt Nam** (từ 82 lên 273), mỗi thuốc đủ: biệt dược (tìm được bằng tên thương mại), chỉ định, liều người lớn (kèm chỉnh liều thận / gan khi cần), cách dùng, chống chỉ định – thận trọng, tác dụng phụ – theo dõi, thai kỳ, và nút mở công cụ / phác đồ liên quan.

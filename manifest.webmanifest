@@ -4,7 +4,7 @@
     "medical",
     "utilities"
   ],
-  "description": "Thang điểm, máy tính lâm sàng và liều kháng sinh theo thận – gan cho bác sĩ nội khoa và hồi sức. Cài một lần, mở offline như app.",
+  "description": "Thang điểm, máy tính lâm sàng và liều kháng sinh theo thận – gan cho bác sĩ nội khoa và hồi sức. Thêm vào màn hình chính để mở nhanh như app.",
   "dir": "ltr",
   "display": "standalone",
   "icons": [

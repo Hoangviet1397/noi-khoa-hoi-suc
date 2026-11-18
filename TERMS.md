@@ -3,7 +3,7 @@
 **Phiên bản:** v2.0 (bản nháp)
 **Ngày:** 18/11/2026
 **Repo:** Hoangviet1397/noi-khoa-hoi-suc
-**Áp dụng cho:** webapp PWA chạy offline trên GitHub Pages, tính toán hoàn toàn trên thiết bị người dùng.
+**Áp dụng cho:** webapp trên GitHub Pages (cần mạng khi mở từ v2.5.0), tính toán hoàn toàn trên thiết bị người dùng.
 
 > **Lưu ý:** Đây là bản nháp. Cần luật sư y tế rà lại trước khi phát hành rộng. Văn bản này không phải là tư vấn pháp lý.
 
@@ -28,7 +28,7 @@ This app is an educational reference for healthcare professionals only. It does 
 ## 3. Chấp nhận đúng phiên bản
 
 3.1. Mỗi phiên bản có số phiên bản và ngày phát hành hiển thị ở chân trang, ví dụ v2.0 — 18/11/2026.
-3.2. Người dùng phải kiểm tra mình đang dùng phiên bản mới nhất trước khi áp dụng cho bệnh nhân. Bản offline đã tải về máy không tự cập nhật.
+3.2. Người dùng phải kiểm tra mình đang dùng phiên bản mới nhất trước khi áp dụng cho bệnh nhân. File offline đã tải về từ các bản cũ (≤ v2.4.0) không tự cập nhật — xóa và dùng bản web.
 3.3. Nội dung y khoa có ngày hết hạn rà soát 12 tháng kể từ ngày rà soát ghi trong từng mục. Quá hạn mà chưa rà lại, ứng dụng sẽ hiện cảnh báo. Người dùng phải kiểm chứng lại trước khi dùng nội dung quá hạn.
 
 ## 4. Nghĩa vụ kiểm chứng của người dùng

@@ -2,8 +2,8 @@
 
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức — nay có hồ sơ ca zero-data, 5 khóa an toàn chặn thật, tìm theo hội chứng, cây kiến thức toàn bộ và module chống độc Việt Nam.
 
-**Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — cài vào màn hình chính để dùng offline.
-**Phiên bản hiện tại:** v2.4.0 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — thêm vào màn hình chính để mở nhanh như app (cần mạng).
+**Phiên bản hiện tại:** v2.5.0 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
 
 ## Sửa ở v2.0.1
 - **SOFA-2 không tính điểm trên trình duyệt thật — đã sửa:** kiểm chứng live 18/11/2026 thấy chọn đủ 6 hệ (kỳ vọng 11/24) mà kết quả vẫn “—”. Nguyên nhân: panel dùng ô kết quả id `sofa2` nhưng hàm tính ghi vào id `res-sofa2` (không tồn tại) nên kết quả bị bỏ lặng. Sửa cho cả 8 công cụ mới v2.0.0 (SOFA-2, MEWS, Rumack–Matthew, MELD 3.0, HEART Pathway, Osmolal gap, CIWA-Ar, ASPECTS): ô kết quả đổi sang id `res-…` đúng quy ước cũ, thêm nút “Tính …” thật và tự tính ngay khi mở app.
@@ -16,7 +16,7 @@ Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác 
 - **Cây kiến thức toàn bộ:** 4 lĩnh vực, 34 nhánh + 4 nhánh Nền tảng & Kinh điển, 12 thay đổi lớn 2024–2026, bảng giải độc 16 dòng, bảng EXTRIP, mục "Chưa xác minh được". Các mục P1/P2 chưa làm máy tính tương tác có trong cây dạng tra cứu có cấu trúc, ghi rõ sẽ nâng lên tương tác ở đợt sau.
 - **Chống độc Việt Nam:** phospho hữu cơ, paraquat, methanol/ethylene glycol, phosphua nhôm, rắn cắn (IVAC), dengue nặng, nấm/cá nóc/mật cá trắm. Nguồn tham khảo hscc.vn — chỉ dẫn link bài miễn phí, KHÔNG sao chép nội dung VIP.
 - **Pháp lý:** màn hình xác nhận "Tôi là nhân viên y tế" lúc mở lần đầu; Disclaimer/Điều khoản/Bảo mật/Giấy phép trong Cài đặt; banner cảnh báo khi nội dung quá 12 tháng chưa rà lại. Bộ file pháp lý (LICENSE MIT + phụ lục miễn trừ y khoa, TERMS.md, DISCLAIMER.md, PRIVACY.md) là bản nháp cần luật sư y tế rà lại.
-- **Giao diện:** 3 chế độ Cấp cứu (đỏ) / Hồi sức (xanh) / Tra cứu, chế độ đêm, nút to dùng một tay, PWA offline hoàn toàn.
+- **Giao diện:** 3 chế độ Cấp cứu (đỏ) / Hồi sức (xanh) / Tra cứu, chế độ đêm, nút to dùng một tay, thêm được vào màn hình chính (không còn chế độ offline từ v2.5.0).
 
 ## Nội dung (giữ nguyên từ v1.0.0)
 - **91 công cụ • 41 phác đồ (132 mục)**: SOFA, SOFA-2, qSOFA, NEWS2, MEWS, APACHE II, mNUTRIC, kê đơn dinh dưỡng ICU, CRRT, dịch hồi sức, quy đổi opioid; GCS, RASS, CAM-ICU, NIHSS, ASPECTS, ICH score, ABCD², FOUR; P/F – ARDS, ROX, IBW/Vt, khí máu động mạch, cơ học thở máy, PSI/PORT; eGFR & Cockcroft–Gault, Anion Gap, AKI KDIGO, điều chỉnh natri, FENa/FEUrea, bù K/Mg; MAP/Shock Index/Lactate, CHA₂DS₂-VA & HAS-BLED, HEART, HEART Pathway, QTc, GRACE, TIMI, liều DOAC; CURB-65, Child–Pugh & MELD 3.0, Wells PE, Geneva, PERC, sPESI, BMI/BSA, Glasgow–Blatchford, Rockall, AIMS65, BISAP, Ranson, Maddrey, Lille, FIB-4 & APRI, NAFLD Fibrosis Score, Padua, Caprini, DKA, quy đổi corticoid; suy tim HFrEF, 4Ts, ISTH DIC, PLASMIC, Burch-Wartofsky, CPIS, Hunt-Hess & WFNS, BODE, ECOG, Charlson, CFS, 4AT, STOP-BANG, Barthel, Braden.
@@ -37,7 +37,7 @@ Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác 
 Dùng nút **⚑** trong từng công cụ hoặc **💬 Báo lỗi / Góp ý** ở trang chủ — app mở sẵn GitHub Issue theo mẫu. Không ghi thông tin định danh bệnh nhân.
 
 ## Phát triển
-- Một file `index.html` (HTML + CSS + JS), `sw.js` (offline), `manifest.webmanifest` và icon.
+- Một file `index.html` (HTML + CSS + JS), `sw.js` (bản tự gỡ service worker cũ — không còn offline), `manifest.webmanifest` và icon.
 - Phát hành bản mới: sửa `APP_VERSION`, `APP_DATE`, `CHANGELOG` ở đầu script trong `index.html` (service worker tự lấy phiên bản), cập nhật `CHANGELOG.md` và README.
 - Kiểm thử v2.0.1: `node test_v200.js` (harness Node + DOM giả lập, 64 ca — đều đạt, gồm 21 ca hồi quy v2.0.1) và `node --check` cho từng block `<script>`. Kiểm thử v1.0.0: `node tests/run-tests.js`.
 - Kế hoạch: [docs/ROADMAP-GIAI-DOAN-2-3.md](docs/ROADMAP-GIAI-DOAN-2-3.md). GitHub là bản chính.

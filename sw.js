@@ -1,72 +1,14 @@
-/* Service worker — Công cụ Nội khoa & Hồi sức
-   Cache-first cho toàn bộ app: cài / mở lần đầu có mạng là các lần sau
-   mở được ngay cả khi mất mạng hoàn toàn. Khi có mạng trở lại, bản mới
-   được tải nền và thay cache ở lần mở kế tiếp. */
-/* Phiên bản lấy từ APP_VERSION trong index.html (đăng ký sw.js?v=...) — không cần sửa file này khi lên bản mới */
-var CACHE = "noi-khoa-hoi-suc-" + (new URL(self.location.href).searchParams.get("v") || "dev");
-var CORE = [
-  "./",
-  "./index.html",
-  "./manifest.webmanifest",
-  "./icon-192.png",
-  "./icon-512.png",
-  "./icon-maskable-512.png",
-  "./apple-touch-icon.png"
-];
-
-self.addEventListener("install", function (e) {
-  e.waitUntil(
-    caches.open(CACHE).then(function (c) {
-      return Promise.all(CORE.map(function (u) {
-        return c.add(u).catch(function () { /* thiếu 1 file không chặn cài đặt */ });
-      }));
-    }).then(function () { return self.skipWaiting(); })
-  );
-});
-
+/* Service worker tự gỡ — app đã bỏ chế độ offline từ v2.5.0.
+   Máy nào còn service worker của bản cũ: trình duyệt kiểm tra cập nhật file này khi mở app,
+   nhận bản tự gỡ → xóa toàn bộ bộ nhớ đệm, gỡ đăng ký và tải lại trang từ mạng.
+   Giữ file này ít nhất vài tháng để mọi máy đã cài bản cũ kịp tự gỡ. */
+self.addEventListener("install", function () { self.skipWaiting(); });
 self.addEventListener("activate", function (e) {
   e.waitUntil(
-    caches.keys().then(function (keys) {
-      return Promise.all(keys.map(function (k) {
-        if (k !== CACHE) return caches.delete(k);
-      }));
-    }).then(function () { return self.clients.claim(); })
-  );
-});
-
-self.addEventListener("fetch", function (e) {
-  var req = e.request;
-  if (req.method !== "GET") return;
-  var url;
-  try { url = new URL(req.url); } catch (err) { return; }
-  if (url.origin !== self.location.origin) return;
-
-  if (req.mode === "navigate") {
-    /* Điều hướng: ưu tiên mạng để nhận bản mới, rớt mạng thì dùng cache */
-    e.respondWith(
-      fetch(req).then(function (res) {
-        var copy = res.clone();
-        caches.open(CACHE).then(function (c) { c.put("./index.html", copy); });
-        return res;
-      }).catch(function () {
-        return caches.match("./index.html", { ignoreSearch: true })
-          .then(function (hit) { return hit || caches.match("./", { ignoreSearch: true }); });
-      })
-    );
-    return;
-  }
-
-  /* Tài nguyên tĩnh: cache-first, cập nhật nền */
-  e.respondWith(
-    caches.match(req, { ignoreSearch: true }).then(function (hit) {
-      var net = fetch(req).then(function (res) {
-        if (res && res.status === 200) {
-          var copy = res.clone();
-          caches.open(CACHE).then(function (c) { c.put(req, copy); });
-        }
-        return res;
-      }).catch(function () { return hit; });
-      return hit || net;
-    })
+    caches.keys()
+      .then(function (keys) { return Promise.all(keys.map(function (k) { return caches.delete(k); })); })
+      .then(function () { return self.registration.unregister(); })
+      .then(function () { return self.clients.matchAll({ type: "window" }); })
+      .then(function (clients) { clients.forEach(function (c) { try { c.navigate(c.url); } catch (err) {} }); })
   );
 });

@@ -41,7 +41,7 @@ Người dùng phải kiểm chứng lại trước khi dùng tại giường b�
 ## 5. Quy trình thu hồi và cảnh báo phiên bản
 
 5.1. Nếu phát hiện nội dung sai, chủ dự án sẽ sửa trong phiên bản mới, ghi vào changelog và, khi thiết bị có mạng, hiển thị cảnh báo phiên bản trong ứng dụng.
-5.2. Vì không thể thu hồi file offline đã tải về máy người dùng, cảnh báo phiên bản và changelog là biện pháp chính. Người dùng có trách nhiệm kiểm tra phiên bản mới nhất trước khi dùng cho bệnh nhân.
+5.2. Từ v2.5.0 ứng dụng không còn chế độ offline; tuy vậy không thể thu hồi file offline đã tải về từ bản cũ, cảnh báo phiên bản và changelog là biện pháp chính. Người dùng có trách nhiệm kiểm tra phiên bản mới nhất trước khi dùng cho bệnh nhân.
 5.3. Người dùng phát hiện lỗi phải báo qua nút “Báo lỗi / Góp ý” trong ứng dụng hoặc GitHub Issue, **không kèm thông tin bệnh nhân**. Xem TERMS.md mục 13 và PRIVACY.md.
 
 ## 6. Giới hạn của tính năng AI (v2.0)

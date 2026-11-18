@@ -4,7 +4,7 @@
 <meta charset="utf-8"/>
 <meta name="viewport" content="width=device-width, initial-scale=1, minimum-scale=1, maximum-scale=1, user-scalable=no, viewport-fit=cover"/>
 <meta name="color-scheme" content="light dark"/>
-<!-- PWA: cài vào màn hình chính, mở offline như app -->
+<!-- Thêm vào màn hình chính (mở như app, cần mạng) -->
 <link rel="manifest" href="manifest.webmanifest"/>
 <meta name="theme-color" media="(prefers-color-scheme: light)" content="#0b5563"/>
 <meta name="theme-color" media="(prefers-color-scheme: dark)" content="#0d1518"/>
@@ -599,7 +599,7 @@ details.abx .dose-cell.hl{display:none}
       </div>
 
       <div class="installbar" id="installBar">
-        <div class="tx"><b>📲 Cài vào màn hình chính</b>Mở 1 chạm như app, dùng được khi mất mạng.</div>
+        <div class="tx"><b>📲 Thêm vào màn hình chính</b>Mở 1 chạm như app (cần mạng).</div>
         <button type="button" class="go" id="installGo">Cài</button>
         <button type="button" class="x" id="installX" aria-label="Ẩn gợi ý cài đặt">✕</button>
       </div>
@@ -676,15 +676,14 @@ details.abx .dose-cell.hl{display:none}
           <button type="button" class="setrow" id="setGuide"><span class="ic">❓</span><span class="tx">Hướng dẫn sử dụng</span><span class="chev">›</span></button>
         </div>
       </div>
-      <div class="setgroup"><h3>Cài như app — dùng offline</h3>
+      <div class="setgroup"><h3>Thêm vào màn hình chính</h3>
         <div class="setlist">
 <div class="offlinebar pwabar" id="offlineBar">
           <div class="pwa-main">
-            <div class="otxt"><strong id="offlineTitle"><span class="odot" aria-hidden="true"></span> Cài như app — mở offline</strong><span id="offlineStatus">Cài một lần vào màn hình chính: bấm icon là mở như app và dùng được cả khi mất mạng.</span></div>
+            <div class="otxt"><strong id="offlineTitle"><span class="odot" aria-hidden="true"></span> Thêm icon ra màn hình chính</strong><span id="offlineStatus">Bấm icon là mở như app. App cần mạng khi mở và luôn là bản mới nhất.</span></div>
             <span class="pwa-badge" id="pwaBadge" style="display:none">ĐÃ CÀI ✓</span>
             <div class="pwa-actions">
               <button type="button" id="btnInstall">📲 Cài vào màn hình chính</button>
-              <button type="button" id="btnOfflineDownload" class="ghost">⬇ Tải file offline (dự phòng)</button>
             </div>
           </div>
           <div class="pwa-steps" id="pwaSteps" aria-live="polite"></div>
@@ -693,7 +692,7 @@ details.abx .dose-cell.hl{display:none}
       </div>
       <div class="setgroup"><h3>Giới thiệu</h3>
         <div class="setlist"><div class="setnote">
-          <p><b>Nội khoa &amp; Hồi sức</b> chạy hoàn toàn trên máy của bạn — mọi phép tính diễn ra offline, không gửi dữ liệu bệnh nhân đi đâu.</p>
+          <p><b>Nội khoa &amp; Hồi sức</b> tính toán ngay trên máy của bạn — không gửi dữ liệu bệnh nhân đi đâu. App cần mạng khi mở và luôn tải bản mới nhất.</p>
           <p>⚠️ Các thang điểm và máy tính chỉ hỗ trợ quyết định — không thay thế đánh giá lâm sàng và phác đồ của bệnh viện. Luôn đối chiếu phác đồ bệnh viện và kháng sinh đồ.</p>
           <p>Mã nguồn: <a href="https://github.com/Hoangviet1397/noi-khoa-hoi-suc" target="_blank" rel="noopener">github.com/Hoangviet1397/noi-khoa-hoi-suc</a></p>
         </div></div>
@@ -739,8 +738,9 @@ details.abx .dose-cell.hl{display:none}
 function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d");}
 function $(id){return document.getElementById(id);}
 /* ===== PHIÊN BẢN: chỉ sửa ở đây khi phát hành (service worker tự lấy số này đặt tên bộ nhớ đệm) ===== */
-var APP_VERSION="2.4.0",APP_DATE="18/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
+var APP_VERSION="2.5.0",APP_DATE="18/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
 var CHANGELOG=[
+  ["2.5.0","18/11/2026",["Bỏ chế độ offline: không còn lưu app vào bộ nhớ máy (service worker) và bỏ nút “Tải file offline”. App luôn tải bản mới nhất mỗi lần mở (cần mạng) — tránh dùng nhầm bản cũ với liều / phác đồ đã sửa. Máy đã cài bản cũ tự gỡ bộ nhớ offline ở lần mở kế tiếp có mạng. Vẫn thêm được icon ra màn hình chính để mở nhanh như app."]],
   ["2.4.0","18/11/2026",["Sổ tay thuốc bổ sung 190 thuốc nội khoa thông dụng tại Việt Nam (tổng 273), thêm cả thuốc lao hàng 1, thuốc HIV / viêm gan B, sốt rét, giun sán, kháng histamin, tâm thần – Parkinson – chóng mặt, dịch truyền, đảo ngược chống đông (PCC, idarucizumab), IVIg, EPO, thuốc giải độc chuyên biệt: chẹn beta, chẹn kênh canxi, ức chế men chuyển / chẹn thụ thể, ARNI, kháng aldosterone, thiazide, statin, digoxin, kháng vitamin K, adenosine, urapidil, labetalol, levosimendan; thuốc đái tháo đường (metformin, gliclazide, sitagliptin, ức chế SGLT2, insulin nền / nhanh / hỗn hợp); thuốc hít (Symbicort, Seretide, Spiriva, Pulmicort), aminophylline; PPI, chống nôn, lactulose, rifaximin, albumin; vitamin K1, acid tranexamic, protamine, sắt tĩnh mạch; haloperidol, quetiapine, phenobarbital, mannitol, nimodipine, thiamine, gabapentin; bicarbonat, glucose ưu trương, Kalimate, allopurinol, colchicine; NSAID, nefopam, ketamine, lidocaine, rocuronium, succinylcholine; oseltamivir, acyclovir, cefuroxime, cefixime, cefoperazone/sulbactam, ceftazidime, ertapenem, moxifloxacin, tigecycline, fosfomycin, nitrofurantoin, amphotericin B, voriconazole; thuốc kháng giáp, levothyroxine; flumazenil, than hoạt, xanh methylen, deferoxamine, hydroxocobalamin, kháng thể kháng digoxin. Mỗi thuốc có biệt dược để tìm, chỉ định, liều người lớn, cách dùng, chống chỉ định, tác dụng phụ, thai kỳ và liên kết tới công cụ / phác đồ liên quan. Module kháng sinh làm lại cho dễ dùng: 3 bước (hội chứng → thận / gan / mức độ → 3 câu an toàn), dòng “Đang tính cho” luôn hiện khi cuộn, phác đồ kinh nghiệm lên trước, mỗi thuốc chỉ hiện liều đúng mức CrCl đang chọn (chạm để xem đủ), nguyên tắc an toàn thu gọn — trang ngắn đi khoảng 3/4."]],
   ["2.3.0","18/11/2026",["Cây kiến thức: nối hơn 35 mục 🆕 với công cụ / phác đồ đã có trong app (đổi sang ✅, bấm mở thẳng). Thêm ADD-RS + D-dimer (bóc tách động mạch chủ), CPOT (đau ở bệnh nhân thở máy), VIS (chỉ số vận mạch – tăng co bóp); 4 phác đồ cây: ngộ độc salicylate (EXTRIP), ngộ độc thuốc tim mạch (chẹn beta / canxi, digoxin, chống trầm cảm 3 vòng), viêm màng ngoài tim – chèn ép tim, yếu cơ cấp (Guillain-Barré, cơn nhược cơ)."]],
   ["2.2.0","18/11/2026",["Triển khai 20 thang điểm tương tác + 2 phác đồ cây từ Cây kiến thức (đã đối chiếu bài gốc): Duke-ISCVID 2023, SAPS II, SLEDAI-2K, ISS, suy thượng thận cấp, ngộ độc CO / cyanide; ESI phân loại cấp cứu, SIC (đông máu do nhiễm trùng), ly giải u Cairo–Bishop, MASCC (sốt giảm bạch cầu), Khorana, LRINEC, Oakland (XHTH dưới), Tokyo TG18 (viêm đường mật), YEARS, Bova, Hestia (thuyên tắc phổi), RAPID (nhiễm trùng màng phổi), GAP (xơ phổi), FACED (giãn phế quản), Epworth, Thwaites (lao màng não — phát triển tại TP.HCM). Cây kiến thức đánh dấu ✅ và liên kết mở thẳng công cụ."]],
@@ -1506,22 +1506,17 @@ function setCat(c){curCat=c;renderHome();setNav(c==="fav"?"fav":c==="phacdo"?"ph
   $("searchClear").addEventListener('click',function(){si.value="";curQuery="";renderHome();si.focus();});
   $("searchBtn").addEventListener('click',function(){curQuery=si.value.trim();renderHome();});
 })();
-/* ============ PWA: cài vào màn hình chính + chạy offline ============
-   Manifest + icon nằm cùng thư mục với index.html, service worker (sw.js) lưu toàn bộ
-   app vào máy ngay lần mở đầu: cài 1 lần, các lần sau mở offline như app. */
-var deferredInstallPrompt=null, swReady=false, swLimited=false;
+/* ============ Thêm vào màn hình chính (không còn chế độ offline từ v2.5.0) ============ */
+var deferredInstallPrompt=null;
 function isStandalone(){return (window.matchMedia&&window.matchMedia("(display-mode: standalone)").matches)||window.navigator.standalone===true;}
 function isIOSDevice(){return /iphone|ipad|ipod/i.test(navigator.userAgent||"");}
 function updateOnlineStatus(){
   var bar=$("offlineBar"),st=$("offlineStatus"),on=navigator.onLine;
   if(bar)bar.classList.toggle('off',!on);
   if(!st)return;
-  if(!on)st.textContent="Đang offline — mọi công cụ và bảng liều kháng sinh vẫn hoạt động bình thường trên máy này.";
-  else if(isStandalone()&&swReady)st.textContent="Đang chạy như app đã cài trên màn hình chính. Có mạng, app tự tải bản mới cho lần mở sau — mất mạng vẫn mở và tính bình thường.";
-  else if(isStandalone())st.textContent="Đang chạy như app đã cài trên màn hình chính — mọi công cụ tính ngay trên máy này, không gửi dữ liệu bệnh nhân đi đâu.";
-  else if(swReady)st.textContent="Đã lưu sẵn toàn bộ app trên máy này. Bấm “Cài vào màn hình chính” để có icon như app — từ lần sau mở offline luôn, khỏi tải file.";
-  else if(swLimited)st.textContent="Môi trường đang mở (khung xem trước) chưa cho phép lưu bản offline tự động. Hãy mở liên kết của app trực tiếp bằng Safari/Chrome để cài vào màn hình chính và dùng offline — hoặc dùng nút tải file offline dự phòng bên cạnh.";
-  else st.textContent="Cài một lần vào màn hình chính: sau đó bấm icon là mở thẳng như app — toàn bộ công cụ và bảng liều nằm trọn trong app, không cần tải file thủ công.";
+  if(!on)st.textContent="Đang mất mạng — cần kết nối mạng để mở app và dùng các công cụ.";
+  else if(isStandalone())st.textContent="Đang mở như app từ màn hình chính. Mỗi lần mở, app tải bản mới nhất (cần mạng).";
+  else st.textContent="Thêm icon ra màn hình chính để mở 1 chạm như app. App cần mạng khi mở và luôn là bản mới nhất.";
 }
 window.addEventListener('online',updateOnlineStatus);
 window.addEventListener('offline',updateOnlineStatus);
@@ -1540,13 +1535,13 @@ function showInstallSteps(){
   var box=$("pwaSteps");if(!box)return;
   var steps;
   if(isIOSDevice()){
-    steps='<h4>Cài trên iPhone / iPad (Safari)</h4><ol><li>Mở trang này bằng <strong>Safari</strong> (nếu đang mở trong ứng dụng khác, chạm Chia sẻ và chọn mở bằng Safari).</li><li>Chạm nút <strong>Chia sẻ</strong> (hình vuông có mũi tên hướng lên) ở thanh dưới Safari.</li><li>Cuộn xuống và chọn <strong>“Thêm vào Màn hình chính”</strong>.</li><li>Chạm <strong>“Thêm”</strong> — icon ✚ “Nội khoa HS” sẽ hiện ngoài màn hình chính.</li><li>Từ lần sau cứ chạm icon đó: app mở toàn màn hình như app thật và chạy được cả khi mất mạng.</li></ol>';
+    steps='<h4>Cài trên iPhone / iPad (Safari)</h4><ol><li>Mở trang này bằng <strong>Safari</strong> (nếu đang mở trong ứng dụng khác, chạm Chia sẻ và chọn mở bằng Safari).</li><li>Chạm nút <strong>Chia sẻ</strong> (hình vuông có mũi tên hướng lên) ở thanh dưới Safari.</li><li>Cuộn xuống và chọn <strong>“Thêm vào Màn hình chính”</strong>.</li><li>Chạm <strong>“Thêm”</strong> — icon ✚ “Nội khoa HS” sẽ hiện ngoài màn hình chính.</li><li>Từ lần sau cứ chạm icon đó: app mở toàn màn hình như app thật (cần mạng).</li></ol>';
   } else if(/android/i.test(navigator.userAgent||"")){
-    steps='<h4>Cài trên Android (Chrome)</h4><ol><li>Chạm menu <strong>⋮</strong> ở góc phải trên của Chrome.</li><li>Chọn <strong>“Cài đặt ứng dụng”</strong> hoặc <strong>“Thêm vào màn hình chính”</strong>.</li><li>Chạm <strong>“Cài đặt” / “Thêm”</strong> để xác nhận.</li><li>Từ lần sau mở bằng icon ngoài màn hình chính — app chạy cả khi mất mạng.</li></ol>';
+    steps='<h4>Cài trên Android (Chrome)</h4><ol><li>Chạm menu <strong>⋮</strong> ở góc phải trên của Chrome.</li><li>Chọn <strong>“Cài đặt ứng dụng”</strong> hoặc <strong>“Thêm vào màn hình chính”</strong>.</li><li>Chạm <strong>“Cài đặt” / “Thêm”</strong> để xác nhận.</li><li>Từ lần sau mở bằng icon ngoài màn hình chính (cần mạng).</li></ol>';
   } else {
-    steps='<h4>Cài trên máy tính (Chrome / Edge)</h4><ol><li>Bấm biểu tượng cài đặt ở cuối thanh địa chỉ, hoặc mở menu <strong>⋮</strong> → <strong>“Cài đặt Công cụ Nội khoa &amp; Hồi sức…”</strong>.</li><li>Bấm <strong>“Cài đặt”</strong> — app mở trong cửa sổ riêng như ứng dụng và dùng được khi mất mạng.</li></ol>';
+    steps='<h4>Cài trên máy tính (Chrome / Edge)</h4><ol><li>Bấm biểu tượng cài đặt ở cuối thanh địa chỉ, hoặc mở menu <strong>⋮</strong> → <strong>“Cài đặt Công cụ Nội khoa &amp; Hồi sức…”</strong>.</li><li>Bấm <strong>“Cài đặt”</strong> — app mở trong cửa sổ riêng như ứng dụng (cần mạng).</li></ol>';
   }
-  box.innerHTML=steps+'<p class="alt">Không thấy tuỳ chọn cài đặt (đang mở trong trình duyệt của Zalo/Facebook hoặc trong khung xem trước)? Hãy mở liên kết của app trực tiếp bằng Safari/Chrome rồi cài từ đó — hoặc dùng nút “⬇ Tải bản offline (dự phòng)” ở trên để lưu 1 file HTML mở khi mất mạng.</p>';
+  box.innerHTML=steps+'<p class="alt">Không thấy tuỳ chọn cài đặt (đang mở trong trình duyệt của Zalo/Facebook hoặc trong khung xem trước)? Hãy mở liên kết của app trực tiếp bằng Safari/Chrome rồi thêm từ đó.</p>';
   box.classList.add('open');
   box.scrollIntoView({behavior:"smooth",block:"nearest"});
 }
@@ -1557,31 +1552,10 @@ $("btnInstall").addEventListener('click',function(){
     deferredInstallPrompt.userChoice.then(function(c){deferredInstallPrompt=null;if(c&&c.outcome==="accepted"){refreshInstallUI();}else{showInstallSteps();}});
   } else { showInstallSteps(); }
 });
-if('serviceWorker' in navigator&&(location.protocol==='https:'||location.protocol==='http:')){
-  window.addEventListener('load',function(){
-    /* Thử đăng ký ở phạm vi gốc để SW quản toàn bộ app; nếu máy chủ không cho
-       phạm vi rộng hơn thư mục assets/ thì lùi về phạm vi mặc định của file. */
-    navigator.serviceWorker.register('sw.js?v='+APP_VERSION,{scope:'./'}).catch(function(){
-      return navigator.serviceWorker.register('sw.js?v='+APP_VERSION);
-    }).then(function(reg){
-      if(!reg)return;
-      /* Chỉ báo "đã sẵn sàng offline" khi scope của SW thực sự bao phủ trang
-         này — scope hẹp (chỉ trong assets/) không phục vụ được trang chính. */
-      var pageUrl=location.href.split('#')[0];
-      if(pageUrl.indexOf(reg.scope)===0){swReady=true;}
-      else{swLimited=true;}
-      refreshInstallUI();
-    }).catch(function(){swLimited=true;refreshInstallUI();/* Môi trường nhúng / file:// không hỗ trợ SW — app vẫn chạy, bản tải offline là đường dự phòng */});
-  });
-}
+/* Gỡ service worker và bộ nhớ đệm offline của các bản cũ (≤ v2.4.0) */
+if('serviceWorker' in navigator){try{navigator.serviceWorker.getRegistrations().then(function(rs){rs.forEach(function(r){r.unregister();});}).catch(function(){});}catch(e){}}
+if(window.caches&&caches.keys){try{caches.keys().then(function(ks){ks.forEach(function(k){caches.delete(k);});}).catch(function(){});}catch(e){}}
 refreshInstallUI();
-$("btnOfflineDownload").addEventListener('click',function(){
-  var html='<!doctype html>\n'+document.documentElement.outerHTML;
-  var blob=new Blob([html],{type:'text/html;charset=utf-8'});
-  var url=URL.createObjectURL(blob);
-  var a=document.createElement('a');a.href=url;a.download='cong-cu-noi-khoa-hoi-suc-offline.html';document.body.appendChild(a);a.click();a.remove();
-  setTimeout(function(){URL.revokeObjectURL(url);},3000);
-});
 /* ============ Điều hướng theo địa chỉ (#/id): nút Back hoạt động, mở thẳng công cụ bằng liên kết ============ */
 var navFromHome=false,homeScroll=0,curRes=null,stTick=false;
 function go(id){var h=id?"#/"+id:"#/";if(location.hash===h||(!id&&location.hash==="")){route();return;}location.hash=h;}
@@ -1690,10 +1664,10 @@ function openFeedback(toolId){var t=toolId?toolById(toolId):null;
  '<p class="dlg-note">⚠️ Không ghi tên, mã hồ sơ hay thông tin định danh bệnh nhân. Che thông tin bệnh nhân trên ảnh chụp màn hình.</p>');
  $("fbCopy").addEventListener('click',function(){copyText(issueBody("bug",t),"Đã sao chép mẫu báo lỗi");});}
 function openShare(){var canShare=!!navigator.share;
- openDlg('<h3>📤 Chia sẻ app</h3><div class="qrbox" aria-label="Mã QR mở app">'+APP_QR_SVG+'</div><p class="dlg-p" style="text-align:center"><b>Quét để mở app</b> — sau đó “Thêm vào màn hình chính” để dùng offline.</p><div class="linkbox">'+APP_URL+'</div>'+
- '<div class="dlg-acts"><button type="button" class="dlg-btn pri" id="shCopy">📋 Sao chép link</button>'+(canShare?'<button type="button" class="dlg-btn" id="shNative">📤 Gửi qua Zalo / Messenger…</button>':'')+'</div><p class="dlg-note">Mã QR được tạo sẵn trong app (không gọi dịch vụ ngoài) nên hiển thị được cả khi offline.</p>');
+ openDlg('<h3>📤 Chia sẻ app</h3><div class="qrbox" aria-label="Mã QR mở app">'+APP_QR_SVG+'</div><p class="dlg-p" style="text-align:center"><b>Quét để mở app</b> — sau đó “Thêm vào màn hình chính” để mở nhanh như app.</p><div class="linkbox">'+APP_URL+'</div>'+
+ '<div class="dlg-acts"><button type="button" class="dlg-btn pri" id="shCopy">📋 Sao chép link</button>'+(canShare?'<button type="button" class="dlg-btn" id="shNative">📤 Gửi qua Zalo / Messenger…</button>':'')+'</div><p class="dlg-note">Mã QR được tạo sẵn trong app (không gọi dịch vụ ngoài).</p>');
  $("shCopy").addEventListener('click',function(){copyText(APP_URL,"Đã sao chép link app");});
- if(canShare)$("shNative").addEventListener('click',function(){navigator.share({title:"Công cụ Nội khoa & Hồi sức",text:"Thang điểm, máy tính lâm sàng, liều thuốc ICU và phác đồ cấp cứu — dùng được offline",url:APP_URL}).catch(function(){});});}
+ if(canShare)$("shNative").addEventListener('click',function(){navigator.share({title:"Công cụ Nội khoa & Hồi sức",text:"Thang điểm, máy tính lâm sàng, liều thuốc ICU và phác đồ cấp cứu",url:APP_URL}).catch(function(){});});}
 function openNews(){openDlg('<h3>🆕 Có gì mới</h3>'+CHANGELOG.map(function(v,i){return '<div class="cl'+(i===0?' cur':'')+'"><div class="clh"><b>v'+v[0]+'</b><span>'+v[1]+'</span>'+(i===0?'<em>bản hiện tại</em>':'')+'</div><ul>'+v[2].map(function(x){return '<li>'+x+'</li>'}).join("")+'</ul></div>'}).join("")+'<p class="dlg-note">Mã nguồn & lịch sử thay đổi: <a href="https://github.com/'+APP_REPO+'" target="_blank" rel="noopener">github.com/'+APP_REPO+'</a></p>');}
 
 /* ============ Hướng dẫn sử dụng ============ */
@@ -1708,7 +1682,7 @@ var GUIDE=[
  ["📖","Sổ tay thuốc","Hướng dẫn sử dụng rút gọn cho 273 thuốc thông dụng: chỉ định, liều người lớn, cách pha – cách dùng, chống chỉ định, tác dụng phụ – theo dõi, thai kỳ. Mở từ nút <b>📖 Cách dùng</b> khi tìm tên thuốc, hoặc nhóm <b>Thuốc – kháng sinh</b>. Nút ⧉ sao chép nội dung."],
  ["💉","Tính liều truyền thuốc","Chọn thuốc → cách pha của khoa → nhập cân nặng và liều (hoặc tốc độ mL/giờ để tính ngược). Bấm “📐 Công thức, ca kiểm tra & nguồn” để xem cách tính. Luôn kiểm tra chéo trước khi chỉnh bơm."],
  ["☑️","Checklist","Sepsis giờ đầu, VAP bundle, SAT/SBT: tick từng mục, app tự kết luận và nhắc mốc thời gian. Chỉ lưu trong phiên (đóng tab là xóa), không lưu thông tin bệnh nhân."],
- ["📲","Cài như app, dùng offline","Android (Chrome): menu ⋮ → <b>Cài đặt ứng dụng</b>. iPhone (Safari): nút Chia sẻ → <b>Thêm vào Màn hình chính</b>. Sau đó mở bằng icon, dùng được khi mất mạng; có mạng app tự cập nhật."],
+ ["📲","Thêm vào màn hình chính","Android (Chrome): menu ⋮ → <b>Cài đặt ứng dụng</b>. iPhone (Safari): nút Chia sẻ → <b>Thêm vào Màn hình chính</b>. Sau đó mở bằng icon như app. App cần mạng khi mở và luôn là bản mới nhất."],
  ["🔠","Cỡ chữ & giao diện","Vào <b>⚙️ Cài đặt</b> (thanh dưới) để đổi cỡ chữ (Nhỏ / Vừa / Lớn / Rất lớn) và chuyên ngành. Nút <b>🌓</b> góc trên đổi giao diện sáng / tối / tự động theo máy — dùng chế độ tối khi trực đêm."],
  ["🔗","Chia sẻ & liên kết","Nút 🔗 trong công cụ sao chép liên kết mở thẳng công cụ đó. Nút 📤 Chia sẻ app có mã QR để đồng nghiệp quét."],
  ["💬","Báo lỗi / góp ý","Nút ⚑ trong công cụ hoặc <b>⚙️ Cài đặt → Báo lỗi / Góp ý</b> mở GitHub Issue có mẫu sẵn. Không ghi tên, mã hồ sơ hay thông tin định danh bệnh nhân."]];
@@ -2463,7 +2437,7 @@ function renderFeed(){var box=$("feedList");if(!box)return;var r=feedRead();
  box.querySelectorAll("[data-fmore]").forEach(function(b){b.addEventListener("click",function(e){e.stopPropagation();var i=feedState.o.indexOf(b.dataset.fmore);if(i>=0)feedState.o.splice(i,1);else feedState.o.push(b.dataset.fmore);feedMark(b.dataset.fmore);});});
  box.querySelectorAll("[data-fopen]").forEach(function(a){a.addEventListener("click",function(e){if(e.target.closest("a,button"))return;var id=a.dataset.fopen;var i=feedState.o.indexOf(id);if(i>=0)feedState.o.splice(i,1);else feedState.o.push(id);feedMark(id);});});
 }
-P.feed=head("📰","Bản tin — Nghiên cứu mới","Nghiên cứu mới chọn từ NEJM, JAMA, The Lancet và European Heart Journal — đóng gói sẵn trong app, cập nhật theo từng phiên bản. Chạm một mục để đọc toàn văn và đánh dấu đã đọc; mỗi mục đều dẫn link tới bản gốc để kiểm chứng. Nội dung tóm tắt đóng gói sẵn trong app, đọc được offline.")+'<div id="feedList"></div><p class="src">Nguồn: Surviving Sepsis Campaign 2021; KDIGO 2024; ESC 2021/2023; ESPEN 2023; định nghĩa ARDS toàn cầu 2023; Sanford Guide.</p>';
+P.feed=head("📰","Bản tin — Nghiên cứu mới","Nghiên cứu mới chọn từ NEJM, JAMA, The Lancet và European Heart Journal — đóng gói sẵn trong app, cập nhật theo từng phiên bản. Chạm một mục để đọc toàn văn và đánh dấu đã đọc; mỗi mục đều dẫn link tới bản gốc để kiểm chứng. Nội dung tóm tắt đóng gói sẵn trong app.")+'<div id="feedList"></div><p class="src">Nguồn: Surviving Sepsis Campaign 2021; KDIGO 2024; ESC 2021/2023; ESPEN 2023; định nghĩa ARDS toàn cầu 2023; Sanford Guide.</p>';
 
 /* ---------- Quy đổi opioid ---------- */
 var OPI=[["mo_po","Morphine uống",1,"mg"],["mo_iv","Morphine tiêm TM / TDD",3,"mg"],["oxy_po","Oxycodone uống",1.5,"mg"],["hm_po","Hydromorphone uống",4,"mg"],["hm_iv","Hydromorphone tiêm TM",20,"mg"],["fen_iv","Fentanyl truyền / tiêm TM",0.3,"µg"],["fen_td","Fentanyl dán (µg/giờ)",2.4,"µg/giờ"],["pet_iv","Pethidine tiêm TM / TB",0.4,"mg"],["tra_po","Tramadol uống",0.2,"mg"],["cod_po","Codeine uống",0.15,"mg"]];
