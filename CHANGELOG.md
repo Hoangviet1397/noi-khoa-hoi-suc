@@ -4,6 +4,14 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 (service worker tự đặt tên bộ nhớ đệm theo `APP_VERSION`), rồi cập nhật file này.
 
+## v2.3.0 — 18/11/2026 — Nối cây kiến thức, 3 công cụ + 4 phác đồ cây
+
+- **Cây kiến thức:** hơn 35 mục 🆕 thực ra đã có công cụ / phác đồ trong app nhưng chưa được nối — nay đổi sang ✅ và có liên kết mở thẳng (HEART Pathway, hen, dengue, phản vệ, SOFA-2, NEWS2/MEWS, thở máy bảo vệ phổi, CRRT, DKA/HHS, nhịp nhanh / chậm, phospho hữu cơ, paraquat, methanol, rắn cắn, paracetamol, opioid…).
+- **ADD-RS + D-dimer** — bóc tách động mạch chủ (Nazerian, Circulation 2018 — ADvISED): ADD-RS ≥ 2 chụp CTA ngay; ≤ 1 + D-dimer < 500 ng/mL loại trừ (bỏ sót ~0,3%).
+- **CPOT** — đánh giá đau ở bệnh nhân không nói được (Gélinas 2006; ngưỡng > 2 theo các nghiên cứu thẩm định).
+- **VIS** — chỉ số vận mạch – tăng co bóp (Gaies 2010), quy đổi vasopressin đv/phút theo cân nặng.
+- **Phác đồ cây:** ngộ độc salicylate (kiềm hóa nước tiểu, chỉ định lọc máu EXTRIP 2015); ngộ độc thuốc tim mạch (calci, glucagon, insulin liều cao 1 đv/kg rồi 0,5–1 đv/kg/giờ, lipid 20% 1,5 mL/kg; DigiFab theo nhãn FDA: cấp chưa rõ lượng 20 lọ, mạn 6 lọ; bicarbonate khi QRS > 100 ms với chống trầm cảm 3 vòng); viêm màng ngoài tim – chèn ép tim (ESC); yếu cơ cấp — Guillain-Barré, cơn nhược cơ (quy tắc 20/30/40, IVIg / thay huyết tương, thuốc cần tránh).
+
 ## v2.2.0 — 18/11/2026 — 20 thang điểm + 2 phác đồ cây từ Cây kiến thức
 
 Nâng các mục 🆕 trong Cây kiến thức toàn bộ thành công cụ tương tác (tính ngay khi chọn, có màu mức nguy cơ, diễn giải và hướng xử trí, nguồn gốc):
