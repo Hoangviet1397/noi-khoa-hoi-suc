@@ -122,10 +122,10 @@ vm.runInContext(grab("var FEED_TOPICS={", "var feedState="), ctx6);
 const FEED = vm.runInContext("FEED", ctx6), FEED_TOPICS = vm.runInContext("FEED_TOPICS", ctx6);
 const feedDate = vm.runInContext("feedDate", ctx6), feedSorted = vm.runInContext("feedSorted", ctx6);
 console.log("Bản tin v2.6.0: " + FEED.length + " mục");
-ok(FEED.length === 30, "Bản tin phải giữ đúng 30 mục Nghiên cứu mới nhất, nhận: " + FEED.length);
+ok(FEED.length === 30, "Bản tin phải giữ đúng 30 mục mới nhất, nhận: " + FEED.length);
 ok(new Set(FEED.map(f => f.id)).size === FEED.length, "ID mục feed phải duy nhất");
 FEED.forEach(f => {
-  ok(f.id && /^\d{2}\/\d{2}\/\d{4}$/.test(f.d) && f.c === "Nghiên cứu mới" && f.t && f.s && f.body && f.src && /^https?:\/\//.test(f.url), f.id + ": thiếu trường bắt buộc hoặc sai định dạng (d/c/t/s/body/src/url)");
+  ok(f.id && /^\d{2}\/\d{2}\/\d{4}$/.test(f.d) && (f.c === "Nghiên cứu mới" || f.c === "Tổng quan") && f.t && f.s && f.body && f.src && /^https?:\/\//.test(f.url), f.id + ": thiếu trường bắt buộc hoặc sai định dạng (d/c/t/s/body/src/url)");
   ok(f.img, f.id + ": thiếu trường ảnh img");
   ok(f.img.indexOf("http") === 0 || FEED_TOPICS[f.img], f.id + ": img phải là URL https hoặc khóa chủ đề trong FEED_TOPICS, nhận: " + f.img);
   if (f.tool) ok(toolIds.has(f.tool), f.id + ": liên kết công cụ không tồn tại: " + f.tool);
@@ -439,7 +439,7 @@ ok(/store\("nkhs_opengrp"\)/.test(html), "Trang chủ v2.7.6: nhớ nhóm mở t
 ok(/"nkhs_seen_ver","nkhs_opengrp"\]\.forEach/.test(html), "Xóa dữ liệu đã lưu phải xóa cả nkhs_opengrp");
 console.log("Hồi quy v2.7.6 Trang chủ: nhóm gấp lại");
 // Phiên bản v2.7.6
-ok(html.includes('APP_VERSION="2.7.6"'), "APP_VERSION phải là 2.7.6");
+ok(html.includes('APP_VERSION="2.7.7"'), "APP_VERSION phải là 2.7.7");
 console.log("Hồi quy v2.7.0 wizard kháng sinh: đi hết 5 bước, sửa giữa chừng, lỗi (a)(b)(c), hscc.vn, thuốc thay thế");
 
 console.log(fail ? `\n❌ ${fail} lỗi, ${pass} đạt` : `\n✅ Tất cả ${pass} kiểm tra đều đạt`);
