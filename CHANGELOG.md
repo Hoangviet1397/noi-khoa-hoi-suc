@@ -4,6 +4,10 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 rồi cập nhật file này. (Lưu ý: từ v2.5.0 app đã bỏ chế độ offline — không còn service worker.)
 
+## v2.7.7 — 20/11/2026 — Bản tin: thêm chuyên mục Tổng quan
+
+- **Bản tin mở thêm chuyên mục Tổng quan:** bài tổng quan hay (NEJM Review, JAMA Insights...) giờ được giữ cùng nghiên cứu mới, gắn nhãn "Tổng quan" và lọc riêng bằng chip mới trên trang Bản tin. Hai bài tổng quan đã thêm trước đó (ARDS của NEJM, cường aldosterone nguyên phát của JAMA) được sửa nhãn từ "Nghiên cứu mới" thành "Tổng quan". Nghiên cứu gốc vẫn là nội dung chính; xã luận, thư, tin tức và podcast vẫn loại.
+
 ## v2.7.6 — 19/11/2026 — Trang chủ: nhóm công cụ gấp lại
 
 - **Trang chủ gọn hơn:** 162 công cụ không còn trải hết thành thẻ (~17.800px trên điện thoại) mà gấp thành 8 nhóm chuyên khoa — chạm tên nhóm để mở 6 công cụ đầu, nút “Xem đủ” mở cả nhóm (như chọn chip nhóm). App nhớ nhóm mở lần trước. Ô tìm, Đã ghim, Dùng gần đây, Hồ sơ ca, mục chuyên ngành và chip nhóm giữ nguyên; lưu ý tại giường cuối trang giờ nhìn thấy được. Không đổi nội dung lâm sàng hay công thức tính.

@@ -3,7 +3,11 @@
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức — nay có hồ sơ ca zero-data, 5 khóa an toàn chặn thật, tìm theo hội chứng, cây kiến thức toàn bộ và module chống độc Việt Nam.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — thêm vào màn hình chính để mở nhanh như app (cần mạng).
-**Phiên bản hiện tại:** v2.7.6 (19/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v2.7.7 (20/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+
+## Có gì mới ở v2.7.7
+
+- **Bản tin — thêm chuyên mục Tổng quan:** bài tổng quan hay (NEJM Review, JAMA Insights...) giờ được giữ cùng nghiên cứu mới, gắn nhãn "Tổng quan" và lọc riêng bằng chip mới. Hai bài tổng quan đã thêm trước đó (ARDS của NEJM, cường aldosterone nguyên phát của JAMA) được sửa nhãn từ "Nghiên cứu mới" thành "Tổng quan". Nghiên cứu gốc vẫn là nội dung chính; xã luận, thư, tin tức và podcast vẫn loại.
 
 ## Có gì mới ở v2.7.5
 
