@@ -112,6 +112,18 @@ main{min-width:0}
 .sec-sub{color:var(--muted);font-size:13px}
 .grid{display:grid;grid-template-columns:1fr;gap:10px}
 .grid.flat{display:block}
+.grp-list{background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;box-shadow:var(--shadow)}
+.grp+.grp{border-top:1px solid var(--line)}
+.grp-h{display:flex;align-items:center;gap:12px;width:100%;min-height:56px;padding:0 14px;border:0;background:none;color:var(--ink);font:inherit;text-align:left;cursor:pointer}
+.grp-h .gi{width:34px;height:34px;border-radius:10px;display:grid;place-items:center;font-size:18px;background:color-mix(in srgb,var(--c) 14%,transparent);flex:none}
+.grp-h .gn{flex:1;min-width:0;font-size:16px;font-weight:700}
+.grp-h .gc{font-size:13px;color:var(--muted);background:var(--surface2);border-radius:999px;padding:2px 9px}
+.grp-h .gv{color:var(--line2);font-size:22px;line-height:1;transition:transform .15s}
+.grp.open .grp-h{background:var(--surface2)}
+.grp.open .grp-h .gv{transform:rotate(90deg);color:var(--c)}
+.grp-h:focus-visible{outline:2px solid var(--primary);outline-offset:-2px}
+.grp>.grid{padding:10px 10px 4px}
+.grp-more{display:block;width:calc(100% - 20px);margin:6px 10px 12px;min-height:44px;border:1px solid var(--line);border-radius:12px;background:var(--surface);color:var(--primary);font:inherit;font-weight:700;cursor:pointer}
 @media(min-width:620px){.grid{grid-template-columns:1fr 1fr}}
 @media(min-width:1180px){.grid{grid-template-columns:1fr 1fr 1fr}}
 .card{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:14px;padding:12px 8px 12px 12px;display:flex;align-items:center;gap:12px;cursor:pointer;text-align:left;width:100%;box-shadow:var(--shadow);transition:transform .12s ease,box-shadow .12s ease,border-color .12s ease}
@@ -781,8 +793,9 @@ details.abx .dose-cell.hl{display:none}
 function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d");}
 function $(id){return document.getElementById(id);}
 /* ===== PHIÊN BẢN: chỉ sửa ở đây khi phát hành (service worker tự lấy số này đặt tên bộ nhớ đệm) ===== */
-var APP_VERSION="2.7.5",APP_DATE="19/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
+var APP_VERSION="2.7.6",APP_DATE="19/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
 var CHANGELOG=[
+  ["2.7.6","19/11/2026",["Trang chủ gọn hơn: 162 công cụ không còn trải hết thành thẻ (~17.800px trên điện thoại) mà gấp thành 8 nhóm chuyên khoa — chạm tên nhóm để mở 6 công cụ đầu, nút “Xem đủ” mở cả nhóm (như chọn chip nhóm). App nhớ nhóm mở lần trước. Ô tìm, Đã ghim, Dùng gần đây, Hồ sơ ca, mục chuyên ngành và chip nhóm giữ nguyên; lưu ý tại giường cuối trang giờ nhìn thấy được. Không đổi nội dung lâm sàng hay công thức tính."]],
   ["2.7.5","19/11/2026",["Công cụ mới: Sgarbossa — chẩn đoán nhồi máu cơ tim trên block nhánh trái (LBBB) / nhịp máy tạo nhịp. Kết quả chính là tiêu chuẩn Smith-modified (dương khi có bất kỳ 1 trong 3: ST chênh lên đồng hướng ≥ 1 mm; ST chênh xuống đồng hướng ≥ 1 mm ở V1–V3; ST chênh lên ngược hướng ≥ 1 mm kèm tỉ số ST/S ≥ 25%); thang điểm gốc Sgarbossa hiện kèm để tham chiếu (≥ 3 rất đặc hiệu nhưng độ nhạy chỉ ~36%). Dương tính → xử trí như STEMI, kích hoạt đường can thiệp thì đầu, liên kết thẳng tới phác đồ Hội chứng vành cấp. Âm tính không loại trừ nhồi máu — vẫn theo dõi troponin + ECG nối tiếp."]],
   ["2.7.4","19/11/2026",["Bản tin: thêm 1 nghiên cứu mới (CHEST 2026) — dự đoán nguy cơ tim mạch do xơ vữa kém chính xác hơn ở người suy giảm chức năng hô hấp: trong 26.523 người, nhóm suy giảm hô hấp có tỉ lệ biến cố tim mạch lớn cao gấp đôi (14% so với 7%; HR hiệu chỉnh 1,25) nhưng thang điểm PCE dự đoán kém hơn (AUC 0,740 so với 0,792); thêm hô hấp ký và khó thở chỉ cải thiện rất ít."]],
   ["2.7.3","18/11/2026",["Bản tin: thêm 1 nghiên cứu mới (Eur Heart J 2026) — tử vong do bệnh tim thiếu máu cục bộ: nữ vẫn cao hơn nam ở nhiều nước Tây Âu (GBD 2023); tử vong chuẩn hoá theo tuổi giảm 15,9% ở nam và 23,5% ở nữ giai đoạn 2013–2023, nhưng tỉ lệ tử vong trên tỉ lệ hiện mắc vẫn cao hơn đáng kể ở nữ tại Áo, Pháp, Hy Lạp, Israel, Ý và Tây Ban Nha."]],
@@ -1169,7 +1182,7 @@ function bindSettings(){
  b=$("setThemeBtn");if(b)b.addEventListener('click',function(){var t=$("themeBtn");if(t)t.click();renderSettings();});
  b=$("setClearFav");if(b)b.addEventListener('click',function(){if(!favs.size){toast("Chưa có mục nào đã ghim");return;}if(!confirm("Xóa tất cả "+favs.size+" mục đã ghim?"))return;favs.clear();saveFavs();renderHome();renderSettings();toast("Đã xóa mục đã ghim");});
  b=$("setReadAll");if(b)b.addEventListener('click',function(){try{localStorage.setItem("nkhs_feed_read",JSON.stringify(FEED.map(function(f){return f.id})))}catch(e){}toast("Đã đánh dấu tất cả tin đã đọc");});
- b=$("setWipe");if(b)b.addEventListener('click',function(){if(!confirm("Xóa toàn bộ dữ liệu đã lưu (chuyên ngành, mục đã ghim, tin đã đọc, cỡ chữ, giao diện)? App sẽ tải lại và hỏi chọn chuyên ngành."))return;["nkhs_spec","nkhs_favs","nkhs_feed_read","nkhs_recent","nkhs_fs","nkhs_theme","nkhs_guide_seen","nkhs_install_x","nkhs_seen_ver"].forEach(function(k){try{localStorage.removeItem(k)}catch(e){}});abxReset();location.reload();});
+ b=$("setWipe");if(b)b.addEventListener('click',function(){if(!confirm("Xóa toàn bộ dữ liệu đã lưu (chuyên ngành, mục đã ghim, tin đã đọc, cỡ chữ, giao diện)? App sẽ tải lại và hỏi chọn chuyên ngành."))return;["nkhs_spec","nkhs_favs","nkhs_feed_read","nkhs_recent","nkhs_fs","nkhs_theme","nkhs_guide_seen","nkhs_install_x","nkhs_seen_ver","nkhs_opengrp"].forEach(function(k){try{localStorage.removeItem(k)}catch(e){}});abxReset();location.reload();});
  b=$("setNews");if(b)b.addEventListener('click',openNews);
  b=$("setShare");if(b)b.addEventListener('click',openShare);
  b=$("setQR");if(b)b.addEventListener('click',openShare);
@@ -1521,13 +1534,22 @@ function renderHome(){
     var rest=TOOLS.filter(function(t){return !specIds[t.id]&&!favs.has(t.id)});
     var h="";
     if(specTools.length)h+='<div class="sec-head"><h2 class="sec-title">🩺 Cho chuyên ngành của bạn</h2><span class="sec-sub">'+specName()+' • '+specTools.length+' công cụ</span></div><div class="grid">'+specTools.map(toolCard).join("")+'</div>';
+    /* v2.7.6: nhóm gấp lại (trước đây trải hết 162 thẻ ~17.800px). Mở một nhóm → 6 thẻ đầu + "Xem đủ" (= lọc theo nhóm). Nhóm mở lần trước nhớ trong nkhs_opengrp. */
+    var openGrp=store("nkhs_opengrp")||"";
+    h+='<div class="sec-head"><h2 class="sec-title">Theo nhóm</h2><span class="sec-sub">'+TOOLS.length+' công cụ • chạm để mở</span></div><div class="grp-list">';
     CATS.forEach(function(c){
       if(c[0]==="all"||c[0]==="fav")return;
       var items=rest.filter(function(t){return t.cat===c[0]});
       if(!items.length)return;
-      h+='<div class="sec-head"><h2 class="sec-title">'+c[1]+'</h2><span class="sec-sub">'+items.length+' công cụ</span></div><div class="grid">'+items.map(toolCard).join("")+'</div>';
+      var op=openGrp===c[0],all=catCount(c[0]);
+      h+='<div class="grp'+(op?' open':'')+'" style="--c:'+catColor(c[0])+'"><button type="button" class="grp-h" data-grp="'+c[0]+'" aria-expanded="'+op+'"><span class="gi" aria-hidden="true">'+c[2]+'</span><span class="gn">'+c[1]+'</span><span class="gc">'+all+'</span><span class="gv" aria-hidden="true">›</span></button>';
+      if(op)h+='<div class="grid">'+items.slice(0,6).map(toolCard).join("")+'</div>'+(all>6?'<button type="button" class="grp-more" data-grpall="'+c[0]+'">Xem đủ '+all+' công cụ nhóm '+c[1]+' →</button>':'');
+      h+='</div>';
     });
+    h+='</div>';
     g.innerHTML=h;bindCards(g);
+    g.querySelectorAll('[data-grp]').forEach(function(b){b.addEventListener('click',function(){var k=b.dataset.grp;store("nkhs_opengrp",openGrp===k?"":k);renderHome();var nb=$("toolGrid").querySelector('[data-grp="'+k+'"]');if(nb&&nb.scrollIntoView)nb.scrollIntoView({block:"nearest"});if(nb)nb.focus();});});
+    g.querySelectorAll('[data-grpall]').forEach(function(b){b.addEventListener('click',function(){homeScroll=0;setCat(b.dataset.grpall);window.scrollTo({top:0});});});
     $("listTitle").parentElement.style.display="none";
     $("favSection").style.display=favArr.length?"block":"none";
     $("favGrid").innerHTML=favArr.map(toolCard).join("");bindCards($("favGrid"));

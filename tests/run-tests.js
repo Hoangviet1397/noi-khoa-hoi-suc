@@ -432,8 +432,14 @@ r = runSg("no", "no", null, null);
 ok(r && r.id === "res-sgarbossa", "Sgarbossa (load): mở panel với mặc định → setRes phải ghi vào res-sgarbossa (không còn '—')");
 ok(r && /ÂM TÍNH/.test(r.big) && /0\/10/.test(r.big) && /không loại trừ/.test(r.interp), "Sgarbossa (load): mặc định → âm tính 0/10 + cảnh báo không loại trừ NMCT");
 console.log("Hồi quy v2.7.5 Sgarbossa: đăng ký + bảng điều khiển + 6 ca tính (a)–(f)");
-// Phiên bản v2.7.5
-ok(html.includes('APP_VERSION="2.7.5"'), "APP_VERSION phải là 2.7.5");
+// v2.7.6: Trang chủ — nhóm gấp lại thay vì trải 162 thẻ
+ok(html.includes('class="grp-list"') && html.includes("data-grp=") && html.includes("data-grpall="), "Trang chủ v2.7.6: có danh sách nhóm gấp lại + nút Xem đủ");
+ok(/items\.slice\(0,6\)\.map\(toolCard\)/.test(html), "Trang chủ v2.7.6: nhóm mở chỉ hiện 6 thẻ đầu");
+ok(/store\("nkhs_opengrp"\)/.test(html), "Trang chủ v2.7.6: nhớ nhóm mở trong nkhs_opengrp");
+ok(/"nkhs_seen_ver","nkhs_opengrp"\]\.forEach/.test(html), "Xóa dữ liệu đã lưu phải xóa cả nkhs_opengrp");
+console.log("Hồi quy v2.7.6 Trang chủ: nhóm gấp lại");
+// Phiên bản v2.7.6
+ok(html.includes('APP_VERSION="2.7.6"'), "APP_VERSION phải là 2.7.6");
 console.log("Hồi quy v2.7.0 wizard kháng sinh: đi hết 5 bước, sửa giữa chừng, lỗi (a)(b)(c), hscc.vn, thuốc thay thế");
 
 console.log(fail ? `\n❌ ${fail} lỗi, ${pass} đạt` : `\n✅ Tất cả ${pass} kiểm tra đều đạt`);

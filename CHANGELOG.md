@@ -4,6 +4,10 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 rồi cập nhật file này. (Lưu ý: từ v2.5.0 app đã bỏ chế độ offline — không còn service worker.)
 
+## v2.7.6 — 19/11/2026 — Trang chủ: nhóm công cụ gấp lại
+
+- **Trang chủ gọn hơn:** 162 công cụ không còn trải hết thành thẻ (~17.800px trên điện thoại) mà gấp thành 8 nhóm chuyên khoa — chạm tên nhóm để mở 6 công cụ đầu, nút “Xem đủ” mở cả nhóm (như chọn chip nhóm). App nhớ nhóm mở lần trước. Ô tìm, Đã ghim, Dùng gần đây, Hồ sơ ca, mục chuyên ngành và chip nhóm giữ nguyên; lưu ý tại giường cuối trang giờ nhìn thấy được. Không đổi nội dung lâm sàng hay công thức tính.
+
 ## v2.7.5 — 19/11/2026 — Công cụ mới: Sgarbossa
 
 - **Sgarbossa — chẩn đoán nhồi máu cơ tim trên block nhánh trái (LBBB) / nhịp máy tạo nhịp:** công cụ mới trong nhóm Tim mạch – sốc. Kết quả chính là tiêu chuẩn Smith-modified — dương tính khi có bất kỳ 1 trong 3: ST chênh lên đồng hướng ≥ 1 mm; ST chênh xuống đồng hướng ≥ 1 mm ở V1–V3; ST chênh lên ngược hướng ≥ 1 mm kèm tỉ số ST/S ≥ 25% (app tự tính tỉ số từ ST chênh lên và độ sâu sóng S nhập vào). Thang điểm gốc Sgarbossa (5 + 3 + 2 điểm, ngưỡng ≥ 3) hiện kèm để tham chiếu. Dương tính → xử trí như STEMI, kích hoạt đường can thiệp thì đầu, liên kết thẳng tới phác đồ Hội chứng vành cấp; âm tính → không loại trừ nhồi máu, vẫn theo dõi troponin + ECG nối tiếp. Nguồn đã kiểm chứng qua Crossref/PubMed: Sgarbossa NEJM 1996 (DOI 10.1056/NEJM199602223340801), Smith Ann Emerg Med 2012 (DOI 10.1016/j.annemergmed.2012.07.119; nhạy 91%, đặc hiệu 90%), Meyers Am Heart J 2015 (DOI 10.1016/j.ahj.2015.09.005; nhạy 80%, đặc hiệu 99%), ESC 2023 ACS Guidelines (DOI 10.1093/eurheartj/ehad191).
