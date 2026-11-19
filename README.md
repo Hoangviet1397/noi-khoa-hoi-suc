@@ -3,7 +3,11 @@
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức — nay có hồ sơ ca zero-data, 5 khóa an toàn chặn thật, tìm theo hội chứng, cây kiến thức toàn bộ và module chống độc Việt Nam.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — thêm vào màn hình chính để mở nhanh như app (cần mạng).
-**Phiên bản hiện tại:** v2.7.3 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v2.7.4 (19/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+
+## Có gì mới ở v2.7.4
+
+- **Bản tin — 1 nghiên cứu mới (CHEST 2026):** dự đoán nguy cơ tim mạch do xơ vữa kém chính xác hơn ở người suy giảm chức năng hô hấp — trong 26.523 người, nhóm suy giảm hô hấp có tỉ lệ biến cố tim mạch lớn cao gấp đôi (14% so với 7%; HR hiệu chỉnh 1,25) nhưng thang điểm PCE dự đoán kém hơn (AUC 0,740 so với 0,792); thêm hô hấp ký và khó thở chỉ cải thiện rất ít.
 
 ## Có gì mới ở v2.7.3
 

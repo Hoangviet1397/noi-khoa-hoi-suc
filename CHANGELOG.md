@@ -4,6 +4,10 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 rồi cập nhật file này. (Lưu ý: từ v2.5.0 app đã bỏ chế độ offline — không còn service worker.)
 
+## v2.7.4 — 19/11/2026 — Bản tin: 1 nghiên cứu mới
+
+- **Dự đoán nguy cơ tim mạch do xơ vữa kém chính xác hơn ở người suy giảm chức năng hô hấp (CHEST 2026):** phân tích 26.523 người từ 7 đoàn hệ dân số Mỹ — người suy giảm chức năng hô hấp (tắc nghẽn đường thở hoặc PRISm) có tỉ lệ biến cố tim mạch lớn (MACE) cao gấp đôi (14% so với 7%; HR hiệu chỉnh 1,25; KTC 95%: 1,17–1,34), nhưng thang điểm Pooled Cohort Equations (PCE) dự đoán kém chính xác hơn ở nhóm này (AUC 0,740 so với 0,792 ở người hô hấp bình thường). Thêm hô hấp ký (FEV1, FEV1/FVC) và khó thở chỉ cải thiện AUC rất ít (0,790 lên 0,792–0,793) — có ý nghĩa thống kê nhưng có thể không có ý nghĩa lâm sàng. Trang bài gốc (journal.chestnet.org) chặn truy cập tự động bằng Cloudflare Turnstile nên không lấy được ảnh thật của bài báo; thẻ dùng ảnh minh hoạ theo chủ đề Tim mạch.
+
 ## v2.7.3 — 18/11/2026 — Bản tin: 1 nghiên cứu mới
 
 - **Tử vong do bệnh tim thiếu máu cục bộ: nữ vẫn cao hơn nam ở nhiều nước Tây Âu (Eur Heart J 2026):** phân tích dữ liệu Gánh nặng Bệnh tật Toàn cầu 2023 — tử vong chuẩn hoá theo tuổi giảm 15,9% ở nam và 23,5% ở nữ giai đoạn 2013–2023, nhưng tỉ lệ tử vong trên tỉ lệ hiện mắc (MPR) vẫn cao hơn đáng kể ở nữ tại Áo, Pháp, Hy Lạp, Israel, Ý và Tây Ban Nha (chỉ Iceland nam cao hơn nữ); nữ vượt trội ở nguy cơ chuyển hoá, ít vận động, ít chất xơ; nam vượt trội ở hút thuốc và đồ uống có đường.

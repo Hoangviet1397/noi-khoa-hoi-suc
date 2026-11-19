@@ -366,8 +366,8 @@ vm.runInContext("abxState.esbl='yes'; abxState.sev='severe';", ctx5);
 ["Cefotaxime", "Ceftazidime", "Cephalexin"].forEach(n => ok(abxCardBan({ n, g: "Cephalosporin" }).includes("ESBL"), "ESBL cao: " + n + " phải bị đánh dấu không phủ ESBL"));
 ok(abxCardBan({ n: "Ceftazidime–Avibactam", g: "Cephalosporin" }) === "", "ESBL cao: Ceftazidime–Avibactam vẫn phủ ESBL (avibactam), không được đánh dấu");
 ok(abxCardBan({ n: "Meropenem–Vaborbactam", g: "Carbapenem" }) === "", "ESBL cao: Meropenem–Vaborbactam vẫn phủ ESBL, không được đánh dấu");
-// Phiên bản v2.7.3
-ok(html.includes('APP_VERSION="2.7.3"'), "APP_VERSION phải là 2.7.3");
+// Phiên bản v2.7.4
+ok(html.includes('APP_VERSION="2.7.4"'), "APP_VERSION phải là 2.7.4");
 console.log("Hồi quy v2.7.0 wizard kháng sinh: đi hết 5 bước, sửa giữa chừng, lỗi (a)(b)(c), hscc.vn, thuốc thay thế");
 
 console.log(fail ? `\n❌ ${fail} lỗi, ${pass} đạt` : `\n✅ Tất cả ${pass} kiểm tra đều đạt`);
