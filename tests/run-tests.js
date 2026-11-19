@@ -366,8 +366,74 @@ vm.runInContext("abxState.esbl='yes'; abxState.sev='severe';", ctx5);
 ["Cefotaxime", "Ceftazidime", "Cephalexin"].forEach(n => ok(abxCardBan({ n, g: "Cephalosporin" }).includes("ESBL"), "ESBL cao: " + n + " phải bị đánh dấu không phủ ESBL"));
 ok(abxCardBan({ n: "Ceftazidime–Avibactam", g: "Cephalosporin" }) === "", "ESBL cao: Ceftazidime–Avibactam vẫn phủ ESBL (avibactam), không được đánh dấu");
 ok(abxCardBan({ n: "Meropenem–Vaborbactam", g: "Carbapenem" }) === "", "ESBL cao: Meropenem–Vaborbactam vẫn phủ ESBL, không được đánh dấu");
-// Phiên bản v2.7.4
-ok(html.includes('APP_VERSION="2.7.4"'), "APP_VERSION phải là 2.7.4");
+// v2.7.5: Sgarbossa — tiêu chuẩn Smith-modified trên LBBB / nhịp máy tạo nhịp
+// Tĩnh: đăng ký, bảng điều khiển, id ô kết quả khớp hàm tính (bài học v2.0.1), link phác đồ STEMI, nguồn DOI
+ok(html.includes('{id:"sgarbossa",icon:"🫀",cat:"timmach"'), "Sgarbossa: chưa đăng ký trong TOOLS (nhóm Tim mạch – sốc)");
+ok(html.includes('P.sgarbossa=head('), "Sgarbossa: chưa có bảng điều khiển P.sgarbossa");
+ok(html.includes('resHTML("res-sgarbossa")') && html.includes('setRes("res-sgarbossa"'), "Sgarbossa: id ô kết quả res-sgarbossa phải khớp id hàm tính ghi vào");
+ok(html.includes('segHTML("sg_conc"') && html.includes('segHTML("sg_dep"'), "Sgarbossa: thiếu 2 câu Có/Không (đồng hướng ≥ 1 mm; chênh xuống V1–V3)");
+ok(html.includes('numHTML("sg_ste"') && html.includes('numHTML("sg_s"'), "Sgarbossa: thiếu 2 ô số tiêu chuẩn ngược hướng (ST chênh lên, độ sâu sóng S)");
+ok(html.includes('sgarbossa:calcSgarbossa'), "Sgarbossa: chưa gắn vào bảng tự tính (M map) để tính khi đổi số liệu");
+ok(html.includes('#/px_acs'), "Sgarbossa: kết quả dương phải link tới phác đồ Hội chứng vành cấp (px_acs)");
+["10.1056/NEJM199602223340801","10.1016/j.annemergmed.2012.07.119","10.1016/j.ahj.2015.09.005","10.1093/eurheartj/ehad191"].forEach(d => ok(html.includes(d), "Sgarbossa: thiếu DOI đã kiểm chứng " + d));
+const sgKw = (html.match(/\{id:"sgarbossa"[^}]*kw:"([^"]*)"/) || [])[1] || "";
+ok(/sgarbossa/.test(sgKw) && /lbbb/.test(sgKw) && /block nhanh trai/.test(sgKw), "Sgarbossa: từ khóa phải tìm được bằng 'Sgarbossa', 'LBBB', 'block nhánh trái', nhận: " + sgKw);
+ok(toolIds.size === 162, "Tổng công cụ đăng ký phải là 162 (161 cũ + Sgarbossa), nhận: " + toolIds.size);
+ok((html.match(/cat:"phacdo"/g) || []).length === 47, "Số phác đồ giữ nguyên 47");
+// Bảng điều khiển render được thật (chạy các helper chuỗi + gán P.sgarbossa trong vm)
+const ctxP = { P: {} };
+vm.createContext(ctxP);
+vm.runInContext(grab("/* ============ Build detail panels ============ */", "var P={};"), ctxP);
+vm.runInContext(grab("function segHTML(id,label,opts){", "function sumChecks"), ctxP);
+vm.runInContext("var P={};", ctxP);
+vm.runInContext(grab("/* ---------- Sgarbossa ---------- */", "function calcSgarbossa(){"), ctxP);
+const sgPanel = vm.runInContext("P.sgarbossa", ctxP);
+ok(typeof sgPanel === "string" && sgPanel.includes('id="res-sgarbossa"'), "Sgarbossa: bảng điều khiển render ra ô kết quả res-sgarbossa");
+ok(sgPanel.includes('onclick="calcSgarbossa()"') && sgPanel.includes('id="sg_conc"') && sgPanel.includes('id="sg_dep"') && sgPanel.includes('id="sg_ste"') && sgPanel.includes('id="sg_s"'), "Sgarbossa: bảng render đủ nút Tính + 2 câu Có/Không + 2 ô số");
+// Động: chạy calcSgarbossa thật trong vm với DOM giả (ô nhập + nút đoạn Có/Không + setRes ghi lại)
+const ctxS = { console };
+let sgInputs = {}, sgSegs = {}, lastRes = null;
+ctxS.$ = (id) => (id in sgInputs ? { value: sgInputs[id] } : null);
+ctxS.document = { querySelector: (sel) => { const m = sel.match(/^#(\w+) button\.on$/); if (!m) return null; const v = sgSegs[m[1]]; return v == null ? null : { dataset: { v } }; } };
+ctxS.setRes = (id, big, interp, lv) => { lastRes = { id, big, interp, lv }; };
+vm.createContext(ctxS);
+vm.runInContext(grab("function num(id){", "/* ============ Tool registry"), ctxS);
+vm.runInContext(grab("function calcSgarbossa(){", "/* ---------- DOAC ---------- */"), ctxS);
+function runSg(conc, dep, ste, s) {
+  sgSegs = { sg_conc: conc, sg_dep: dep };
+  sgInputs = {};
+  if (ste != null) sgInputs.sg_ste = String(ste);
+  if (s != null) sgInputs.sg_s = String(s);
+  lastRes = null;
+  vm.runInContext("calcSgarbossa();", ctxS);
+  return lastRes;
+}
+let r;
+r = runSg("yes", "no", null, null);
+ok(r && r.id === "res-sgarbossa" && /DƯƠNG TÍNH/.test(r.big) && /5\/10/.test(r.big), "Sgarbossa (a): chỉ ST chênh lên đồng hướng → Smith dương, điểm gốc 5/10");
+ok(r && r.lv === 3 && /px_acs/.test(r.interp), "Sgarbossa (a): dương tính → mức khẩn + link phác đồ STEMI");
+r = runSg("no", "yes", null, null);
+ok(r && /DƯƠNG TÍNH/.test(r.big) && /3\/10/.test(r.big), "Sgarbossa (b): chỉ ST chênh xuống V1–V3 → Smith dương, điểm gốc 3/10");
+r = runSg("no", "no", 2, 12);
+ok(r && /ÂM TÍNH/.test(r.big) && /0\/10/.test(r.big) && /17%/.test(r.interp), "Sgarbossa (c): ST ngược 2mm/S 12mm (tỉ số 0,17) → Smith âm, điểm gốc 0");
+r = runSg("no", "no", 4, 10);
+ok(r && /DƯƠNG TÍNH/.test(r.big) && /0\/10/.test(r.big), "Sgarbossa (d): ST ngược 4mm/S 10mm (tỉ số 0,40) → Smith DƯƠNG nhưng điểm gốc 0");
+ok(r && /40%/.test(r.interp), "Sgarbossa (d): kết quả ghi rõ tỉ số ST/S 40%");
+r = runSg("no", "no", 6, 30);
+ok(r && /ÂM TÍNH/.test(r.big) && /2\/10/.test(r.big), "Sgarbossa (e): ST ngược 6mm/S 30mm (tỉ số 0,20) → Smith âm, điểm gốc 2 (dưới ngưỡng)");
+ok(r && /chưa đạt ngưỡng Smith/.test(r.interp), "Sgarbossa (e): ghi rõ ST ngược đủ điểm gốc nhưng chưa đạt ngưỡng Smith");
+r = runSg("no", "no", null, null);
+ok(r && /ÂM TÍNH/.test(r.big) && /không loại trừ/.test(r.interp), "Sgarbossa (f): tất cả âm → âm tính + cảnh báo không loại trừ NMCT");
+// Hồi quy v2.7.5b (bài học v2.0.1 — lỗi SOFA-2): Sgarbossa phải tự tính lúc load trang với mặc định,
+// không để ô kết quả trống "—" khi mới mở panel (2 câu mặc định "Không", 2 ô số trống → âm tính + cảnh báo)
+ok(/addEventListener\("load",function\(\)\{try\{[^}]*calcSgarbossa\(\);/.test(html), "Sgarbossa (load): hàm tính phải có trong danh sách tính lúc load trang");
+ok(sgPanel.includes('data-v="no" class="on">Không'), "Sgarbossa (load): mặc định khi mở panel phải là 'Không' ở cả 2 câu");
+r = runSg("no", "no", null, null);
+ok(r && r.id === "res-sgarbossa", "Sgarbossa (load): mở panel với mặc định → setRes phải ghi vào res-sgarbossa (không còn '—')");
+ok(r && /ÂM TÍNH/.test(r.big) && /0\/10/.test(r.big) && /không loại trừ/.test(r.interp), "Sgarbossa (load): mặc định → âm tính 0/10 + cảnh báo không loại trừ NMCT");
+console.log("Hồi quy v2.7.5 Sgarbossa: đăng ký + bảng điều khiển + 6 ca tính (a)–(f)");
+// Phiên bản v2.7.5
+ok(html.includes('APP_VERSION="2.7.5"'), "APP_VERSION phải là 2.7.5");
 console.log("Hồi quy v2.7.0 wizard kháng sinh: đi hết 5 bước, sửa giữa chừng, lỗi (a)(b)(c), hscc.vn, thuốc thay thế");
 
 console.log(fail ? `\n❌ ${fail} lỗi, ${pass} đạt` : `\n✅ Tất cả ${pass} kiểm tra đều đạt`);

@@ -4,6 +4,10 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 rồi cập nhật file này. (Lưu ý: từ v2.5.0 app đã bỏ chế độ offline — không còn service worker.)
 
+## v2.7.5 — 19/11/2026 — Công cụ mới: Sgarbossa
+
+- **Sgarbossa — chẩn đoán nhồi máu cơ tim trên block nhánh trái (LBBB) / nhịp máy tạo nhịp:** công cụ mới trong nhóm Tim mạch – sốc. Kết quả chính là tiêu chuẩn Smith-modified — dương tính khi có bất kỳ 1 trong 3: ST chênh lên đồng hướng ≥ 1 mm; ST chênh xuống đồng hướng ≥ 1 mm ở V1–V3; ST chênh lên ngược hướng ≥ 1 mm kèm tỉ số ST/S ≥ 25% (app tự tính tỉ số từ ST chênh lên và độ sâu sóng S nhập vào). Thang điểm gốc Sgarbossa (5 + 3 + 2 điểm, ngưỡng ≥ 3) hiện kèm để tham chiếu. Dương tính → xử trí như STEMI, kích hoạt đường can thiệp thì đầu, liên kết thẳng tới phác đồ Hội chứng vành cấp; âm tính → không loại trừ nhồi máu, vẫn theo dõi troponin + ECG nối tiếp. Nguồn đã kiểm chứng qua Crossref/PubMed: Sgarbossa NEJM 1996 (DOI 10.1056/NEJM199602223340801), Smith Ann Emerg Med 2012 (DOI 10.1016/j.annemergmed.2012.07.119; nhạy 91%, đặc hiệu 90%), Meyers Am Heart J 2015 (DOI 10.1016/j.ahj.2015.09.005; nhạy 80%, đặc hiệu 99%), ESC 2023 ACS Guidelines (DOI 10.1093/eurheartj/ehad191).
+
 ## v2.7.4 — 19/11/2026 — Bản tin: 1 nghiên cứu mới
 
 - **Dự đoán nguy cơ tim mạch do xơ vữa kém chính xác hơn ở người suy giảm chức năng hô hấp (CHEST 2026):** phân tích 26.523 người từ 7 đoàn hệ dân số Mỹ — người suy giảm chức năng hô hấp (tắc nghẽn đường thở hoặc PRISm) có tỉ lệ biến cố tim mạch lớn (MACE) cao gấp đôi (14% so với 7%; HR hiệu chỉnh 1,25; KTC 95%: 1,17–1,34), nhưng thang điểm Pooled Cohort Equations (PCE) dự đoán kém chính xác hơn ở nhóm này (AUC 0,740 so với 0,792 ở người hô hấp bình thường). Thêm hô hấp ký (FEV1, FEV1/FVC) và khó thở chỉ cải thiện AUC rất ít (0,790 lên 0,792–0,793) — có ý nghĩa thống kê nhưng có thể không có ý nghĩa lâm sàng. Trang bài gốc (journal.chestnet.org) chặn truy cập tự động bằng Cloudflare Turnstile nên không lấy được ảnh thật của bài báo; thẻ dùng ảnh minh hoạ theo chủ đề Tim mạch.

@@ -3,7 +3,11 @@
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức — nay có hồ sơ ca zero-data, 5 khóa an toàn chặn thật, tìm theo hội chứng, cây kiến thức toàn bộ và module chống độc Việt Nam.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — thêm vào màn hình chính để mở nhanh như app (cần mạng).
-**Phiên bản hiện tại:** v2.7.4 (19/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v2.7.5 (19/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+
+## Có gì mới ở v2.7.5
+
+- **Công cụ mới — Sgarbossa (nhồi máu cơ tim trên LBBB / nhịp máy tạo nhịp):** tiêu chuẩn Smith-modified làm kết quả chính — dương khi có bất kỳ 1 trong 3: ST chênh lên đồng hướng ≥ 1 mm; ST chênh xuống đồng hướng ≥ 1 mm ở V1–V3; ST chênh lên ngược hướng ≥ 1 mm kèm tỉ số ST/S ≥ 25% (nhập ST chênh lên và độ sâu sóng S, app tự tính tỉ số). Thang điểm gốc Sgarbossa hiện kèm (≥ 3 rất đặc hiệu nhưng độ nhạy chỉ ~36%). Dương tính → xử trí như STEMI, liên kết thẳng tới phác đồ Hội chứng vành cấp; âm tính không loại trừ nhồi máu — vẫn theo dõi troponin + ECG nối tiếp.
 
 ## Có gì mới ở v2.7.4
 
