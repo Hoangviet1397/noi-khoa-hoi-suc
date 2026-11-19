@@ -4,6 +4,10 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 rồi cập nhật file này. (Lưu ý: từ v2.5.0 app đã bỏ chế độ offline — không còn service worker.)
 
+## v2.7.3 — 18/11/2026 — Bản tin: 1 nghiên cứu mới
+
+- **Tử vong do bệnh tim thiếu máu cục bộ: nữ vẫn cao hơn nam ở nhiều nước Tây Âu (Eur Heart J 2026):** phân tích dữ liệu Gánh nặng Bệnh tật Toàn cầu 2023 — tử vong chuẩn hoá theo tuổi giảm 15,9% ở nam và 23,5% ở nữ giai đoạn 2013–2023, nhưng tỉ lệ tử vong trên tỉ lệ hiện mắc (MPR) vẫn cao hơn đáng kể ở nữ tại Áo, Pháp, Hy Lạp, Israel, Ý và Tây Ban Nha (chỉ Iceland nam cao hơn nữ); nữ vượt trội ở nguy cơ chuyển hoá, ít vận động, ít chất xơ; nam vượt trội ở hút thuốc và đồ uống có đường.
+
 ## v2.7.2 — 18/11/2026 — Bản tin: 1 nghiên cứu mới
 
 - **Pelacarsen không giảm biến cố tim mạch dù hạ Lp(a) mạnh (Lp(a)HORIZON, NEJM 2026):** thử nghiệm trên 8.350 bệnh nhân có bệnh tim mạch sẵn và Lp(a) ≥70 mg/dL — pelacarsen 80 mg/tháng hạ Lp(a) từ 236 xuống 64,4 nmol/L sau 12 tháng, nhưng biến cố chính sau trung vị 4,7 năm không khác placebo (12,3% so với 12,1%; HR 1,02; KTC 95%: 0,90–1,15; p=0,76). Kể cả nhóm Lp(a) nền ≥90 mg/dL cũng không khác biệt.

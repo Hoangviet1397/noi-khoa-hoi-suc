@@ -3,7 +3,11 @@
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức — nay có hồ sơ ca zero-data, 5 khóa an toàn chặn thật, tìm theo hội chứng, cây kiến thức toàn bộ và module chống độc Việt Nam.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — thêm vào màn hình chính để mở nhanh như app (cần mạng).
-**Phiên bản hiện tại:** v2.7.2 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v2.7.3 (18/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+
+## Có gì mới ở v2.7.3
+
+- **Bản tin — 1 nghiên cứu mới (Eur Heart J 2026):** tử vong do bệnh tim thiếu máu cục bộ — nữ vẫn cao hơn nam ở nhiều nước Tây Âu (GBD 2023): tử vong chuẩn hoá theo tuổi giảm 15,9% ở nam và 23,5% ở nữ giai đoạn 2013–2023, nhưng tỉ lệ tử vong trên tỉ lệ hiện mắc vẫn cao hơn đáng kể ở nữ tại Áo, Pháp, Hy Lạp, Israel, Ý và Tây Ban Nha.
 
 ## Có gì mới ở v2.7.2
 
