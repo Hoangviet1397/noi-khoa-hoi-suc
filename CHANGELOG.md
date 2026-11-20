@@ -4,6 +4,10 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 rồi cập nhật file này. (Lưu ý: từ v2.5.0 app đã bỏ chế độ offline — không còn service worker.)
 
+## v2.7.8 — 20/11/2026 — Công cụ mới: Delta pCO2 (Pv–aCO2)
+
+- **Công cụ mới — Delta pCO2 (Pv–aCO2), tưới máu mô trong sốc:** khoảng chênh pCO2 tĩnh mạch trung tâm – động mạch (bình thường 2–5 mmHg, > 6 mmHg là giãn rộng, gợi ý tưới máu chưa đủ dù ScvO2 đã ≥ 70%); kèm tỉ số ΔpCO2/Ca–vO2 (ngưỡng 1,4 gợi ý chuyển hoá yếm khí) tính từ Hb, SaO2, ScvO2. Mặc định PaCO2 40 / PvCO2 45 mmHg nên mở ra đã có kết quả; khi giãn rộng liên kết tới phác đồ Sốc nhiễm trùng.
+
 ## v2.7.7 — 20/11/2026 — Bản tin: thêm chuyên mục Tổng quan
 
 - **Bản tin mở thêm chuyên mục Tổng quan:** bài tổng quan hay (NEJM Review, JAMA Insights...) giờ được giữ cùng nghiên cứu mới, gắn nhãn "Tổng quan" và lọc riêng bằng chip mới trên trang Bản tin. Hai bài tổng quan đã thêm trước đó (ARDS của NEJM, cường aldosterone nguyên phát của JAMA) được sửa nhãn từ "Nghiên cứu mới" thành "Tổng quan". Nghiên cứu gốc vẫn là nội dung chính; xã luận, thư, tin tức và podcast vẫn loại.

@@ -3,7 +3,11 @@
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức — nay có hồ sơ ca zero-data, 5 khóa an toàn chặn thật, tìm theo hội chứng, cây kiến thức toàn bộ và module chống độc Việt Nam.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — thêm vào màn hình chính để mở nhanh như app (cần mạng).
-**Phiên bản hiện tại:** v2.7.7 (20/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v2.7.8 (20/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+
+## Có gì mới ở v2.7.8
+
+- **Công cụ mới — Delta pCO2 (Pv–aCO2), tưới máu mô trong sốc:** khoảng chênh pCO2 tĩnh mạch trung tâm – động mạch (bình thường 2–5 mmHg, > 6 mmHg là giãn rộng, gợi ý tưới máu chưa đủ dù ScvO2 đã ≥ 70%); kèm tỉ số ΔpCO2/Ca–vO2 (ngưỡng 1,4 gợi ý chuyển hoá yếm khí) tính từ Hb, SaO2, ScvO2. Mặc định PaCO2 40 / PvCO2 45 mmHg nên mở ra đã có kết quả; khi giãn rộng liên kết tới phác đồ Sốc nhiễm trùng.
 
 ## Có gì mới ở v2.7.7
 
