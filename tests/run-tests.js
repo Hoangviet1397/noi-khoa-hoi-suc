@@ -339,14 +339,34 @@ ok(!html.includes("hscc.vn"), "Không còn chuỗi hscc.vn trong index.html");
 ok(!readme.includes("https://hscc.vn") && !readme.includes("Nguồn tham khảo hscc.vn"), "README không còn link hscc.vn hay dẫn hscc.vn làm nguồn (chỉ còn ghi chú đã dọn trong mục v2.7.0)");
 ok(html.includes("doi.org/10.3109/15563650.2014.946994") && html.includes("pmc.ncbi.nlm.nih.gov/articles/PMC2493390"), "Link hscc.vn đã thay bằng nguồn gốc: EXTRIP 2014 và Eddleston Lancet 2008 (PMC)");
 // Thuốc thay thế: mọi thuốc thay thế đều có trong bảng liều, có đủ liều, truy được về guideline đã trích dẫn
-const NEW_DRUGS = ["Aztreonam", "Ertapenem", "Cefotaxime", "Ceftazidime", "Nitrofurantoin", "Fosfomycin", "Cephalexin", "Moxifloxacin", "Meropenem–Vaborbactam"];
+const NEW_DRUGS = ["Aztreonam", "Ertapenem", "Cefotaxime", "Ceftazidime", "Nitrofurantoin", "Fosfomycin", "Cephalexin", "Moxifloxacin", "Meropenem–Vaborbactam", "Cefmetazole", "Cefamandole", "Cefotiam"];
 console.log("Thuốc thay thế v2.7.0: " + ABX3.length + " kháng sinh/kháng nấm trong bảng liều");
-ok(ABX3.length === 36, "Bảng liều phải có 36 kháng sinh/kháng nấm (27 cũ + 9 mới), nhận: " + ABX3.length);
+ok(ABX3.length === 39, "Bảng liều phải có 39 kháng sinh/kháng nấm (36 cũ + 3 mới), nhận: " + ABX3.length);
 NEW_DRUGS.forEach(n => {
   const a = ABX3.find(x => x.n === n);
   ok(!!a, "Bảng liều thiếu thuốc mới: " + n);
   if (a) ["b90", "b60", "b30", "b15", "blt", "hd"].forEach(b => ok(a.d && a.d[b] && a.d[b].length > 0, n + ": thiếu liều mức " + b));
 });
+// v2.7.9: 3 kháng sinh mới có alias + hội chứng; TMP-SMX tìm được bằng "TMP-SMX"
+["Cefmetazole", "Cefamandole", "Cefotiam"].forEach(n => {
+  const a = ABX3.find(x => x.n === n);
+  ok(a && a.alias && a.alias.length > 0, n + ": thiếu alias (biệt dược) để tìm bằng tên thương mại");
+  ok(a && a.syn && a.syn.length > 0, n + ": thiếu hội chứng (syn) — thuốc không hiện trong bảng liều theo hội chứng");
+});
+const tmpsmx = ABX3.find(x => x.n === "Trimethoprim–Sulfamethoxazole");
+ok(tmpsmx && tmpsmx.alias && tmpsmx.alias.includes("TMP-SMX"), "TMP-SMX: thiếu alias TMP-SMX trong bảng liều");
+ok(html.includes('(a.alias||"")'), "Ô tìm trong bảng liều phải tra cả alias (biệt dược / viết tắt)");
+["Cefmetazole", "Cefamandole", "Cefotiam"].forEach(n => {
+  const d = DRUGDB.find(x => x.g === n);
+  ok(!!d, "Sổ tay: thiếu mục " + n);
+  ok(d && d.b && d.b.length > 0, n + ": thiếu biệt dược trong Sổ tay");
+  ok(d && d.t.some(x => x[0] === "abx"), n + ": chưa liên kết module kháng sinh");
+});
+ok(DRUGDB.some(d => d.g === "Cefotiam" && d.b.includes("Fotimyd")), "Sổ tay: Cefotiam phải có biệt dược Fotimyd");
+ok(DRUGDB.some(d => d.g === "Cefamandole" && d.b.includes("Mandol")), "Sổ tay: Cefamandole phải có biệt dược Mandol");
+ok(DRUGDB.some(d => d.g === "Cefmetazole" && d.b.includes("Zefazone")), "Sổ tay: Cefmetazole phải có biệt dược Zefazone");
+const tmpdb = DRUGDB.find(d => d.g === "Sulfamethoxazole + trimethoprim (cotrimoxazole)");
+ok(tmpdb && tmpdb.b.includes("TMP-SMX"), "Sổ tay: TMP-SMX phải có alias TMP-SMX trong biệt dược");
 Object.keys(EMP).forEach(k => {
   ok(EMP[k].drugs && EMP[k].drugs.length > 0, "Phác đồ " + k + " phải có danh sách thuốc chính (drugs)");
   (EMP[k].drugs || []).forEach(dn => ok(ABX3.some(a => a.n === dn), "Phác đồ " + k + ": thuốc chính không có trong bảng liều: " + dn));
@@ -363,7 +383,7 @@ Object.keys(ABX_ALT).forEach(dn => {
 });
 // Ceftazidime/Cefotaxime/Cephalexin không phủ ESBL; Ceftazidime–Avibactam thì có phủ
 vm.runInContext("abxState.esbl='yes'; abxState.sev='severe';", ctx5);
-["Cefotaxime", "Ceftazidime", "Cephalexin"].forEach(n => ok(abxCardBan({ n, g: "Cephalosporin" }).includes("ESBL"), "ESBL cao: " + n + " phải bị đánh dấu không phủ ESBL"));
+["Cefotaxime", "Ceftazidime", "Cephalexin", "Cefmetazole", "Cefamandole", "Cefotiam"].forEach(n => ok(abxCardBan({ n, g: "Cephalosporin" }).includes("ESBL"), "ESBL cao: " + n + " phải bị đánh dấu không phủ ESBL"));
 ok(abxCardBan({ n: "Ceftazidime–Avibactam", g: "Cephalosporin" }) === "", "ESBL cao: Ceftazidime–Avibactam vẫn phủ ESBL (avibactam), không được đánh dấu");
 ok(abxCardBan({ n: "Meropenem–Vaborbactam", g: "Carbapenem" }) === "", "ESBL cao: Meropenem–Vaborbactam vẫn phủ ESBL, không được đánh dấu");
 // v2.7.5: Sgarbossa — tiêu chuẩn Smith-modified trên LBBB / nhịp máy tạo nhịp
@@ -503,8 +523,8 @@ ok(/items\.slice\(0,6\)\.map\(toolCard\)/.test(html), "Trang chủ v2.7.6: nhóm
 ok(/store\("nkhs_opengrp"\)/.test(html), "Trang chủ v2.7.6: nhớ nhóm mở trong nkhs_opengrp");
 ok(/"nkhs_seen_ver","nkhs_opengrp"\]\.forEach/.test(html), "Xóa dữ liệu đã lưu phải xóa cả nkhs_opengrp");
 console.log("Hồi quy v2.7.6 Trang chủ: nhóm gấp lại");
-// Phiên bản v2.7.8
-ok(html.includes('APP_VERSION="2.7.8"'), "APP_VERSION phải là 2.7.8");
+// Phiên bản v2.7.9
+ok(html.includes('APP_VERSION="2.7.9"'), "APP_VERSION phải là 2.7.9");
 console.log("Hồi quy v2.7.0 wizard kháng sinh: đi hết 5 bước, sửa giữa chừng, lỗi (a)(b)(c), hscc.vn, thuốc thay thế");
 
 console.log(fail ? `\n❌ ${fail} lỗi, ${pass} đạt` : `\n✅ Tất cả ${pass} kiểm tra đều đạt`);

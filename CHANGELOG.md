@@ -4,6 +4,11 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 rồi cập nhật file này. (Lưu ý: từ v2.5.0 app đã bỏ chế độ offline — không còn service worker.)
 
+## v2.7.9 — 20/11/2026 — Thêm 3 kháng sinh: Cefmetazole, Cefamandole, Cefotiam (Fotimyd)
+
+- **Thêm 3 kháng sinh vào bảng liều module kháng sinh (tổng 39 thuốc):** Cefmetazole (cephamycin thế hệ 2, biệt dược Zefazone — phủ kỵ khí B. fragilis, ổ bụng / tiết niệu / dự phòng phẫu thuật), Cefamandole (thế hệ 2, biệt dược Mandol / Vicimadol / Kefadol — viêm phổi, da–mô mềm, tiết niệu), Cefotiam (biệt dược Fotimyd 500/1000/2000 của Tenamyd — nhiễm khuẩn vừa–nặng, viêm đường mật, dự phòng phẫu thuật). Cả 3 đều có liều đầy đủ theo 6 mức CrCl / lọc máu, kèm cảnh báo nhánh NMTT (giảm prothrombin / chảy máu, phản ứng kiểu disulfiram với rượu) ở cefmetazole và cefamandole, và lưu ý nhãn Fotimyd mâu thuẫn về suy thận nặng (CrCl < 20). Cả 3 đều bị khóa ESBL chặn khi nguy cơ ESBL cao (không phủ ESBL chắc chắn — cefmetazole chỉ dùng cho UTI do ESBL khi đã có kháng sinh đồ). Sổ tay thuốc thêm 3 mục tương ứng (tổng 276 thuốc).
+- **TMP-SMX tìm được bằng "TMP-SMX":** thuốc vốn đã có trong bảng liều, nay thêm alias vào bảng liều và biệt dược trong Sổ tay thuốc; ô tìm bảng liều giờ tra cả alias (biệt dược / viết tắt).
+
 ## v2.7.8 — 20/11/2026 — Công cụ mới: Delta pCO2 (Pv–aCO2)
 
 - **Công cụ mới — Delta pCO2 (Pv–aCO2), tưới máu mô trong sốc:** khoảng chênh pCO2 tĩnh mạch trung tâm – động mạch (bình thường 2–5 mmHg, > 6 mmHg là giãn rộng, gợi ý tưới máu chưa đủ dù ScvO2 đã ≥ 70%); kèm tỉ số ΔpCO2/Ca–vO2 (ngưỡng 1,4 gợi ý chuyển hoá yếm khí) tính từ Hb, SaO2, ScvO2. Mặc định PaCO2 40 / PvCO2 45 mmHg nên mở ra đã có kết quả; khi giãn rộng liên kết tới phác đồ Sốc nhiễm trùng.

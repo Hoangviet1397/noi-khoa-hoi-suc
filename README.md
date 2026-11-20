@@ -3,7 +3,12 @@
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức — nay có hồ sơ ca zero-data, 5 khóa an toàn chặn thật, tìm theo hội chứng, cây kiến thức toàn bộ và module chống độc Việt Nam.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — thêm vào màn hình chính để mở nhanh như app (cần mạng).
-**Phiên bản hiện tại:** v2.7.8 (20/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v2.7.9 (20/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+
+## Có gì mới ở v2.7.9
+
+- **Thêm 3 kháng sinh vào bảng liều (tổng 39 thuốc):** Cefmetazole (cephamycin thế hệ 2, biệt dược Zefazone — phủ kỵ khí B. fragilis, ổ bụng / tiết niệu / dự phòng phẫu thuật), Cefamandole (thế hệ 2, biệt dược Mandol / Vicimadol / Kefadol — viêm phổi, da–mô mềm, tiết niệu), Cefotiam (biệt dược Fotimyd 500/1000/2000 của Tenamyd — nhiễm khuẩn vừa–nặng, viêm đường mật, dự phòng phẫu thuật). Cả 3 đều có liều đầy đủ theo 6 mức CrCl / lọc máu, kèm cảnh báo nhánh NMTT (giảm prothrombin / chảy máu, phản ứng kiểu disulfiram với rượu) ở cefmetazole và cefamandole, và lưu ý nhãn Fotimyd mâu thuẫn về suy thận nặng (CrCl < 20). Cả 3 đều bị khóa ESBL chặn khi nguy cơ ESBL cao. Sổ tay thuốc thêm 3 mục tương ứng (tổng 276 thuốc).
+- **TMP-SMX tìm được bằng "TMP-SMX":** thuốc vốn đã có trong bảng liều, nay thêm alias vào bảng liều và biệt dược trong Sổ tay thuốc; ô tìm bảng liều giờ tra cả alias (biệt dược / viết tắt).
 
 ## Có gì mới ở v2.7.8
 
