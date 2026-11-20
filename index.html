@@ -793,8 +793,9 @@ details.abx .dose-cell.hl{display:none}
 function norm(s){return (s||"").toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g,"").replace(/đ/g,"d").replace(/Đ/g,"d");}
 function $(id){return document.getElementById(id);}
 /* ===== PHIÊN BẢN: chỉ sửa ở đây khi phát hành (service worker tự lấy số này đặt tên bộ nhớ đệm) ===== */
-var APP_VERSION="2.7.7",APP_DATE="20/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
+var APP_VERSION="2.7.8",APP_DATE="20/11/2026",APP_REPO="Hoangviet1397/noi-khoa-hoi-suc",APP_URL="https://hoangviet1397.github.io/noi-khoa-hoi-suc/";
 var CHANGELOG=[
+  ["2.7.8","20/11/2026",["Công cụ mới: Delta pCO2 (Pv–aCO2) — khoảng chênh pCO2 tĩnh mạch trung tâm – động mạch, đánh giá lưu lượng tim có đủ đào thải CO2 mô trong sốc (bình thường 2–5 mmHg, > 6 mmHg là giãn rộng, gợi ý tưới máu chưa đủ dù ScvO2 đã ≥ 70%); kèm tỉ số ΔpCO2/Ca–vO2 (ngưỡng 1,4 gợi ý chuyển hoá yếm khí) tính từ Hb, SaO2, ScvO2. Mặc định PaCO2 40 / PvCO2 45 mmHg nên mở ra đã có kết quả; khi giãn rộng liên kết tới phác đồ Sốc nhiễm trùng."]],
   ["2.7.7","20/11/2026",["Bản tin mở thêm chuyên mục Tổng quan: bài tổng quan hay (NEJM Review, JAMA Insights...) giờ được giữ cùng nghiên cứu mới, gắn nhãn \"Tổng quan\" và lọc riêng bằng chip mới. Hai bài tổng quan đã thêm trước đó (ARDS của NEJM, cường aldosterone nguyên phát của JAMA) được sửa nhãn từ \"Nghiên cứu mới\" thành \"Tổng quan\". Nghiên cứu gốc vẫn là nội dung chính; xã luận, thư, tin tức và podcast vẫn loại."]],
   ["2.7.6","19/11/2026",["Trang chủ gọn hơn: 162 công cụ không còn trải hết thành thẻ (~17.800px trên điện thoại) mà gấp thành 8 nhóm chuyên khoa — chạm tên nhóm để mở 6 công cụ đầu, nút “Xem đủ” mở cả nhóm (như chọn chip nhóm). App nhớ nhóm mở lần trước. Ô tìm, Đã ghim, Dùng gần đây, Hồ sơ ca, mục chuyên ngành và chip nhóm giữ nguyên; lưu ý tại giường cuối trang giờ nhìn thấy được. Không đổi nội dung lâm sàng hay công thức tính."]],
   ["2.7.5","19/11/2026",["Công cụ mới: Sgarbossa — chẩn đoán nhồi máu cơ tim trên block nhánh trái (LBBB) / nhịp máy tạo nhịp. Kết quả chính là tiêu chuẩn Smith-modified (dương khi có bất kỳ 1 trong 3: ST chênh lên đồng hướng ≥ 1 mm; ST chênh xuống đồng hướng ≥ 1 mm ở V1–V3; ST chênh lên ngược hướng ≥ 1 mm kèm tỉ số ST/S ≥ 25%); thang điểm gốc Sgarbossa hiện kèm để tham chiếu (≥ 3 rất đặc hiệu nhưng độ nhạy chỉ ~36%). Dương tính → xử trí như STEMI, kích hoạt đường can thiệp thì đầu, liên kết thẳng tới phác đồ Hội chứng vành cấp. Âm tính không loại trừ nhồi máu — vẫn theo dõi troponin + ECG nối tiếp."]],
@@ -860,6 +861,7 @@ var TOOLS=[
  {id:"anion",icon:"🧪",cat:"than",catName:"Thận – điện giải",name:"Anion Gap • Ca hiệu chỉnh • Thẩm thấu",desc:"Anion gap, canxi hiệu chỉnh theo albumin, áp lực thẩm thấu và Na hiệu chỉnh.",kw:"anion gap canxi hieu chinh tham thau osmolality dien giai"},
  {id:"aki",icon:"🚨",cat:"than",catName:"Thận – điện giải",name:"Phân độ AKI — KDIGO",desc:"Phân giai đoạn tổn thương thận cấp theo creatinin và nước tiểu.",kw:"aki kdigo ton thuong than cap giai doan"},
  {id:"mapshock",icon:"❤️",cat:"timmach",catName:"Tim mạch – sốc",name:"MAP • Shock Index • Lactate Clearance",desc:"Huyết áp trung bình, chỉ số sốc và độ thanh thải lactate theo thời gian.",kw:"map huyet ap trung binh shock index lactate clearance soc"},
+ {id:"deltapco2",icon:"💨",cat:"timmach",catName:"Tim mạch – sốc",name:"Delta pCO2 (Pv–aCO2) — Tưới máu mô trong sốc",desc:"Khoảng chênh pCO2 tĩnh mạch trung tâm – động mạch: lưu lượng tim có đủ đào thải CO2 mô không; kèm tỉ số ΔpCO2/Ca–vO2 gợi ý yếm khí.",kw:"delta pco2 pvaco2 pva co2 gap chenh lech pco2 tinh mach trung tam dong mach soc nhiem trung tuoi mau mo scvo2 lactate luu luong tim dobutamine"},
  {id:"curb65",icon:"🏠",cat:"noikhoa",catName:"Nội khoa",name:"CURB-65 — Viêm phổi cộng đồng",desc:"Quyết định nhập viện / ICU trong viêm phổi mắc phải cộng đồng.",kw:"curb 65 viem phoi cong dong cap nhap vien"},
  {id:"childmeld",icon:"🟡",cat:"noikhoa",catName:"Nội khoa",name:"Child–Pugh & MELD",desc:"Phân độ xơ gan và điểm MELD — đồng thời là đầu vào chỉnh liều kháng sinh.",kw:"child pugh meld xo gan suy gan liver"},
  {id:"chads",icon:"💓",cat:"timmach",catName:"Tim mạch – sốc",name:"CHA₂DS₂-VASc & HAS-BLED",desc:"Nguy cơ đột quỵ trong rung nhĩ và nguy cơ chảy máu khi kháng đông.",kw:"cha2ds2 vasc has bled rung nhi khang dong dot quy"},
@@ -2328,6 +2330,45 @@ function calcSgarbossa(){
   if(ste!=null&&ste>=5&&ratio!=null&&ratio<0.25)t+=" Lưu ý: ST chênh lên ngược hướng "+fmt(ste,0)+" mm đã đủ tiêu chuẩn gốc (2 điểm) nhưng chỉ bằng "+fmt(ratio*100,0)+"% sóng S nên chưa đạt ngưỡng Smith (≥ 25%).";
   setRes("res-sgarbossa",big,t,1);
  }
+}
+
+/* ---------- Delta pCO2 (Pv-aCO2) ---------- */
+P.deltapco2=head("💨","Delta pCO2 (Pv–aCO2) — Tưới máu mô trong sốc","Khoảng chênh pCO2 tĩnh mạch trung tâm – động mạch (ΔpCO2 = PvCO2 − PaCO2): chỉ số toàn thể về lưu lượng tim có đủ đào thải CO2 do mô sản xuất không. Hữu ích nhất khi ScvO2 đã ≥ 70% mà vẫn nghi ngờ tưới máu chưa đủ, hoặc để theo dõi đáp ứng với dịch / thuốc tăng co bóp.")+resHTML("res-deltapco2")+
+ '<div class="frow">'+
+ '<div class="fgroup"><label for="dp_pa">PaCO2 — động mạch <span class="unit">mmHg</span></label><input type="text" id="dp_pa" inputmode="decimal" autocomplete="off" placeholder="vd 40" value="40"/></div>'+
+ '<div class="fgroup"><label for="dp_pv">PvCO2 — tĩnh mạch trung tâm <span class="unit">mmHg</span></label><input type="text" id="dp_pv" inputmode="decimal" autocomplete="off" placeholder="vd 45" value="45"/></div></div>'+
+ '<div class="frow">'+numHTML("dp_hb","Hemoglobin — để tính tỉ số (tùy chọn)","vd 10","g/dL")+numHTML("dp_sao2","SaO2 — để tính tỉ số (tùy chọn)","vd 98","%")+numHTML("dp_svo2","ScvO2 — để tính tỉ số (tùy chọn)","vd 70","%")+'</div>'+
+ '<div class="actions"><button type="button" onclick="calcDeltaPCO2()">🧮 Tính Delta pCO2</button></div>'+actions("calcDeltaPCO2")+
+ '<div class="notebox info"><h4>Chỉ dùng khi nào & lưu ý</h4><ul><li>Dùng trong sốc (đặc biệt sốc nhiễm trùng) sau hồi sức ban đầu, khi ScvO2 đã ≥ 70% mà vẫn nghi tưới máu chưa đủ; đo lại sau mỗi can thiệp (dịch, dobutamine) để xem khoảng chênh có thu hẹp không.</li><li>PvCO2 phải lấy từ catheter tĩnh mạch TRUNG TÂM, cùng thời điểm với khí máu động mạch. Máu tĩnh mạch ngoại vi không thay thế được.</li><li>Bình thường 2–5 mmHg; &gt; 6 mmHg là giãn rộng: Vallée 2008 — nhóm &gt; 6 mmHg có chỉ số tim thấp hơn, lactate thanh thải chậm hơn và SOFA giảm chậm hơn trong 24 giờ đầu, dù ScvO2 đã ≥ 70%.</li><li>Tỉ số ΔpCO2/Ca–vO2 &gt; 1,4 gợi ý chuyển hoá yếm khí toàn thể (ngưỡng 1,4: Mesquida 2015, độ nhạy 80%, đặc hiệu 75% cho dự đoán lactate không cải thiện). Nhưng tỉ số chỉ là chỉ số thay thế cho thương số hô hấp, không tương quan chặt với RQ đo bằng calorimetry trong sốc nhiễm trùng — luôn đọc cùng lactate và lâm sàng, không dùng đơn độc để quyết định.</li><li>Khoảng chênh bình thường không loại trừ rối loạn vi tuần hoàn: CO2 khuếch tán qua mô tốt hơn O2 nên ΔpCO2 phản ánh lưu lượng toàn thể hơn là vi tuần hoàn.</li><li>ΔpCO2 không phải đích hồi sức bắt buộc trong guideline Surviving Sepsis Campaign — là công cụ bổ sung, đọc cùng MAP ≥ 65 mmHg, ScvO2, lactate, nước tiểu và tưới máu da.</li></ul></div>'+
+ '<table class="mini"><tr><th>ΔpCO2</th><th>Ý nghĩa</th></tr><tr><td>&lt; 6 mmHg</td><td>Bình thường — lưu lượng tim đủ đào thải CO2 mô</td></tr><tr><td>≥ 6 mmHg</td><td>Giãn rộng — lưu lượng tim thấp so với CO2 mô sản xuất, tưới máu chưa đủ</td></tr><tr><td>Tỉ số ΔpCO2/Ca–vO2 &gt; 1,4</td><td>Gợi ý chuyển hoá yếm khí toàn thể</td></tr></table><p class="src">Nguồn: Vallée et al., Intensive Care Med 2008 — https://doi.org/10.1007/s00134-008-1199-0; Ospina-Tascón et al., Intensive Care Med 2015 — https://doi.org/10.1007/s00134-015-3720-6; Monnet et al., Crit Care Med 2013 — https://doi.org/10.1097/CCM.0b013e318275cece; Mesquida et al., Crit Care 2015 — https://doi.org/10.1186/s13054-015-0858-0.</p>';
+function calcDeltaPCO2(){
+ var pa=num("dp_pa"),pv=num("dp_pv");
+ if(pa==null||pv==null){setRes("res-deltapco2","—","Nhập PaCO2 (động mạch) và PvCO2 (tĩnh mạch trung tâm, lấy cùng lúc).",null);return;}
+ var gap=pv-pa;
+ var big="ΔpCO2 = "+fmt(gap,1)+" mmHg",t="",lv;
+ if(gap<0){
+  big+=" — Âm, kiểm tra lại mẫu";
+  t="PvCO2 thấp hơn PaCO2 là bất thường: thường do mẫu tĩnh mạch bị động mạch hoá, nhầm ống mẫu, hoặc hai mẫu lấy không cùng lúc. Lấy lại khí máu động mạch và tĩnh mạch trung tâm cùng thời điểm rồi tính lại — không dùng kết quả này để quyết định hồi sức.";
+  lv=1;
+ }else if(gap<6){
+  big+=" — Bình thường";
+  t="Khoảng chênh bình thường (2–5 mmHg, ngưỡng bất thường > 6 mmHg): lưu lượng tim hiện đủ để đào thải CO2 mô. Nếu lactate vẫn cao, nghĩ tới rối loạn vi tuần hoàn hoặc chuyển hoá tại mô hơn là thiếu lưu lượng toàn thể — đánh giá thêm tưới máu ngoại vi, ScvO2 và nguyên nhân khác của tăng lactate.";
+  lv=0;
+ }else{
+  big+=" — Giãn rộng";
+  t="Khoảng chênh > 6 mmHg: lưu lượng tim thấp so với lượng CO2 mô sản xuất — tưới máu mô chưa đủ dù ScvO2 có thể đã ≥ 70%. Đánh giá lại đáp ứng dịch (nếu còn đáp ứng thì bù dịch), cân nhắc thuốc tăng co bóp (dobutamine) khi cung lượng tim thấp, tối ưu MAP ≥ 65 mmHg; đo lại sau can thiệp. Đọc cùng ScvO2, lactate và dấu hiệu tưới máu ngoại vi.<br/>➡️ <a href=\"#/px_sepsis\">Mở phác đồ Sốc nhiễm trùng</a>";
+  lv=2;
+ }
+ var hb=num("dp_hb"),sao2=num("dp_sao2"),svo2=num("dp_svo2");
+ if(gap>=0&&hb!=null&&sao2!=null&&svo2!=null&&hb>0&&sao2>svo2){
+  var cav=1.34*hb*(sao2-svo2)/100;
+  var ratio=gap/cav;
+  t+=" Tỉ số ΔpCO2/Ca–vO2 = "+fmt(ratio,2)+" (Ca–vO2 = "+fmt(cav,2)+" mL/dL; công thức 1,34 × Hb × (SaO2 − ScvO2)). "+(ratio>1.4?"Tỉ số > 1,4 gợi ý chuyển hoá yếm khí toàn thể — CO2 sinh ra do đệm H+ vượt quá O2 tiêu thụ; kết hợp lactate cao thì khả năng cao còn thiếu oxy mô, cần tiếp tục tối ưu cung lượng và oxy hoá máu.":"Tỉ số ≤ 1,4: chưa gợi ý chuyển hoá yếm khí toàn thể rõ.");
+  if(ratio>1.4&&lv<2)lv=2;
+ }else if(hb!=null||sao2!=null||svo2!=null){
+  t+=" (Nhập đủ Hb, SaO2 và ScvO2 để tính thêm tỉ số ΔpCO2/Ca–vO2.)";
+ }
+ setRes("res-deltapco2",big,t,lv);
 }
 
 /* ---------- DOAC ---------- */
@@ -4020,7 +4061,7 @@ bindSeg("md_unit",function(){calcChild()});bindSeg("md_sex",function(){calcChild
 ["bm_w","bm_h"].forEach(function(id){$(id).addEventListener('input',function(){calcBMI()});});
 bindSeg("ap_crunit",function(){calcAPACHE()});
 ["ap_temp","ap_map","ap_hr","ap_rr","ap_fio2","ap_pao2","ap_paco2","ap_ph","ap_na","ap_k","ap_cr","ap_hct","ap_wbc","ap_gcs","ap_age","ap_chronic","ap_arf"].forEach(function(id){var e=$(id);if(e){e.addEventListener('input',function(){calcAPACHE()});e.addEventListener('change',function(){calcAPACHE()});}});
-(function(){var M={vaso:calcVaso,fluids:calcFluids,cam:calcCAM,nihss:calcNIHSS,ich:calcICH,abcd2:calcABCD2,abg:calcABG,vent:calcVent,natri:calcNatri,fena:calcFENa,heart:calcHEART,qtc:calcQTc,gbs:calcGBS,bisap:calcBISAP,maddrey:calcMaddrey,padua:calcPadua,steroid:calcSteroid,nutric:calcNUTRIC,caprini:calcCaprini,psi:calcPSI,grace:calcGRACE,sgarbossa:calcSgarbossa,doac:calcDOAC,four:calcFOUR,kmg:calcKMg,dka:calcDKA,opioid:calcOpioid,nutri:calcNutri,crrt:calcCRRT,hfref:calcHFRef};Object.keys(M).forEach(function(k){var p=$("panel-"+k),f=M[k];if(!p)return;p.querySelectorAll("input,select").forEach(function(e){e.addEventListener("input",function(){f()});e.addEventListener("change",function(){f()});});p.querySelectorAll(".seg").forEach(function(sg){bindSeg(sg.id,function(){f()});});});window.addEventListener("load",function(){try{calcNIHSS();calcABCD2();calcNUTRIC();calcFOUR();calcCaprini();calcHEART();calcICH();calcBISAP();calcPadua();calcCAM();calcSOFA();calcQSOFA();calcNEWS2();calcGCS();calcRASS();calcCURB();calcWells();calcPERC();calcSPESI();calcRanson();calcCentor();calcCharlson();calcCFS();calcTIMI();calc4Ts();calcDIC();calcPLASMIC();calcBurch();calcCPIS();calcHuntHess();calcBODE();calcECOG();calcRockall();calcGOLD();calcGeneva();calcWellsDVT();calcAIMS65();calcLille();calcNFS();calcBarthel();calcBraden();calc4AT();calcSTOPBANG();calcSOFA2();calcMEWS();calcRumack();calcMELD3();calcHeartPath();calcOsmoGap();calcCIWA();calcASPECTS();calcSgarbossa();}catch(e){}});})();
+(function(){var M={vaso:calcVaso,fluids:calcFluids,cam:calcCAM,nihss:calcNIHSS,ich:calcICH,abcd2:calcABCD2,abg:calcABG,vent:calcVent,natri:calcNatri,fena:calcFENa,heart:calcHEART,qtc:calcQTc,gbs:calcGBS,bisap:calcBISAP,maddrey:calcMaddrey,padua:calcPadua,steroid:calcSteroid,nutric:calcNUTRIC,caprini:calcCaprini,psi:calcPSI,grace:calcGRACE,sgarbossa:calcSgarbossa,deltapco2:calcDeltaPCO2,doac:calcDOAC,four:calcFOUR,kmg:calcKMg,dka:calcDKA,opioid:calcOpioid,nutri:calcNutri,crrt:calcCRRT,hfref:calcHFRef};Object.keys(M).forEach(function(k){var p=$("panel-"+k),f=M[k];if(!p)return;p.querySelectorAll("input,select").forEach(function(e){e.addEventListener("input",function(){f()});e.addEventListener("change",function(){f()});});p.querySelectorAll(".seg").forEach(function(sg){bindSeg(sg.id,function(){f()});});});window.addEventListener("load",function(){try{calcNIHSS();calcABCD2();calcNUTRIC();calcFOUR();calcCaprini();calcHEART();calcICH();calcBISAP();calcPadua();calcCAM();calcSOFA();calcQSOFA();calcNEWS2();calcGCS();calcRASS();calcCURB();calcWells();calcPERC();calcSPESI();calcRanson();calcCentor();calcCharlson();calcCFS();calcTIMI();calc4Ts();calcDIC();calcPLASMIC();calcBurch();calcCPIS();calcHuntHess();calcBODE();calcECOG();calcRockall();calcGOLD();calcGeneva();calcWellsDVT();calcAIMS65();calcLille();calcNFS();calcBarthel();calcBraden();calc4AT();calcSTOPBANG();calcSOFA2();calcMEWS();calcRumack();calcMELD3();calcHeartPath();calcOsmoGap();calcCIWA();calcASPECTS();calcSgarbossa();calcDeltaPCO2();}catch(e){}});})();
 /* Bảng rộng chỉ cuộn ngang bên trong khung của nó — không kéo cả trang */
 function wrapTables(root){(root||document).querySelectorAll('table.mini').forEach(function(t){if(t.parentElement&&t.parentElement.classList.contains('tblwrap'))return;var w=document.createElement('div');w.className='tblwrap';t.parentNode.insertBefore(w,t);w.appendChild(t);});}
 wrapTables($("detailView"));

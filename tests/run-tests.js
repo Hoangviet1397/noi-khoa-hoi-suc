@@ -378,7 +378,7 @@ ok(html.includes('#/px_acs'), "Sgarbossa: kết quả dương phải link tới 
 ["10.1056/NEJM199602223340801","10.1016/j.annemergmed.2012.07.119","10.1016/j.ahj.2015.09.005","10.1093/eurheartj/ehad191"].forEach(d => ok(html.includes(d), "Sgarbossa: thiếu DOI đã kiểm chứng " + d));
 const sgKw = (html.match(/\{id:"sgarbossa"[^}]*kw:"([^"]*)"/) || [])[1] || "";
 ok(/sgarbossa/.test(sgKw) && /lbbb/.test(sgKw) && /block nhanh trai/.test(sgKw), "Sgarbossa: từ khóa phải tìm được bằng 'Sgarbossa', 'LBBB', 'block nhánh trái', nhận: " + sgKw);
-ok(toolIds.size === 162, "Tổng công cụ đăng ký phải là 162 (161 cũ + Sgarbossa), nhận: " + toolIds.size);
+ok(toolIds.size === 163, "Tổng công cụ đăng ký phải là 163 (162 cũ + Delta pCO2), nhận: " + toolIds.size);
 ok((html.match(/cat:"phacdo"/g) || []).length === 47, "Số phác đồ giữ nguyên 47");
 // Bảng điều khiển render được thật (chạy các helper chuỗi + gán P.sgarbossa trong vm)
 const ctxP = { P: {} };
@@ -398,7 +398,7 @@ ctxS.document = { querySelector: (sel) => { const m = sel.match(/^#(\w+) button\
 ctxS.setRes = (id, big, interp, lv) => { lastRes = { id, big, interp, lv }; };
 vm.createContext(ctxS);
 vm.runInContext(grab("function num(id){", "/* ============ Tool registry"), ctxS);
-vm.runInContext(grab("function calcSgarbossa(){", "/* ---------- DOAC ---------- */"), ctxS);
+vm.runInContext(grab("function calcSgarbossa(){", "/* ---------- Delta pCO2 (Pv-aCO2) ---------- */"), ctxS);
 function runSg(conc, dep, ste, s) {
   sgSegs = { sg_conc: conc, sg_dep: dep };
   sgInputs = {};
@@ -432,14 +432,79 @@ r = runSg("no", "no", null, null);
 ok(r && r.id === "res-sgarbossa", "Sgarbossa (load): mở panel với mặc định → setRes phải ghi vào res-sgarbossa (không còn '—')");
 ok(r && /ÂM TÍNH/.test(r.big) && /0\/10/.test(r.big) && /không loại trừ/.test(r.interp), "Sgarbossa (load): mặc định → âm tính 0/10 + cảnh báo không loại trừ NMCT");
 console.log("Hồi quy v2.7.5 Sgarbossa: đăng ký + bảng điều khiển + 6 ca tính (a)–(f)");
+// v2.7.8: Delta pCO2 (Pv-aCO2) — khoảng chênh pCO2 tĩnh mạch trung tâm – động mạch
+// Tĩnh: đăng ký, bảng điều khiển, id ô kết quả khớp hàm tính (bài học v2.0.1), link phác đồ sốc nhiễm trùng, nguồn DOI
+ok(html.includes('{id:"deltapco2",icon:"💨",cat:"timmach"'), "Delta pCO2: chưa đăng ký trong TOOLS (nhóm Tim mạch – sốc)");
+ok(html.includes('P.deltapco2=head('), "Delta pCO2: chưa có bảng điều khiển P.deltapco2");
+ok(html.includes('resHTML("res-deltapco2")') && html.includes('setRes("res-deltapco2"'), "Delta pCO2: id ô kết quả res-deltapco2 phải khớp id hàm tính ghi vào");
+ok(html.includes('id="dp_pa"') && html.includes('value="40"') && html.includes('id="dp_pv"') && html.includes('value="45"'), "Delta pCO2: 2 ô chính phải có mặc định PaCO2 40 / PvCO2 45");
+ok(html.includes('numHTML("dp_hb"') && html.includes('numHTML("dp_sao2"') && html.includes('numHTML("dp_svo2"'), "Delta pCO2: thiếu 3 ô tùy chọn cho tỉ số (Hb, SaO2, ScvO2)");
+ok(html.includes('deltapco2:calcDeltaPCO2'), "Delta pCO2: chưa gắn vào bảng tự tính (M map) để tính khi đổi số liệu");
+ok(html.includes('#/px_sepsis'), "Delta pCO2: kết quả giãn rộng phải link tới phác đồ Sốc nhiễm trùng (px_sepsis)");
+["10.1007/s00134-008-1199-0","10.1007/s00134-015-3720-6","10.1097/CCM.0b013e318275cece","10.1186/s13054-015-0858-0"].forEach(d => ok(html.includes(d), "Delta pCO2: thiếu DOI đã kiểm chứng " + d));
+const dpKw = (html.match(/\{id:"deltapco2"[^}]*kw:"([^"]*)"/) || [])[1] || "";
+ok(/delta pco2/.test(dpKw) && /pvaco2/.test(dpKw) && /soc nhiem trung/.test(dpKw), "Delta pCO2: từ khóa phải tìm được bằng 'delta pco2', 'pvaco2', 'sốc nhiễm trùng', nhận: " + dpKw);
+// Bảng điều khiển render được thật (chạy các helper chuỗi + gán P.deltapco2 trong vm)
+const ctxDp = { P: {} };
+vm.createContext(ctxDp);
+vm.runInContext(grab("/* ============ Build detail panels ============ */", "var P={};"), ctxDp);
+vm.runInContext(grab("function segHTML(id,label,opts){", "function sumChecks"), ctxDp);
+vm.runInContext("var P={};", ctxDp);
+vm.runInContext(grab("/* ---------- Delta pCO2 (Pv-aCO2) ---------- */", "function calcDeltaPCO2(){"), ctxDp);
+const dpPanel = vm.runInContext("P.deltapco2", ctxDp);
+ok(typeof dpPanel === "string" && dpPanel.includes('id="res-deltapco2"'), "Delta pCO2: bảng điều khiển render ra ô kết quả res-deltapco2");
+ok(dpPanel.includes('onclick="calcDeltaPCO2()"') && dpPanel.includes('id="dp_pa"') && dpPanel.includes('id="dp_pv"') && dpPanel.includes('id="dp_hb"') && dpPanel.includes('id="dp_sao2"') && dpPanel.includes('id="dp_svo2"'), "Delta pCO2: bảng render đủ nút Tính + 2 ô chính + 3 ô tỉ số");
+// Động: chạy calcDeltaPCO2 thật trong vm với DOM giả (ô nhập + setRes ghi lại)
+const ctxD = { console };
+let dpInputs = {}, dpLast = null;
+ctxD.$ = (id) => (id in dpInputs ? { value: dpInputs[id] } : null);
+ctxD.setRes = (id, big, interp, lv) => { dpLast = { id, big, interp, lv }; };
+vm.createContext(ctxD);
+vm.runInContext(grab("function num(id){", "/* ============ Tool registry"), ctxD);
+vm.runInContext(grab("function calcDeltaPCO2(){", "/* ---------- DOAC ---------- */"), ctxD);
+function runDp(pa, pv, hb, sao2, svo2) {
+  dpInputs = {};
+  if (pa != null) dpInputs.dp_pa = String(pa);
+  if (pv != null) dpInputs.dp_pv = String(pv);
+  if (hb != null) dpInputs.dp_hb = String(hb);
+  if (sao2 != null) dpInputs.dp_sao2 = String(sao2);
+  if (svo2 != null) dpInputs.dp_svo2 = String(svo2);
+  dpLast = null;
+  vm.runInContext("calcDeltaPCO2();", ctxD);
+  return dpLast;
+}
+r = runDp(40, 45);
+ok(r && r.id === "res-deltapco2" && /ΔpCO2 = 5 mmHg/.test(r.big) && /Bình thường/.test(r.big), "Delta pCO2 (a): mặc định 40/45 → gap 5 mmHg, bình thường");
+ok(r && r.lv === 0, "Delta pCO2 (a): gap bình thường → mức 0");
+r = runDp(40, 48);
+ok(r && /ΔpCO2 = 8 mmHg/.test(r.big) && /Giãn rộng/.test(r.big), "Delta pCO2 (b): 40/48 → gap 8 mmHg, giãn rộng");
+ok(r && r.lv === 2 && /px_sepsis/.test(r.interp), "Delta pCO2 (b): giãn rộng → mức 2 + link phác đồ Sốc nhiễm trùng");
+r = runDp(45, 42);
+ok(r && /-3 mmHg/.test(r.big) && /Âm/.test(r.big) && /Lấy lại khí máu/.test(r.interp), "Delta pCO2 (c): 45/42 → gap âm, cảnh báo lấy lại mẫu");
+ok(r && r.lv === 1, "Delta pCO2 (c): gap âm → mức 1");
+r = runDp(40, 48, 10, 98, 70);
+ok(r && /2,13/.test(r.interp) && /yếm khí/.test(r.interp), "Delta pCO2 (d): gap 8 + Hb 10, SaO2 98, ScvO2 70 → tỉ số 2,13 > 1,4, gợi ý yếm khí");
+r = runDp(40, 44, 12, 98, 75);
+ok(r && /1,08/.test(r.interp) && /≤ 1,4/.test(r.interp), "Delta pCO2 (e): gap 4 + Hb 12, SaO2 98, ScvO2 75 → tỉ số 1,08 ≤ 1,4");
+r = runDp(40, 45, 8, 98, 75);
+ok(r && r.lv === 2 && /2,03/.test(r.interp), "Delta pCO2 (f): gap 5 bình thường nhưng tỉ số 2,03 > 1,4 → nâng mức 2");
+r = runDp(null, null);
+ok(r && r.big === "—" && /Nhập PaCO2/.test(r.interp), "Delta pCO2 (g): chưa nhập số → '—' + nhắc nhập");
+// Hồi quy v2.7.8 (bài học v2.0.1): Delta pCO2 phải tự tính lúc load trang với mặc định,
+// không để ô kết quả trống "—" khi mới mở panel (PaCO2 40, PvCO2 45 → gap 5, bình thường)
+ok(/addEventListener\("load",function\(\)\{try\{[^}]*calcDeltaPCO2\(\);/.test(html), "Delta pCO2 (load): hàm tính phải có trong danh sách tính lúc load trang");
+r = runDp(40, 45);
+ok(r && r.id === "res-deltapco2", "Delta pCO2 (load): mở panel với mặc định → setRes phải ghi vào res-deltapco2 (không còn '—')");
+ok(r && /Bình thường/.test(r.big) && /5 mmHg/.test(r.big), "Delta pCO2 (load): mặc định → gap 5 mmHg, bình thường");
+console.log("Hồi quy v2.7.8 Delta pCO2: đăng ký + bảng điều khiển + 7 ca tính (a)–(g)");
 // v2.7.6: Trang chủ — nhóm gấp lại thay vì trải 162 thẻ
 ok(html.includes('class="grp-list"') && html.includes("data-grp=") && html.includes("data-grpall="), "Trang chủ v2.7.6: có danh sách nhóm gấp lại + nút Xem đủ");
 ok(/items\.slice\(0,6\)\.map\(toolCard\)/.test(html), "Trang chủ v2.7.6: nhóm mở chỉ hiện 6 thẻ đầu");
 ok(/store\("nkhs_opengrp"\)/.test(html), "Trang chủ v2.7.6: nhớ nhóm mở trong nkhs_opengrp");
 ok(/"nkhs_seen_ver","nkhs_opengrp"\]\.forEach/.test(html), "Xóa dữ liệu đã lưu phải xóa cả nkhs_opengrp");
 console.log("Hồi quy v2.7.6 Trang chủ: nhóm gấp lại");
-// Phiên bản v2.7.6
-ok(html.includes('APP_VERSION="2.7.7"'), "APP_VERSION phải là 2.7.7");
+// Phiên bản v2.7.8
+ok(html.includes('APP_VERSION="2.7.8"'), "APP_VERSION phải là 2.7.8");
 console.log("Hồi quy v2.7.0 wizard kháng sinh: đi hết 5 bước, sửa giữa chừng, lỗi (a)(b)(c), hscc.vn, thuốc thay thế");
 
 console.log(fail ? `\n❌ ${fail} lỗi, ${pass} đạt` : `\n✅ Tất cả ${pass} kiểm tra đều đạt`);
