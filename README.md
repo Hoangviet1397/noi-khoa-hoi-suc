@@ -3,7 +3,11 @@
 Thang điểm, máy tính lâm sàng, liều thuốc ICU, kháng sinh và phác đồ cấp cứu cho bác sĩ nội khoa và hồi sức — nay có hồ sơ ca zero-data, 5 khóa an toàn chặn thật, tìm theo hội chứng, cây kiến thức toàn bộ và module chống độc Việt Nam.
 
 **Mở app:** https://hoangviet1397.github.io/noi-khoa-hoi-suc/ — thêm vào màn hình chính để mở nhanh như app (cần mạng).
-**Phiên bản hiện tại:** v2.7.9 (20/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+**Phiên bản hiện tại:** v2.8.0 (25/11/2026) — xem [CHANGELOG.md](CHANGELOG.md).
+
+## Có gì mới ở v2.8.0
+
+- **13 phác đồ ngộ độc mới (tổng 60 phác đồ, 176 công cụ):** metformin / toan lactic (lọc máu theo EXTRIP), benzodiazepine (flumazenil chỉ định hẹp theo BYT 3610), chất ăn mòn acid / kiềm (nội soi 24 giờ), theophylline (than hoạt nhiều liều, lọc máu EXTRIP), lithium (lọc máu EXTRIP, theo dõi tái phát), valproate (L-carnitine, lọc máu EXTRIP), ong đốt nhiều (tiêu cơ vân / suy thận), isoniazid (pyridoxine 1 g / 1 g INH), glyphosate / pyrethroid (không atropine), sắt + chì (deferoxamine / succimer), dầu hỏa / hydrocarbon (viêm phổi hít), sulfonylurea (octreotide, theo dõi 12–24 giờ), ngộ độc hiếm (botulism, barbiturat / carbamazepine, methemoglobin). Sổ tay thuốc thêm Pyridoxine (tổng 277 thuốc). Cây kiến thức Chống độc cập nhật: các mục P0/P1 (lithium, theophylline, valproate, metformin, kim loại nặng, chất ăn mòn) nay đã có phác đồ đầy đủ.
 
 ## Có gì mới ở v2.7.9
 

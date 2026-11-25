@@ -398,8 +398,8 @@ ok(html.includes('#/px_acs'), "Sgarbossa: kết quả dương phải link tới 
 ["10.1056/NEJM199602223340801","10.1016/j.annemergmed.2012.07.119","10.1016/j.ahj.2015.09.005","10.1093/eurheartj/ehad191"].forEach(d => ok(html.includes(d), "Sgarbossa: thiếu DOI đã kiểm chứng " + d));
 const sgKw = (html.match(/\{id:"sgarbossa"[^}]*kw:"([^"]*)"/) || [])[1] || "";
 ok(/sgarbossa/.test(sgKw) && /lbbb/.test(sgKw) && /block nhanh trai/.test(sgKw), "Sgarbossa: từ khóa phải tìm được bằng 'Sgarbossa', 'LBBB', 'block nhánh trái', nhận: " + sgKw);
-ok(toolIds.size === 163, "Tổng công cụ đăng ký phải là 163 (162 cũ + Delta pCO2), nhận: " + toolIds.size);
-ok((html.match(/cat:"phacdo"/g) || []).length === 47, "Số phác đồ giữ nguyên 47");
+ok(toolIds.size === 176, "Tổng công cụ đăng ký phải là 176 (163 cũ + 13 phác đồ ngộ độc mới), nhận: " + toolIds.size);
+ok((html.match(/cat:"phacdo"/g) || []).length === 60, "Số phác đồ phải là 60 (47 cũ + 13 phác đồ ngộ độc mới)");
 // Bảng điều khiển render được thật (chạy các helper chuỗi + gán P.sgarbossa trong vm)
 const ctxP = { P: {} };
 vm.createContext(ctxP);
@@ -524,7 +524,15 @@ ok(/store\("nkhs_opengrp"\)/.test(html), "Trang chủ v2.7.6: nhớ nhóm mở t
 ok(/"nkhs_seen_ver","nkhs_opengrp"\]\.forEach/.test(html), "Xóa dữ liệu đã lưu phải xóa cả nkhs_opengrp");
 console.log("Hồi quy v2.7.6 Trang chủ: nhóm gấp lại");
 // Phiên bản v2.7.9
-ok(html.includes('APP_VERSION="2.7.9"'), "APP_VERSION phải là 2.7.9");
+ok(html.includes('APP_VERSION="2.8.0"'), "APP_VERSION phải là 2.8.0");
+// v2.8.0: 13 phác đồ ngộ độc mới
+["px_metformin","px_benzo","px_corrosive","px_theo","px_lithium","px_valproate","px_bee","px_inh","px_glyphosate","px_ironlead","px_hydrocarbon","px_su","px_rare"].forEach(id => {
+  ok(toolIds.has(id), "v2.8.0: thiếu đăng ký TOOLS cho " + id);
+  ok(PROTO.some(p => p.id === id), "v2.8.0: thiếu cây phác đồ " + id);
+});
+["px_metformin","px_theo","px_lithium","px_valproate"].forEach(id => ok(html.includes(id + ":[[") , "v2.8.0: thiếu nguồn SOURCES cho " + id));
+ok(DRUGDB.some(d => d.g === "Pyridoxine"), "v2.8.0: Sổ tay thiếu Pyridoxine");
+ok(MONO["Pyridoxine"] && MONO["Pyridoxine"].dose && MONO["Pyridoxine"].dose.length > 10, "v2.8.0: Sổ tay Pyridoxine thiếu liều");
 console.log("Hồi quy v2.7.0 wizard kháng sinh: đi hết 5 bước, sửa giữa chừng, lỗi (a)(b)(c), hscc.vn, thuốc thay thế");
 
 console.log(fail ? `\n❌ ${fail} lỗi, ${pass} đạt` : `\n✅ Tất cả ${pass} kiểm tra đều đạt`);

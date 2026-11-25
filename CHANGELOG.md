@@ -4,6 +4,11 @@ Số phiên bản và nội dung này cũng hiển thị trong app (chân trang 
 Khi phát hành bản mới: sửa `APP_VERSION`, `APP_DATE` và thêm mục vào `CHANGELOG` ở đầu phần script trong `index.html`
 rồi cập nhật file này. (Lưu ý: từ v2.5.0 app đã bỏ chế độ offline — không còn service worker.)
 
+## v2.8.0 — 25/11/2026 — 13 phác đồ ngộ độc mới
+
+- **13 phác đồ ngộ độc mới (tổng 60 phác đồ, 176 công cụ):** metformin / toan lactic (lọc máu theo EXTRIP: lactate > 20, pH ≤ 7,0, sốc), benzodiazepine (flumazenil chỉ định hẹp theo BYT 3610, theo dõi tái an thần), chất ăn mòn acid / kiềm (đường thở sớm, nội soi 24 giờ), theophylline (than hoạt nhiều liều, lọc máu EXTRIP), lithium (định lượng lại mỗi 6–12 giờ, lọc máu EXTRIP, theo dõi tái phát), valproate (L-carnitine, lọc máu EXTRIP), ong đốt nhiều (tiêu cơ vân / suy thận), isoniazid (pyridoxine 1 g / 1 g INH), glyphosate / pyrethroid (không atropine), sắt + chì (deferoxamine / succimer), dầu hỏa / hydrocarbon (viêm phổi hít), sulfonylurea (octreotide, theo dõi 12–24 giờ), ngộ độc hiếm (botulism, barbiturat / carbamazepine, methemoglobin). Sổ tay thuốc thêm Pyridoxine (tổng 277 thuốc).
+- **Cây kiến thức Chống độc cập nhật:** các mục P0/P1 (lithium, theophylline, valproate, metformin, kim loại nặng, chất ăn mòn) nay đã có phác đồ đầy đủ, kèm liên kết tới cây mới.
+
 ## v2.7.9 — 20/11/2026 — Thêm 3 kháng sinh: Cefmetazole, Cefamandole, Cefotiam (Fotimyd)
 
 - **Thêm 3 kháng sinh vào bảng liều module kháng sinh (tổng 39 thuốc):** Cefmetazole (cephamycin thế hệ 2, biệt dược Zefazone — phủ kỵ khí B. fragilis, ổ bụng / tiết niệu / dự phòng phẫu thuật), Cefamandole (thế hệ 2, biệt dược Mandol / Vicimadol / Kefadol — viêm phổi, da–mô mềm, tiết niệu), Cefotiam (biệt dược Fotimyd 500/1000/2000 của Tenamyd — nhiễm khuẩn vừa–nặng, viêm đường mật, dự phòng phẫu thuật). Cả 3 đều có liều đầy đủ theo 6 mức CrCl / lọc máu, kèm cảnh báo nhánh NMTT (giảm prothrombin / chảy máu, phản ứng kiểu disulfiram với rượu) ở cefmetazole và cefamandole, và lưu ý nhãn Fotimyd mâu thuẫn về suy thận nặng (CrCl < 20). Cả 3 đều bị khóa ESBL chặn khi nguy cơ ESBL cao (không phủ ESBL chắc chắn — cefmetazole chỉ dùng cho UTI do ESBL khi đã có kháng sinh đồ). Sổ tay thuốc thêm 3 mục tương ứng (tổng 276 thuốc).
