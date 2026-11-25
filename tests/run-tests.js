@@ -149,6 +149,32 @@ ok(html.includes('feedState.n=(feedState.n||30)+30'), "Nút Xem thêm phải tă
 ok(!html.includes('Giữ tối đa 30 mục'), "Không còn quy tắc giới hạn 30 mục trong code");
 console.log("Hồi quy v2.6.0 Bản tin: không giới hạn số mục, phân trang Xem thêm, mới nhất lên đầu, ảnh + nguồn mới");
 
+// 7b) Link ngoài mở được khi dùng app từ icon màn hình chính (standalone/WebView nuốt target="_blank")
+const ctxL = { document: { addEventListener: function (ev, fn) { this._click = fn; } }, window: {}, location: { href: "" } };
+vm.createContext(ctxL);
+vm.runInContext(grab("function openExtLink(url){", "/* Cỡ chữ trong app"), ctxL);
+ok(typeof ctxL.openExtLink === "function" && typeof ctxL.onExtLinkClick === "function", "Phải có bộ xử lý mở link ngoài tập trung openExtLink/onExtLinkClick");
+ok(html.indexOf("document.addEventListener('click',onExtLinkClick)") >= 0, "Handler mở link ngoài phải đăng ký 1 lần duy nhất ở document (delegated)");
+function fakeAnchor(href, blank) { const a = { getAttribute: function () { return href; } }; a.closest = function (sel) { return (blank && sel === 'a[target="_blank"]') ? a : null; }; return a; }
+function fakeClick(target, extra) { return Object.assign({ target: target, defaultPrevented: false, metaKey: false, ctrlKey: false, shiftKey: false, button: 0, preventDefault: function () { this.defaultPrevented = true; } }, extra || {}); }
+const DAILYMED = "https://dailymed.nlm.nih.gov/dailymed/search.cfm?query=metformin&searchdb=all";
+ctxL.window.open = function (u, t, f) { ctxL._opened = [u, t, f]; return { closed: false }; };
+ok(ctxL.onExtLinkClick(fakeClick(fakeAnchor(DAILYMED, true))) === true && ctxL._opened && ctxL._opened[0] === DAILYMED && ctxL._opened[1] === "_blank" && ctxL._opened[2] === "noopener" && ctxL.location.href === "", "Bấm link DailyMed phải gọi window.open(url,'_blank','noopener'), không chuyển tab hiện tại");
+ctxL.window.open = function () { return null; };
+ctxL.location.href = "";
+ok(ctxL.onExtLinkClick(fakeClick(fakeAnchor(DAILYMED, true))) === true && ctxL.location.href === DAILYMED, "window.open bị chặn (trả null) thì phải chuyển hẳn tab hiện tại sang link đó");
+ctxL.window.open = function () { ctxL._opened = ["blocked-should-not-run"]; return {}; };
+ctxL.location.href = "";
+ok(ctxL.onExtLinkClick(fakeClick(fakeAnchor("#/heart", true))) === false && ctxL.location.href === "", "Link nội bộ (#/…) không được xử lý như link ngoài");
+ok(ctxL.onExtLinkClick(fakeClick(fakeAnchor(DAILYMED, false))) === false && ctxL.location.href === "", "Link không có target=_blank không được xử lý");
+ok(ctxL.onExtLinkClick(fakeClick({ closest: function () { return null; } })) === false, "Bấm nút/chip trong app (không phải link ngoài) không bị ảnh hưởng");
+ok(ctxL.onExtLinkClick(fakeClick(fakeAnchor(DAILYMED, true), { ctrlKey: true })) === false, "Bấm kèm phím bổ trợ (Ctrl/Cmd) thì để trình duyệt xử lý mặc định");
+ok(html.includes("dailymed/search.cfm?query=") && html.includes("&searchdb=all"), "URL link DailyMed không đổi (search.cfm?query=…&searchdb=all)");
+const extAnchors = [...html.matchAll(/<a[^>]*target="_blank"[^>]*>/g)];
+ok(extAnchors.length === 7, "Còn đủ 7 link ngoài target=_blank (DailyMed, Đọc bản gốc, nguồn guideline, GitHub, góp ý), nhận: " + extAnchors.length);
+ok(extAnchors.every(m => m[0].includes('rel="noopener"')), "Mọi link ngoài target=_blank đều giữ rel=noopener");
+console.log("Hồi quy link ngoài: mở được ở chế độ standalone (window.open + fallback location.href), không vỡ điều hướng nội bộ");
+
 // 8) v2.6.1 hồi quy cây hỏi nguy cơ MRSA/ESBL (thay 2 checklist v2.6.0)
 const abxRiskFromTree = vm.runInContext("abxRiskFromTree", ctx5), abxRiskEff = vm.runInContext("abxRiskEff", ctx5);
 const abxRiskNext = vm.runInContext("abxRiskNext", ctx5), abxRiskDone = vm.runInContext("abxRiskDone", ctx5);

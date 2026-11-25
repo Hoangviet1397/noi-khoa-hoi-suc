@@ -1734,6 +1734,17 @@ document.addEventListener('keydown',function(e){
 document.addEventListener('touchmove',function(e){if(e.touches&&e.touches.length>1)e.preventDefault();else if(typeof e.scale==="number"&&e.scale!==1)e.preventDefault();},{passive:false});
 var lastTouchEnd=0;document.addEventListener('touchend',function(e){var now=Date.now();if(now-lastTouchEnd<300){var t=e.target;if(!(t.closest&&t.closest('input,select,textarea')))e.preventDefault();}lastTouchEnd=now;},{passive:false});
 document.addEventListener('wheel',function(e){if(e.ctrlKey)e.preventDefault();},{passive:false});
+/* Link ngoài (DailyMed, Đọc bản gốc, GitHub, góp ý…): iOS nuốt target="_blank" khi mở app từ icon màn hình chính (standalone/WebView) nên bấm không mở gì. Chặn mặc định rồi mở chủ động: thử mở tab mới, nếu bị chặn thì chuyển hẳn tab hiện tại sang link đó. Chỉ áp dụng link http(s) ngoài; điều hướng nội bộ (#/…) không bị ảnh hưởng. */
+function openExtLink(url){var w=null;try{w=window.open(url,'_blank','noopener');}catch(e){w=null;}if(!w){location.href=url;}}
+function onExtLinkClick(e){
+  if(!e||e.defaultPrevented||e.metaKey||e.ctrlKey||e.shiftKey||(typeof e.button==='number'&&e.button!==0))return false;
+  var t=e.target;if(!t||!t.closest)return false;
+  var a=t.closest('a[target="_blank"]');if(!a)return false;
+  var u=a.getAttribute('href')||'';
+  if(u.indexOf('http://')!==0&&u.indexOf('https://')!==0)return false;
+  e.preventDefault();openExtLink(u);return true;
+}
+document.addEventListener('click',onExtLinkClick);
 /* Cỡ chữ trong app — thay cho phóng to bằng tay */
 (function(){var sizes=["0.9","1","1.12","1.25"],names={"0.9":"nhỏ","1":"vừa","1.12":"lớn","1.25":"rất lớn"};var cur=String(store("nkhs_fs")||"1");if(sizes.indexOf(cur)<0)cur="1";
  function ap(){document.body.style.zoom=cur==="1"?"":cur;document.querySelectorAll('#fontSize button').forEach(function(b){b.classList.toggle('on',b.dataset.v===cur)});var fb=$("fontBtn");if(fb){fb.textContent=cur==="1"?"A":cur==="1.12"?"A+":"A++";fb.setAttribute('aria-label',"Cỡ chữ: "+names[cur]);}if(typeof updateSticky==="function")updateSticky();}
