@@ -116,13 +116,14 @@ ok(abxListHTML().includes("abx-ban") && abxListHTML().includes("Không phủ ESB
 console.log("Hồi quy v2.5.1: khóa bảng liều + alias #/tin-tuc");
 
 
-// 7) v2.6.0 hồi quy Bản tin: 30 mục, sắp xếp mới nhất lên đầu, trường ảnh, nguồn mới
+// 7) v2.6.0 hồi quy Bản tin (bỏ giới hạn 30 mục, phân trang Xem thêm): không giới hạn số mục, sắp xếp mới nhất lên đầu, trường ảnh, nguồn mới
 const ctx6 = {}; vm.createContext(ctx6);
-vm.runInContext(grab("var FEED_TOPICS={", "var feedState="), ctx6);
+vm.runInContext(grab("var FEED_TOPICS={", "function renderFeed(){"), ctx6);
 const FEED = vm.runInContext("FEED", ctx6), FEED_TOPICS = vm.runInContext("FEED_TOPICS", ctx6);
 const feedDate = vm.runInContext("feedDate", ctx6), feedSorted = vm.runInContext("feedSorted", ctx6);
 console.log("Bản tin v2.6.0: " + FEED.length + " mục");
-ok(FEED.length === 30, "Bản tin phải giữ đúng 30 mục mới nhất, nhận: " + FEED.length);
+ok(FEED.length > 30, "Bản tin không còn giới hạn 30 mục (giữ toàn bộ bài đã khôi phục), nhận: " + FEED.length);
+ok(new Set(FEED.map(f => f.url)).size === FEED.length, "URL bài trong feed phải duy nhất (không trùng bài)");
 ok(new Set(FEED.map(f => f.id)).size === FEED.length, "ID mục feed phải duy nhất");
 FEED.forEach(f => {
   ok(f.id && /^\d{2}\/\d{2}\/\d{4}$/.test(f.d) && (f.c === "Nghiên cứu mới" || f.c === "Tổng quan") && f.t && f.s && f.body && f.src && /^https?:\/\//.test(f.url), f.id + ": thiếu trường bắt buộc hoặc sai định dạng (d/c/t/s/body/src/url)");
@@ -131,14 +132,22 @@ FEED.forEach(f => {
   if (f.tool) ok(toolIds.has(f.tool), f.id + ": liên kết công cụ không tồn tại: " + f.tool);
 });
 const sorted = feedSorted();
-ok(sorted.length === FEED.length, "feedSorted() phải trả đủ 30 mục");
+ok(sorted.length === FEED.length, "feedSorted() phải trả đủ mọi mục");
 for (let i = 0; i + 1 < sorted.length; i++) ok(feedDate(sorted[i]) >= feedDate(sorted[i + 1]), "feedSorted() phải mới nhất lên đầu: " + sorted[i].id + " (" + sorted[i].d + ") trước " + sorted[i + 1].id + " (" + sorted[i + 1].d + ")");
 const srcs = new Set(FEED.map(f => f.src));
 ["BMJ 2026", "Annals of Internal Medicine 2026", "Critical Care 2026", "Intensive Care Medicine 2026", "CHEST 2026"].forEach(s => ok(srcs.has(s), "Bản tin thiếu nguồn mới: " + s));
 ok(FEED.filter(f => f.img.indexOf("http") === 0).every(f => f.img.indexOf("https://media.springernature.com/") === 0), "Ảnh bài gốc phải dùng link ổn định media.springernature.com");
 ok(html.includes("feedSorted().filter"), "renderFeed phải dùng feedSorted() để sắp xếp mới nhất lên đầu");
 ok(html.includes('class="feedcard"') && html.includes('class="feedimg"'), "Thẻ feed phải có ảnh lớn phía trên (feedcard/feedimg)");
-console.log("Hồi quy v2.6.0 Bản tin: 30 mục, mới nhất lên đầu, ảnh + nguồn mới");
+const feedState = vm.runInContext("feedState", ctx6);
+ok(feedState.n === 30, "Phân trang Bản tin: ban đầu hiện 30 bài, nhận: " + feedState.n);
+ok(feedSorted().slice(0, feedState.n).length === 30, "Phân trang: trang đầu hiện đúng 30 bài mới nhất");
+ok(feedSorted().slice(0, feedState.n + 30).length === 60, "Phân trang: bấm Xem thêm 1 lần hiện 60 bài");
+ok(html.includes('data-feedmore') && html.includes('Xem thêm'), "renderFeed phải có nút Xem thêm");
+ok(html.includes('Đang hiện '), "renderFeed phải hiện dòng đếm số bài đang hiện");
+ok(html.includes('feedState.n=(feedState.n||30)+30'), "Nút Xem thêm phải tăng số bài hiện thêm 30");
+ok(!html.includes('Giữ tối đa 30 mục'), "Không còn quy tắc giới hạn 30 mục trong code");
+console.log("Hồi quy v2.6.0 Bản tin: không giới hạn số mục, phân trang Xem thêm, mới nhất lên đầu, ảnh + nguồn mới");
 
 // 8) v2.6.1 hồi quy cây hỏi nguy cơ MRSA/ESBL (thay 2 checklist v2.6.0)
 const abxRiskFromTree = vm.runInContext("abxRiskFromTree", ctx5), abxRiskEff = vm.runInContext("abxRiskEff", ctx5);
